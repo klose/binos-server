@@ -1,5 +1,6 @@
 package com.klose;
 
+import java.net.UnknownHostException;
 import java.util.concurrent.Executors;
 
 import com.google.protobuf.RpcCallback;
@@ -29,12 +30,14 @@ public class Master{
 //		}
 //		
 //	}
-	private final static int  port = 12267;
-	public static void main(String [] args) {
-		 SocketRpcServer masterServer = new SocketRpcServer(port,
+	public static void main(String [] args) throws UnknownHostException {
+		MasterArgsParser argsConf = new MasterArgsParser(args); 
+		argsConf.loadValue();
+		SocketRpcServer masterServer = new SocketRpcServer(argsConf.getPort(),
 				    Executors.newFixedThreadPool(10));
-		 masterServer.registerService(new RegisterToMasterService());
-		 masterServer.run();
+		System.out.println("Master started at "+ argsConf.constructIdentity());
+		masterServer.registerService(new RegisterToMasterService());
+		masterServer.run();
 		 
 	}
 }

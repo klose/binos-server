@@ -12,11 +12,15 @@ import com.klose.MsConnProto.SlaveRegisterResponse;
 
 public class Slave {
 	private static int port = 22667;
+	//public
 	public static void main(String [] args) throws UnknownHostException{
+		
 		System.out.println(InetAddress.getLocalHost().getHostAddress());
 		SlaveRegisterRequest registerToMasterRequest =  com.klose.MsConnProto.SlaveRegisterRequest.newBuilder()
 		.setIpPort(InetAddress.getLocalHost().getHostAddress()+":"+port).setState(0).build();
-		SocketRpcChannel socketRpcChannel = new SocketRpcChannel("10.5.0.55", 12267);
+		SlaveArgsParser confParser = new SlaveArgsParser(args);
+		confParser.loadValue();
+		SocketRpcChannel socketRpcChannel = new SocketRpcChannel(confParser.getMasterIp(), confParser.getMasterPort());
 		SocketRpcController rpcController = socketRpcChannel.newRpcController();
 		RegisterSlaveService registerToMaster = RegisterSlaveService.newStub(socketRpcChannel);
 		registerToMaster.slaveRegister(rpcController, registerToMasterRequest, 

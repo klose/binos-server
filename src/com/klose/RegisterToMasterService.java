@@ -20,7 +20,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		// If "ip:port" doesn't exist in the record, add the slave in the list of slave.
 		// and response; on the contrary, reform the node that it has been already established 
 		// in the master.
-	
+		
 		System.out.println(request.getIpPort());
 		
 		/*fault tolerance is undone, please check whehter "ip:port" is validate.*/
