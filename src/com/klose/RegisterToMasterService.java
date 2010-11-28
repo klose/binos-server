@@ -1,5 +1,6 @@
 package com.klose;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import com.google.protobuf.RpcCallback;
@@ -7,10 +8,13 @@ import com.google.protobuf.RpcController;
 import com.klose.MsConnProto.RegisterSlaveService;
 import com.klose.MsConnProto.SlaveRegisterRequest;
 import com.klose.MsConnProto.SlaveRegisterResponse;
+/*
+ * RegisterToMasterService  is code of master.
+ * */
 
 public class RegisterToMasterService extends RegisterSlaveService{
 
-	private static HashSet<SlaveEntry> slaveEntrys = new HashSet<SlaveEntry> ();
+	private static HashMap<String,SlaveEntry> slaveEntrys = new HashMap<String,SlaveEntry> ();
 	private static SlaveRegisterResponse response ;
 	@Override
 	public void slaveRegister(RpcController controller,
@@ -40,11 +44,11 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	 */
 	public static boolean addSlaveEntry(SlaveRegisterRequest request) {
 		SlaveEntry entry = parse(request);
-		if(slaveEntrys.contains(entry)) {
+		if(slaveEntrys.containsKey(request.getIpPort())) {
 			return false;
 		}
 		else {
-			slaveEntrys.add(entry);
+			slaveEntrys.put(request.getIpPort(),entry);
 			return true;
 		}
 		
@@ -65,5 +69,16 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		res.setState(request.getState());
 		res.setInfo("");
 		return res;
+	}
+	public static HashMap<String,SlaveEntry> getSlaveEntrys(){
+		return slaveEntrys;
+	}
+	public static  boolean findSlaveEntry(String ip_port) {
+		if(slaveEntrys.containsKey(ip_port)){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

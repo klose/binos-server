@@ -42,9 +42,44 @@ message SlaveRegisterRequest {
 message SlaveRegisterResponse {
 	required bool isSuccess = 1;
 }
+message SlaveInfo {
+	required string ip_port = 1;
+	required string work_dir = 2;
+	message cpuInfo {
+		required string vendor = 1;
+		required string model = 2;
+		required string mhz = 4;
+		required string total_cpus = 5;
+		required string total_idle_time = 6;
+	}
+	message memInfo {
+		required string total_memory = 1;
+		required string used = 2;
+		required string avail = 4;
+	}
+	message diskInfo {
+		required string dev_name = 1;
+		required string size = 2;
+		required string used = 3;
+		required string avail = 4;
+		required string used_pct = 5;
+		required string dir_name = 6;
+		required string type = 7;
+    };
+	required cpuInfo cpu_info = 3;
+	required memInfo mem_info = 4;
+	repeated diskInfo disk_info = 5;	
+}
+message MasterInfo {
+	//used for returning slave lists
+	required bool isSuccess = 1;
+}
 service TestService {
   rpc TestMethod(Request) returns(Response);
 }
 service RegisterSlaveService {
   rpc SlaveRegister(SlaveRegisterRequest) returns (SlaveRegisterResponse); 
+}
+service HeartbeatService {
+  rpc HeartbeatTrans(SlaveInfo) returns (MasterInfo);
 }

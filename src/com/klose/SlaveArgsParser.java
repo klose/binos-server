@@ -1,11 +1,19 @@
 package com.klose;
 
+import java.io.File;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
 public class SlaveArgsParser {
-	private  String masterIp = ""; 
-	private  int masterPort ; 
-	private static int port = 12132; //default value is set by 12132.
+	private String masterIp = ""; 
+	private int masterPort ; 
+	private static int port = 6061; 
+	private String ip_port = ""; //the ip of slave node
+	private String workDir = "/tmp"; 
+	
+
 	private String [] args_;
 	
 	SlaveArgsParser(String [] args){
@@ -14,10 +22,28 @@ public class SlaveArgsParser {
 	
 	public void printUsage() {
 		System.out.print(
-				"Usage: Slave" + " --url=MASTER_URL [--port=PORT] [...] "+"\n"
-				+"if port is not set, Master will allocate a port number for slave use.\n"
+				"Usage: Slave" + " --url=MASTER_URL [--port=PORT] [--workdir=DIR] [...] "+"\n"
+				 + "MASTER_URL may be one of:" + "\n"
+			       + "  JLoop://id@host:port" + "\n" 
+			       + "  zoo://host1:port1,host2:port2,..." + "\n"
+			       + "  zoofile://file where file contains a host:port pair per line"
+			       + "\n"
+			       + "Support options:\n"
+			       + "    --help                   display this help and exit.\n" 
+			       + "    --url=VAL                URL to represent Master URL\n"
+			       + "    --port=VAL               port to listen on (default: 6061)\n"
+			       + "    --workdir=VAL            DIR to store necessary data (default: /tmp)\n "		
 				);
+		System.exit(1);
 	}
+	public String getIp_port() {
+		return ip_port;
+	}
+
+	public void setIp_port(String ip_port) {
+		this.ip_port = ip_port;
+	}
+
 	public  String getMasterIp() {
 		return masterIp;
 	}
@@ -40,8 +66,14 @@ public class SlaveArgsParser {
 	public int getPort() {
 		return this.port;
 	}
-	
-	public void loadValue(){
+	public String getWorkDir() {
+		return workDir;
+	}
+
+	public void setWorkDir(String workDir) {
+		this.workDir = workDir;
+	}
+	public void loadValue() throws UnknownHostException{
 		if(this.args_.length < 1) {
 			printUsage();
 			System.exit(1);
@@ -50,6 +82,7 @@ public class SlaveArgsParser {
 			String portRegex= "--port\\s*=\\s*[0-9]{4,5}";
 			String urlRegex = "--url\\s*=\\s*JLoop://[0-9]+@" +
 					"[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{4,5}";
+			String workDirRegex = "--workdir\\s*=\\s*/[a-zA-Z0-9/ ]*";
 			for(String tmp:args_) {
 				//need jdk 1.5 or higher
 				if(Pattern.matches(urlRegex, tmp.trim())) {
@@ -62,11 +95,26 @@ public class SlaveArgsParser {
 					this.setPort(Integer.parseInt(
 							(tmp.split("="))[1].trim()) );
 				}
-				else {
+				else if(Pattern.matches(workDirRegex, tmp.trim())) {
+					String dirname = tmp.split("=")[1].trim();
+					File dir = new File(dirname);
+					if(! dir.isDirectory()) {
+						System.out.println("Configuration error:  \'"+dirname+ "\' unrecognized\n");
+						System.exit(1);
+					}
+					else {
+						this.setWorkDir(dirname);
+					}
+				}
+				else if (tmp.trim().equals("--help")) {
 					printUsage();
-					System.exit(1);
+				}
+				else {
+					System.out.println("Configuration error: option \'"+tmp+ "\' unrecognized\n");
+					printUsage();
 				}	
 			}
+			this.setIp_port(Inet4Address.getLocalHost().getHostAddress() +":"+this.getPort());
 		}
 	}
 }

@@ -1235,6 +1235,2223 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.SlaveRegisterResponse)
   }
   
+  public static final class SlaveInfo extends
+      com.google.protobuf.GeneratedMessage {
+    // Use SlaveInfo.newBuilder() to construct.
+    private SlaveInfo() {
+      initFields();
+    }
+    private SlaveInfo(boolean noInit) {}
+    
+    private static final SlaveInfo defaultInstance;
+    public static SlaveInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public SlaveInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_fieldAccessorTable;
+    }
+    
+    public static final class cpuInfo extends
+        com.google.protobuf.GeneratedMessage {
+      // Use cpuInfo.newBuilder() to construct.
+      private cpuInfo() {
+        initFields();
+      }
+      private cpuInfo(boolean noInit) {}
+      
+      private static final cpuInfo defaultInstance;
+      public static cpuInfo getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public cpuInfo getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_cpuInfo_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_cpuInfo_fieldAccessorTable;
+      }
+      
+      // required string vendor = 1;
+      public static final int VENDOR_FIELD_NUMBER = 1;
+      private boolean hasVendor;
+      private java.lang.String vendor_ = "";
+      public boolean hasVendor() { return hasVendor; }
+      public java.lang.String getVendor() { return vendor_; }
+      
+      // required string model = 2;
+      public static final int MODEL_FIELD_NUMBER = 2;
+      private boolean hasModel;
+      private java.lang.String model_ = "";
+      public boolean hasModel() { return hasModel; }
+      public java.lang.String getModel() { return model_; }
+      
+      // required string mhz = 4;
+      public static final int MHZ_FIELD_NUMBER = 4;
+      private boolean hasMhz;
+      private java.lang.String mhz_ = "";
+      public boolean hasMhz() { return hasMhz; }
+      public java.lang.String getMhz() { return mhz_; }
+      
+      // required string total_cpus = 5;
+      public static final int TOTAL_CPUS_FIELD_NUMBER = 5;
+      private boolean hasTotalCpus;
+      private java.lang.String totalCpus_ = "";
+      public boolean hasTotalCpus() { return hasTotalCpus; }
+      public java.lang.String getTotalCpus() { return totalCpus_; }
+      
+      // required string total_idle_time = 6;
+      public static final int TOTAL_IDLE_TIME_FIELD_NUMBER = 6;
+      private boolean hasTotalIdleTime;
+      private java.lang.String totalIdleTime_ = "";
+      public boolean hasTotalIdleTime() { return hasTotalIdleTime; }
+      public java.lang.String getTotalIdleTime() { return totalIdleTime_; }
+      
+      private void initFields() {
+      }
+      public final boolean isInitialized() {
+        if (!hasVendor) return false;
+        if (!hasModel) return false;
+        if (!hasMhz) return false;
+        if (!hasTotalCpus) return false;
+        if (!hasTotalIdleTime) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasVendor()) {
+          output.writeString(1, getVendor());
+        }
+        if (hasModel()) {
+          output.writeString(2, getModel());
+        }
+        if (hasMhz()) {
+          output.writeString(4, getMhz());
+        }
+        if (hasTotalCpus()) {
+          output.writeString(5, getTotalCpus());
+        }
+        if (hasTotalIdleTime()) {
+          output.writeString(6, getTotalIdleTime());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasVendor()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(1, getVendor());
+        }
+        if (hasModel()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getModel());
+        }
+        if (hasMhz()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(4, getMhz());
+        }
+        if (hasTotalCpus()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(5, getTotalCpus());
+        }
+        if (hasTotalIdleTime()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(6, getTotalIdleTime());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.cpuInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.klose.MsConnProto.SlaveInfo.cpuInfo prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.klose.MsConnProto.SlaveInfo.cpuInfo result;
+        
+        // Construct using com.klose.MsConnProto.SlaveInfo.cpuInfo.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.klose.MsConnProto.SlaveInfo.cpuInfo();
+          return builder;
+        }
+        
+        protected com.klose.MsConnProto.SlaveInfo.cpuInfo internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.klose.MsConnProto.SlaveInfo.cpuInfo();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.klose.MsConnProto.SlaveInfo.cpuInfo.getDescriptor();
+        }
+        
+        public com.klose.MsConnProto.SlaveInfo.cpuInfo getDefaultInstanceForType() {
+          return com.klose.MsConnProto.SlaveInfo.cpuInfo.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.klose.MsConnProto.SlaveInfo.cpuInfo build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.klose.MsConnProto.SlaveInfo.cpuInfo buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.klose.MsConnProto.SlaveInfo.cpuInfo buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.klose.MsConnProto.SlaveInfo.cpuInfo returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.klose.MsConnProto.SlaveInfo.cpuInfo) {
+            return mergeFrom((com.klose.MsConnProto.SlaveInfo.cpuInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.klose.MsConnProto.SlaveInfo.cpuInfo other) {
+          if (other == com.klose.MsConnProto.SlaveInfo.cpuInfo.getDefaultInstance()) return this;
+          if (other.hasVendor()) {
+            setVendor(other.getVendor());
+          }
+          if (other.hasModel()) {
+            setModel(other.getModel());
+          }
+          if (other.hasMhz()) {
+            setMhz(other.getMhz());
+          }
+          if (other.hasTotalCpus()) {
+            setTotalCpus(other.getTotalCpus());
+          }
+          if (other.hasTotalIdleTime()) {
+            setTotalIdleTime(other.getTotalIdleTime());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                setVendor(input.readString());
+                break;
+              }
+              case 18: {
+                setModel(input.readString());
+                break;
+              }
+              case 34: {
+                setMhz(input.readString());
+                break;
+              }
+              case 42: {
+                setTotalCpus(input.readString());
+                break;
+              }
+              case 50: {
+                setTotalIdleTime(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required string vendor = 1;
+        public boolean hasVendor() {
+          return result.hasVendor();
+        }
+        public java.lang.String getVendor() {
+          return result.getVendor();
+        }
+        public Builder setVendor(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasVendor = true;
+          result.vendor_ = value;
+          return this;
+        }
+        public Builder clearVendor() {
+          result.hasVendor = false;
+          result.vendor_ = getDefaultInstance().getVendor();
+          return this;
+        }
+        
+        // required string model = 2;
+        public boolean hasModel() {
+          return result.hasModel();
+        }
+        public java.lang.String getModel() {
+          return result.getModel();
+        }
+        public Builder setModel(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasModel = true;
+          result.model_ = value;
+          return this;
+        }
+        public Builder clearModel() {
+          result.hasModel = false;
+          result.model_ = getDefaultInstance().getModel();
+          return this;
+        }
+        
+        // required string mhz = 4;
+        public boolean hasMhz() {
+          return result.hasMhz();
+        }
+        public java.lang.String getMhz() {
+          return result.getMhz();
+        }
+        public Builder setMhz(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasMhz = true;
+          result.mhz_ = value;
+          return this;
+        }
+        public Builder clearMhz() {
+          result.hasMhz = false;
+          result.mhz_ = getDefaultInstance().getMhz();
+          return this;
+        }
+        
+        // required string total_cpus = 5;
+        public boolean hasTotalCpus() {
+          return result.hasTotalCpus();
+        }
+        public java.lang.String getTotalCpus() {
+          return result.getTotalCpus();
+        }
+        public Builder setTotalCpus(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasTotalCpus = true;
+          result.totalCpus_ = value;
+          return this;
+        }
+        public Builder clearTotalCpus() {
+          result.hasTotalCpus = false;
+          result.totalCpus_ = getDefaultInstance().getTotalCpus();
+          return this;
+        }
+        
+        // required string total_idle_time = 6;
+        public boolean hasTotalIdleTime() {
+          return result.hasTotalIdleTime();
+        }
+        public java.lang.String getTotalIdleTime() {
+          return result.getTotalIdleTime();
+        }
+        public Builder setTotalIdleTime(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasTotalIdleTime = true;
+          result.totalIdleTime_ = value;
+          return this;
+        }
+        public Builder clearTotalIdleTime() {
+          result.hasTotalIdleTime = false;
+          result.totalIdleTime_ = getDefaultInstance().getTotalIdleTime();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:com.klose.SlaveInfo.cpuInfo)
+      }
+      
+      static {
+        defaultInstance = new cpuInfo(true);
+        com.klose.MsConnProto.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:com.klose.SlaveInfo.cpuInfo)
+    }
+    
+    public static final class memInfo extends
+        com.google.protobuf.GeneratedMessage {
+      // Use memInfo.newBuilder() to construct.
+      private memInfo() {
+        initFields();
+      }
+      private memInfo(boolean noInit) {}
+      
+      private static final memInfo defaultInstance;
+      public static memInfo getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public memInfo getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_memInfo_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_memInfo_fieldAccessorTable;
+      }
+      
+      // required string total_memory = 1;
+      public static final int TOTAL_MEMORY_FIELD_NUMBER = 1;
+      private boolean hasTotalMemory;
+      private java.lang.String totalMemory_ = "";
+      public boolean hasTotalMemory() { return hasTotalMemory; }
+      public java.lang.String getTotalMemory() { return totalMemory_; }
+      
+      // required string used = 2;
+      public static final int USED_FIELD_NUMBER = 2;
+      private boolean hasUsed;
+      private java.lang.String used_ = "";
+      public boolean hasUsed() { return hasUsed; }
+      public java.lang.String getUsed() { return used_; }
+      
+      // required string avail = 4;
+      public static final int AVAIL_FIELD_NUMBER = 4;
+      private boolean hasAvail;
+      private java.lang.String avail_ = "";
+      public boolean hasAvail() { return hasAvail; }
+      public java.lang.String getAvail() { return avail_; }
+      
+      private void initFields() {
+      }
+      public final boolean isInitialized() {
+        if (!hasTotalMemory) return false;
+        if (!hasUsed) return false;
+        if (!hasAvail) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasTotalMemory()) {
+          output.writeString(1, getTotalMemory());
+        }
+        if (hasUsed()) {
+          output.writeString(2, getUsed());
+        }
+        if (hasAvail()) {
+          output.writeString(4, getAvail());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasTotalMemory()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(1, getTotalMemory());
+        }
+        if (hasUsed()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getUsed());
+        }
+        if (hasAvail()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(4, getAvail());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.memInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.klose.MsConnProto.SlaveInfo.memInfo prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.klose.MsConnProto.SlaveInfo.memInfo result;
+        
+        // Construct using com.klose.MsConnProto.SlaveInfo.memInfo.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.klose.MsConnProto.SlaveInfo.memInfo();
+          return builder;
+        }
+        
+        protected com.klose.MsConnProto.SlaveInfo.memInfo internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.klose.MsConnProto.SlaveInfo.memInfo();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.klose.MsConnProto.SlaveInfo.memInfo.getDescriptor();
+        }
+        
+        public com.klose.MsConnProto.SlaveInfo.memInfo getDefaultInstanceForType() {
+          return com.klose.MsConnProto.SlaveInfo.memInfo.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.klose.MsConnProto.SlaveInfo.memInfo build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.klose.MsConnProto.SlaveInfo.memInfo buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.klose.MsConnProto.SlaveInfo.memInfo buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.klose.MsConnProto.SlaveInfo.memInfo returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.klose.MsConnProto.SlaveInfo.memInfo) {
+            return mergeFrom((com.klose.MsConnProto.SlaveInfo.memInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.klose.MsConnProto.SlaveInfo.memInfo other) {
+          if (other == com.klose.MsConnProto.SlaveInfo.memInfo.getDefaultInstance()) return this;
+          if (other.hasTotalMemory()) {
+            setTotalMemory(other.getTotalMemory());
+          }
+          if (other.hasUsed()) {
+            setUsed(other.getUsed());
+          }
+          if (other.hasAvail()) {
+            setAvail(other.getAvail());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                setTotalMemory(input.readString());
+                break;
+              }
+              case 18: {
+                setUsed(input.readString());
+                break;
+              }
+              case 34: {
+                setAvail(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required string total_memory = 1;
+        public boolean hasTotalMemory() {
+          return result.hasTotalMemory();
+        }
+        public java.lang.String getTotalMemory() {
+          return result.getTotalMemory();
+        }
+        public Builder setTotalMemory(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasTotalMemory = true;
+          result.totalMemory_ = value;
+          return this;
+        }
+        public Builder clearTotalMemory() {
+          result.hasTotalMemory = false;
+          result.totalMemory_ = getDefaultInstance().getTotalMemory();
+          return this;
+        }
+        
+        // required string used = 2;
+        public boolean hasUsed() {
+          return result.hasUsed();
+        }
+        public java.lang.String getUsed() {
+          return result.getUsed();
+        }
+        public Builder setUsed(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUsed = true;
+          result.used_ = value;
+          return this;
+        }
+        public Builder clearUsed() {
+          result.hasUsed = false;
+          result.used_ = getDefaultInstance().getUsed();
+          return this;
+        }
+        
+        // required string avail = 4;
+        public boolean hasAvail() {
+          return result.hasAvail();
+        }
+        public java.lang.String getAvail() {
+          return result.getAvail();
+        }
+        public Builder setAvail(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasAvail = true;
+          result.avail_ = value;
+          return this;
+        }
+        public Builder clearAvail() {
+          result.hasAvail = false;
+          result.avail_ = getDefaultInstance().getAvail();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:com.klose.SlaveInfo.memInfo)
+      }
+      
+      static {
+        defaultInstance = new memInfo(true);
+        com.klose.MsConnProto.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:com.klose.SlaveInfo.memInfo)
+    }
+    
+    public static final class diskInfo extends
+        com.google.protobuf.GeneratedMessage {
+      // Use diskInfo.newBuilder() to construct.
+      private diskInfo() {
+        initFields();
+      }
+      private diskInfo(boolean noInit) {}
+      
+      private static final diskInfo defaultInstance;
+      public static diskInfo getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public diskInfo getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_diskInfo_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_SlaveInfo_diskInfo_fieldAccessorTable;
+      }
+      
+      // required string dev_name = 1;
+      public static final int DEV_NAME_FIELD_NUMBER = 1;
+      private boolean hasDevName;
+      private java.lang.String devName_ = "";
+      public boolean hasDevName() { return hasDevName; }
+      public java.lang.String getDevName() { return devName_; }
+      
+      // required string size = 2;
+      public static final int SIZE_FIELD_NUMBER = 2;
+      private boolean hasSize;
+      private java.lang.String size_ = "";
+      public boolean hasSize() { return hasSize; }
+      public java.lang.String getSize() { return size_; }
+      
+      // required string used = 3;
+      public static final int USED_FIELD_NUMBER = 3;
+      private boolean hasUsed;
+      private java.lang.String used_ = "";
+      public boolean hasUsed() { return hasUsed; }
+      public java.lang.String getUsed() { return used_; }
+      
+      // required string avail = 4;
+      public static final int AVAIL_FIELD_NUMBER = 4;
+      private boolean hasAvail;
+      private java.lang.String avail_ = "";
+      public boolean hasAvail() { return hasAvail; }
+      public java.lang.String getAvail() { return avail_; }
+      
+      // required string used_pct = 5;
+      public static final int USED_PCT_FIELD_NUMBER = 5;
+      private boolean hasUsedPct;
+      private java.lang.String usedPct_ = "";
+      public boolean hasUsedPct() { return hasUsedPct; }
+      public java.lang.String getUsedPct() { return usedPct_; }
+      
+      // required string dir_name = 6;
+      public static final int DIR_NAME_FIELD_NUMBER = 6;
+      private boolean hasDirName;
+      private java.lang.String dirName_ = "";
+      public boolean hasDirName() { return hasDirName; }
+      public java.lang.String getDirName() { return dirName_; }
+      
+      // required string type = 7;
+      public static final int TYPE_FIELD_NUMBER = 7;
+      private boolean hasType;
+      private java.lang.String type_ = "";
+      public boolean hasType() { return hasType; }
+      public java.lang.String getType() { return type_; }
+      
+      private void initFields() {
+      }
+      public final boolean isInitialized() {
+        if (!hasDevName) return false;
+        if (!hasSize) return false;
+        if (!hasUsed) return false;
+        if (!hasAvail) return false;
+        if (!hasUsedPct) return false;
+        if (!hasDirName) return false;
+        if (!hasType) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasDevName()) {
+          output.writeString(1, getDevName());
+        }
+        if (hasSize()) {
+          output.writeString(2, getSize());
+        }
+        if (hasUsed()) {
+          output.writeString(3, getUsed());
+        }
+        if (hasAvail()) {
+          output.writeString(4, getAvail());
+        }
+        if (hasUsedPct()) {
+          output.writeString(5, getUsedPct());
+        }
+        if (hasDirName()) {
+          output.writeString(6, getDirName());
+        }
+        if (hasType()) {
+          output.writeString(7, getType());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasDevName()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(1, getDevName());
+        }
+        if (hasSize()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getSize());
+        }
+        if (hasUsed()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(3, getUsed());
+        }
+        if (hasAvail()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(4, getAvail());
+        }
+        if (hasUsedPct()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(5, getUsedPct());
+        }
+        if (hasDirName()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(6, getDirName());
+        }
+        if (hasType()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(7, getType());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.SlaveInfo.diskInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.klose.MsConnProto.SlaveInfo.diskInfo prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.klose.MsConnProto.SlaveInfo.diskInfo result;
+        
+        // Construct using com.klose.MsConnProto.SlaveInfo.diskInfo.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.klose.MsConnProto.SlaveInfo.diskInfo();
+          return builder;
+        }
+        
+        protected com.klose.MsConnProto.SlaveInfo.diskInfo internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.klose.MsConnProto.SlaveInfo.diskInfo();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.klose.MsConnProto.SlaveInfo.diskInfo.getDescriptor();
+        }
+        
+        public com.klose.MsConnProto.SlaveInfo.diskInfo getDefaultInstanceForType() {
+          return com.klose.MsConnProto.SlaveInfo.diskInfo.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.klose.MsConnProto.SlaveInfo.diskInfo build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.klose.MsConnProto.SlaveInfo.diskInfo buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.klose.MsConnProto.SlaveInfo.diskInfo buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.klose.MsConnProto.SlaveInfo.diskInfo returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.klose.MsConnProto.SlaveInfo.diskInfo) {
+            return mergeFrom((com.klose.MsConnProto.SlaveInfo.diskInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.klose.MsConnProto.SlaveInfo.diskInfo other) {
+          if (other == com.klose.MsConnProto.SlaveInfo.diskInfo.getDefaultInstance()) return this;
+          if (other.hasDevName()) {
+            setDevName(other.getDevName());
+          }
+          if (other.hasSize()) {
+            setSize(other.getSize());
+          }
+          if (other.hasUsed()) {
+            setUsed(other.getUsed());
+          }
+          if (other.hasAvail()) {
+            setAvail(other.getAvail());
+          }
+          if (other.hasUsedPct()) {
+            setUsedPct(other.getUsedPct());
+          }
+          if (other.hasDirName()) {
+            setDirName(other.getDirName());
+          }
+          if (other.hasType()) {
+            setType(other.getType());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                setDevName(input.readString());
+                break;
+              }
+              case 18: {
+                setSize(input.readString());
+                break;
+              }
+              case 26: {
+                setUsed(input.readString());
+                break;
+              }
+              case 34: {
+                setAvail(input.readString());
+                break;
+              }
+              case 42: {
+                setUsedPct(input.readString());
+                break;
+              }
+              case 50: {
+                setDirName(input.readString());
+                break;
+              }
+              case 58: {
+                setType(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required string dev_name = 1;
+        public boolean hasDevName() {
+          return result.hasDevName();
+        }
+        public java.lang.String getDevName() {
+          return result.getDevName();
+        }
+        public Builder setDevName(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasDevName = true;
+          result.devName_ = value;
+          return this;
+        }
+        public Builder clearDevName() {
+          result.hasDevName = false;
+          result.devName_ = getDefaultInstance().getDevName();
+          return this;
+        }
+        
+        // required string size = 2;
+        public boolean hasSize() {
+          return result.hasSize();
+        }
+        public java.lang.String getSize() {
+          return result.getSize();
+        }
+        public Builder setSize(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasSize = true;
+          result.size_ = value;
+          return this;
+        }
+        public Builder clearSize() {
+          result.hasSize = false;
+          result.size_ = getDefaultInstance().getSize();
+          return this;
+        }
+        
+        // required string used = 3;
+        public boolean hasUsed() {
+          return result.hasUsed();
+        }
+        public java.lang.String getUsed() {
+          return result.getUsed();
+        }
+        public Builder setUsed(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUsed = true;
+          result.used_ = value;
+          return this;
+        }
+        public Builder clearUsed() {
+          result.hasUsed = false;
+          result.used_ = getDefaultInstance().getUsed();
+          return this;
+        }
+        
+        // required string avail = 4;
+        public boolean hasAvail() {
+          return result.hasAvail();
+        }
+        public java.lang.String getAvail() {
+          return result.getAvail();
+        }
+        public Builder setAvail(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasAvail = true;
+          result.avail_ = value;
+          return this;
+        }
+        public Builder clearAvail() {
+          result.hasAvail = false;
+          result.avail_ = getDefaultInstance().getAvail();
+          return this;
+        }
+        
+        // required string used_pct = 5;
+        public boolean hasUsedPct() {
+          return result.hasUsedPct();
+        }
+        public java.lang.String getUsedPct() {
+          return result.getUsedPct();
+        }
+        public Builder setUsedPct(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUsedPct = true;
+          result.usedPct_ = value;
+          return this;
+        }
+        public Builder clearUsedPct() {
+          result.hasUsedPct = false;
+          result.usedPct_ = getDefaultInstance().getUsedPct();
+          return this;
+        }
+        
+        // required string dir_name = 6;
+        public boolean hasDirName() {
+          return result.hasDirName();
+        }
+        public java.lang.String getDirName() {
+          return result.getDirName();
+        }
+        public Builder setDirName(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasDirName = true;
+          result.dirName_ = value;
+          return this;
+        }
+        public Builder clearDirName() {
+          result.hasDirName = false;
+          result.dirName_ = getDefaultInstance().getDirName();
+          return this;
+        }
+        
+        // required string type = 7;
+        public boolean hasType() {
+          return result.hasType();
+        }
+        public java.lang.String getType() {
+          return result.getType();
+        }
+        public Builder setType(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasType = true;
+          result.type_ = value;
+          return this;
+        }
+        public Builder clearType() {
+          result.hasType = false;
+          result.type_ = getDefaultInstance().getType();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:com.klose.SlaveInfo.diskInfo)
+      }
+      
+      static {
+        defaultInstance = new diskInfo(true);
+        com.klose.MsConnProto.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:com.klose.SlaveInfo.diskInfo)
+    }
+    
+    // required string ip_port = 1;
+    public static final int IP_PORT_FIELD_NUMBER = 1;
+    private boolean hasIpPort;
+    private java.lang.String ipPort_ = "";
+    public boolean hasIpPort() { return hasIpPort; }
+    public java.lang.String getIpPort() { return ipPort_; }
+    
+    // required string work_dir = 2;
+    public static final int WORK_DIR_FIELD_NUMBER = 2;
+    private boolean hasWorkDir;
+    private java.lang.String workDir_ = "";
+    public boolean hasWorkDir() { return hasWorkDir; }
+    public java.lang.String getWorkDir() { return workDir_; }
+    
+    // required .com.klose.SlaveInfo.cpuInfo cpu_info = 3;
+    public static final int CPU_INFO_FIELD_NUMBER = 3;
+    private boolean hasCpuInfo;
+    private com.klose.MsConnProto.SlaveInfo.cpuInfo cpuInfo_;
+    public boolean hasCpuInfo() { return hasCpuInfo; }
+    public com.klose.MsConnProto.SlaveInfo.cpuInfo getCpuInfo() { return cpuInfo_; }
+    
+    // required .com.klose.SlaveInfo.memInfo mem_info = 4;
+    public static final int MEM_INFO_FIELD_NUMBER = 4;
+    private boolean hasMemInfo;
+    private com.klose.MsConnProto.SlaveInfo.memInfo memInfo_;
+    public boolean hasMemInfo() { return hasMemInfo; }
+    public com.klose.MsConnProto.SlaveInfo.memInfo getMemInfo() { return memInfo_; }
+    
+    // repeated .com.klose.SlaveInfo.diskInfo disk_info = 5;
+    public static final int DISK_INFO_FIELD_NUMBER = 5;
+    private java.util.List<com.klose.MsConnProto.SlaveInfo.diskInfo> diskInfo_ =
+      java.util.Collections.emptyList();
+    public java.util.List<com.klose.MsConnProto.SlaveInfo.diskInfo> getDiskInfoList() {
+      return diskInfo_;
+    }
+    public int getDiskInfoCount() { return diskInfo_.size(); }
+    public com.klose.MsConnProto.SlaveInfo.diskInfo getDiskInfo(int index) {
+      return diskInfo_.get(index);
+    }
+    
+    private void initFields() {
+      cpuInfo_ = com.klose.MsConnProto.SlaveInfo.cpuInfo.getDefaultInstance();
+      memInfo_ = com.klose.MsConnProto.SlaveInfo.memInfo.getDefaultInstance();
+    }
+    public final boolean isInitialized() {
+      if (!hasIpPort) return false;
+      if (!hasWorkDir) return false;
+      if (!hasCpuInfo) return false;
+      if (!hasMemInfo) return false;
+      if (!getCpuInfo().isInitialized()) return false;
+      if (!getMemInfo().isInitialized()) return false;
+      for (com.klose.MsConnProto.SlaveInfo.diskInfo element : getDiskInfoList()) {
+        if (!element.isInitialized()) return false;
+      }
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasIpPort()) {
+        output.writeString(1, getIpPort());
+      }
+      if (hasWorkDir()) {
+        output.writeString(2, getWorkDir());
+      }
+      if (hasCpuInfo()) {
+        output.writeMessage(3, getCpuInfo());
+      }
+      if (hasMemInfo()) {
+        output.writeMessage(4, getMemInfo());
+      }
+      for (com.klose.MsConnProto.SlaveInfo.diskInfo element : getDiskInfoList()) {
+        output.writeMessage(5, element);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasIpPort()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getIpPort());
+      }
+      if (hasWorkDir()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(2, getWorkDir());
+      }
+      if (hasCpuInfo()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getCpuInfo());
+      }
+      if (hasMemInfo()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getMemInfo());
+      }
+      for (com.klose.MsConnProto.SlaveInfo.diskInfo element : getDiskInfoList()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, element);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.SlaveInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.SlaveInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.SlaveInfo result;
+      
+      // Construct using com.klose.MsConnProto.SlaveInfo.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.SlaveInfo();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.SlaveInfo internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.SlaveInfo();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.SlaveInfo.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.SlaveInfo getDefaultInstanceForType() {
+        return com.klose.MsConnProto.SlaveInfo.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.SlaveInfo build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.SlaveInfo buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.SlaveInfo buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        if (result.diskInfo_ != java.util.Collections.EMPTY_LIST) {
+          result.diskInfo_ =
+            java.util.Collections.unmodifiableList(result.diskInfo_);
+        }
+        com.klose.MsConnProto.SlaveInfo returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.SlaveInfo) {
+          return mergeFrom((com.klose.MsConnProto.SlaveInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.SlaveInfo other) {
+        if (other == com.klose.MsConnProto.SlaveInfo.getDefaultInstance()) return this;
+        if (other.hasIpPort()) {
+          setIpPort(other.getIpPort());
+        }
+        if (other.hasWorkDir()) {
+          setWorkDir(other.getWorkDir());
+        }
+        if (other.hasCpuInfo()) {
+          mergeCpuInfo(other.getCpuInfo());
+        }
+        if (other.hasMemInfo()) {
+          mergeMemInfo(other.getMemInfo());
+        }
+        if (!other.diskInfo_.isEmpty()) {
+          if (result.diskInfo_.isEmpty()) {
+            result.diskInfo_ = new java.util.ArrayList<com.klose.MsConnProto.SlaveInfo.diskInfo>();
+          }
+          result.diskInfo_.addAll(other.diskInfo_);
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setIpPort(input.readString());
+              break;
+            }
+            case 18: {
+              setWorkDir(input.readString());
+              break;
+            }
+            case 26: {
+              com.klose.MsConnProto.SlaveInfo.cpuInfo.Builder subBuilder = com.klose.MsConnProto.SlaveInfo.cpuInfo.newBuilder();
+              if (hasCpuInfo()) {
+                subBuilder.mergeFrom(getCpuInfo());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setCpuInfo(subBuilder.buildPartial());
+              break;
+            }
+            case 34: {
+              com.klose.MsConnProto.SlaveInfo.memInfo.Builder subBuilder = com.klose.MsConnProto.SlaveInfo.memInfo.newBuilder();
+              if (hasMemInfo()) {
+                subBuilder.mergeFrom(getMemInfo());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setMemInfo(subBuilder.buildPartial());
+              break;
+            }
+            case 42: {
+              com.klose.MsConnProto.SlaveInfo.diskInfo.Builder subBuilder = com.klose.MsConnProto.SlaveInfo.diskInfo.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addDiskInfo(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required string ip_port = 1;
+      public boolean hasIpPort() {
+        return result.hasIpPort();
+      }
+      public java.lang.String getIpPort() {
+        return result.getIpPort();
+      }
+      public Builder setIpPort(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasIpPort = true;
+        result.ipPort_ = value;
+        return this;
+      }
+      public Builder clearIpPort() {
+        result.hasIpPort = false;
+        result.ipPort_ = getDefaultInstance().getIpPort();
+        return this;
+      }
+      
+      // required string work_dir = 2;
+      public boolean hasWorkDir() {
+        return result.hasWorkDir();
+      }
+      public java.lang.String getWorkDir() {
+        return result.getWorkDir();
+      }
+      public Builder setWorkDir(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasWorkDir = true;
+        result.workDir_ = value;
+        return this;
+      }
+      public Builder clearWorkDir() {
+        result.hasWorkDir = false;
+        result.workDir_ = getDefaultInstance().getWorkDir();
+        return this;
+      }
+      
+      // required .com.klose.SlaveInfo.cpuInfo cpu_info = 3;
+      public boolean hasCpuInfo() {
+        return result.hasCpuInfo();
+      }
+      public com.klose.MsConnProto.SlaveInfo.cpuInfo getCpuInfo() {
+        return result.getCpuInfo();
+      }
+      public Builder setCpuInfo(com.klose.MsConnProto.SlaveInfo.cpuInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasCpuInfo = true;
+        result.cpuInfo_ = value;
+        return this;
+      }
+      public Builder setCpuInfo(com.klose.MsConnProto.SlaveInfo.cpuInfo.Builder builderForValue) {
+        result.hasCpuInfo = true;
+        result.cpuInfo_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeCpuInfo(com.klose.MsConnProto.SlaveInfo.cpuInfo value) {
+        if (result.hasCpuInfo() &&
+            result.cpuInfo_ != com.klose.MsConnProto.SlaveInfo.cpuInfo.getDefaultInstance()) {
+          result.cpuInfo_ =
+            com.klose.MsConnProto.SlaveInfo.cpuInfo.newBuilder(result.cpuInfo_).mergeFrom(value).buildPartial();
+        } else {
+          result.cpuInfo_ = value;
+        }
+        result.hasCpuInfo = true;
+        return this;
+      }
+      public Builder clearCpuInfo() {
+        result.hasCpuInfo = false;
+        result.cpuInfo_ = com.klose.MsConnProto.SlaveInfo.cpuInfo.getDefaultInstance();
+        return this;
+      }
+      
+      // required .com.klose.SlaveInfo.memInfo mem_info = 4;
+      public boolean hasMemInfo() {
+        return result.hasMemInfo();
+      }
+      public com.klose.MsConnProto.SlaveInfo.memInfo getMemInfo() {
+        return result.getMemInfo();
+      }
+      public Builder setMemInfo(com.klose.MsConnProto.SlaveInfo.memInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasMemInfo = true;
+        result.memInfo_ = value;
+        return this;
+      }
+      public Builder setMemInfo(com.klose.MsConnProto.SlaveInfo.memInfo.Builder builderForValue) {
+        result.hasMemInfo = true;
+        result.memInfo_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeMemInfo(com.klose.MsConnProto.SlaveInfo.memInfo value) {
+        if (result.hasMemInfo() &&
+            result.memInfo_ != com.klose.MsConnProto.SlaveInfo.memInfo.getDefaultInstance()) {
+          result.memInfo_ =
+            com.klose.MsConnProto.SlaveInfo.memInfo.newBuilder(result.memInfo_).mergeFrom(value).buildPartial();
+        } else {
+          result.memInfo_ = value;
+        }
+        result.hasMemInfo = true;
+        return this;
+      }
+      public Builder clearMemInfo() {
+        result.hasMemInfo = false;
+        result.memInfo_ = com.klose.MsConnProto.SlaveInfo.memInfo.getDefaultInstance();
+        return this;
+      }
+      
+      // repeated .com.klose.SlaveInfo.diskInfo disk_info = 5;
+      public java.util.List<com.klose.MsConnProto.SlaveInfo.diskInfo> getDiskInfoList() {
+        return java.util.Collections.unmodifiableList(result.diskInfo_);
+      }
+      public int getDiskInfoCount() {
+        return result.getDiskInfoCount();
+      }
+      public com.klose.MsConnProto.SlaveInfo.diskInfo getDiskInfo(int index) {
+        return result.getDiskInfo(index);
+      }
+      public Builder setDiskInfo(int index, com.klose.MsConnProto.SlaveInfo.diskInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.diskInfo_.set(index, value);
+        return this;
+      }
+      public Builder setDiskInfo(int index, com.klose.MsConnProto.SlaveInfo.diskInfo.Builder builderForValue) {
+        result.diskInfo_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addDiskInfo(com.klose.MsConnProto.SlaveInfo.diskInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.diskInfo_.isEmpty()) {
+          result.diskInfo_ = new java.util.ArrayList<com.klose.MsConnProto.SlaveInfo.diskInfo>();
+        }
+        result.diskInfo_.add(value);
+        return this;
+      }
+      public Builder addDiskInfo(com.klose.MsConnProto.SlaveInfo.diskInfo.Builder builderForValue) {
+        if (result.diskInfo_.isEmpty()) {
+          result.diskInfo_ = new java.util.ArrayList<com.klose.MsConnProto.SlaveInfo.diskInfo>();
+        }
+        result.diskInfo_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllDiskInfo(
+          java.lang.Iterable<? extends com.klose.MsConnProto.SlaveInfo.diskInfo> values) {
+        if (result.diskInfo_.isEmpty()) {
+          result.diskInfo_ = new java.util.ArrayList<com.klose.MsConnProto.SlaveInfo.diskInfo>();
+        }
+        super.addAll(values, result.diskInfo_);
+        return this;
+      }
+      public Builder clearDiskInfo() {
+        result.diskInfo_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.SlaveInfo)
+    }
+    
+    static {
+      defaultInstance = new SlaveInfo(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.SlaveInfo)
+  }
+  
+  public static final class MasterInfo extends
+      com.google.protobuf.GeneratedMessage {
+    // Use MasterInfo.newBuilder() to construct.
+    private MasterInfo() {
+      initFields();
+    }
+    private MasterInfo(boolean noInit) {}
+    
+    private static final MasterInfo defaultInstance;
+    public static MasterInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MasterInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_MasterInfo_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_MasterInfo_fieldAccessorTable;
+    }
+    
+    // required bool isSuccess = 1;
+    public static final int ISSUCCESS_FIELD_NUMBER = 1;
+    private boolean hasIsSuccess;
+    private boolean isSuccess_ = false;
+    public boolean hasIsSuccess() { return hasIsSuccess; }
+    public boolean getIsSuccess() { return isSuccess_; }
+    
+    private void initFields() {
+    }
+    public final boolean isInitialized() {
+      if (!hasIsSuccess) return false;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasIsSuccess()) {
+        output.writeBool(1, getIsSuccess());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasIsSuccess()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, getIsSuccess());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.MasterInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.MasterInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.MasterInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.MasterInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.MasterInfo result;
+      
+      // Construct using com.klose.MsConnProto.MasterInfo.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.MasterInfo();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.MasterInfo internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.MasterInfo();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.MasterInfo.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.MasterInfo getDefaultInstanceForType() {
+        return com.klose.MsConnProto.MasterInfo.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.MasterInfo build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.MasterInfo buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.MasterInfo buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        com.klose.MsConnProto.MasterInfo returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.MasterInfo) {
+          return mergeFrom((com.klose.MsConnProto.MasterInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.MasterInfo other) {
+        if (other == com.klose.MsConnProto.MasterInfo.getDefaultInstance()) return this;
+        if (other.hasIsSuccess()) {
+          setIsSuccess(other.getIsSuccess());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              setIsSuccess(input.readBool());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required bool isSuccess = 1;
+      public boolean hasIsSuccess() {
+        return result.hasIsSuccess();
+      }
+      public boolean getIsSuccess() {
+        return result.getIsSuccess();
+      }
+      public Builder setIsSuccess(boolean value) {
+        result.hasIsSuccess = true;
+        result.isSuccess_ = value;
+        return this;
+      }
+      public Builder clearIsSuccess() {
+        result.hasIsSuccess = false;
+        result.isSuccess_ = false;
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.MasterInfo)
+    }
+    
+    static {
+      defaultInstance = new MasterInfo(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.MasterInfo)
+  }
+  
   public static abstract class TestService
       implements com.google.protobuf.Service {
     protected TestService() {}
@@ -1677,6 +3894,227 @@ public final class MsConnProto {
     }
   }
   
+  public static abstract class HeartbeatService
+      implements com.google.protobuf.Service {
+    protected HeartbeatService() {}
+    
+    public interface Interface {
+      public abstract void heartbeatTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.SlaveInfo request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.MasterInfo> done);
+      
+    }
+    
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new HeartbeatService() {
+        @Override
+        public  void heartbeatTrans(
+            com.google.protobuf.RpcController controller,
+            com.klose.MsConnProto.SlaveInfo request,
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.MasterInfo> done) {
+          impl.heartbeatTrans(controller, request, done);
+        }
+        
+      };
+    }
+    
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.heartbeatTrans(controller, (com.klose.MsConnProto.SlaveInfo)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.SlaveInfo.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.MasterInfo.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+      };
+    }
+    
+    public abstract void heartbeatTrans(
+        com.google.protobuf.RpcController controller,
+        com.klose.MsConnProto.SlaveInfo request,
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.MasterInfo> done);
+    
+    public static final
+        com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.getDescriptor().getServices().get(2);
+    }
+    public final com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    
+    public final void callMethod(
+        com.google.protobuf.Descriptors.MethodDescriptor method,
+        com.google.protobuf.RpcController controller,
+        com.google.protobuf.Message request,
+        com.google.protobuf.RpcCallback<
+          com.google.protobuf.Message> done) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.callMethod() given method descriptor for wrong " +
+          "service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          this.heartbeatTrans(controller, (com.klose.MsConnProto.SlaveInfo)request,
+            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.MasterInfo>specializeCallback(
+              done));
+          return;
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getRequestPrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getRequestPrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.SlaveInfo.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getResponsePrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getResponsePrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.MasterInfo.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public static Stub newStub(
+        com.google.protobuf.RpcChannel channel) {
+      return new Stub(channel);
+    }
+    
+    public static final class Stub extends com.klose.MsConnProto.HeartbeatService implements Interface {
+      private Stub(com.google.protobuf.RpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.RpcChannel channel;
+      
+      public com.google.protobuf.RpcChannel getChannel() {
+        return channel;
+      }
+      
+      public  void heartbeatTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.SlaveInfo request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.MasterInfo> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.MasterInfo.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.klose.MsConnProto.MasterInfo.class,
+            com.klose.MsConnProto.MasterInfo.getDefaultInstance()));
+      }
+    }
+    
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+    
+    public interface BlockingInterface {
+      public com.klose.MsConnProto.MasterInfo heartbeatTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.SlaveInfo request)
+          throws com.google.protobuf.ServiceException;
+    }
+    
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.BlockingRpcChannel channel;
+      
+      public com.klose.MsConnProto.MasterInfo heartbeatTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.SlaveInfo request)
+          throws com.google.protobuf.ServiceException {
+        return (com.klose.MsConnProto.MasterInfo) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.MasterInfo.getDefaultInstance());
+      }
+      
+    }
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_Request_descriptor;
   private static
@@ -1697,6 +4135,31 @@ public final class MsConnProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_SlaveRegisterResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_SlaveInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_SlaveInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_SlaveInfo_cpuInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_SlaveInfo_cpuInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_SlaveInfo_memInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_SlaveInfo_memInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_SlaveInfo_diskInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_SlaveInfo_diskInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_MasterInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_MasterInfo_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1711,12 +4174,26 @@ public final class MsConnProto {
       "(\t\022\020\n\010int_data\030\002 \001(\005\"6\n\024SlaveRegisterReq" +
       "uest\022\017\n\007ip_port\030\001 \002(\t\022\r\n\005state\030\002 \001(\005\"*\n\025" +
       "SlaveRegisterResponse\022\021\n\tisSuccess\030\001 \002(\010" +
-      "2D\n\013TestService\0225\n\nTestMethod\022\022.com.klos" +
-      "e.Request\032\023.com.klose.Response2j\n\024Regist" +
-      "erSlaveService\022R\n\rSlaveRegister\022\037.com.kl" +
-      "ose.SlaveRegisterRequest\032 .com.klose.Sla" +
-      "veRegisterResponseB\030\n\tcom.kloseB\013MsConnP",
-      "roto"
+      "\"\335\003\n\tSlaveInfo\022\017\n\007ip_port\030\001 \002(\t\022\020\n\010work_" +
+      "dir\030\002 \002(\t\022.\n\010cpu_info\030\003 \002(\0132\034.com.klose." +
+      "SlaveInfo.cpuInfo\022.\n\010mem_info\030\004 \002(\0132\034.co" +
+      "m.klose.SlaveInfo.memInfo\0220\n\tdisk_info\030\005" +
+      " \003(\0132\035.com.klose.SlaveInfo.diskInfo\032b\n\007c",
+      "puInfo\022\016\n\006vendor\030\001 \002(\t\022\r\n\005model\030\002 \002(\t\022\013\n" +
+      "\003mhz\030\004 \002(\t\022\022\n\ntotal_cpus\030\005 \002(\t\022\027\n\017total_" +
+      "idle_time\030\006 \002(\t\032<\n\007memInfo\022\024\n\014total_memo" +
+      "ry\030\001 \002(\t\022\014\n\004used\030\002 \002(\t\022\r\n\005avail\030\004 \002(\t\032y\n" +
+      "\010diskInfo\022\020\n\010dev_name\030\001 \002(\t\022\014\n\004size\030\002 \002(" +
+      "\t\022\014\n\004used\030\003 \002(\t\022\r\n\005avail\030\004 \002(\t\022\020\n\010used_p" +
+      "ct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004type\030\007 \002(\t" +
+      "\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 \002(\0102D\n\013Tes" +
+      "tService\0225\n\nTestMethod\022\022.com.klose.Reque" +
+      "st\032\023.com.klose.Response2j\n\024RegisterSlave",
+      "Service\022R\n\rSlaveRegister\022\037.com.klose.Sla" +
+      "veRegisterRequest\032 .com.klose.SlaveRegis" +
+      "terResponse2Q\n\020HeartbeatService\022=\n\016Heart" +
+      "beatTrans\022\024.com.klose.SlaveInfo\032\025.com.kl" +
+      "ose.MasterInfoB\030\n\tcom.kloseB\013MsConnProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1755,6 +4232,46 @@ public final class MsConnProto {
               new java.lang.String[] { "IsSuccess", },
               com.klose.MsConnProto.SlaveRegisterResponse.class,
               com.klose.MsConnProto.SlaveRegisterResponse.Builder.class);
+          internal_static_com_klose_SlaveInfo_descriptor =
+            getDescriptor().getMessageTypes().get(4);
+          internal_static_com_klose_SlaveInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_SlaveInfo_descriptor,
+              new java.lang.String[] { "IpPort", "WorkDir", "CpuInfo", "MemInfo", "DiskInfo", },
+              com.klose.MsConnProto.SlaveInfo.class,
+              com.klose.MsConnProto.SlaveInfo.Builder.class);
+          internal_static_com_klose_SlaveInfo_cpuInfo_descriptor =
+            internal_static_com_klose_SlaveInfo_descriptor.getNestedTypes().get(0);
+          internal_static_com_klose_SlaveInfo_cpuInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_SlaveInfo_cpuInfo_descriptor,
+              new java.lang.String[] { "Vendor", "Model", "Mhz", "TotalCpus", "TotalIdleTime", },
+              com.klose.MsConnProto.SlaveInfo.cpuInfo.class,
+              com.klose.MsConnProto.SlaveInfo.cpuInfo.Builder.class);
+          internal_static_com_klose_SlaveInfo_memInfo_descriptor =
+            internal_static_com_klose_SlaveInfo_descriptor.getNestedTypes().get(1);
+          internal_static_com_klose_SlaveInfo_memInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_SlaveInfo_memInfo_descriptor,
+              new java.lang.String[] { "TotalMemory", "Used", "Avail", },
+              com.klose.MsConnProto.SlaveInfo.memInfo.class,
+              com.klose.MsConnProto.SlaveInfo.memInfo.Builder.class);
+          internal_static_com_klose_SlaveInfo_diskInfo_descriptor =
+            internal_static_com_klose_SlaveInfo_descriptor.getNestedTypes().get(2);
+          internal_static_com_klose_SlaveInfo_diskInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_SlaveInfo_diskInfo_descriptor,
+              new java.lang.String[] { "DevName", "Size", "Used", "Avail", "UsedPct", "DirName", "Type", },
+              com.klose.MsConnProto.SlaveInfo.diskInfo.class,
+              com.klose.MsConnProto.SlaveInfo.diskInfo.Builder.class);
+          internal_static_com_klose_MasterInfo_descriptor =
+            getDescriptor().getMessageTypes().get(5);
+          internal_static_com_klose_MasterInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_MasterInfo_descriptor,
+              new java.lang.String[] { "IsSuccess", },
+              com.klose.MsConnProto.MasterInfo.class,
+              com.klose.MsConnProto.MasterInfo.Builder.class);
           return null;
         }
       };

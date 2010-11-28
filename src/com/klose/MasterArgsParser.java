@@ -16,11 +16,18 @@ public class MasterArgsParser {
 	public void printUsage() {
 		System.out.print(
 				"Usage: " + " [--port=PORT] [--url=URL] [...] "+"\n"
-				+ "PORT default value is 6060" +"\n"
+				+ "\n"
 				+ "URL (used for leader election with ZooKeeper) may be one of:" + "\n"
 			       + "  zoo://host1:port1,host2:port2,..." + "\n"
 			       + "  zoofile://file where file has one host:port pair per line" + "\n"
-				);
+			       + "\n"
+			       
+			       + "Support options:\n"
+			       + "    --help                   display this help and exit.\n" 
+			       + "    --port=VAL               port to listen on (default: 6060)\n"
+			       + "    --url=VAL                URL used for leader election\n"
+		);
+		System.exit(1);
 	}
 	
 	public void setPort(int port) {
@@ -65,9 +72,12 @@ public class MasterArgsParser {
 				else if(Pattern.matches(urlRegex, tmp.trim())) {
 						this.setURL( (tmp.split("="))[1].trim() );
 				}
-				else {
+				else if (tmp.trim().equals("--help")) {
 					printUsage();
-					System.exit(1);
+				}
+				else {
+					System.out.println("Configuration error: option \'"+tmp+ "\' unrecognized\n");
+					printUsage();
 				}	
 			}
 		}

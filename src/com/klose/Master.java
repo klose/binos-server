@@ -31,12 +31,17 @@ public class Master{
 //		
 //	}
 	public static void main(String [] args) throws UnknownHostException {
-		MasterArgsParser argsConf = new MasterArgsParser(args); 
-		argsConf.loadValue();
-		SocketRpcServer masterServer = new SocketRpcServer(argsConf.getPort(),
+		MasterArgsParser confParser = new MasterArgsParser(args); 
+		confParser.loadValue();
+		SocketRpcServer masterServer = new SocketRpcServer(confParser.getPort(),
 				    Executors.newFixedThreadPool(10));
-		System.out.println("Master started at "+ argsConf.constructIdentity());
-		masterServer.registerService(new RegisterToMasterService());
+		System.out.println("Master started at "+ confParser.constructIdentity());
+		
+		RegisterToMasterService registerToMaster = new RegisterToMasterService();
+		masterServer.registerService(registerToMaster);
+		SlaveHeartbeatService heartbeatService = new SlaveHeartbeatService();
+		
+		masterServer.registerService(heartbeatService);
 		masterServer.run();
 		 
 	}

@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="/home/jiangbing/eclipse_java/java_workspace/Master-Slave/src/lib/protobuf-java-2.3.0.jar" sourcepath="/home/jiangbing/JLoop/protobuf-read-only/java/src"/>
 	<classpathentry kind="lib" path="/home/jiangbing/eclipse_java/java_workspace/Master-Slave/src/lib/protobuf_socketrpc-1.3.2.jar"/>
+	<classpathentry kind="lib" path="src/lib/sigar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
