@@ -27,17 +27,19 @@ package com.klose;
 option java_package = "com.klose";
 option java_outer_classname = "MsConnProto";
 
-message Request {
+message UrgentRequest {
   required string str_data = 1;
 }
 
-message Response {
-  required string str_data = 1;
-  optional int32 int_data = 2;
+message UrgentResponse {
+  required bool is_success = 1;
+  optional string str_data = 2;
 }
-message SlaveRegisterRequest {
+message SlaveRegisterInfo {
 	required string ip_port = 1;
 	optional int32 state = 2;
+	optional string login_time = 3;
+	optional string exit_time = 4;
 }
 message SlaveRegisterResponse {
 	required bool isSuccess = 1;
@@ -74,11 +76,13 @@ message MasterInfo {
 	//used for returning slave lists
 	required bool isSuccess = 1;
 }
-service TestService {
-  rpc TestMethod(Request) returns(Response);
+
+
+service SlaveUrgentExit {
+  rpc UrgentExit(UrgentRequest) returns(UrgentResponse);
 }
 service RegisterSlaveService {
-  rpc SlaveRegister(SlaveRegisterRequest) returns (SlaveRegisterResponse); 
+  rpc SlaveRegister(SlaveRegisterInfo) returns (SlaveRegisterResponse); 
 }
 service HeartbeatService {
   rpc HeartbeatTrans(SlaveInfo) returns (MasterInfo);

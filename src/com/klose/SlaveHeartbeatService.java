@@ -28,7 +28,7 @@ public class SlaveHeartbeatService extends HeartbeatService{
 			return false;
 		}
 		else{ 
-			System.out.println(request.toString());
+			//System.out.println(request.toString());
 			slaveInfos.put(request.getIpPort(), request.toByteArray());
 			return true;
 		}

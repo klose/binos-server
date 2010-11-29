@@ -8,8 +8,7 @@ import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.RpcServer;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.RegisterSlaveService;
-import com.klose.MsConnProto.SlaveRegisterRequest;
-import com.klose.MsConnProto.SlaveRegisterResponse;
+
 
 public class Master{
 //	public static class RegisterServiceImpl extends RegisterSlaveService{
@@ -40,8 +39,9 @@ public class Master{
 		RegisterToMasterService registerToMaster = new RegisterToMasterService();
 		masterServer.registerService(registerToMaster);
 		SlaveHeartbeatService heartbeatService = new SlaveHeartbeatService();
-		
 		masterServer.registerService(heartbeatService);
+		SlaveExitService slaveExitService = new SlaveExitService();
+		masterServer.registerService(slaveExitService);
 		masterServer.run();
 		 
 	}

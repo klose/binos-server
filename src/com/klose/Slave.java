@@ -13,8 +13,11 @@ import com.klose.MsConnProto.HeartbeatService;
 import com.klose.MsConnProto.MasterInfo;
 import com.klose.MsConnProto.RegisterSlaveService;
 import com.klose.MsConnProto.SlaveInfo;
-import com.klose.MsConnProto.SlaveRegisterRequest;
+import com.klose.MsConnProto.SlaveRegisterInfo;
 import com.klose.MsConnProto.SlaveRegisterResponse;
+import com.klose.MsConnProto.SlaveUrgentExit;
+import com.klose.MsConnProto.UrgentRequest;
+import com.klose.MsConnProto.UrgentResponse;
 class SlaveRPCServerThread extends Thread {
 	private SlaveArgsParser parser;
 	private SocketRpcServer rpcServer;
@@ -26,6 +29,72 @@ class SlaveRPCServerThread extends Thread {
 		this.rpcServer.run();
 	}
 }
+class SlaveSendHeartbeatThread extends Thread {
+	private SlaveArgsParser parser;
+	private SocketRpcChannel channel;
+	private SocketRpcController controller;
+	private boolean masterReply = false;
+	SlaveSendHeartbeatThread(SlaveArgsParser parser, SocketRpcChannel channel, SocketRpcController controller) {
+		this.parser = parser;
+		this.channel = channel;
+		this.controller = controller;
+	}
+	
+	private SlaveInfo getSlaveInfo(String ip_port, String workDir) throws SigarException {
+		return new SlaveInfoConstructor(ip_port, workDir).assemble();
+	}
+	
+	public void run() {
+		HeartbeatService sendHeartbeat = HeartbeatService.newStub(channel);
+		//send heartbeat message periodically 'interval time:5 seconds'.
+		while(true) {
+			try {
+				SlaveInfo heartbeatInfo;
+				heartbeatInfo = getSlaveInfo(parser.getIp_port(), parser.getWorkDir());
+				sendHeartbeat.heartbeatTrans(controller, heartbeatInfo, new RpcCallback<MasterInfo>(){
+					@Override
+					public void run(MasterInfo response) {
+						// TODO Auto-generated method stub
+						masterReply = response.getIsSuccess();
+						System.out.println("heartbeatSuccess = "+masterReply);
+					}
+					});
+				this.sleep(5000);
+			} catch (SigarException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+		}
+	}
+}
+
+class ShutdownThread extends Thread {
+	private SlaveArgsParser parser;
+	private SocketRpcChannel channel;
+	private SocketRpcController controller;
+	ShutdownThread(SlaveArgsParser parser, SocketRpcChannel channel, SocketRpcController controller) {
+		this.parser = parser;
+		this.channel = channel;
+		this.controller = controller;
+	}
+	public void run() {
+		SlaveUrgentExit slaveExit = SlaveUrgentExit.newStub(channel);
+    	UrgentRequest request = UrgentRequest.newBuilder().
+    					setStrData(parser.getIp_port()).build();
+		slaveExit.urgentExit(controller, request,  new RpcCallback<UrgentResponse>(){
+		@Override
+			public void run(UrgentResponse response) {
+				// TODO Auto-generated method stub	
+				System.out.println("Shutdown Service---Exit handle:  "+
+						response.getIsSuccess() + " " + response.getStrData() );
+			}
+		});
+	}		
+}	
 public class Slave {
 	//public
 	public static boolean registerSuccess = false;
@@ -45,7 +114,7 @@ public class Slave {
 		
 		/*register to Master service*/
 		RegisterSlaveService registerToMaster = RegisterSlaveService.newStub(socketRpcChannel);
-		SlaveRegisterRequest registerToMasterRequest =  com.klose.MsConnProto.SlaveRegisterRequest.newBuilder()
+		SlaveRegisterInfo registerToMasterRequest =  com.klose.MsConnProto.SlaveRegisterInfo.newBuilder()
 		.setIpPort(confParser.getIp_port()).setState(0).build();
 		registerToMaster.slaveRegister(rpcController, registerToMasterRequest, 
 				new RpcCallback<SlaveRegisterResponse>(){
@@ -55,31 +124,20 @@ public class Slave {
 						registerSuccess = response.getIsSuccess();
 					}
 			});
-		/*If the service of registering to master is successful, it will run.*/
+		
+		/*If the service of registering to master is successful, it will start the SlaveRPCServerThread
+		 * and SlaveSendHeartbeatThread. It also provides the hooks of shutdown. .*/
 		if(registerSuccess) {
 			SlaveRPCServerThread slaveThreadServer = new SlaveRPCServerThread(confParser, slaveServer);
 			slaveThreadServer.start();
+			SlaveSendHeartbeatThread sendHeartbeat = new SlaveSendHeartbeatThread(confParser, socketRpcChannel, rpcController);
+			sendHeartbeat.start();
+			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
 		}
 		else {
 			System.out.println("Slave can't register to Master.\n");
 			System.exit(1);
-		}
-		
-		/*heartbeat*/
-		HeartbeatService sendHeartbeat = HeartbeatService.newStub(socketRpcChannel);
-		SlaveInfo heartbeatInfo = getSlaveInfo(confParser.getIp_port(), confParser.getWorkDir()); 
-		sendHeartbeat.heartbeatTrans(rpcController, heartbeatInfo, new RpcCallback<MasterInfo>(){
-			@Override
-			public void run(MasterInfo response) {
-				// TODO Auto-generated method stub
-				heartbeatSuccess = response.getIsSuccess();
-				System.out.println("heartbeatSuccess ="+heartbeatSuccess);
-				}
-			});				
-	}
-	public  static SlaveInfo getSlaveInfo(String ip_port, String workDir) throws SigarException {
-		return new SlaveInfoConstructor(ip_port, workDir).assemble();
-	}
-
+		}		
+	} 
 	
 }

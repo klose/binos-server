@@ -8,31 +8,31 @@ public final class MsConnProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public static final class Request extends
+  public static final class UrgentRequest extends
       com.google.protobuf.GeneratedMessage {
-    // Use Request.newBuilder() to construct.
-    private Request() {
+    // Use UrgentRequest.newBuilder() to construct.
+    private UrgentRequest() {
       initFields();
     }
-    private Request(boolean noInit) {}
+    private UrgentRequest(boolean noInit) {}
     
-    private static final Request defaultInstance;
-    public static Request getDefaultInstance() {
+    private static final UrgentRequest defaultInstance;
+    public static UrgentRequest getDefaultInstance() {
       return defaultInstance;
     }
     
-    public Request getDefaultInstanceForType() {
+    public UrgentRequest getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.klose.MsConnProto.internal_static_com_klose_Request_descriptor;
+      return com.klose.MsConnProto.internal_static_com_klose_UrgentRequest_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.klose.MsConnProto.internal_static_com_klose_Request_fieldAccessorTable;
+      return com.klose.MsConnProto.internal_static_com_klose_UrgentRequest_fieldAccessorTable;
     }
     
     // required string str_data = 1;
@@ -73,41 +73,41 @@ public final class MsConnProto {
       return size;
     }
     
-    public static com.klose.MsConnProto.Request parseFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseFrom(byte[] data)
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseFrom(java.io.InputStream input)
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseDelimitedFrom(java.io.InputStream input)
+    public static com.klose.MsConnProto.UrgentRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -116,7 +116,7 @@ public final class MsConnProto {
         return null;
       }
     }
-    public static com.klose.MsConnProto.Request parseDelimitedFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -127,12 +127,12 @@ public final class MsConnProto {
         return null;
       }
     }
-    public static com.klose.MsConnProto.Request parseFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.klose.MsConnProto.Request parseFrom(
+    public static com.klose.MsConnProto.UrgentRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -142,25 +142,25 @@ public final class MsConnProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.klose.MsConnProto.Request prototype) {
+    public static Builder newBuilder(com.klose.MsConnProto.UrgentRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private com.klose.MsConnProto.Request result;
+      private com.klose.MsConnProto.UrgentRequest result;
       
-      // Construct using com.klose.MsConnProto.Request.newBuilder()
+      // Construct using com.klose.MsConnProto.UrgentRequest.newBuilder()
       private Builder() {}
       
       private static Builder create() {
         Builder builder = new Builder();
-        builder.result = new com.klose.MsConnProto.Request();
+        builder.result = new com.klose.MsConnProto.UrgentRequest();
         return builder;
       }
       
-      protected com.klose.MsConnProto.Request internalGetResult() {
+      protected com.klose.MsConnProto.UrgentRequest internalGetResult() {
         return result;
       }
       
@@ -169,7 +169,7 @@ public final class MsConnProto {
           throw new IllegalStateException(
             "Cannot call clear() after build().");
         }
-        result = new com.klose.MsConnProto.Request();
+        result = new com.klose.MsConnProto.UrgentRequest();
         return this;
       }
       
@@ -179,24 +179,24 @@ public final class MsConnProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.klose.MsConnProto.Request.getDescriptor();
+        return com.klose.MsConnProto.UrgentRequest.getDescriptor();
       }
       
-      public com.klose.MsConnProto.Request getDefaultInstanceForType() {
-        return com.klose.MsConnProto.Request.getDefaultInstance();
+      public com.klose.MsConnProto.UrgentRequest getDefaultInstanceForType() {
+        return com.klose.MsConnProto.UrgentRequest.getDefaultInstance();
       }
       
       public boolean isInitialized() {
         return result.isInitialized();
       }
-      public com.klose.MsConnProto.Request build() {
+      public com.klose.MsConnProto.UrgentRequest build() {
         if (result != null && !isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return buildPartial();
       }
       
-      private com.klose.MsConnProto.Request buildParsed()
+      private com.klose.MsConnProto.UrgentRequest buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
         if (!isInitialized()) {
           throw newUninitializedMessageException(
@@ -205,27 +205,27 @@ public final class MsConnProto {
         return buildPartial();
       }
       
-      public com.klose.MsConnProto.Request buildPartial() {
+      public com.klose.MsConnProto.UrgentRequest buildPartial() {
         if (result == null) {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
-        com.klose.MsConnProto.Request returnMe = result;
+        com.klose.MsConnProto.UrgentRequest returnMe = result;
         result = null;
         return returnMe;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.klose.MsConnProto.Request) {
-          return mergeFrom((com.klose.MsConnProto.Request)other);
+        if (other instanceof com.klose.MsConnProto.UrgentRequest) {
+          return mergeFrom((com.klose.MsConnProto.UrgentRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.klose.MsConnProto.Request other) {
-        if (other == com.klose.MsConnProto.Request.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.klose.MsConnProto.UrgentRequest other) {
+        if (other == com.klose.MsConnProto.UrgentRequest.getDefaultInstance()) return this;
         if (other.hasStrData()) {
           setStrData(other.getStrData());
         }
@@ -284,74 +284,74 @@ public final class MsConnProto {
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.klose.Request)
+      // @@protoc_insertion_point(builder_scope:com.klose.UrgentRequest)
     }
     
     static {
-      defaultInstance = new Request(true);
+      defaultInstance = new UrgentRequest(true);
       com.klose.MsConnProto.internalForceInit();
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.klose.Request)
+    // @@protoc_insertion_point(class_scope:com.klose.UrgentRequest)
   }
   
-  public static final class Response extends
+  public static final class UrgentResponse extends
       com.google.protobuf.GeneratedMessage {
-    // Use Response.newBuilder() to construct.
-    private Response() {
+    // Use UrgentResponse.newBuilder() to construct.
+    private UrgentResponse() {
       initFields();
     }
-    private Response(boolean noInit) {}
+    private UrgentResponse(boolean noInit) {}
     
-    private static final Response defaultInstance;
-    public static Response getDefaultInstance() {
+    private static final UrgentResponse defaultInstance;
+    public static UrgentResponse getDefaultInstance() {
       return defaultInstance;
     }
     
-    public Response getDefaultInstanceForType() {
+    public UrgentResponse getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.klose.MsConnProto.internal_static_com_klose_Response_descriptor;
+      return com.klose.MsConnProto.internal_static_com_klose_UrgentResponse_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.klose.MsConnProto.internal_static_com_klose_Response_fieldAccessorTable;
+      return com.klose.MsConnProto.internal_static_com_klose_UrgentResponse_fieldAccessorTable;
     }
     
-    // required string str_data = 1;
-    public static final int STR_DATA_FIELD_NUMBER = 1;
+    // required bool is_success = 1;
+    public static final int IS_SUCCESS_FIELD_NUMBER = 1;
+    private boolean hasIsSuccess;
+    private boolean isSuccess_ = false;
+    public boolean hasIsSuccess() { return hasIsSuccess; }
+    public boolean getIsSuccess() { return isSuccess_; }
+    
+    // optional string str_data = 2;
+    public static final int STR_DATA_FIELD_NUMBER = 2;
     private boolean hasStrData;
     private java.lang.String strData_ = "";
     public boolean hasStrData() { return hasStrData; }
     public java.lang.String getStrData() { return strData_; }
     
-    // optional int32 int_data = 2;
-    public static final int INT_DATA_FIELD_NUMBER = 2;
-    private boolean hasIntData;
-    private int intData_ = 0;
-    public boolean hasIntData() { return hasIntData; }
-    public int getIntData() { return intData_; }
-    
     private void initFields() {
     }
     public final boolean isInitialized() {
-      if (!hasStrData) return false;
+      if (!hasIsSuccess) return false;
       return true;
     }
     
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      if (hasStrData()) {
-        output.writeString(1, getStrData());
+      if (hasIsSuccess()) {
+        output.writeBool(1, getIsSuccess());
       }
-      if (hasIntData()) {
-        output.writeInt32(2, getIntData());
+      if (hasStrData()) {
+        output.writeString(2, getStrData());
       }
       getUnknownFields().writeTo(output);
     }
@@ -362,54 +362,54 @@ public final class MsConnProto {
       if (size != -1) return size;
     
       size = 0;
+      if (hasIsSuccess()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, getIsSuccess());
+      }
       if (hasStrData()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(1, getStrData());
-      }
-      if (hasIntData()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, getIntData());
+          .computeStringSize(2, getStrData());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    public static com.klose.MsConnProto.Response parseFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseFrom(byte[] data)
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseFrom(java.io.InputStream input)
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseDelimitedFrom(java.io.InputStream input)
+    public static com.klose.MsConnProto.UrgentResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -418,7 +418,7 @@ public final class MsConnProto {
         return null;
       }
     }
-    public static com.klose.MsConnProto.Response parseDelimitedFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -429,12 +429,12 @@ public final class MsConnProto {
         return null;
       }
     }
-    public static com.klose.MsConnProto.Response parseFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.klose.MsConnProto.Response parseFrom(
+    public static com.klose.MsConnProto.UrgentResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -444,25 +444,25 @@ public final class MsConnProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.klose.MsConnProto.Response prototype) {
+    public static Builder newBuilder(com.klose.MsConnProto.UrgentResponse prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private com.klose.MsConnProto.Response result;
+      private com.klose.MsConnProto.UrgentResponse result;
       
-      // Construct using com.klose.MsConnProto.Response.newBuilder()
+      // Construct using com.klose.MsConnProto.UrgentResponse.newBuilder()
       private Builder() {}
       
       private static Builder create() {
         Builder builder = new Builder();
-        builder.result = new com.klose.MsConnProto.Response();
+        builder.result = new com.klose.MsConnProto.UrgentResponse();
         return builder;
       }
       
-      protected com.klose.MsConnProto.Response internalGetResult() {
+      protected com.klose.MsConnProto.UrgentResponse internalGetResult() {
         return result;
       }
       
@@ -471,7 +471,7 @@ public final class MsConnProto {
           throw new IllegalStateException(
             "Cannot call clear() after build().");
         }
-        result = new com.klose.MsConnProto.Response();
+        result = new com.klose.MsConnProto.UrgentResponse();
         return this;
       }
       
@@ -481,24 +481,24 @@ public final class MsConnProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.klose.MsConnProto.Response.getDescriptor();
+        return com.klose.MsConnProto.UrgentResponse.getDescriptor();
       }
       
-      public com.klose.MsConnProto.Response getDefaultInstanceForType() {
-        return com.klose.MsConnProto.Response.getDefaultInstance();
+      public com.klose.MsConnProto.UrgentResponse getDefaultInstanceForType() {
+        return com.klose.MsConnProto.UrgentResponse.getDefaultInstance();
       }
       
       public boolean isInitialized() {
         return result.isInitialized();
       }
-      public com.klose.MsConnProto.Response build() {
+      public com.klose.MsConnProto.UrgentResponse build() {
         if (result != null && !isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return buildPartial();
       }
       
-      private com.klose.MsConnProto.Response buildParsed()
+      private com.klose.MsConnProto.UrgentResponse buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
         if (!isInitialized()) {
           throw newUninitializedMessageException(
@@ -507,32 +507,32 @@ public final class MsConnProto {
         return buildPartial();
       }
       
-      public com.klose.MsConnProto.Response buildPartial() {
+      public com.klose.MsConnProto.UrgentResponse buildPartial() {
         if (result == null) {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
-        com.klose.MsConnProto.Response returnMe = result;
+        com.klose.MsConnProto.UrgentResponse returnMe = result;
         result = null;
         return returnMe;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.klose.MsConnProto.Response) {
-          return mergeFrom((com.klose.MsConnProto.Response)other);
+        if (other instanceof com.klose.MsConnProto.UrgentResponse) {
+          return mergeFrom((com.klose.MsConnProto.UrgentResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.klose.MsConnProto.Response other) {
-        if (other == com.klose.MsConnProto.Response.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.klose.MsConnProto.UrgentResponse other) {
+        if (other == com.klose.MsConnProto.UrgentResponse.getDefaultInstance()) return this;
+        if (other.hasIsSuccess()) {
+          setIsSuccess(other.getIsSuccess());
+        }
         if (other.hasStrData()) {
           setStrData(other.getStrData());
-        }
-        if (other.hasIntData()) {
-          setIntData(other.getIntData());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -559,12 +559,12 @@ public final class MsConnProto {
               }
               break;
             }
-            case 10: {
-              setStrData(input.readString());
+            case 8: {
+              setIsSuccess(input.readBool());
               break;
             }
-            case 16: {
-              setIntData(input.readInt32());
+            case 18: {
+              setStrData(input.readString());
               break;
             }
           }
@@ -572,7 +572,25 @@ public final class MsConnProto {
       }
       
       
-      // required string str_data = 1;
+      // required bool is_success = 1;
+      public boolean hasIsSuccess() {
+        return result.hasIsSuccess();
+      }
+      public boolean getIsSuccess() {
+        return result.getIsSuccess();
+      }
+      public Builder setIsSuccess(boolean value) {
+        result.hasIsSuccess = true;
+        result.isSuccess_ = value;
+        return this;
+      }
+      public Builder clearIsSuccess() {
+        result.hasIsSuccess = false;
+        result.isSuccess_ = false;
+        return this;
+      }
+      
+      // optional string str_data = 2;
       public boolean hasStrData() {
         return result.hasStrData();
       }
@@ -593,61 +611,43 @@ public final class MsConnProto {
         return this;
       }
       
-      // optional int32 int_data = 2;
-      public boolean hasIntData() {
-        return result.hasIntData();
-      }
-      public int getIntData() {
-        return result.getIntData();
-      }
-      public Builder setIntData(int value) {
-        result.hasIntData = true;
-        result.intData_ = value;
-        return this;
-      }
-      public Builder clearIntData() {
-        result.hasIntData = false;
-        result.intData_ = 0;
-        return this;
-      }
-      
-      // @@protoc_insertion_point(builder_scope:com.klose.Response)
+      // @@protoc_insertion_point(builder_scope:com.klose.UrgentResponse)
     }
     
     static {
-      defaultInstance = new Response(true);
+      defaultInstance = new UrgentResponse(true);
       com.klose.MsConnProto.internalForceInit();
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.klose.Response)
+    // @@protoc_insertion_point(class_scope:com.klose.UrgentResponse)
   }
   
-  public static final class SlaveRegisterRequest extends
+  public static final class SlaveRegisterInfo extends
       com.google.protobuf.GeneratedMessage {
-    // Use SlaveRegisterRequest.newBuilder() to construct.
-    private SlaveRegisterRequest() {
+    // Use SlaveRegisterInfo.newBuilder() to construct.
+    private SlaveRegisterInfo() {
       initFields();
     }
-    private SlaveRegisterRequest(boolean noInit) {}
+    private SlaveRegisterInfo(boolean noInit) {}
     
-    private static final SlaveRegisterRequest defaultInstance;
-    public static SlaveRegisterRequest getDefaultInstance() {
+    private static final SlaveRegisterInfo defaultInstance;
+    public static SlaveRegisterInfo getDefaultInstance() {
       return defaultInstance;
     }
     
-    public SlaveRegisterRequest getDefaultInstanceForType() {
+    public SlaveRegisterInfo getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.klose.MsConnProto.internal_static_com_klose_SlaveRegisterRequest_descriptor;
+      return com.klose.MsConnProto.internal_static_com_klose_SlaveRegisterInfo_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.klose.MsConnProto.internal_static_com_klose_SlaveRegisterRequest_fieldAccessorTable;
+      return com.klose.MsConnProto.internal_static_com_klose_SlaveRegisterInfo_fieldAccessorTable;
     }
     
     // required string ip_port = 1;
@@ -664,6 +664,20 @@ public final class MsConnProto {
     public boolean hasState() { return hasState; }
     public int getState() { return state_; }
     
+    // optional string login_time = 3;
+    public static final int LOGIN_TIME_FIELD_NUMBER = 3;
+    private boolean hasLoginTime;
+    private java.lang.String loginTime_ = "";
+    public boolean hasLoginTime() { return hasLoginTime; }
+    public java.lang.String getLoginTime() { return loginTime_; }
+    
+    // optional string exit_time = 4;
+    public static final int EXIT_TIME_FIELD_NUMBER = 4;
+    private boolean hasExitTime;
+    private java.lang.String exitTime_ = "";
+    public boolean hasExitTime() { return hasExitTime; }
+    public java.lang.String getExitTime() { return exitTime_; }
+    
     private void initFields() {
     }
     public final boolean isInitialized() {
@@ -679,6 +693,12 @@ public final class MsConnProto {
       }
       if (hasState()) {
         output.writeInt32(2, getState());
+      }
+      if (hasLoginTime()) {
+        output.writeString(3, getLoginTime());
+      }
+      if (hasExitTime()) {
+        output.writeString(4, getExitTime());
       }
       getUnknownFields().writeTo(output);
     }
@@ -697,46 +717,54 @@ public final class MsConnProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, getState());
       }
+      if (hasLoginTime()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(3, getLoginTime());
+      }
+      if (hasExitTime()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(4, getExitTime());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(byte[] data)
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(java.io.InputStream input)
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseDelimitedFrom(java.io.InputStream input)
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -745,7 +773,7 @@ public final class MsConnProto {
         return null;
       }
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseDelimitedFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -756,12 +784,12 @@ public final class MsConnProto {
         return null;
       }
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.klose.MsConnProto.SlaveRegisterRequest parseFrom(
+    public static com.klose.MsConnProto.SlaveRegisterInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -771,25 +799,25 @@ public final class MsConnProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.klose.MsConnProto.SlaveRegisterRequest prototype) {
+    public static Builder newBuilder(com.klose.MsConnProto.SlaveRegisterInfo prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private com.klose.MsConnProto.SlaveRegisterRequest result;
+      private com.klose.MsConnProto.SlaveRegisterInfo result;
       
-      // Construct using com.klose.MsConnProto.SlaveRegisterRequest.newBuilder()
+      // Construct using com.klose.MsConnProto.SlaveRegisterInfo.newBuilder()
       private Builder() {}
       
       private static Builder create() {
         Builder builder = new Builder();
-        builder.result = new com.klose.MsConnProto.SlaveRegisterRequest();
+        builder.result = new com.klose.MsConnProto.SlaveRegisterInfo();
         return builder;
       }
       
-      protected com.klose.MsConnProto.SlaveRegisterRequest internalGetResult() {
+      protected com.klose.MsConnProto.SlaveRegisterInfo internalGetResult() {
         return result;
       }
       
@@ -798,7 +826,7 @@ public final class MsConnProto {
           throw new IllegalStateException(
             "Cannot call clear() after build().");
         }
-        result = new com.klose.MsConnProto.SlaveRegisterRequest();
+        result = new com.klose.MsConnProto.SlaveRegisterInfo();
         return this;
       }
       
@@ -808,24 +836,24 @@ public final class MsConnProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.klose.MsConnProto.SlaveRegisterRequest.getDescriptor();
+        return com.klose.MsConnProto.SlaveRegisterInfo.getDescriptor();
       }
       
-      public com.klose.MsConnProto.SlaveRegisterRequest getDefaultInstanceForType() {
-        return com.klose.MsConnProto.SlaveRegisterRequest.getDefaultInstance();
+      public com.klose.MsConnProto.SlaveRegisterInfo getDefaultInstanceForType() {
+        return com.klose.MsConnProto.SlaveRegisterInfo.getDefaultInstance();
       }
       
       public boolean isInitialized() {
         return result.isInitialized();
       }
-      public com.klose.MsConnProto.SlaveRegisterRequest build() {
+      public com.klose.MsConnProto.SlaveRegisterInfo build() {
         if (result != null && !isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return buildPartial();
       }
       
-      private com.klose.MsConnProto.SlaveRegisterRequest buildParsed()
+      private com.klose.MsConnProto.SlaveRegisterInfo buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
         if (!isInitialized()) {
           throw newUninitializedMessageException(
@@ -834,32 +862,38 @@ public final class MsConnProto {
         return buildPartial();
       }
       
-      public com.klose.MsConnProto.SlaveRegisterRequest buildPartial() {
+      public com.klose.MsConnProto.SlaveRegisterInfo buildPartial() {
         if (result == null) {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
-        com.klose.MsConnProto.SlaveRegisterRequest returnMe = result;
+        com.klose.MsConnProto.SlaveRegisterInfo returnMe = result;
         result = null;
         return returnMe;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.klose.MsConnProto.SlaveRegisterRequest) {
-          return mergeFrom((com.klose.MsConnProto.SlaveRegisterRequest)other);
+        if (other instanceof com.klose.MsConnProto.SlaveRegisterInfo) {
+          return mergeFrom((com.klose.MsConnProto.SlaveRegisterInfo)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.klose.MsConnProto.SlaveRegisterRequest other) {
-        if (other == com.klose.MsConnProto.SlaveRegisterRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.klose.MsConnProto.SlaveRegisterInfo other) {
+        if (other == com.klose.MsConnProto.SlaveRegisterInfo.getDefaultInstance()) return this;
         if (other.hasIpPort()) {
           setIpPort(other.getIpPort());
         }
         if (other.hasState()) {
           setState(other.getState());
+        }
+        if (other.hasLoginTime()) {
+          setLoginTime(other.getLoginTime());
+        }
+        if (other.hasExitTime()) {
+          setExitTime(other.getExitTime());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -892,6 +926,14 @@ public final class MsConnProto {
             }
             case 16: {
               setState(input.readInt32());
+              break;
+            }
+            case 26: {
+              setLoginTime(input.readString());
+              break;
+            }
+            case 34: {
+              setExitTime(input.readString());
               break;
             }
           }
@@ -938,16 +980,58 @@ public final class MsConnProto {
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.klose.SlaveRegisterRequest)
+      // optional string login_time = 3;
+      public boolean hasLoginTime() {
+        return result.hasLoginTime();
+      }
+      public java.lang.String getLoginTime() {
+        return result.getLoginTime();
+      }
+      public Builder setLoginTime(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasLoginTime = true;
+        result.loginTime_ = value;
+        return this;
+      }
+      public Builder clearLoginTime() {
+        result.hasLoginTime = false;
+        result.loginTime_ = getDefaultInstance().getLoginTime();
+        return this;
+      }
+      
+      // optional string exit_time = 4;
+      public boolean hasExitTime() {
+        return result.hasExitTime();
+      }
+      public java.lang.String getExitTime() {
+        return result.getExitTime();
+      }
+      public Builder setExitTime(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasExitTime = true;
+        result.exitTime_ = value;
+        return this;
+      }
+      public Builder clearExitTime() {
+        result.hasExitTime = false;
+        result.exitTime_ = getDefaultInstance().getExitTime();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.SlaveRegisterInfo)
     }
     
     static {
-      defaultInstance = new SlaveRegisterRequest(true);
+      defaultInstance = new SlaveRegisterInfo(true);
       com.klose.MsConnProto.internalForceInit();
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.klose.SlaveRegisterRequest)
+    // @@protoc_insertion_point(class_scope:com.klose.SlaveRegisterInfo)
   }
   
   public static final class SlaveRegisterResponse extends
@@ -3452,27 +3536,27 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.MasterInfo)
   }
   
-  public static abstract class TestService
+  public static abstract class SlaveUrgentExit
       implements com.google.protobuf.Service {
-    protected TestService() {}
+    protected SlaveUrgentExit() {}
     
     public interface Interface {
-      public abstract void testMethod(
+      public abstract void urgentExit(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.Request request,
-          com.google.protobuf.RpcCallback<com.klose.MsConnProto.Response> done);
+          com.klose.MsConnProto.UrgentRequest request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.UrgentResponse> done);
       
     }
     
     public static com.google.protobuf.Service newReflectiveService(
         final Interface impl) {
-      return new TestService() {
+      return new SlaveUrgentExit() {
         @Override
-        public  void testMethod(
+        public  void urgentExit(
             com.google.protobuf.RpcController controller,
-            com.klose.MsConnProto.Request request,
-            com.google.protobuf.RpcCallback<com.klose.MsConnProto.Response> done) {
-          impl.testMethod(controller, request, done);
+            com.klose.MsConnProto.UrgentRequest request,
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.UrgentResponse> done) {
+          impl.urgentExit(controller, request, done);
         }
         
       };
@@ -3498,7 +3582,7 @@ public final class MsConnProto {
           }
           switch(method.getIndex()) {
             case 0:
-              return impl.testMethod(controller, (com.klose.MsConnProto.Request)request);
+              return impl.urgentExit(controller, (com.klose.MsConnProto.UrgentRequest)request);
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -3514,7 +3598,7 @@ public final class MsConnProto {
           }
           switch(method.getIndex()) {
             case 0:
-              return com.klose.MsConnProto.Request.getDefaultInstance();
+              return com.klose.MsConnProto.UrgentRequest.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -3530,7 +3614,7 @@ public final class MsConnProto {
           }
           switch(method.getIndex()) {
             case 0:
-              return com.klose.MsConnProto.Response.getDefaultInstance();
+              return com.klose.MsConnProto.UrgentResponse.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -3539,10 +3623,10 @@ public final class MsConnProto {
       };
     }
     
-    public abstract void testMethod(
+    public abstract void urgentExit(
         com.google.protobuf.RpcController controller,
-        com.klose.MsConnProto.Request request,
-        com.google.protobuf.RpcCallback<com.klose.MsConnProto.Response> done);
+        com.klose.MsConnProto.UrgentRequest request,
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.UrgentResponse> done);
     
     public static final
         com.google.protobuf.Descriptors.ServiceDescriptor
@@ -3567,8 +3651,8 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          this.testMethod(controller, (com.klose.MsConnProto.Request)request,
-            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.Response>specializeCallback(
+          this.urgentExit(controller, (com.klose.MsConnProto.UrgentRequest)request,
+            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.UrgentResponse>specializeCallback(
               done));
           return;
         default:
@@ -3586,7 +3670,7 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          return com.klose.MsConnProto.Request.getDefaultInstance();
+          return com.klose.MsConnProto.UrgentRequest.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -3602,7 +3686,7 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          return com.klose.MsConnProto.Response.getDefaultInstance();
+          return com.klose.MsConnProto.UrgentResponse.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -3613,7 +3697,7 @@ public final class MsConnProto {
       return new Stub(channel);
     }
     
-    public static final class Stub extends com.klose.MsConnProto.TestService implements Interface {
+    public static final class Stub extends com.klose.MsConnProto.SlaveUrgentExit implements Interface {
       private Stub(com.google.protobuf.RpcChannel channel) {
         this.channel = channel;
       }
@@ -3624,19 +3708,19 @@ public final class MsConnProto {
         return channel;
       }
       
-      public  void testMethod(
+      public  void urgentExit(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.Request request,
-          com.google.protobuf.RpcCallback<com.klose.MsConnProto.Response> done) {
+          com.klose.MsConnProto.UrgentRequest request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.UrgentResponse> done) {
         channel.callMethod(
           getDescriptor().getMethods().get(0),
           controller,
           request,
-          com.klose.MsConnProto.Response.getDefaultInstance(),
+          com.klose.MsConnProto.UrgentResponse.getDefaultInstance(),
           com.google.protobuf.RpcUtil.generalizeCallback(
             done,
-            com.klose.MsConnProto.Response.class,
-            com.klose.MsConnProto.Response.getDefaultInstance()));
+            com.klose.MsConnProto.UrgentResponse.class,
+            com.klose.MsConnProto.UrgentResponse.getDefaultInstance()));
       }
     }
     
@@ -3646,9 +3730,9 @@ public final class MsConnProto {
     }
     
     public interface BlockingInterface {
-      public com.klose.MsConnProto.Response testMethod(
+      public com.klose.MsConnProto.UrgentResponse urgentExit(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.Request request)
+          com.klose.MsConnProto.UrgentRequest request)
           throws com.google.protobuf.ServiceException;
     }
     
@@ -3659,15 +3743,15 @@ public final class MsConnProto {
       
       private final com.google.protobuf.BlockingRpcChannel channel;
       
-      public com.klose.MsConnProto.Response testMethod(
+      public com.klose.MsConnProto.UrgentResponse urgentExit(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.Request request)
+          com.klose.MsConnProto.UrgentRequest request)
           throws com.google.protobuf.ServiceException {
-        return (com.klose.MsConnProto.Response) channel.callBlockingMethod(
+        return (com.klose.MsConnProto.UrgentResponse) channel.callBlockingMethod(
           getDescriptor().getMethods().get(0),
           controller,
           request,
-          com.klose.MsConnProto.Response.getDefaultInstance());
+          com.klose.MsConnProto.UrgentResponse.getDefaultInstance());
       }
       
     }
@@ -3680,7 +3764,7 @@ public final class MsConnProto {
     public interface Interface {
       public abstract void slaveRegister(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.SlaveRegisterRequest request,
+          com.klose.MsConnProto.SlaveRegisterInfo request,
           com.google.protobuf.RpcCallback<com.klose.MsConnProto.SlaveRegisterResponse> done);
       
     }
@@ -3691,7 +3775,7 @@ public final class MsConnProto {
         @Override
         public  void slaveRegister(
             com.google.protobuf.RpcController controller,
-            com.klose.MsConnProto.SlaveRegisterRequest request,
+            com.klose.MsConnProto.SlaveRegisterInfo request,
             com.google.protobuf.RpcCallback<com.klose.MsConnProto.SlaveRegisterResponse> done) {
           impl.slaveRegister(controller, request, done);
         }
@@ -3719,7 +3803,7 @@ public final class MsConnProto {
           }
           switch(method.getIndex()) {
             case 0:
-              return impl.slaveRegister(controller, (com.klose.MsConnProto.SlaveRegisterRequest)request);
+              return impl.slaveRegister(controller, (com.klose.MsConnProto.SlaveRegisterInfo)request);
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -3735,7 +3819,7 @@ public final class MsConnProto {
           }
           switch(method.getIndex()) {
             case 0:
-              return com.klose.MsConnProto.SlaveRegisterRequest.getDefaultInstance();
+              return com.klose.MsConnProto.SlaveRegisterInfo.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -3762,7 +3846,7 @@ public final class MsConnProto {
     
     public abstract void slaveRegister(
         com.google.protobuf.RpcController controller,
-        com.klose.MsConnProto.SlaveRegisterRequest request,
+        com.klose.MsConnProto.SlaveRegisterInfo request,
         com.google.protobuf.RpcCallback<com.klose.MsConnProto.SlaveRegisterResponse> done);
     
     public static final
@@ -3788,7 +3872,7 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          this.slaveRegister(controller, (com.klose.MsConnProto.SlaveRegisterRequest)request,
+          this.slaveRegister(controller, (com.klose.MsConnProto.SlaveRegisterInfo)request,
             com.google.protobuf.RpcUtil.<com.klose.MsConnProto.SlaveRegisterResponse>specializeCallback(
               done));
           return;
@@ -3807,7 +3891,7 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          return com.klose.MsConnProto.SlaveRegisterRequest.getDefaultInstance();
+          return com.klose.MsConnProto.SlaveRegisterInfo.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -3847,7 +3931,7 @@ public final class MsConnProto {
       
       public  void slaveRegister(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.SlaveRegisterRequest request,
+          com.klose.MsConnProto.SlaveRegisterInfo request,
           com.google.protobuf.RpcCallback<com.klose.MsConnProto.SlaveRegisterResponse> done) {
         channel.callMethod(
           getDescriptor().getMethods().get(0),
@@ -3869,7 +3953,7 @@ public final class MsConnProto {
     public interface BlockingInterface {
       public com.klose.MsConnProto.SlaveRegisterResponse slaveRegister(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.SlaveRegisterRequest request)
+          com.klose.MsConnProto.SlaveRegisterInfo request)
           throws com.google.protobuf.ServiceException;
     }
     
@@ -3882,7 +3966,7 @@ public final class MsConnProto {
       
       public com.klose.MsConnProto.SlaveRegisterResponse slaveRegister(
           com.google.protobuf.RpcController controller,
-          com.klose.MsConnProto.SlaveRegisterRequest request)
+          com.klose.MsConnProto.SlaveRegisterInfo request)
           throws com.google.protobuf.ServiceException {
         return (com.klose.MsConnProto.SlaveRegisterResponse) channel.callBlockingMethod(
           getDescriptor().getMethods().get(0),
@@ -4116,20 +4200,20 @@ public final class MsConnProto {
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_klose_Request_descriptor;
+    internal_static_com_klose_UrgentRequest_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_klose_Request_fieldAccessorTable;
+      internal_static_com_klose_UrgentRequest_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_klose_Response_descriptor;
+    internal_static_com_klose_UrgentResponse_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_klose_Response_fieldAccessorTable;
+      internal_static_com_klose_UrgentResponse_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_klose_SlaveRegisterRequest_descriptor;
+    internal_static_com_klose_SlaveRegisterInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_klose_SlaveRegisterRequest_fieldAccessorTable;
+      internal_static_com_klose_SlaveRegisterInfo_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_SlaveRegisterResponse_descriptor;
   private static
@@ -4169,61 +4253,63 @@ public final class MsConnProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\ntest.proto\022\tcom.klose\"\033\n\007Request\022\020\n\010st" +
-      "r_data\030\001 \002(\t\".\n\010Response\022\020\n\010str_data\030\001 \002" +
-      "(\t\022\020\n\010int_data\030\002 \001(\005\"6\n\024SlaveRegisterReq" +
-      "uest\022\017\n\007ip_port\030\001 \002(\t\022\r\n\005state\030\002 \001(\005\"*\n\025" +
-      "SlaveRegisterResponse\022\021\n\tisSuccess\030\001 \002(\010" +
-      "\"\335\003\n\tSlaveInfo\022\017\n\007ip_port\030\001 \002(\t\022\020\n\010work_" +
-      "dir\030\002 \002(\t\022.\n\010cpu_info\030\003 \002(\0132\034.com.klose." +
-      "SlaveInfo.cpuInfo\022.\n\010mem_info\030\004 \002(\0132\034.co" +
-      "m.klose.SlaveInfo.memInfo\0220\n\tdisk_info\030\005" +
-      " \003(\0132\035.com.klose.SlaveInfo.diskInfo\032b\n\007c",
-      "puInfo\022\016\n\006vendor\030\001 \002(\t\022\r\n\005model\030\002 \002(\t\022\013\n" +
-      "\003mhz\030\004 \002(\t\022\022\n\ntotal_cpus\030\005 \002(\t\022\027\n\017total_" +
-      "idle_time\030\006 \002(\t\032<\n\007memInfo\022\024\n\014total_memo" +
-      "ry\030\001 \002(\t\022\014\n\004used\030\002 \002(\t\022\r\n\005avail\030\004 \002(\t\032y\n" +
-      "\010diskInfo\022\020\n\010dev_name\030\001 \002(\t\022\014\n\004size\030\002 \002(" +
-      "\t\022\014\n\004used\030\003 \002(\t\022\r\n\005avail\030\004 \002(\t\022\020\n\010used_p" +
-      "ct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004type\030\007 \002(\t" +
-      "\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 \002(\0102D\n\013Tes" +
-      "tService\0225\n\nTestMethod\022\022.com.klose.Reque" +
-      "st\032\023.com.klose.Response2j\n\024RegisterSlave",
-      "Service\022R\n\rSlaveRegister\022\037.com.klose.Sla" +
-      "veRegisterRequest\032 .com.klose.SlaveRegis" +
-      "terResponse2Q\n\020HeartbeatService\022=\n\016Heart" +
-      "beatTrans\022\024.com.klose.SlaveInfo\032\025.com.kl" +
-      "ose.MasterInfoB\030\n\tcom.kloseB\013MsConnProto"
+      "\n\ntest.proto\022\tcom.klose\"!\n\rUrgentRequest" +
+      "\022\020\n\010str_data\030\001 \002(\t\"6\n\016UrgentResponse\022\022\n\n" +
+      "is_success\030\001 \002(\010\022\020\n\010str_data\030\002 \001(\t\"Z\n\021Sl" +
+      "aveRegisterInfo\022\017\n\007ip_port\030\001 \002(\t\022\r\n\005stat" +
+      "e\030\002 \001(\005\022\022\n\nlogin_time\030\003 \001(\t\022\021\n\texit_time" +
+      "\030\004 \001(\t\"*\n\025SlaveRegisterResponse\022\021\n\tisSuc" +
+      "cess\030\001 \002(\010\"\335\003\n\tSlaveInfo\022\017\n\007ip_port\030\001 \002(" +
+      "\t\022\020\n\010work_dir\030\002 \002(\t\022.\n\010cpu_info\030\003 \002(\0132\034." +
+      "com.klose.SlaveInfo.cpuInfo\022.\n\010mem_info\030" +
+      "\004 \002(\0132\034.com.klose.SlaveInfo.memInfo\0220\n\td",
+      "isk_info\030\005 \003(\0132\035.com.klose.SlaveInfo.dis" +
+      "kInfo\032b\n\007cpuInfo\022\016\n\006vendor\030\001 \002(\t\022\r\n\005mode" +
+      "l\030\002 \002(\t\022\013\n\003mhz\030\004 \002(\t\022\022\n\ntotal_cpus\030\005 \002(\t" +
+      "\022\027\n\017total_idle_time\030\006 \002(\t\032<\n\007memInfo\022\024\n\014" +
+      "total_memory\030\001 \002(\t\022\014\n\004used\030\002 \002(\t\022\r\n\005avai" +
+      "l\030\004 \002(\t\032y\n\010diskInfo\022\020\n\010dev_name\030\001 \002(\t\022\014\n" +
+      "\004size\030\002 \002(\t\022\014\n\004used\030\003 \002(\t\022\r\n\005avail\030\004 \002(\t" +
+      "\022\020\n\010used_pct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004" +
+      "type\030\007 \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 " +
+      "\002(\0102T\n\017SlaveUrgentExit\022A\n\nUrgentExit\022\030.c",
+      "om.klose.UrgentRequest\032\031.com.klose.Urgen" +
+      "tResponse2g\n\024RegisterSlaveService\022O\n\rSla" +
+      "veRegister\022\034.com.klose.SlaveRegisterInfo" +
+      "\032 .com.klose.SlaveRegisterResponse2Q\n\020He" +
+      "artbeatService\022=\n\016HeartbeatTrans\022\024.com.k" +
+      "lose.SlaveInfo\032\025.com.klose.MasterInfoB\030\n" +
+      "\tcom.kloseB\013MsConnProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_klose_Request_descriptor =
+          internal_static_com_klose_UrgentRequest_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_com_klose_Request_fieldAccessorTable = new
+          internal_static_com_klose_UrgentRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_klose_Request_descriptor,
+              internal_static_com_klose_UrgentRequest_descriptor,
               new java.lang.String[] { "StrData", },
-              com.klose.MsConnProto.Request.class,
-              com.klose.MsConnProto.Request.Builder.class);
-          internal_static_com_klose_Response_descriptor =
+              com.klose.MsConnProto.UrgentRequest.class,
+              com.klose.MsConnProto.UrgentRequest.Builder.class);
+          internal_static_com_klose_UrgentResponse_descriptor =
             getDescriptor().getMessageTypes().get(1);
-          internal_static_com_klose_Response_fieldAccessorTable = new
+          internal_static_com_klose_UrgentResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_klose_Response_descriptor,
-              new java.lang.String[] { "StrData", "IntData", },
-              com.klose.MsConnProto.Response.class,
-              com.klose.MsConnProto.Response.Builder.class);
-          internal_static_com_klose_SlaveRegisterRequest_descriptor =
+              internal_static_com_klose_UrgentResponse_descriptor,
+              new java.lang.String[] { "IsSuccess", "StrData", },
+              com.klose.MsConnProto.UrgentResponse.class,
+              com.klose.MsConnProto.UrgentResponse.Builder.class);
+          internal_static_com_klose_SlaveRegisterInfo_descriptor =
             getDescriptor().getMessageTypes().get(2);
-          internal_static_com_klose_SlaveRegisterRequest_fieldAccessorTable = new
+          internal_static_com_klose_SlaveRegisterInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_klose_SlaveRegisterRequest_descriptor,
-              new java.lang.String[] { "IpPort", "State", },
-              com.klose.MsConnProto.SlaveRegisterRequest.class,
-              com.klose.MsConnProto.SlaveRegisterRequest.Builder.class);
+              internal_static_com_klose_SlaveRegisterInfo_descriptor,
+              new java.lang.String[] { "IpPort", "State", "LoginTime", "ExitTime", },
+              com.klose.MsConnProto.SlaveRegisterInfo.class,
+              com.klose.MsConnProto.SlaveRegisterInfo.Builder.class);
           internal_static_com_klose_SlaveRegisterResponse_descriptor =
             getDescriptor().getMessageTypes().get(3);
           internal_static_com_klose_SlaveRegisterResponse_fieldAccessorTable = new

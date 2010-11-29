@@ -2,11 +2,10 @@ package com.klose;
 
 import java.util.HashMap;
 import java.util.HashSet;
-
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.klose.MsConnProto.RegisterSlaveService;
-import com.klose.MsConnProto.SlaveRegisterRequest;
+import com.klose.MsConnProto.SlaveRegisterInfo;
 import com.klose.MsConnProto.SlaveRegisterResponse;
 /*
  * RegisterToMasterService  is code of master.
@@ -18,14 +17,14 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	private static SlaveRegisterResponse response ;
 	@Override
 	public void slaveRegister(RpcController controller,
-			SlaveRegisterRequest request,
+			SlaveRegisterInfo request,
 			RpcCallback<SlaveRegisterResponse> done) {
 		// TODO Auto-generated method stub
 		// If "ip:port" doesn't exist in the record, add the slave in the list of slave.
 		// and response; on the contrary, reform the node that it has been already established 
 		// in the master.
 		
-		System.out.println(request.getIpPort());
+		System.out.println(request.getIpPort() + " register.");
 		
 		/*fault tolerance is undone, please check whehter "ip:port" is validate.*/
 	    /*!!!!!!!!!!!!please add checked code.*/
@@ -42,7 +41,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	 * @return If slaveEntry doesn't exist in the record, add the slave in the list of slaveEntrys.
 	 *  and return true; on the contrary, return false.
 	 */
-	public static boolean addSlaveEntry(SlaveRegisterRequest request) {
+	public static boolean addSlaveEntry(SlaveRegisterInfo request) {
 		SlaveEntry entry = parse(request);
 		if(slaveEntrys.containsKey(request.getIpPort())) {
 			return false;
@@ -60,13 +59,14 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	 * SlaveEntry object. 
 	 * @return
 	 */
-	public static SlaveEntry parse(SlaveRegisterRequest request) {
+	public static SlaveEntry parse(SlaveRegisterInfo request) {
 		String [] ip_port = request.getIpPort().split(":");
 		int state = request.getState();
 		SlaveEntry res = new SlaveEntry();
 		res.setIp(ip_port[0]);
 		res.setPort(ip_port[1]);
 		res.setState(request.getState());
+		res.setLoginTime();
 		res.setInfo("");
 		return res;
 	}
@@ -80,5 +80,15 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		else {
 			return false;
 		}
+	}
+	public static SlaveEntry getSlaveEntry(String ip_port) {
+		return slaveEntrys.get(ip_port);
+	}
+	public static boolean deleteSlaveEntry(String ip_port) {
+		if(findSlaveEntry(ip_port)) {
+			slaveEntrys.remove(ip_port);
+			return true;
+		}
+		return false;
 	}
 }
