@@ -82,17 +82,20 @@ class ShutdownThread extends Thread {
 		this.controller = controller;
 	}
 	public void run() {
-		SlaveUrgentExit slaveExit = SlaveUrgentExit.newStub(channel);
-    	UrgentRequest request = UrgentRequest.newBuilder().
+		//The shundown hook acts only if the slave is registered with a master server.
+		if(Slave.registerSuccess) {
+			SlaveUrgentExit slaveExit = SlaveUrgentExit.newStub(channel);
+			UrgentRequest request = UrgentRequest.newBuilder().
     					setStrData(parser.getIp_port()).build();
-		slaveExit.urgentExit(controller, request,  new RpcCallback<UrgentResponse>(){
-		@Override
-			public void run(UrgentResponse response) {
-				// TODO Auto-generated method stub	
-				System.out.println("Shutdown Service---Exit handle:  "+
+			slaveExit.urgentExit(controller, request,  new RpcCallback<UrgentResponse>(){
+				@Override
+				public void run(UrgentResponse response) {
+					// TODO Auto-generated method stub	
+					System.out.println("Shutdown Service---Exit handle:  "+
 						response.getIsSuccess() + " " + response.getStrData() );
-			}
-		});
+				}
+			});
+		}
 	}		
 }	
 public class Slave {
@@ -132,7 +135,10 @@ public class Slave {
 			slaveThreadServer.start();
 			SlaveSendHeartbeatThread sendHeartbeat = new SlaveSendHeartbeatThread(confParser, socketRpcChannel, rpcController);
 			sendHeartbeat.start();
+			MasterExitService masterExitService = new MasterExitService(confParser, sendHeartbeat);
+			slaveServer.registerService(masterExitService);
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
+			
 		}
 		else {
 			System.out.println("Slave can't register to Master.\n");

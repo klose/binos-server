@@ -76,8 +76,16 @@ message MasterInfo {
 	//used for returning slave lists
 	required bool isSuccess = 1;
 }
-
-
+message InformSlaves {
+	required string ip_port = 1;
+	optional string message = 2;
+}
+message ConfirmMessage {
+	required bool isSuccess = 1;
+}
+service MasterUrgentExit {
+	rpc UrgentExit(InformSlaves) returns(ConfirmMessage);
+}
 service SlaveUrgentExit {
   rpc UrgentExit(UrgentRequest) returns(UrgentResponse);
 }

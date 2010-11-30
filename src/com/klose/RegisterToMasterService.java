@@ -2,6 +2,8 @@ package com.klose;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
+
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.klose.MsConnProto.RegisterSlaveService;
@@ -72,6 +74,9 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	}
 	public static HashMap<String,SlaveEntry> getSlaveEntrys(){
 		return slaveEntrys;
+	}
+	public static Set<String> getSlavekeys() {
+		return slaveEntrys.keySet();
 	}
 	public static  boolean findSlaveEntry(String ip_port) {
 		if(slaveEntrys.containsKey(ip_port)){

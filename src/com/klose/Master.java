@@ -1,48 +1,79 @@
 package com.klose;
 
 import java.net.UnknownHostException;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.Executors;
+
+
 
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.RpcServer;
+import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
+import com.googlecode.protobuf.socketrpc.SocketRpcController;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
-import com.klose.MsConnProto.RegisterSlaveService;
+import com.klose.MsConnProto.ConfirmMessage;
+import com.klose.MsConnProto.InformSlaves;
+import com.klose.MsConnProto.MasterUrgentExit;
 
 
-public class Master{
-//	public static class RegisterServiceImpl extends RegisterSlaveService{
-//
-//		@Override
-//		public void slaveRegister(RpcController controller,
-//				SlaveRegisterRequest request,
-//				RpcCallback<SlaveRegisterResponse> done) {
-//			// TODO Auto-generated method stub
-//			// If "ip:port" doesn't exist in the record, add the slave in the list of slave.
-//			// and response; on the contrary, reform the node that it has been already established 
-//			// in the master.
-//			SlaveRegisterResponse response = SlaveRegisterResponse.newBuilder()
-//			.setIsSuccess(true).build();
-//			System.out.println(request.getIpPort());
-//			done.run(response);
-//			
-//		}
-//		
-//	}
-	public static void main(String [] args) throws UnknownHostException {
-		MasterArgsParser confParser = new MasterArgsParser(args); 
-		confParser.loadValue();
-		SocketRpcServer masterServer = new SocketRpcServer(confParser.getPort(),
-				    Executors.newFixedThreadPool(10));
-		System.out.println("Master started at "+ confParser.constructIdentity());
-		
+class MasterRpcServerThread extends Thread {
+	private MasterArgsParser confParser;
+	private SocketRpcServer masterServer;
+	public MasterRpcServerThread(MasterArgsParser confParser, SocketRpcServer masterServer) {
+		this.confParser = confParser;
+		this.masterServer = masterServer;
+	}
+	public void run() {
 		RegisterToMasterService registerToMaster = new RegisterToMasterService();
 		masterServer.registerService(registerToMaster);
 		SlaveHeartbeatService heartbeatService = new SlaveHeartbeatService();
 		masterServer.registerService(heartbeatService);
 		SlaveExitService slaveExitService = new SlaveExitService();
 		masterServer.registerService(slaveExitService);
+		
 		masterServer.run();
-		 
+	}
+}
+class ShutdownSlaveThread extends Thread {
+	private MasterArgsParser parser;
+	private Set<String> keySet = null;
+	private String slave = "";
+	ShutdownSlaveThread(MasterArgsParser parser) {
+		this.parser = parser;
+	}
+	public void run() {
+		this.keySet = RegisterToMasterService.getSlavekeys();
+		int len = this.keySet.size();
+		Iterator<String> iter = this.keySet.iterator();
+		while( iter.hasNext() ) {
+			slave = iter.next().trim();
+			String slaveIpPort[] = slave.split(":");
+			SocketRpcChannel socketRpcChannel = new SocketRpcChannel(slaveIpPort[0], Integer.parseInt(slaveIpPort[1]));
+			SocketRpcController rpcController = socketRpcChannel.newRpcController();
+			MasterUrgentExit masterExit = MasterUrgentExit.newStub(socketRpcChannel);
+			InformSlaves inform = InformSlaves.newBuilder().setIpPort(slave).build();
+			masterExit.urgentExit(rpcController, inform, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
+				public void run(ConfirmMessage response) {
+					System.out.println("Master Shutdown Slave Service--- Slave Exit handle:  "+ slave
+							+ " close the heartbeat service ---  ");
+							//+ response.getIsSuccess()  );
+				}
+			});
+		}
+	}		
+}	
+public class Master{
+	public static void main(String [] args) throws UnknownHostException {
+		MasterArgsParser confParser = new MasterArgsParser(args); 
+		confParser.loadValue();
+		SocketRpcServer masterServer = new SocketRpcServer(confParser.getPort(),
+				    Executors.newFixedThreadPool(10));
+		System.out.println("Master started at "+ confParser.constructIdentity());
+		MasterRpcServerThread masterServerThread = new MasterRpcServerThread(
+				confParser, masterServer);
+		masterServerThread.start();
+		Runtime.getRuntime().addShutdownHook(new ShutdownSlaveThread(confParser));
 	}
 }
