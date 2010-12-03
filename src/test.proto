@@ -83,6 +83,13 @@ message InformSlaves {
 message ConfirmMessage {
 	required bool isSuccess = 1;
 }
+message ExecOrder {
+	required string order = 1;
+}
+message ExecOrderResp {
+	required bool isExecuted = 1;
+	optional string result_message = 2;
+}
 service MasterUrgentExit {
 	rpc UrgentExit(InformSlaves) returns(ConfirmMessage);
 }
@@ -94,4 +101,7 @@ service RegisterSlaveService {
 }
 service HeartbeatService {
   rpc HeartbeatTrans(SlaveInfo) returns (MasterInfo);
+}
+service SlaveOrderExecutorService {
+	rpc ExecuteOrder(ExecOrder) returns (ExecOrderResp);
 }

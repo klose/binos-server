@@ -4151,6 +4151,621 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.ConfirmMessage)
   }
   
+  public static final class ExecOrder extends
+      com.google.protobuf.GeneratedMessage {
+    // Use ExecOrder.newBuilder() to construct.
+    private ExecOrder() {
+      initFields();
+    }
+    private ExecOrder(boolean noInit) {}
+    
+    private static final ExecOrder defaultInstance;
+    public static ExecOrder getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ExecOrder getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_ExecOrder_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_ExecOrder_fieldAccessorTable;
+    }
+    
+    // required string order = 1;
+    public static final int ORDER_FIELD_NUMBER = 1;
+    private boolean hasOrder;
+    private java.lang.String order_ = "";
+    public boolean hasOrder() { return hasOrder; }
+    public java.lang.String getOrder() { return order_; }
+    
+    private void initFields() {
+    }
+    public final boolean isInitialized() {
+      if (!hasOrder) return false;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasOrder()) {
+        output.writeString(1, getOrder());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasOrder()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getOrder());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.ExecOrder parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.ExecOrder parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrder parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.ExecOrder prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.ExecOrder result;
+      
+      // Construct using com.klose.MsConnProto.ExecOrder.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.ExecOrder();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.ExecOrder internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.ExecOrder();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.ExecOrder.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.ExecOrder getDefaultInstanceForType() {
+        return com.klose.MsConnProto.ExecOrder.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.ExecOrder build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.ExecOrder buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.ExecOrder buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        com.klose.MsConnProto.ExecOrder returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.ExecOrder) {
+          return mergeFrom((com.klose.MsConnProto.ExecOrder)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.ExecOrder other) {
+        if (other == com.klose.MsConnProto.ExecOrder.getDefaultInstance()) return this;
+        if (other.hasOrder()) {
+          setOrder(other.getOrder());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setOrder(input.readString());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required string order = 1;
+      public boolean hasOrder() {
+        return result.hasOrder();
+      }
+      public java.lang.String getOrder() {
+        return result.getOrder();
+      }
+      public Builder setOrder(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasOrder = true;
+        result.order_ = value;
+        return this;
+      }
+      public Builder clearOrder() {
+        result.hasOrder = false;
+        result.order_ = getDefaultInstance().getOrder();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.ExecOrder)
+    }
+    
+    static {
+      defaultInstance = new ExecOrder(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.ExecOrder)
+  }
+  
+  public static final class ExecOrderResp extends
+      com.google.protobuf.GeneratedMessage {
+    // Use ExecOrderResp.newBuilder() to construct.
+    private ExecOrderResp() {
+      initFields();
+    }
+    private ExecOrderResp(boolean noInit) {}
+    
+    private static final ExecOrderResp defaultInstance;
+    public static ExecOrderResp getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ExecOrderResp getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_ExecOrderResp_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_ExecOrderResp_fieldAccessorTable;
+    }
+    
+    // required bool isExecuted = 1;
+    public static final int ISEXECUTED_FIELD_NUMBER = 1;
+    private boolean hasIsExecuted;
+    private boolean isExecuted_ = false;
+    public boolean hasIsExecuted() { return hasIsExecuted; }
+    public boolean getIsExecuted() { return isExecuted_; }
+    
+    // optional string result_message = 2;
+    public static final int RESULT_MESSAGE_FIELD_NUMBER = 2;
+    private boolean hasResultMessage;
+    private java.lang.String resultMessage_ = "";
+    public boolean hasResultMessage() { return hasResultMessage; }
+    public java.lang.String getResultMessage() { return resultMessage_; }
+    
+    private void initFields() {
+    }
+    public final boolean isInitialized() {
+      if (!hasIsExecuted) return false;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasIsExecuted()) {
+        output.writeBool(1, getIsExecuted());
+      }
+      if (hasResultMessage()) {
+        output.writeString(2, getResultMessage());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasIsExecuted()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, getIsExecuted());
+      }
+      if (hasResultMessage()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(2, getResultMessage());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.ExecOrderResp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.ExecOrderResp prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.ExecOrderResp result;
+      
+      // Construct using com.klose.MsConnProto.ExecOrderResp.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.ExecOrderResp();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.ExecOrderResp internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.ExecOrderResp();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.ExecOrderResp.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.ExecOrderResp getDefaultInstanceForType() {
+        return com.klose.MsConnProto.ExecOrderResp.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.ExecOrderResp build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.ExecOrderResp buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.ExecOrderResp buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        com.klose.MsConnProto.ExecOrderResp returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.ExecOrderResp) {
+          return mergeFrom((com.klose.MsConnProto.ExecOrderResp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.ExecOrderResp other) {
+        if (other == com.klose.MsConnProto.ExecOrderResp.getDefaultInstance()) return this;
+        if (other.hasIsExecuted()) {
+          setIsExecuted(other.getIsExecuted());
+        }
+        if (other.hasResultMessage()) {
+          setResultMessage(other.getResultMessage());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              setIsExecuted(input.readBool());
+              break;
+            }
+            case 18: {
+              setResultMessage(input.readString());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required bool isExecuted = 1;
+      public boolean hasIsExecuted() {
+        return result.hasIsExecuted();
+      }
+      public boolean getIsExecuted() {
+        return result.getIsExecuted();
+      }
+      public Builder setIsExecuted(boolean value) {
+        result.hasIsExecuted = true;
+        result.isExecuted_ = value;
+        return this;
+      }
+      public Builder clearIsExecuted() {
+        result.hasIsExecuted = false;
+        result.isExecuted_ = false;
+        return this;
+      }
+      
+      // optional string result_message = 2;
+      public boolean hasResultMessage() {
+        return result.hasResultMessage();
+      }
+      public java.lang.String getResultMessage() {
+        return result.getResultMessage();
+      }
+      public Builder setResultMessage(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasResultMessage = true;
+        result.resultMessage_ = value;
+        return this;
+      }
+      public Builder clearResultMessage() {
+        result.hasResultMessage = false;
+        result.resultMessage_ = getDefaultInstance().getResultMessage();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.ExecOrderResp)
+    }
+    
+    static {
+      defaultInstance = new ExecOrderResp(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.ExecOrderResp)
+  }
+  
   public static abstract class MasterUrgentExit
       implements com.google.protobuf.Service {
     protected MasterUrgentExit() {}
@@ -5035,6 +5650,227 @@ public final class MsConnProto {
     }
   }
   
+  public static abstract class SlaveOrderExecutorService
+      implements com.google.protobuf.Service {
+    protected SlaveOrderExecutorService() {}
+    
+    public interface Interface {
+      public abstract void executeOrder(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.ExecOrder request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ExecOrderResp> done);
+      
+    }
+    
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new SlaveOrderExecutorService() {
+        @Override
+        public  void executeOrder(
+            com.google.protobuf.RpcController controller,
+            com.klose.MsConnProto.ExecOrder request,
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.ExecOrderResp> done) {
+          impl.executeOrder(controller, request, done);
+        }
+        
+      };
+    }
+    
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.executeOrder(controller, (com.klose.MsConnProto.ExecOrder)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.ExecOrder.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.ExecOrderResp.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+      };
+    }
+    
+    public abstract void executeOrder(
+        com.google.protobuf.RpcController controller,
+        com.klose.MsConnProto.ExecOrder request,
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.ExecOrderResp> done);
+    
+    public static final
+        com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.getDescriptor().getServices().get(4);
+    }
+    public final com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    
+    public final void callMethod(
+        com.google.protobuf.Descriptors.MethodDescriptor method,
+        com.google.protobuf.RpcController controller,
+        com.google.protobuf.Message request,
+        com.google.protobuf.RpcCallback<
+          com.google.protobuf.Message> done) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.callMethod() given method descriptor for wrong " +
+          "service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          this.executeOrder(controller, (com.klose.MsConnProto.ExecOrder)request,
+            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.ExecOrderResp>specializeCallback(
+              done));
+          return;
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getRequestPrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getRequestPrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.ExecOrder.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getResponsePrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getResponsePrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.ExecOrderResp.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public static Stub newStub(
+        com.google.protobuf.RpcChannel channel) {
+      return new Stub(channel);
+    }
+    
+    public static final class Stub extends com.klose.MsConnProto.SlaveOrderExecutorService implements Interface {
+      private Stub(com.google.protobuf.RpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.RpcChannel channel;
+      
+      public com.google.protobuf.RpcChannel getChannel() {
+        return channel;
+      }
+      
+      public  void executeOrder(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.ExecOrder request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ExecOrderResp> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.ExecOrderResp.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.klose.MsConnProto.ExecOrderResp.class,
+            com.klose.MsConnProto.ExecOrderResp.getDefaultInstance()));
+      }
+    }
+    
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+    
+    public interface BlockingInterface {
+      public com.klose.MsConnProto.ExecOrderResp executeOrder(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.ExecOrder request)
+          throws com.google.protobuf.ServiceException;
+    }
+    
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.BlockingRpcChannel channel;
+      
+      public com.klose.MsConnProto.ExecOrderResp executeOrder(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.ExecOrder request)
+          throws com.google.protobuf.ServiceException {
+        return (com.klose.MsConnProto.ExecOrderResp) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.ExecOrderResp.getDefaultInstance());
+      }
+      
+    }
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_UrgentRequest_descriptor;
   private static
@@ -5090,6 +5926,16 @@ public final class MsConnProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_ConfirmMessage_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_ExecOrder_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_ExecOrder_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_ExecOrderResp_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_ExecOrderResp_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5120,16 +5966,21 @@ public final class MsConnProto {
       "type\030\007 \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 " +
       "\002(\010\"0\n\014InformSlaves\022\017\n\007ip_port\030\001 \002(\t\022\017\n\007",
       "message\030\002 \001(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
-      "cess\030\001 \002(\0102T\n\020MasterUrgentExit\022@\n\nUrgent" +
-      "Exit\022\027.com.klose.InformSlaves\032\031.com.klos" +
-      "e.ConfirmMessage2T\n\017SlaveUrgentExit\022A\n\nU" +
-      "rgentExit\022\030.com.klose.UrgentRequest\032\031.co" +
-      "m.klose.UrgentResponse2g\n\024RegisterSlaveS" +
-      "ervice\022O\n\rSlaveRegister\022\034.com.klose.Slav" +
-      "eRegisterInfo\032 .com.klose.SlaveRegisterR" +
-      "esponse2Q\n\020HeartbeatService\022=\n\016Heartbeat" +
-      "Trans\022\024.com.klose.SlaveInfo\032\025.com.klose.",
-      "MasterInfoB\030\n\tcom.kloseB\013MsConnProto"
+      "cess\030\001 \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";" +
+      "\n\rExecOrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016r" +
+      "esult_message\030\002 \001(\t2T\n\020MasterUrgentExit\022" +
+      "@\n\nUrgentExit\022\027.com.klose.InformSlaves\032\031" +
+      ".com.klose.ConfirmMessage2T\n\017SlaveUrgent" +
+      "Exit\022A\n\nUrgentExit\022\030.com.klose.UrgentReq" +
+      "uest\032\031.com.klose.UrgentResponse2g\n\024Regis" +
+      "terSlaveService\022O\n\rSlaveRegister\022\034.com.k" +
+      "lose.SlaveRegisterInfo\032 .com.klose.Slave",
+      "RegisterResponse2Q\n\020HeartbeatService\022=\n\016" +
+      "HeartbeatTrans\022\024.com.klose.SlaveInfo\032\025.c" +
+      "om.klose.MasterInfo2[\n\031SlaveOrderExecuto" +
+      "rService\022>\n\014ExecuteOrder\022\024.com.klose.Exe" +
+      "cOrder\032\030.com.klose.ExecOrderRespB\030\n\tcom." +
+      "kloseB\013MsConnProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -5224,6 +6075,22 @@ public final class MsConnProto {
               new java.lang.String[] { "IsSuccess", },
               com.klose.MsConnProto.ConfirmMessage.class,
               com.klose.MsConnProto.ConfirmMessage.Builder.class);
+          internal_static_com_klose_ExecOrder_descriptor =
+            getDescriptor().getMessageTypes().get(8);
+          internal_static_com_klose_ExecOrder_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_ExecOrder_descriptor,
+              new java.lang.String[] { "Order", },
+              com.klose.MsConnProto.ExecOrder.class,
+              com.klose.MsConnProto.ExecOrder.Builder.class);
+          internal_static_com_klose_ExecOrderResp_descriptor =
+            getDescriptor().getMessageTypes().get(9);
+          internal_static_com_klose_ExecOrderResp_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_ExecOrderResp_descriptor,
+              new java.lang.String[] { "IsExecuted", "ResultMessage", },
+              com.klose.MsConnProto.ExecOrderResp.class,
+              com.klose.MsConnProto.ExecOrderResp.Builder.class);
           return null;
         }
       };
