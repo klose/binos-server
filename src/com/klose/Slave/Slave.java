@@ -1,11 +1,16 @@
 package com.klose.Slave;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hyperic.sigar.SigarException;
 
 import com.google.protobuf.RpcCallback;
+import com.googlecode.protobuf.socketrpc.RpcServer;
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
 import com.googlecode.protobuf.socketrpc.SocketRpcController;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
@@ -35,6 +40,7 @@ class SlaveSendHeartbeatThread extends Thread {
 	private SocketRpcChannel channel;
 	private SocketRpcController controller;
 	private boolean masterReply = false;
+	private static final Logger LOG = Logger.getLogger(SlaveSendHeartbeatThread.class.getName());
 	SlaveSendHeartbeatThread(SlaveArgsParser parser, SocketRpcChannel channel, SocketRpcController controller) {
 		this.parser = parser;
 		this.channel = channel;
@@ -50,6 +56,17 @@ class SlaveSendHeartbeatThread extends Thread {
 		//send heartbeat message periodically 'interval time:5 seconds'.
 		while(true) {
 			try {
+				try {
+					Socket tests = new Socket(parser.getMasterIp(), parser.getMasterPort());
+					tests.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					LOG.log(Level.SEVERE, "Severe error: can't connect to "
+							+parser.getMasterIp()+":"+parser.getMasterPort()  
+							+ ", waitting for another Master.", e.getMessage());
+					Slave.registerSuccess = false;
+					this.suspend();
+				}
 				SlaveInfo heartbeatInfo;
 				heartbeatInfo = getSlaveInfo(parser.getIp_port(), parser.getWorkDir());
 				sendHeartbeat.heartbeatTrans(controller, heartbeatInfo, new RpcCallback<MasterInfo>(){
@@ -57,17 +74,20 @@ class SlaveSendHeartbeatThread extends Thread {
 					public void run(MasterInfo response) {
 						// TODO Auto-generated method stub
 						masterReply = response.getIsSuccess();
-						System.out.println("heartbeatSuccess = "+masterReply);
+						LOG.info("LOG:heartbeatSuccess = "+masterReply);
 					}
 					});
 				this.sleep(5000);
 			} catch (SigarException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.log(Level.WARNING, "Error while generate the system Information reporter.", e.getClass().getName());				
+				//e.printStackTrace();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			} catch (Exception e) {
+				LOG.log(Level.SEVERE, "Error while send heartbeat info.", e.toString());
+			}
 			
 		}
 	}
@@ -101,34 +121,57 @@ class ShutdownThread extends Thread {
 }	
 public class Slave {
 	//public
-	public static boolean registerSuccess = false;
+	private static final Logger LOG = Logger.getLogger(Slave.class.getName());
+	public static volatile boolean registerSuccess = false;
 	public static boolean heartbeatSuccess = false;
-	public static void main(String [] args) throws UnknownHostException, SigarException{
-		
+	public static void main(String [] args) throws SigarException, UnknownHostException, IOException{
+	
 		SlaveArgsParser confParser = new SlaveArgsParser(args);
-		confParser.loadValue();
-		
+		try {
+			confParser.loadValue();
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOG.log(Level.WARNING, "Error while parse the arguments.", e);
+		}
 		/*RPC server which is responsible for Master's remote execution service*/
 		SocketRpcServer slaveServer = new SocketRpcServer(confParser.getPort(),
 			    Executors.newFixedThreadPool(5));
 		
+		try {
+			Socket tests = new Socket(confParser.getMasterIp(), confParser.getMasterPort());
+			tests.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			LOG.log(Level.SEVERE, "Severe error: can't connect to "
+					+confParser.getMasterIp()+":"+confParser.getMasterPort(), e.getMessage());
+			System.exit(1);
+		}
+		
 		/*RPC client channel*/
-		SocketRpcChannel socketRpcChannel = new SocketRpcChannel(confParser.getMasterIp(), confParser.getMasterPort());
-		SocketRpcController rpcController = socketRpcChannel.newRpcController();
-		
-		/*register to Master service*/
-		RegisterSlaveService registerToMaster = RegisterSlaveService.newStub(socketRpcChannel);
-		SlaveRegisterInfo registerToMasterRequest =  com.klose.MsConnProto.SlaveRegisterInfo.newBuilder()
-		.setIpPort(confParser.getIp_port()).setState(0).build();
-		registerToMaster.slaveRegister(rpcController, registerToMasterRequest, 
-				new RpcCallback<SlaveRegisterResponse>(){
-					@Override
-					public void run(SlaveRegisterResponse response) {
-						// TODO Auto-generated method stub
-						registerSuccess = response.getIsSuccess();
-					}
-			});
-		
+		SocketRpcChannel socketRpcChannel;
+		SocketRpcController rpcController;
+		socketRpcChannel = new SocketRpcChannel(confParser.getMasterIp(), confParser.getMasterPort());
+		rpcController = socketRpcChannel.newRpcController();
+			
+			
+			
+			/*register to Master service*/
+			
+			
+			RegisterSlaveService registerToMaster = RegisterSlaveService.newStub(socketRpcChannel);
+			SlaveRegisterInfo registerToMasterRequest =  com.klose.MsConnProto.SlaveRegisterInfo.newBuilder()
+			.setIpPort(confParser.getIp_port()).setState(0).build();
+			registerToMaster.slaveRegister(rpcController, registerToMasterRequest, 
+					new RpcCallback<SlaveRegisterResponse>(){
+						@Override
+						public void run(SlaveRegisterResponse response) {
+							// TODO Auto-generated method stub
+							if(response != null) {
+								registerSuccess = response.getIsSuccess();
+							}
+						}
+				});
+			
 		/*If the service of registering to master is successful, it will start the SlaveRPCServerThread
 		 * and SlaveSendHeartbeatThread. It also provides the hooks of shutdown. .*/
 		if(registerSuccess) {
@@ -136,15 +179,15 @@ public class Slave {
 			slaveThreadServer.start();
 			SlaveSendHeartbeatThread sendHeartbeat = new SlaveSendHeartbeatThread(confParser, socketRpcChannel, rpcController);
 			sendHeartbeat.start();
-			MasterExitService masterExitService = new MasterExitService(confParser, sendHeartbeat);
-			slaveServer.registerService(masterExitService);
+			//MasterExitService masterExitService = new MasterExitService(confParser, sendHeartbeat);
+			//slaveServer.registerService(masterExitService);
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
-			//slaveServer.registerService(new SlaveOrderService());
+		
 		}
 		else {
 			System.out.println("Slave can't register to Master.\n");
 			System.exit(1);
 		}		
-	} 
+	}
 	
 }
