@@ -33,7 +33,6 @@ public class MasterExitService extends MasterUrgentExit{
 			hbThread.stop();
 			Slave.registerSuccess = false;
 		}
-		done.run(confirm);
 	}
 	
 }

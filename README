@@ -1,0 +1,17 @@
+*************************Revise****************************
+In order to check the Master socket is alive, every action from Slave will launch a temporary socket link beforesending heartbeat periodically.However,Protobuf-socket-rpc consider this probe unsafe, and add WARNING in logs like below.
+Dec 9, 2010 10:32:03 AM com.googlecode.protobuf.socketrpc.RpcServer$ConnectionHandler handleError
+WARNING: BAD_REQUEST_DATA: Invalid request from client
+There is a conflict between a safe check and a warning, So ignoring prior decision is only choice currently.
+########RpcServer.java###############
+216: if (!builder.isInitialized()) {
+217:          //sendResponse(handleError("Invalid request from client",
+218:            //  ErrorReason.BAD_REQUEST_DATA, null));
+219:          return;
+Just annotate the 217 and 218 comparing to prior version.
+
+
+
+
+
+If you meet troubles with our project, please email jiangbing@ict.ac.cn 
