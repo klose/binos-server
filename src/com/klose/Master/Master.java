@@ -4,9 +4,6 @@ import java.net.UnknownHostException;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Executors;
-
-
-
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.RpcServer;
@@ -36,7 +33,6 @@ class MasterRpcServerThread extends Thread {
 		//this simple order executor is initial version.
 		SimpleOrderExecService soes = new SimpleOrderExecService(); 
 		masterServer.registerService(soes);
-		
 		masterServer.run();
 	}
 }
@@ -55,13 +51,13 @@ class ShutdownSlaveThread extends Thread {
 	public void run() {
 		this.server.shutDown();
 	}
-	
 //	public void run() {
 //		this.keySet = RegisterToMasterService.getSlavekeys();
 //		Iterator<String> iter = this.keySet.iterator();
 //		while( iter.hasNext() ) {
 //			slave = iter.next().trim();
 //			String slaveIpPort[] = slave.split(":");
+	
 //			SocketRpcChannel socketRpcChannel = new SocketRpcChannel(slaveIpPort[0], Integer.parseInt(slaveIpPort[1]));
 //			SocketRpcController rpcController = socketRpcChannel.newRpcController();
 //			

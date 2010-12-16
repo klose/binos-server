@@ -41,8 +41,8 @@ public class SimpleOrderExecService extends SlaveOrderExecutorService{
 							.setResultMessage("Error: the order that needs to be executed " +
 									"does not exist.").build();
 			done.run(error);
-			return;
 		}
+		
 		else {
 			distributeExecOrder();
 			assembleAllRet();

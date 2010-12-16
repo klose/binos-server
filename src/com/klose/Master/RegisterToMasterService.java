@@ -2,6 +2,8 @@ package com.klose.Master;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
@@ -11,10 +13,12 @@ import com.klose.MsConnProto.SlaveRegisterResponse;
 /*
  * RegisterToMasterService  is code of master.
  * */
+import com.klose.Slave.Slave;
 
 
 public class RegisterToMasterService extends RegisterSlaveService{
 
+	private static final Logger LOG = Logger.getLogger(RegisterToMasterService.class.getName()); 
 	private static HashMap<String,SlaveEntry> slaveEntrys = new HashMap<String,SlaveEntry> ();
 	private static SlaveRegisterResponse response ;
 	@Override
@@ -26,13 +30,25 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		// and response; on the contrary, reform the node that it has been already established 
 		// in the master.
 		
-		System.out.println(request.getIpPort() + " register.");
-		
+		String ipPort = request.getIpPort();
+		if(slaveEntrys.containsKey(ipPort)) {
+			response = SlaveRegisterResponse.newBuilder()
+			.setIsSuccess(false).build();
+			LOG.log(Level.INFO, ipPort+" has already registered with the master.");
+		}
+		else {
 		/*fault tolerance is undone, please check whehter "ip:port" is validate.*/
 	    /*!!!!!!!!!!!!please add checked code.*/
-		
-		response = SlaveRegisterResponse.newBuilder()
-		.setIsSuccess(addSlaveEntry(request)).build();
+			boolean oper_tmp = addSlaveEntry(request);
+			response = SlaveRegisterResponse.newBuilder()
+			.setIsSuccess(oper_tmp).build();
+			if(oper_tmp) {
+				LOG.log(Level.INFO, ipPort+" registers with the master.");
+			}
+			else {
+				LOG.log(Level.INFO, ipPort+ " cannot registers with the master.");
+			}
+		}
 		done.run(response);
 	}
 	/**

@@ -4,7 +4,11 @@ import java.io.File;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import com.klose.Master.RegisterToMasterService;
 
 public class SlaveArgsParser {
 	private String masterIp = ""; 
@@ -13,7 +17,8 @@ public class SlaveArgsParser {
 	private String ip_port = ""; //the ip of slave node
 	private String workDir = "/tmp"; 
 	private int state = 0; // 
-
+	private boolean necessaryArgsExist = false; //identify whether all the arguments exist.
+	private static final Logger LOG = Logger.getLogger(SlaveArgsParser.class.getName());
 	private String [] args_;
 	
 	SlaveArgsParser(String [] args){
@@ -100,6 +105,7 @@ public class SlaveArgsParser {
 						String url_1 = url.trim().split("@")[1];
 						this.setMasterIp( (url_1.split(":"))[0].trim());
 						this.setMasterPort(Integer.parseInt((url_1.split(":"))[1].trim()));
+						this.necessaryArgsExist = true;
 				}
 				else if(Pattern.matches(portRegex, tmp.trim())) {
 					this.setPort(Integer.parseInt(
@@ -127,7 +133,13 @@ public class SlaveArgsParser {
 					printUsage();
 				}	
 			}
-			this.setIp_port(Inet4Address.getLocalHost().getHostAddress() +":"+this.getPort());
+			if(this.necessaryArgsExist) {
+				this.setIp_port(Inet4Address.getLocalHost().getHostAddress() +":"+this.getPort());
+			}
+			else {
+				LOG.log(Level.SEVERE, "'--url=VAL' doesn't exist.");
+				printUsage();
+			}
 		}
 	}
 }

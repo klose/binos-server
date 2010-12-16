@@ -185,7 +185,8 @@ public class Slave {
 		
 		}
 		else {
-			System.out.println("Slave can't register to Master.\n");
+			System.out.println("Slave can't register to Master,\n" +
+					"please check the state of Master alive and the port of Slave available.");
 			System.exit(1);
 		}		
 	}
