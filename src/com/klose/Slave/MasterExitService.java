@@ -6,7 +6,9 @@ import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.InformSlaves;
 import com.klose.MsConnProto.MasterUrgentExit;
 
+//The class of MasterExitService is deprecated.
 /**
+ * 
  * MasterExitService: inform all the slaves that master is going to crash.
  * The service is registered by Slave rpc server.
  * @author Bing Jiang

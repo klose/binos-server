@@ -90,6 +90,7 @@ message ExecOrderResp {
 	required bool isExecuted = 1;
 	optional string result_message = 2;
 }
+//The MasterUrgentExit is deprecated.
 service MasterUrgentExit {
 	rpc UrgentExit(InformSlaves) returns(ConfirmMessage);
 }
