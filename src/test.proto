@@ -35,6 +35,9 @@ message UrgentResponse {
   required bool is_success = 1;
   optional string str_data = 2;
 }
+message TransformXMLPath {
+	required string path = 1;
+}
 message SlaveRegisterInfo {
 	required string ip_port = 1;
 	optional int32 state = 2;
@@ -83,9 +86,11 @@ message InformSlaves {
 message ConfirmMessage {
 	required bool isSuccess = 1;
 }
+//ExecOrder is not used temporarily.
 message ExecOrder {
 	required string order = 1;
 }
+//ExecOrderResp is not used temporarily.
 message ExecOrderResp {
 	required bool isExecuted = 1;
 	optional string result_message = 2;
@@ -103,6 +108,10 @@ service RegisterSlaveService {
 service HeartbeatService {
   rpc HeartbeatTrans(SlaveInfo) returns (MasterInfo);
 }
+//The service is not offered to use.
 service SlaveOrderExecutorService {
 	rpc ExecuteOrder(ExecOrder) returns (ExecOrderResp);
+}
+service XMLPathTransService {
+	rpc xmlTrans(TransformXMLPath) returns (ConfirmMessage);
 }

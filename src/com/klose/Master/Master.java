@@ -29,7 +29,8 @@ class MasterRpcServerThread extends Thread {
 		masterServer.registerService(heartbeatService);
 		SlaveExitService slaveExitService = new SlaveExitService();
 		masterServer.registerService(slaveExitService);		
-		
+		TaskXMLCollector collector = new TaskXMLCollector();
+		masterServer.registerService(collector);
 		//this simple order executor is initial version.
 		SimpleOrderExecService soes = new SimpleOrderExecService(); 
 		masterServer.registerService(soes);

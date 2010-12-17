@@ -623,6 +623,294 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.UrgentResponse)
   }
   
+  public static final class TransformXMLPath extends
+      com.google.protobuf.GeneratedMessage {
+    // Use TransformXMLPath.newBuilder() to construct.
+    private TransformXMLPath() {
+      initFields();
+    }
+    private TransformXMLPath(boolean noInit) {}
+    
+    private static final TransformXMLPath defaultInstance;
+    public static TransformXMLPath getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public TransformXMLPath getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_TransformXMLPath_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_TransformXMLPath_fieldAccessorTable;
+    }
+    
+    // required string path = 1;
+    public static final int PATH_FIELD_NUMBER = 1;
+    private boolean hasPath;
+    private java.lang.String path_ = "";
+    public boolean hasPath() { return hasPath; }
+    public java.lang.String getPath() { return path_; }
+    
+    private void initFields() {
+    }
+    public final boolean isInitialized() {
+      if (!hasPath) return false;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasPath()) {
+        output.writeString(1, getPath());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasPath()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getPath());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TransformXMLPath parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.TransformXMLPath prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.TransformXMLPath result;
+      
+      // Construct using com.klose.MsConnProto.TransformXMLPath.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.TransformXMLPath();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.TransformXMLPath internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.TransformXMLPath();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.TransformXMLPath.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.TransformXMLPath getDefaultInstanceForType() {
+        return com.klose.MsConnProto.TransformXMLPath.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.TransformXMLPath build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.TransformXMLPath buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.TransformXMLPath buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        com.klose.MsConnProto.TransformXMLPath returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.TransformXMLPath) {
+          return mergeFrom((com.klose.MsConnProto.TransformXMLPath)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.TransformXMLPath other) {
+        if (other == com.klose.MsConnProto.TransformXMLPath.getDefaultInstance()) return this;
+        if (other.hasPath()) {
+          setPath(other.getPath());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setPath(input.readString());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required string path = 1;
+      public boolean hasPath() {
+        return result.hasPath();
+      }
+      public java.lang.String getPath() {
+        return result.getPath();
+      }
+      public Builder setPath(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasPath = true;
+        result.path_ = value;
+        return this;
+      }
+      public Builder clearPath() {
+        result.hasPath = false;
+        result.path_ = getDefaultInstance().getPath();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.TransformXMLPath)
+    }
+    
+    static {
+      defaultInstance = new TransformXMLPath(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.TransformXMLPath)
+  }
+  
   public static final class SlaveRegisterInfo extends
       com.google.protobuf.GeneratedMessage {
     // Use SlaveRegisterInfo.newBuilder() to construct.
@@ -5871,6 +6159,227 @@ public final class MsConnProto {
     }
   }
   
+  public static abstract class XMLPathTransService
+      implements com.google.protobuf.Service {
+    protected XMLPathTransService() {}
+    
+    public interface Interface {
+      public abstract void xmlTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TransformXMLPath request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done);
+      
+    }
+    
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new XMLPathTransService() {
+        @Override
+        public  void xmlTrans(
+            com.google.protobuf.RpcController controller,
+            com.klose.MsConnProto.TransformXMLPath request,
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done) {
+          impl.xmlTrans(controller, request, done);
+        }
+        
+      };
+    }
+    
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.xmlTrans(controller, (com.klose.MsConnProto.TransformXMLPath)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.TransformXMLPath.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.ConfirmMessage.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+      };
+    }
+    
+    public abstract void xmlTrans(
+        com.google.protobuf.RpcController controller,
+        com.klose.MsConnProto.TransformXMLPath request,
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done);
+    
+    public static final
+        com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.getDescriptor().getServices().get(5);
+    }
+    public final com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    
+    public final void callMethod(
+        com.google.protobuf.Descriptors.MethodDescriptor method,
+        com.google.protobuf.RpcController controller,
+        com.google.protobuf.Message request,
+        com.google.protobuf.RpcCallback<
+          com.google.protobuf.Message> done) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.callMethod() given method descriptor for wrong " +
+          "service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          this.xmlTrans(controller, (com.klose.MsConnProto.TransformXMLPath)request,
+            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.ConfirmMessage>specializeCallback(
+              done));
+          return;
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getRequestPrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getRequestPrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.TransformXMLPath.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getResponsePrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getResponsePrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.ConfirmMessage.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public static Stub newStub(
+        com.google.protobuf.RpcChannel channel) {
+      return new Stub(channel);
+    }
+    
+    public static final class Stub extends com.klose.MsConnProto.XMLPathTransService implements Interface {
+      private Stub(com.google.protobuf.RpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.RpcChannel channel;
+      
+      public com.google.protobuf.RpcChannel getChannel() {
+        return channel;
+      }
+      
+      public  void xmlTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TransformXMLPath request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.ConfirmMessage.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.klose.MsConnProto.ConfirmMessage.class,
+            com.klose.MsConnProto.ConfirmMessage.getDefaultInstance()));
+      }
+    }
+    
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+    
+    public interface BlockingInterface {
+      public com.klose.MsConnProto.ConfirmMessage xmlTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TransformXMLPath request)
+          throws com.google.protobuf.ServiceException;
+    }
+    
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.BlockingRpcChannel channel;
+      
+      public com.klose.MsConnProto.ConfirmMessage xmlTrans(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TransformXMLPath request)
+          throws com.google.protobuf.ServiceException {
+        return (com.klose.MsConnProto.ConfirmMessage) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.ConfirmMessage.getDefaultInstance());
+      }
+      
+    }
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_UrgentRequest_descriptor;
   private static
@@ -5881,6 +6390,11 @@ public final class MsConnProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_UrgentResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_TransformXMLPath_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_TransformXMLPath_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_SlaveRegisterInfo_descriptor;
   private static
@@ -5947,40 +6461,43 @@ public final class MsConnProto {
     java.lang.String[] descriptorData = {
       "\n\ntest.proto\022\tcom.klose\"!\n\rUrgentRequest" +
       "\022\020\n\010str_data\030\001 \002(\t\"6\n\016UrgentResponse\022\022\n\n" +
-      "is_success\030\001 \002(\010\022\020\n\010str_data\030\002 \001(\t\"Z\n\021Sl" +
-      "aveRegisterInfo\022\017\n\007ip_port\030\001 \002(\t\022\r\n\005stat" +
-      "e\030\002 \001(\005\022\022\n\nlogin_time\030\003 \001(\t\022\021\n\texit_time" +
-      "\030\004 \001(\t\"*\n\025SlaveRegisterResponse\022\021\n\tisSuc" +
-      "cess\030\001 \002(\010\"\335\003\n\tSlaveInfo\022\017\n\007ip_port\030\001 \002(" +
-      "\t\022\020\n\010work_dir\030\002 \002(\t\022.\n\010cpu_info\030\003 \002(\0132\034." +
-      "com.klose.SlaveInfo.cpuInfo\022.\n\010mem_info\030" +
-      "\004 \002(\0132\034.com.klose.SlaveInfo.memInfo\0220\n\td",
-      "isk_info\030\005 \003(\0132\035.com.klose.SlaveInfo.dis" +
-      "kInfo\032b\n\007cpuInfo\022\016\n\006vendor\030\001 \002(\t\022\r\n\005mode" +
-      "l\030\002 \002(\t\022\013\n\003mhz\030\004 \002(\t\022\022\n\ntotal_cpus\030\005 \002(\t" +
-      "\022\027\n\017total_idle_time\030\006 \002(\t\032<\n\007memInfo\022\024\n\014" +
-      "total_memory\030\001 \002(\t\022\014\n\004used\030\002 \002(\t\022\r\n\005avai" +
-      "l\030\004 \002(\t\032y\n\010diskInfo\022\020\n\010dev_name\030\001 \002(\t\022\014\n" +
-      "\004size\030\002 \002(\t\022\014\n\004used\030\003 \002(\t\022\r\n\005avail\030\004 \002(\t" +
-      "\022\020\n\010used_pct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004" +
-      "type\030\007 \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 " +
-      "\002(\010\"0\n\014InformSlaves\022\017\n\007ip_port\030\001 \002(\t\022\017\n\007",
-      "message\030\002 \001(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
-      "cess\030\001 \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";" +
-      "\n\rExecOrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016r" +
-      "esult_message\030\002 \001(\t2T\n\020MasterUrgentExit\022" +
-      "@\n\nUrgentExit\022\027.com.klose.InformSlaves\032\031" +
-      ".com.klose.ConfirmMessage2T\n\017SlaveUrgent" +
-      "Exit\022A\n\nUrgentExit\022\030.com.klose.UrgentReq" +
-      "uest\032\031.com.klose.UrgentResponse2g\n\024Regis" +
-      "terSlaveService\022O\n\rSlaveRegister\022\034.com.k" +
-      "lose.SlaveRegisterInfo\032 .com.klose.Slave",
-      "RegisterResponse2Q\n\020HeartbeatService\022=\n\016" +
-      "HeartbeatTrans\022\024.com.klose.SlaveInfo\032\025.c" +
-      "om.klose.MasterInfo2[\n\031SlaveOrderExecuto" +
-      "rService\022>\n\014ExecuteOrder\022\024.com.klose.Exe" +
-      "cOrder\032\030.com.klose.ExecOrderRespB\030\n\tcom." +
-      "kloseB\013MsConnProto"
+      "is_success\030\001 \002(\010\022\020\n\010str_data\030\002 \001(\t\" \n\020Tr" +
+      "ansformXMLPath\022\014\n\004path\030\001 \002(\t\"Z\n\021SlaveReg" +
+      "isterInfo\022\017\n\007ip_port\030\001 \002(\t\022\r\n\005state\030\002 \001(" +
+      "\005\022\022\n\nlogin_time\030\003 \001(\t\022\021\n\texit_time\030\004 \001(\t" +
+      "\"*\n\025SlaveRegisterResponse\022\021\n\tisSuccess\030\001" +
+      " \002(\010\"\335\003\n\tSlaveInfo\022\017\n\007ip_port\030\001 \002(\t\022\020\n\010w" +
+      "ork_dir\030\002 \002(\t\022.\n\010cpu_info\030\003 \002(\0132\034.com.kl" +
+      "ose.SlaveInfo.cpuInfo\022.\n\010mem_info\030\004 \002(\0132",
+      "\034.com.klose.SlaveInfo.memInfo\0220\n\tdisk_in" +
+      "fo\030\005 \003(\0132\035.com.klose.SlaveInfo.diskInfo\032" +
+      "b\n\007cpuInfo\022\016\n\006vendor\030\001 \002(\t\022\r\n\005model\030\002 \002(" +
+      "\t\022\013\n\003mhz\030\004 \002(\t\022\022\n\ntotal_cpus\030\005 \002(\t\022\027\n\017to" +
+      "tal_idle_time\030\006 \002(\t\032<\n\007memInfo\022\024\n\014total_" +
+      "memory\030\001 \002(\t\022\014\n\004used\030\002 \002(\t\022\r\n\005avail\030\004 \002(" +
+      "\t\032y\n\010diskInfo\022\020\n\010dev_name\030\001 \002(\t\022\014\n\004size\030" +
+      "\002 \002(\t\022\014\n\004used\030\003 \002(\t\022\r\n\005avail\030\004 \002(\t\022\020\n\010us" +
+      "ed_pct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004type\030\007" +
+      " \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 \002(\010\"0\n",
+      "\014InformSlaves\022\017\n\007ip_port\030\001 \002(\t\022\017\n\007messag" +
+      "e\030\002 \001(\t\"#\n\016ConfirmMessage\022\021\n\tisSuccess\030\001" +
+      " \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";\n\rExec" +
+      "OrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016result_" +
+      "message\030\002 \001(\t2T\n\020MasterUrgentExit\022@\n\nUrg" +
+      "entExit\022\027.com.klose.InformSlaves\032\031.com.k" +
+      "lose.ConfirmMessage2T\n\017SlaveUrgentExit\022A" +
+      "\n\nUrgentExit\022\030.com.klose.UrgentRequest\032\031" +
+      ".com.klose.UrgentResponse2g\n\024RegisterSla" +
+      "veService\022O\n\rSlaveRegister\022\034.com.klose.S",
+      "laveRegisterInfo\032 .com.klose.SlaveRegist" +
+      "erResponse2Q\n\020HeartbeatService\022=\n\016Heartb" +
+      "eatTrans\022\024.com.klose.SlaveInfo\032\025.com.klo" +
+      "se.MasterInfo2[\n\031SlaveOrderExecutorServi" +
+      "ce\022>\n\014ExecuteOrder\022\024.com.klose.ExecOrder" +
+      "\032\030.com.klose.ExecOrderResp2Y\n\023XMLPathTra" +
+      "nsService\022B\n\010xmlTrans\022\033.com.klose.Transf" +
+      "ormXMLPath\032\031.com.klose.ConfirmMessageB\030\n" +
+      "\tcom.kloseB\013MsConnProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6003,8 +6520,16 @@ public final class MsConnProto {
               new java.lang.String[] { "IsSuccess", "StrData", },
               com.klose.MsConnProto.UrgentResponse.class,
               com.klose.MsConnProto.UrgentResponse.Builder.class);
-          internal_static_com_klose_SlaveRegisterInfo_descriptor =
+          internal_static_com_klose_TransformXMLPath_descriptor =
             getDescriptor().getMessageTypes().get(2);
+          internal_static_com_klose_TransformXMLPath_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_TransformXMLPath_descriptor,
+              new java.lang.String[] { "Path", },
+              com.klose.MsConnProto.TransformXMLPath.class,
+              com.klose.MsConnProto.TransformXMLPath.Builder.class);
+          internal_static_com_klose_SlaveRegisterInfo_descriptor =
+            getDescriptor().getMessageTypes().get(3);
           internal_static_com_klose_SlaveRegisterInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_SlaveRegisterInfo_descriptor,
@@ -6012,7 +6537,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.SlaveRegisterInfo.class,
               com.klose.MsConnProto.SlaveRegisterInfo.Builder.class);
           internal_static_com_klose_SlaveRegisterResponse_descriptor =
-            getDescriptor().getMessageTypes().get(3);
+            getDescriptor().getMessageTypes().get(4);
           internal_static_com_klose_SlaveRegisterResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_SlaveRegisterResponse_descriptor,
@@ -6020,7 +6545,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.SlaveRegisterResponse.class,
               com.klose.MsConnProto.SlaveRegisterResponse.Builder.class);
           internal_static_com_klose_SlaveInfo_descriptor =
-            getDescriptor().getMessageTypes().get(4);
+            getDescriptor().getMessageTypes().get(5);
           internal_static_com_klose_SlaveInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_SlaveInfo_descriptor,
@@ -6052,7 +6577,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.SlaveInfo.diskInfo.class,
               com.klose.MsConnProto.SlaveInfo.diskInfo.Builder.class);
           internal_static_com_klose_MasterInfo_descriptor =
-            getDescriptor().getMessageTypes().get(5);
+            getDescriptor().getMessageTypes().get(6);
           internal_static_com_klose_MasterInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_MasterInfo_descriptor,
@@ -6060,7 +6585,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.MasterInfo.class,
               com.klose.MsConnProto.MasterInfo.Builder.class);
           internal_static_com_klose_InformSlaves_descriptor =
-            getDescriptor().getMessageTypes().get(6);
+            getDescriptor().getMessageTypes().get(7);
           internal_static_com_klose_InformSlaves_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_InformSlaves_descriptor,
@@ -6068,7 +6593,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.InformSlaves.class,
               com.klose.MsConnProto.InformSlaves.Builder.class);
           internal_static_com_klose_ConfirmMessage_descriptor =
-            getDescriptor().getMessageTypes().get(7);
+            getDescriptor().getMessageTypes().get(8);
           internal_static_com_klose_ConfirmMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ConfirmMessage_descriptor,
@@ -6076,7 +6601,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ConfirmMessage.class,
               com.klose.MsConnProto.ConfirmMessage.Builder.class);
           internal_static_com_klose_ExecOrder_descriptor =
-            getDescriptor().getMessageTypes().get(8);
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_klose_ExecOrder_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrder_descriptor,
@@ -6084,7 +6609,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ExecOrder.class,
               com.klose.MsConnProto.ExecOrder.Builder.class);
           internal_static_com_klose_ExecOrderResp_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_com_klose_ExecOrderResp_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrderResp_descriptor,
