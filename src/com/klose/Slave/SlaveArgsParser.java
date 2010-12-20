@@ -15,7 +15,7 @@ public class SlaveArgsParser {
 	private int masterPort ; 
 	private static int port = 6061; 
 	private String ip_port = ""; //the ip of slave node
-	private String workDir = "/tmp"; 
+	private static String workDir = "/tmp"; 
 	private int state = 0; // 
 	private boolean necessaryArgsExist = false; //identify whether all the arguments exist.
 	private static final Logger LOG = Logger.getLogger(SlaveArgsParser.class.getName());
@@ -81,7 +81,7 @@ public class SlaveArgsParser {
 		this.state = state;
 	}
 
-	public String getWorkDir() {
+	public static String getWorkDir() {
 		return workDir;
 	}
 	

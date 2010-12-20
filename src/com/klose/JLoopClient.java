@@ -14,6 +14,8 @@ import com.klose.MsConnProto.ExecOrderResp;
 import com.klose.MsConnProto.SlaveOrderExecutorService;
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
+import com.klose.common.TransformerIO.FileUtil;
+import com.klose.common.TransformerIO.FileUtil.FStype;
 
 /**
  * JLoopClient: provide the API for submitting job to Master. JLoopClient is not
@@ -99,6 +101,16 @@ public class JLoopClient {
 						this.argsMap.put("exec-order", order);
 					}
 				}
+				else if (Pattern.matches(xmlRegex,
+						this.args_[i].trim().substring(0, 6))) {
+					String path = "";
+					if (this.args_[i].trim().length() > 6) {
+						path = this.args_[i].trim().substring(6).trim();
+						this.argsMap.put("exec-xml", path);
+					} else {
+						printUsage();
+					}
+				}
 			} else if (this.args_[i].trim().length() >= 6) {
 				if (Pattern.matches(xmlRegex,
 						this.args_[i].trim().substring(0, 6))) {
@@ -117,8 +129,50 @@ public class JLoopClient {
 				printUsage();
 			}
 		}
+		String newPath = normalizingUniformTaskPath(this.argsMap.get("exec-xml"));
+		if(newPath == null) {
+			System.exit(-1);
+		}
+		else {
+			this.argsMap.put("exec-xml", newPath);
+		}
 	}
-
+	
+	/**
+	 * Normalize the path which is not provied by hdfs into file in the hdfs.
+	 *  In the function, there are sometimes operations copying file from one file system to
+	 *  hdfs.
+	 * @param path: It is a absolute path in file system supported.
+	 * @return the normalized hdfs absolute file path
+	 */
+	public static String normalizingUniformTaskPath(String path) {
+		FStype type = FileUtil.getFileType(path);
+		if(type == FStype.LOCAL) {
+			String[] tmp = path.split("/");
+			String filename = tmp[tmp.length -1];
+			String generatedPath = FileUtil.TransLocalFileToHDFS(path, "task");
+			if (generatedPath != null){
+				// hdfs://***.***.***.***:*****/user/***/task is chosen as directory path.
+				return generatedPath;
+			}
+			else {
+				LOG.log(Level.SEVERE, "copy "+ path.toString() + " happens error.");
+				return null;
+			}
+		}
+		else if(type == FStype.HDFS) {
+			if( FileUtil.checkFileValid(path) ) {
+				return path;
+			}
+			else {
+				LOG.log(Level.INFO, path + " doesn't exist.");
+				return null;
+			}
+		}
+		else {
+			return null;
+		}
+	}
 	public void printArgMap() {
 		System.out.println(this.argsMap.toString());
 	}
@@ -143,7 +197,7 @@ public class JLoopClient {
 		
 		XMLPathTransService transService = XMLPathTransService.newStub(socketRpcChannel);
 		TransformXMLPath transPath = TransformXMLPath.newBuilder()
-							.setPath(client.findKeyInMap("exec-path")).build();
+							.setPath(client.findKeyInMap("exec-xml")).build();
 		transService.xmlTrans(rpcController, transPath, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
 			
 			@Override
