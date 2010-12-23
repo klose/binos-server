@@ -34,7 +34,7 @@ public class JLoopClient {
 
 	private void printUsage() {
 		System.out
-				.print("Usage: Slave"
+				.print("Usage: JLoopClient"
 						+ " --url=MASTER_URL --xml=PATH [--exec=ORDER] [...] "
 						+ "\n"
 						+ "MASTER_URL may be one of:"
