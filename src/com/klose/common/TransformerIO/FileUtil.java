@@ -37,7 +37,27 @@ public class FileUtil {
 			return FStype.UNRECOGNIZED;
 		}
 	}
-	
+	/**
+	 * If dir path exists, it will return true.
+	 * If dir path doesnot exist, it will make the directory using dirPath as path, 
+	 * and it will return true when creating successfully, return false as failure.   
+	 * @param dirPath
+	 * @return 
+	 */
+	public static boolean mkdirLocalDir(String dirPath) {
+		File dir = new File(dirPath);
+		if(dir.exists() && dir.isDirectory()) {
+			return true;
+		}
+		else {
+			if(dir.mkdirs()) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} 
+	}
 	/**
 	 * Check the file path valid.
 	 * @param path
