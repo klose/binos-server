@@ -95,7 +95,7 @@ public class RunJar {
 	  
 	  /** Run a task jar.  If the main class is not in the jar's manifest,
 	   * then it must be provided on the command line. */
-	  public static void main(String[] args) throws Throwable {
+	  public static void run(String[] args) throws Throwable {
 	    String usage = "RunJar jarFile [mainClass] args...";
 
 	    if (args.length < 1) {

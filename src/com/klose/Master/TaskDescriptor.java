@@ -12,8 +12,9 @@ public class TaskDescriptor {
 	private String jarPath ;
 	private String taskId;
 	private String xmlPath;
-	public TaskDescriptor(String path) {
-		this.xmlPath = path;	
+	public TaskDescriptor(String path)  {
+		this.xmlPath = path;
+	
 	}
 	public void parse() throws IOException {
 		TaskXMLParser xmlParser = new TaskXMLParser(this.xmlPath);

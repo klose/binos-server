@@ -2,6 +2,7 @@ package com.klose.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.hadoop.conf.Configuration;
@@ -29,10 +30,10 @@ public class XMLParser {
 	private String path;
 	private Document doc = null;
 	private static final Logger LOG = Logger.getLogger(XMLParser.class.getName());
-	public XMLParser(String path) throws IOException {
+	public XMLParser(String path) {
 		this.path = path;
 		if(!FileUtil.checkFileValid(path)) {
-			throw new IOException("Can't find the XML path:"+path);
+			LOG.log(Level.SEVERE, "Can't find the XML path:"+path);
 		}
 		this.type = FileUtil.getFileType(path);
 	}

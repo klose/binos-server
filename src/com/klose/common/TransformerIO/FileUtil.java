@@ -72,6 +72,20 @@ public class FileUtil {
 		}
 	}
 	
+	/**
+	 * Judge whether the path is directory in the local file system. 
+	 * @param path
+	 * @return
+	 */
+	private static boolean ensureLocalDirectory(String path) {
+		File testFile = new File(path);
+		if(testFile.exists() && testFile.isDirectory()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	/*Judge the file with "hdfs://" exists in the hdfs, If the file exists,
 	 * it will return true, else, it will return false. 
 	 **/
@@ -128,6 +142,33 @@ public class FileUtil {
 			// TODO Auto-generated catch block
 			LOG.log(Level.SEVERE, e.toString());
 			return null;
+		}
+	}
+	/**
+	 * Copy the file from hdfs to local file system.
+	 * @param hdfsFile
+	 * @param localDir : the absolute path of local directory 
+	 * @return the local path.
+	 */
+	public static String TransHDFSToLocalFile(String hdfsFile, String localDir) {
+		if(!ensureHDFSFile(hdfsFile) || !ensureLocalDirectory(localDir) ) {
+			return null;
+		}
+		else {
+			try {
+				Configuration conf = new Configuration();
+				FileSystem fs  = FileSystem.get(conf);
+				Path hdfsPath = new Path(hdfsFile);
+				Path localPath = new Path(localDir);
+				fs.copyToLocalFile(hdfsPath, localPath);
+				String[] tmp = hdfsPath.toString().split("/");
+				return  localDir + "/" + tmp[tmp.length-1];
+			} catch (IOException e) {
+				// TODO Auto-generated catch block	
+				LOG.log(Level.SEVERE, e.toString());
+				return null;
+			}
+			
 		}
 	}
 }
