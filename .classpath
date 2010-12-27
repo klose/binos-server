@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="/home/jiangbing/hadoop-0.21.0/lib/commons-logging-api-1.1.jar"/>
 	<classpathentry kind="lib" path="/home/jiangbing/hadoop-0.21.0/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="src/conf"/>
+	<classpathentry kind="lib" path="/home/jiangbing/JLoop/dom4j-2.0.0-ALPHA-2.jar" sourcepath="/home/jiangbing/JLoop/dom4j-2.0.0-ALPHA-2-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
