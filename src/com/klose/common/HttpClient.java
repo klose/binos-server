@@ -6,20 +6,58 @@ import java.net.*;
 import javax.net.*;
 import javax.net.ssl.*;
 
+import org.apache.commons.logging.Log;
 import org.apache.http.protocol.HttpRequestExecutor;
 
 import java.security.cert.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class HttpClient {
 	private static int BUFFER_SIZE = 8096;//buffer size
-	public final static boolean DEBUG = true; //for debugging
 	static Socket socket = null;
 	//connection
-	private void connect(String serverName, int port) throws Exception{
-		socket = new Socket(serverName, port);
+	private String server_ip;
+	private int server_port;
+	private static final Logger LOG = Logger.getLogger(HttpClient.class.getName());
+	public HttpClient(String ip, int port) {
+		this.server_ip = ip;
+		this.server_port = port;
 	}
-	private void disconnect(Socket socket) throws Exception{
+	
+	public void connect() throws Exception{
+		socket = new Socket(this.server_ip, this.server_port);
+	}
+	public void disconnect(Socket socket) throws Exception{
 		socket.close();
+	}
+	/**
+	 * request remote machine to get the file, and put the file into the specified path. 
+	 * @param requestFilePath : remote file path
+	 * @param DirPath : local directory path which is used to store the file duplicated.
+	 * @return 
+	 */
+	public boolean transFileToDataDir(String requestFilePath, String DirPath) {
+		try {
+			long startTime = System.currentTimeMillis();
+			sendRequestFile(requestFilePath);
+			String [] tmp  = requestFilePath.trim().split("/");
+			String path = DirPath.trim();
+			if( !path.endsWith("/") ) {
+				path += "/";
+			}
+			path += tmp[tmp.length -1];
+			getResponseFile(path);
+			LOG.log(Level.INFO, "Copy file from "+ this.server_ip + ":"
+					+this.server_port + requestFilePath + " to local file "
+					+ path + " use " + (System.currentTimeMillis() - startTime) + "ms");
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			LOG.log(Level.WARNING, e.toString());
+			return false;
+		}
+		
 	}
 	//send request command
 	private void sendRequestFile(String uri) throws Exception {
@@ -27,17 +65,16 @@ public class HttpClient {
 		os.write(("GET "+uri+" HTTP/1.1\n").getBytes());
 	}
 	
-	private void getResponseFile(String fileName) throws Exception{
+	private void getResponseFile(String filePath) throws Exception{
 		InputStream is = socket.getInputStream();
 		
 		while(is.available() == 0){
 			Thread.sleep(10);
-			
 		}
 		System.out.println("receive successfully");
 		BufferedReader br = new BufferedReader(new InputStreamReader(is,"utf-8"));
 		
-		saveToFile(br, fileName);
+		saveToFile(br, filePath);
 		
 	}
 	
@@ -53,10 +90,8 @@ public class HttpClient {
 		}
 		// create the file for saving
 		fos = new FileOutputStream(file);
-		
-		if(this.DEBUG)
-			System.out.println("getting connection and save is as ["+fileName +"]");
-		
+
+	
 		String list = br.readLine();
 		while(!list.startsWith("Now is the file Contents: ")){
 			System.out.println(list);
@@ -76,19 +111,17 @@ public class HttpClient {
 	} 
 	
 	
-	
+	//just for test
 	public static void main(String[] args){
-		HttpClient hc = new HttpClient();
+		HttpClient hc = new HttpClient("localhost", 8081);
 		try {
 			long start =  System.currentTimeMillis();
-			hc.connect("localhost", 8080);
+			hc.connect();
 			hc.sendRequestFile("/tmp/input");
-			hc.getResponseFile("/tmp/ttt");
+			hc.getResponseFile("/tmp/output");
+			System.out.println("sssss");
 			hc.disconnect(socket);
 			System.out.println("Used total used time:" + (System.currentTimeMillis() - start) + " ms");
-			
-			
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

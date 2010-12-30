@@ -24,6 +24,7 @@ import com.klose.MsConnProto.SlaveRegisterResponse;
 import com.klose.MsConnProto.SlaveUrgentExit;
 import com.klose.MsConnProto.UrgentRequest;
 import com.klose.MsConnProto.UrgentResponse;
+import com.klose.common.HttpServer;
 class SlaveRPCServerThread extends Thread {
 	private SlaveArgsParser parser;
 	private SocketRpcServer rpcServer;
@@ -93,7 +94,6 @@ class SlaveSendHeartbeatThread extends Thread {
 		}
 	}
 }
-
 class ShutdownThread extends Thread {
 	private SlaveArgsParser parser;
 	private SocketRpcChannel channel;
@@ -180,6 +180,7 @@ public class Slave {
 			slaveThreadServer.start();
 			SlaveSendHeartbeatThread sendHeartbeat = new SlaveSendHeartbeatThread(confParser, socketRpcChannel, rpcController);
 			sendHeartbeat.start();
+			HttpServer httpServer = new HttpServer(confParser.getHttpServerPort());
 			//MasterExitService masterExitService = new MasterExitService(confParser, sendHeartbeat);
 			//slaveServer.registerService(masterExitService);
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));

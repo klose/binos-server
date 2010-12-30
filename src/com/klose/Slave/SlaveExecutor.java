@@ -44,7 +44,7 @@ public class SlaveExecutor {
 	public static void main(String [] args) throws Throwable {
 		String path1 = "hdfs://10.5.0.55:26666/user/jiangbing/task/task-1_1_1.xml";
 		String path2 = "/tmp/task-1_1_1/task-1_1_1.xml";
-		if(FileUtil.checkFileValid(path1)) {
+		if(FileUtil.checkFileValid(path2)) {
 			TaskDescriptor descriptor = new TaskDescriptor(path1);
 			descriptor.parse();
 			SlaveExecutor se = new SlaveExecutor(descriptor);

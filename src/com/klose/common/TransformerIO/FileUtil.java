@@ -20,9 +20,11 @@ public class FileUtil {
 	private static final Logger LOG = Logger.getLogger(FileUtil.class.getName());
 	private final static  String hdfsHeader =  "hdfs://";
 	private final static  String localHeader = "/";
-	
+	private final static  String remoteHeaderRegex = 
+		"[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{4,5}"
+			+ ":/[\\w\\W]*";
 	public static enum FStype {
-		LOCAL, HDFS, UNRECOGNIZED
+		LOCAL, HDFS, REMOTE, UNRECOGNIZED
 	}; //support local file system and hdfs system currently.
 	/*get the type of file.*/
 	public static  FStype getFileType(String path) {
@@ -127,6 +129,15 @@ public class FileUtil {
 		}
 	}
 	
+	/**
+	 * Transmit file form remote slave node to local file system, using Http connection.		
+	 * @param remotePath: Slave-IP:httpServerPort:/absolute/path, for example 10.5.0.55:8081:/tmp/input 
+	 * @param localDir absolute file path in the local file system
+	 * @return
+	 */
+	public static String TransRemoteFileToLocal(String remotePath, String localDir){
+		
+	}
 	/**
 	 * Put the local file into the directory of hdfs. 
 	 * It will return the hdfs file path generated.

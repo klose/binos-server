@@ -3,41 +3,45 @@ package com.klose.common;
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.lang.*;
 import org.apache.http.*;
 import org.apache.http.protocol.*;
 
 public class HttpServer {
-	public static void main(String[] args){
-		int port;
-		ServerSocket server_socket;
-		try{
-			port = Integer.parseInt(args[0]);
-		}
-		catch(Exception e){
-			port = 8080;
-		}
-		
-		try{
-			server_socket = new ServerSocket(port);
-			System.out.println("httpServer running on port " + server_socket.getLocalPort());
+	private static int port = 8081; //default port value:8081 
+	private ServerSocket server_socket;
+	private static final Logger LOG = Logger.getLogger(HttpServer.class.getName());
+	public HttpServer() {
+		start();
+	}
+	public HttpServer(int port) {
+		this.port = port;
+		start();
+	}
+	private void start() {
+		try {
+			server_socket = new ServerSocket(this.port);
+			LOG.log(Level.INFO, "httpServer running on port " + server_socket.getLocalPort());
 			while(true){
 				Socket socket = server_socket.accept();
-				System.out.println("New connection accept " + socket.getInetAddress() + ":" + socket.getLocalPort());
-				try{
-					httpRequestHandler request = new httpRequestHandler(socket);
-					Thread thread = new Thread(request);
-					thread.start();
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
+				LOG.log(Level.INFO,"New connection accept " + socket.getInetAddress() + ":" + socket.getLocalPort());
+				httpRequestHandler request = new httpRequestHandler(socket);
+				Thread thread = new Thread(request);
+				thread.start();
 			}
-		}
-		catch(IOException e){
-			System.out.println(e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			LOG.log(Level.SEVERE, e.getMessage());
+//			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			LOG.log(Level.SEVERE, e.getMessage());
+//			e.printStackTrace();
 		}
 	}
+	
 	static class httpRequestHandler implements Runnable{
 		final static String CRLF = "\r\n";//"\r" ying hui che
 		Socket socket;
@@ -64,14 +68,13 @@ public class HttpServer {
 		private void processRequest() throws Exception{
 			while(true){
 				String headerLine = br.readLine();
-				System.out.println("The client request is " + headerLine);
+				LOG.log(Level.INFO,"The client request is " + headerLine);
 				if(headerLine.equals(CRLF) || headerLine.equals(""))
 					break;
 				StringTokenizer s = new StringTokenizer(headerLine);
 				String temp = s.nextToken();
 				if(temp.equals("GET")){
 					String fileName = s.nextToken();
-					System.out.println(fileName);
 					FileInputStream fis = null;
 					boolean fileExists = true;
 					try{
@@ -110,13 +113,14 @@ public class HttpServer {
 						output.write(entityBody.getBytes());
 					}
 				}
+				try{
+					output.close();
+					br.close();
+					socket.close();
+				}
+				catch(Exception e){}
 			}
-			try{
-				output.close();
-				br.close();
-				socket.close();
-			}
-			catch(Exception e){}
+			
 		}
 	}
 		private static void sendBytes(FileInputStream fis, OutputStream os) throws Exception{
@@ -135,6 +139,35 @@ public class HttpServer {
 			return fileName;
 		}
 		
-	
+		public static void main(String[] args){
+			int port;
+			ServerSocket server_socket;
+			try{
+				port = Integer.parseInt(args[0]);
+			}
+			catch(Exception e){
+				port = 8080;
+			}
+			
+			try{
+				server_socket = new ServerSocket(port);
+				System.out.println("httpServer running on port " + server_socket.getLocalPort());
+				while(true){
+					Socket socket = server_socket.accept();
+					System.out.println("New connection accept " + socket.getInetAddress() + ":" + socket.getLocalPort());
+					try{
+						httpRequestHandler request = new httpRequestHandler(socket);
+						Thread thread = new Thread(request);
+						thread.start();
+					}
+					catch(Exception e){
+						System.out.println(e);
+					}
+				}
+			}
+			catch(IOException e){
+				System.out.println(e);
+			}
+		}
 	
 }

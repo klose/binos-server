@@ -13,7 +13,8 @@ import com.klose.Master.RegisterToMasterService;
 public class SlaveArgsParser {
 	private String masterIp = ""; 
 	private int masterPort ; 
-	private static int port = 6061; 
+	private static int port = 6061;
+	private static int httpServerPort = 8081;
 	private String ip_port = ""; //the ip of slave node
 	private static String workDir = "/tmp"; 
 	private int state = 0; // 
@@ -27,7 +28,7 @@ public class SlaveArgsParser {
 	
 	public void printUsage() {
 		System.out.print(
-				"Usage: Slave" + " --url=MASTER_URL [--enable-order] [--port=PORT] [--workdir=DIR] [...] "+"\n"
+				"Usage: Slave" + " --url=MASTER_URL [--enable-order] [--port=PORT] [--httpport=PORT] [--workdir=DIR] [...] "+"\n"
 				 + "MASTER_URL may be one of:" + "\n"
 			       + "  JLoop://id@host:port" + "\n" 
 			       + "  zoo://host1:port1,host2:port2,..." + "\n"
@@ -39,6 +40,7 @@ public class SlaveArgsParser {
 			       + "    --port=VAL               port to listen on (default: 6061)\n"
 			       + "    --workdir=VAL            DIR to store necessary data (default: /tmp)\n "		
 			       + "    --enable-order           enable execute simple order in the node.\n"
+			       + "    --httpport=VAL           port to http server listen on(default: 8081)\n"
 		);
 		System.exit(1);
 	}
@@ -65,6 +67,15 @@ public class SlaveArgsParser {
 	public  void setMasterPort(int masterPort) {
 		this.masterPort = masterPort;
 	}
+	
+	public static int getHttpServerPort() {
+		return httpServerPort;
+	}
+
+	public static void setHttpServerPort(int httpServerPort) {
+		SlaveArgsParser.httpServerPort = httpServerPort;
+	}
+
 	public void setPort(int port) {
 		this.port =  port;
 	}
@@ -94,7 +105,8 @@ public class SlaveArgsParser {
 			System.exit(1);
 		}
 		else {
-			String portRegex= "--port\\s*=\\s*[0-9]{4,5}";
+			String portRegex = "--port\\s*=\\s*[0-9]{4,5}";
+			String httpPortRegex = "--httpport\\s*=\\s*[0-9]{4,5}";
 			String urlRegex = "--url\\s*=\\s*JLoop://[0-9]+@" +
 					"[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{4,5}";
 			String workDirRegex = "--workdir\\s*=\\s*/[a-zA-Z0-9/ ]*";
@@ -110,6 +122,10 @@ public class SlaveArgsParser {
 				else if(Pattern.matches(portRegex, tmp.trim())) {
 					this.setPort(Integer.parseInt(
 							(tmp.split("="))[1].trim()) );
+				}
+				else if(Pattern.matches(httpPortRegex, tmp.trim())) {
+					this.setHttpServerPort( Integer.parseInt(
+							tmp.split("=")[1].trim()) );
 				}
 				else if(Pattern.matches(workDirRegex, tmp.trim())) {
 					String dirname = tmp.split("=")[1].trim();
@@ -132,6 +148,10 @@ public class SlaveArgsParser {
 					System.out.println("Configuration error: option \'"+tmp+ "\' unrecognized\n");
 					printUsage();
 				}	
+			}
+			if(this.port == this.httpServerPort) {
+				LOG.log(Level.SEVERE, "the port which RPC server listens on collides with the port which http server listens on!" );
+				System.exit(1);
 			}
 			if(this.necessaryArgsExist) {
 				this.setIp_port(Inet4Address.getLocalHost().getHostAddress() +":"+this.getPort());
