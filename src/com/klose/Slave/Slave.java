@@ -81,12 +81,13 @@ class SlaveSendHeartbeatThread extends Thread {
 			} catch (SigarException e) {
 				// TODO Auto-generated catch block
 				LOG.log(Level.WARNING, "Error while generate the system Information reporter.", e.getClass().getName());				
-				//e.printStackTrace();
+				e.printStackTrace();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (Exception e) {
 				LOG.log(Level.SEVERE, "Error while send heartbeat info.", e.toString());
+				e.printStackTrace();
 			}
 			
 		}

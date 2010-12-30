@@ -21,7 +21,9 @@ import com.klose.MsConnProto.SlaveInfo.memInfo;
 public class SlaveInfoConstructor extends SigarCommandBase{
 	private  String ip_port; //identify the slave node
 	private  String workdir; //specify the working directory that slave uses
-	
+	static{
+		System.loadLibrary("sigar-x86-linux");
+	}
 	SlaveInfoConstructor(String ip_port, String workdir) {
 		this.ip_port = ip_port;
 		this.workdir = workdir;
