@@ -3,6 +3,8 @@ package com.klose.Slave;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.hyperic.jni.ArchName;
+import org.hyperic.jni.ArchNotSupportedException;
 import org.hyperic.sigar.CpuPerc;
 import org.hyperic.sigar.FileSystem;
 import org.hyperic.sigar.FileSystemUsage;
@@ -22,7 +24,12 @@ public class SlaveInfoConstructor extends SigarCommandBase{
 	private  String ip_port; //identify the slave node
 	private  String workdir; //specify the working directory that slave uses
 	static{
-		System.loadLibrary("sigar-x86-linux");
+		try {
+			System.loadLibrary("sigar-"+ArchName.getName());
+		} catch (ArchNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	SlaveInfoConstructor(String ip_port, String workdir) {
 		this.ip_port = ip_port;
