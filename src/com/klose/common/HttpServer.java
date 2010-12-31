@@ -82,6 +82,7 @@ public class HttpServer {
 					}
 					catch(FileNotFoundException e){
 						fileExists = false;
+						LOG.log(Level.WARNING, fileName + " doesn't exist.");
 					}
 					String serverLine = "Server: a simple java httpServer" + CRLF;
 					String statusLine = null;

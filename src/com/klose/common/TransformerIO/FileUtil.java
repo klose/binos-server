@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
 import com.klose.Master.TaskXMLCollector;
+import com.klose.common.HttpClient;
 
 /**
  * FileUtil provides the utility of file
@@ -34,6 +37,9 @@ public class FileUtil {
 		}
 		else if(path.substring(0, 7).equals(hdfsHeader)) {
 			return FStype.HDFS;
+		}
+		else if(Pattern.matches(remoteHeaderRegex, path)) {
+			return FStype.REMOTE;
 		}
 		else {
 			return FStype.UNRECOGNIZED;
@@ -136,6 +142,35 @@ public class FileUtil {
 	 * @return
 	 */
 	public static String TransRemoteFileToLocal(String remotePath, String localDir){
+		String[] tmp = remotePath.split(":");
+		String server_ip = "";
+		int server_port = 0;
+		String filePath = "";
+		if(tmp.length < 3) {
+			LOG.log(Level.WARNING, " An error occurs when parsing the path from remote machine");
+		}
+		else  {
+			server_ip = tmp[0];
+			try {
+				server_port = Integer.parseInt(tmp[1]);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				LOG.log(Level.WARNING, "An error occurs when parse "+tmp[1]+ " to a number.");
+//				e.printStackTrace();
+			}
+			for(int i = 2; i < tmp.length; i++) {
+				filePath += tmp[i];
+			}
+			
+		}
+		HttpClient httpClient = new HttpClient(server_ip, server_port);
+		String resPath = httpClient.transFileToDataDir(filePath, localDir);
+		if( resPath != null) {
+			return resPath;
+		}
+		else {
+			return null;
+		}
 		
 	}
 	/**

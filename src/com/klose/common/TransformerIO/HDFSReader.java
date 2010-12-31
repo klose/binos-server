@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.io.Serializable;
@@ -158,6 +159,19 @@ public class HDFSReader implements VertexReader, Serializable{
 
 		String s = str.toString();
 		return s;
+	}
+
+	@Override
+	public InputStream getInputStream() throws IOException {
+		// TODO Auto-generated method stub
+		
+		return this.fsr;
+	}
+
+	@Override
+	public BufferedReader getBufferedReaderStream() throws IOException {
+		// TODO Auto-generated method stub
+		return this.br;
 	}
 	
 }

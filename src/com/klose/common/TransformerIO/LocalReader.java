@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.io.BufferedReader;
@@ -86,6 +87,16 @@ public class LocalReader implements VertexReader, Serializable{
 	 * */
 	public String readline() throws IOException{
 		return br.readLine();
+	}
+	@Override
+	public InputStream getInputStream() throws IOException {
+		// TODO Auto-generated method stub
+		return this.fis;
+	}
+	@Override
+	public BufferedReader getBufferedReaderStream() throws IOException {
+		// TODO Auto-generated method stub
+		return this.br;
 	}
 
 }

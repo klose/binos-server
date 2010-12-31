@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+import com.klose.common.TransformerIO.FileUtil.FStype;
+
 /*
  * produces and stores reader array which indicates different reader functions.  
  * */
@@ -12,19 +14,20 @@ public class ReaderFactory {
 	private VertexReader  reader;
 	/*instance the Reader in according to Map map's input path*/
 	public ReaderFactory(String inpath) throws IOException {
-		if(inpath.startsWith("/")){
-				reader = new LocalReader(inpath);
-			}
-			else 
-				if(inpath.startsWith("hdfs"))
-				{
-					reader = new HDFSReader(inpath);
-				}
-				else{
-					System.out.println("wrong input");
-					System.exit(2);
-				}
-					
+		FStype type = FileUtil.getFileType(inpath);
+		if(FStype.LOCAL == type) {
+			reader = new LocalReader(inpath);
+		}
+		else if(FStype.HDFS == type) {
+			reader = new HDFSReader(inpath);
+		}
+		else if(FStype.REMOTE == type) {
+			reader = new RemoteReader(inpath);
+		}
+		else {
+			System.out.println("wrong input");
+			System.exit(2);
+		}
 	}
 	
 	public  VertexReader getReader() {

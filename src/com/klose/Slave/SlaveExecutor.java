@@ -24,6 +24,13 @@ public class SlaveExecutor {
 				(this.taskDes.getJarPath(), localDirPath);
 			}	
 		}
+		else if( type == FStype.REMOTE ) {
+			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
+			if(FileUtil.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtil.TransRemoteFileToLocal
+				(this.taskDes.getJarPath(), localDirPath);
+			}	
+		}
 		else if ( type == FStype.LOCAL){
 			localJarPath = this.taskDes.getJarPath();
 		}
@@ -45,13 +52,13 @@ public class SlaveExecutor {
 		String path1 = "hdfs://10.5.0.55:26666/user/jiangbing/task/task-1_1_1.xml";
 		String path2 = "/tmp/task-1_1_1/task-1_1_1.xml";
 		if(FileUtil.checkFileValid(path2)) {
-			TaskDescriptor descriptor = new TaskDescriptor(path1);
+			TaskDescriptor descriptor = new TaskDescriptor(path2);
 			descriptor.parse();
 			SlaveExecutor se = new SlaveExecutor(descriptor);
 			se.startExecute();
 		}
 		else {
-			LOG.log(Level.SEVERE, "Can't find the XML path:"+ path1);
+			LOG.log(Level.SEVERE, "Can't find the XML path:"+ path2);
 		}
 		
 	}
