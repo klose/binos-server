@@ -1,0 +1,11 @@
+<Task>
+	<TaskId>task_1_1_2<TaskId>
+	<JarPath>prefix/tmp/task_1_1_2/task_1_1_2.jar</JarPath>
+	<InputPath>
+		<path id=1>prefix/tmp/task_1_1_2/input</path>
+	</InputPath>
+	<OutputPath>
+		<path id=1>prefix/tmp/task_1_1_2/output1</path>
+		<path id=2>prefix/tmp/task_1_1_2/output2</path>
+	</OutputPath>
+</Task>

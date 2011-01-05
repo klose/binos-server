@@ -13,5 +13,5 @@ public class JobScheduler {
 	//* waitingQueue is used to store the jobs waiting to be added to running queue.
 	private ArrayList<String> waitingQueue = new ArrayList<String>();
 	private HashMap<String, JobDescriptor> runningQueue = new HashMap<String, JobDescriptor>();
-
+	
 }

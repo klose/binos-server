@@ -32,7 +32,7 @@ import com.klose.common.XMLParser;
  *
  */
 public class JobXMLParser extends XMLParser {
-	private final String ID = "id";
+	private final String ID = "Id";
 	private final String Task = "task";
 	private final String TaskDep = "dep";
 	private final String TaskID = "taskid";

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GB2312" standalone="no"?>
+<Job>
+	<Id>1_1_201101041945</Id>
+	<total>6</total>
+	<task id="task_1_1_1" dep="0"/>
+	<task id="task_1_1_2" dep="0"/>
+	<task id="task_1_1_3" dep="0"/>
+	<task id="task_1_1_4" dep="-2">
+		<taskid>1_1_1</taskid>
+		<taskid>1_1_2</taskid>
+	</task>
+	<task id="1_1_5" dep="-2">
+		<taskid>1_1_2</taskid>
+		<taskid>1_1_3</taskid>
+	</task>
+	<task id="1_1_6" dep="2">
+		<taskid>1_1_4</taskid>
+		<taskid>1_1_5</taskid>
+	</task>
+</Job>

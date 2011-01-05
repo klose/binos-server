@@ -34,9 +34,24 @@ public class JobDescriptor {
 	private void loadJobView() {
 		Iterator<Element> taskIter = parser.getTasks().elementIterator();
 		while(taskIter.hasNext()) {
-			String taskId = parser.getTaskID(taskIter.next());
+			Element taskEle = taskIter.next(); 
+			String taskId = parser.getTaskID(taskEle);
+			int dep = parser.getTaskDep(taskEle);
 			tasksView[taskStatesIndex] = new TaskStates(taskId);
 			JobStatus.put(taskId, taskStatesIndex);
+			if(dep == 0) {
+				tasksView[taskStatesIndex].setStates(TaskState.PREPARED);
+			}
+			else {
+				tasksView[taskStatesIndex].setStates(TaskState.UNPREPARED);
+				Iterator<Element> eleIter = parser.getDepTaskEle(taskEle).elementIterator();
+				while(eleIter.hasNext()) {
+					eleIter.next().
+				}
+				
+			}
+			taskStatesIndex ++;
+			
 			
 		}
 	}
@@ -52,6 +67,8 @@ public class JobDescriptor {
 		public TaskStates(String taskId) {
 			taskid = taskId;
 		}
-		
+		public void setStates(int state) {
+			this.states = state;
+		}
 	}
 }
