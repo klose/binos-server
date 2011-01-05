@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="GB2312" standalone="no"?>
 <Task>
 	<TaskId>clientid_jobnum_tasknum</TaskId>
 	<JarPath>/tmp/taskid/taskid.jar</JarPath>
 	<InputPath num="inputpathnum">
-		<path id=1 valid=true/false>physical path or depedence taskid:outputpath:i</path>
+		<path id="1" valid="true/false">physical path or depedence taskid:outputpath:i</path>
 		...
-		<path id=inputpathnum valid=(true/false)>physical path or depedence taskid:outputpath:j</path>
+		<path id="inputpathnum" valid="true/false">physical path or depedence taskid:outputpath:j</path>
 	</InputPath>
 	<OutputPath num="outputnum">
-		<path id=1>prefix/tmp/TaskId/outputpath1</path>
+		<path id="1">prefix/tmp/TaskId/outputpath1</path>
 		...
-		<path id=outputnum>prefix/tmp/TaskId/outputpathoutputnum</path>
+		<path id="outputnum">prefix/tmp/TaskId/outputpathoutputnum</path>
 	</OutputPath>
 
 </Task>
