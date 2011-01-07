@@ -2,6 +2,8 @@ package com.klose.Master;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
@@ -14,14 +16,27 @@ import com.klose.MsConnProto.TaskStateChangeService;
 public class JobStateWatcher extends Thread{
 	private MasterArgsParser confParser;
 	private SocketRpcServer masterServer;
+	private Logger LOG = Logger.getLogger(JobStateWatcher.class.getName());
 	public JobStateWatcher(MasterArgsParser confParser, SocketRpcServer masterServer){
 		this.confParser = confParser;
 		this.masterServer = masterServer;
-		TaskChangeWatcher watcherService = new TaskChangeWatcher(JobScheduler.getWatingQueue(), JobScheduler.getRunningQueue());
-		this.masterServer.registerService(watcherService);
 	}
 	public void run() {
-		JobScheduler.transWaitingToRunning();
+		try {
+//			JobScheduler.transWaitingToRunning();
+			TaskChangeWatcher watcherService = new TaskChangeWatcher(JobScheduler.getWatingQueue(), 
+					JobScheduler.getRunningQueue());
+			this.masterServer.registerService(watcherService);
+			while(true) {
+				LOG.log(Level.INFO, "this is a test.");
+				this.sleep(10000);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	/**
 	 *TaskChangeWatcher is responsible for receiving the information of 

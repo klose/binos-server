@@ -87,6 +87,8 @@ public class Master{
 		MasterRpcServerThread masterServerThread = new MasterRpcServerThread(
 				confParser, masterServer);
 		masterServerThread.start();
+		JobStateWatcher watcherThread = new JobStateWatcher(confParser, masterServer);
+		watcherThread.start();
 		Runtime.getRuntime().addShutdownHook(new ShutdownSlaveThread(confParser, masterServer));
 	}
 }
