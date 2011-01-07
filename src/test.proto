@@ -83,6 +83,11 @@ message InformSlaves {
 	required string ip_port = 1;
 	optional string message = 2;
 }
+message TaskChangeState {
+	required string taskId = 1;
+	required string state = 2; // this meaning of state value refers to enum com.klose.Master.TaskState.STATES.
+	optional string usedTime = 3;
+}
 message ConfirmMessage {
 	required bool isSuccess = 1;
 }
@@ -114,4 +119,7 @@ service SlaveOrderExecutorService {
 }
 service XMLPathTransService {
 	rpc xmlTrans(TransformXMLPath) returns (ConfirmMessage);
+}
+service TaskStateChangeService {
+	rpc stateChange(TaskChangeState) returns (ConfirmMessage);
 }

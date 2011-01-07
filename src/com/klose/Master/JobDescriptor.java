@@ -1,11 +1,14 @@
 package com.klose.Master;
 
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.dom4j.Element;
-import org.dom4j.Node;
+
+
 
 /**
  * JobDescriptor is used to describe the dependence and states of tasks in a job.
@@ -22,6 +25,8 @@ public class JobDescriptor {
 	
 	//HashMap<taskid, taskStatesIndex>
 	private HashMap<String, Integer> jobStatus = new HashMap<String ,Integer>();
+	
+	private ArrayList<Integer> finishedTask = new ArrayList<Integer>();
 	
 	private JobXMLParser parser;
 	
@@ -51,10 +56,10 @@ public class JobDescriptor {
 			tasksView[taskStatesIndex] = new TaskStates(taskId);
 			jobStatus.put(taskId, taskStatesIndex);
 			if(dep == 0) {
-				tasksView[taskStatesIndex].setStates(TaskState.PREPARED);
+				tasksView[taskStatesIndex].setStates(TaskState.STATES.PREPARED);
 			}
 			else {
-				tasksView[taskStatesIndex].setStates(TaskState.UNPREPARED);
+				tasksView[taskStatesIndex].setStates(TaskState.STATES.UNPREPARED);
 			}
 			String prefixDep = parser.getDepTaskEle(taskEle); 
 			if(!prefixDep.equals(""))
@@ -74,38 +79,119 @@ public class JobDescriptor {
 				}
 			}
 		}
-		
-		
 	}
-	public void parse() {
-		JobXMLParser parser = new JobXMLParser(this.xmlPath);
-		
-	}
-	public class TaskStates {
-		private String taskid;
-		private ArrayList <String> prefixTaskIds  = new ArrayList<String>();
-		private ArrayList <String> suffixTaskIds  = new ArrayList<String>();
-		private int states = TaskState.UNPREPARED;
-		public TaskStates(String taskId) {
-			taskid = taskId;
-		}
-		public void setStates(int state) {
-			this.states = state;
-		}
-		public void addPrefixTaskIds(String taskIds) {
-			if(!taskIds.trim().equals("")) {
-				String [] id = taskIds.split(":");
-				for(String tmp: id) {
-					prefixTaskIds.add(tmp);
-				}
+	/**retrieve the tasks whose condition is prepared, 
+	 * and hasn't submitted to TaskScheduler. 
+	 */
+	public String[] getPreparedTask() {
+		int length = tasksView.length;
+		String res = "";
+		for(int i = 0; i < length ; i ++) {
+			if(tasksView[i].getState() == TaskState.STATES.PREPARED) {
+				res += (tasksView[i].getTaskid() + " ");
 			}
 		}
-		public void addSuffixTaskIds(String taskIds) {
-			if(!taskIds.trim().equals("")) {
-				String [] id = taskIds.split(":");
-				for(String tmp: id) {
-					suffixTaskIds.add(tmp);
-				}
+		return res.trim().split(" ");
+	}
+	
+	/**
+	 * find the task in the job.
+	 * @param taskId
+	 * @return the index of the task in array of tasksView
+	 * if it can't find it , it will return -1
+	 */
+	public int searchTask(String taskId) {
+		Integer res = jobStatus.get(taskId);
+		if(res != null) {
+			return res;
+		}
+		else {
+			return -1;
+		}		
+	}
+	public synchronized TaskStates getTaskStates(int index) {
+		return this.tasksView[index];
+	}
+	
+	/*add the index of task into the finished task list.*/
+	public void addFinishedTaskIndex(int index) {
+		this.finishedTask.add(index);
+	}
+	
+	/*return the total number of the task in the job.*/
+	public int getTaskTotal() {
+		return this.tasksView.length;
+	}
+	
+	/*check whether the job has finished successfully*/
+	public boolean isSuccessful() {
+		if(finishedTask.size() == getTaskTotal()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public static void main(String [] args) {
+		JobDescriptor des = new JobDescriptor("/tmp/Job.xml");
+		System.out.println(Arrays.toString(des.getPreparedTask()));
+		System.out.println();
+	}
+}
+class TaskStates {
+	private String taskid;
+	private ArrayList <String> prefixTaskIds  = new ArrayList<String>();
+	private ArrayList <String> suffixTaskIds  = new ArrayList<String>();
+	private TaskState.STATES state = TaskState.STATES.UNPREPARED;
+	public TaskStates(String taskId) {
+		taskid = taskId;
+	}
+	
+	public String getTaskid() {
+		return taskid;
+	}
+
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
+
+	public void setStates(TaskState.STATES state) {
+		this.state = state;
+	}
+	public TaskState.STATES getState() {
+		return this.state;
+	}
+	
+	public ArrayList<String> getPrefixTaskIds() {
+		return prefixTaskIds;
+	}
+
+	public void setPrefixTaskIds(ArrayList<String> prefixTaskIds) {
+		this.prefixTaskIds = prefixTaskIds;
+	}
+
+	public ArrayList<String> getSuffixTaskIds() {
+		return suffixTaskIds;
+	}
+
+	public void setSuffixTaskIds(ArrayList<String> suffixTaskIds) {
+		this.suffixTaskIds = suffixTaskIds;
+	}
+
+	public void addPrefixTaskIds(String taskIds) {
+		if(!taskIds.trim().equals("")) {
+			String [] id = taskIds.split(":");
+			for(String tmp: id) {
+				prefixTaskIds.add(tmp);
+			}
+		}
+	}
+	public void addSuffixTaskIds(String taskIds) {
+		if(!taskIds.trim().equals("")) {
+			String [] id = taskIds.split(":");
+			for(String tmp: id) {
+				suffixTaskIds.add(tmp);
 			}
 		}
 	}

@@ -4154,6 +4154,379 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.InformSlaves)
   }
   
+  public static final class TaskChangeState extends
+      com.google.protobuf.GeneratedMessage {
+    // Use TaskChangeState.newBuilder() to construct.
+    private TaskChangeState() {
+      initFields();
+    }
+    private TaskChangeState(boolean noInit) {}
+    
+    private static final TaskChangeState defaultInstance;
+    public static TaskChangeState getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public TaskChangeState getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_TaskChangeState_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_TaskChangeState_fieldAccessorTable;
+    }
+    
+    // required string taskId = 1;
+    public static final int TASKID_FIELD_NUMBER = 1;
+    private boolean hasTaskId;
+    private java.lang.String taskId_ = "";
+    public boolean hasTaskId() { return hasTaskId; }
+    public java.lang.String getTaskId() { return taskId_; }
+    
+    // required string state = 2;
+    public static final int STATE_FIELD_NUMBER = 2;
+    private boolean hasState;
+    private java.lang.String state_ = "";
+    public boolean hasState() { return hasState; }
+    public java.lang.String getState() { return state_; }
+    
+    // optional string usedTime = 3;
+    public static final int USEDTIME_FIELD_NUMBER = 3;
+    private boolean hasUsedTime;
+    private java.lang.String usedTime_ = "";
+    public boolean hasUsedTime() { return hasUsedTime; }
+    public java.lang.String getUsedTime() { return usedTime_; }
+    
+    private void initFields() {
+    }
+    public final boolean isInitialized() {
+      if (!hasTaskId) return false;
+      if (!hasState) return false;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasTaskId()) {
+        output.writeString(1, getTaskId());
+      }
+      if (hasState()) {
+        output.writeString(2, getState());
+      }
+      if (hasUsedTime()) {
+        output.writeString(3, getUsedTime());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasTaskId()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getTaskId());
+      }
+      if (hasState()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(2, getState());
+      }
+      if (hasUsedTime()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(3, getUsedTime());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskChangeState parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.TaskChangeState prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.TaskChangeState result;
+      
+      // Construct using com.klose.MsConnProto.TaskChangeState.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.TaskChangeState();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.TaskChangeState internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.TaskChangeState();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.TaskChangeState.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.TaskChangeState getDefaultInstanceForType() {
+        return com.klose.MsConnProto.TaskChangeState.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.TaskChangeState build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.TaskChangeState buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.TaskChangeState buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        com.klose.MsConnProto.TaskChangeState returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.TaskChangeState) {
+          return mergeFrom((com.klose.MsConnProto.TaskChangeState)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.TaskChangeState other) {
+        if (other == com.klose.MsConnProto.TaskChangeState.getDefaultInstance()) return this;
+        if (other.hasTaskId()) {
+          setTaskId(other.getTaskId());
+        }
+        if (other.hasState()) {
+          setState(other.getState());
+        }
+        if (other.hasUsedTime()) {
+          setUsedTime(other.getUsedTime());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setTaskId(input.readString());
+              break;
+            }
+            case 18: {
+              setState(input.readString());
+              break;
+            }
+            case 26: {
+              setUsedTime(input.readString());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required string taskId = 1;
+      public boolean hasTaskId() {
+        return result.hasTaskId();
+      }
+      public java.lang.String getTaskId() {
+        return result.getTaskId();
+      }
+      public Builder setTaskId(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasTaskId = true;
+        result.taskId_ = value;
+        return this;
+      }
+      public Builder clearTaskId() {
+        result.hasTaskId = false;
+        result.taskId_ = getDefaultInstance().getTaskId();
+        return this;
+      }
+      
+      // required string state = 2;
+      public boolean hasState() {
+        return result.hasState();
+      }
+      public java.lang.String getState() {
+        return result.getState();
+      }
+      public Builder setState(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasState = true;
+        result.state_ = value;
+        return this;
+      }
+      public Builder clearState() {
+        result.hasState = false;
+        result.state_ = getDefaultInstance().getState();
+        return this;
+      }
+      
+      // optional string usedTime = 3;
+      public boolean hasUsedTime() {
+        return result.hasUsedTime();
+      }
+      public java.lang.String getUsedTime() {
+        return result.getUsedTime();
+      }
+      public Builder setUsedTime(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUsedTime = true;
+        result.usedTime_ = value;
+        return this;
+      }
+      public Builder clearUsedTime() {
+        result.hasUsedTime = false;
+        result.usedTime_ = getDefaultInstance().getUsedTime();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.TaskChangeState)
+    }
+    
+    static {
+      defaultInstance = new TaskChangeState(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.TaskChangeState)
+  }
+  
   public static final class ConfirmMessage extends
       com.google.protobuf.GeneratedMessage {
     // Use ConfirmMessage.newBuilder() to construct.
@@ -6380,6 +6753,227 @@ public final class MsConnProto {
     }
   }
   
+  public static abstract class TaskStateChangeService
+      implements com.google.protobuf.Service {
+    protected TaskStateChangeService() {}
+    
+    public interface Interface {
+      public abstract void stateChange(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskChangeState request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done);
+      
+    }
+    
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new TaskStateChangeService() {
+        @Override
+        public  void stateChange(
+            com.google.protobuf.RpcController controller,
+            com.klose.MsConnProto.TaskChangeState request,
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done) {
+          impl.stateChange(controller, request, done);
+        }
+        
+      };
+    }
+    
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.stateChange(controller, (com.klose.MsConnProto.TaskChangeState)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.TaskChangeState.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.ConfirmMessage.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+      };
+    }
+    
+    public abstract void stateChange(
+        com.google.protobuf.RpcController controller,
+        com.klose.MsConnProto.TaskChangeState request,
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done);
+    
+    public static final
+        com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.getDescriptor().getServices().get(6);
+    }
+    public final com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    
+    public final void callMethod(
+        com.google.protobuf.Descriptors.MethodDescriptor method,
+        com.google.protobuf.RpcController controller,
+        com.google.protobuf.Message request,
+        com.google.protobuf.RpcCallback<
+          com.google.protobuf.Message> done) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.callMethod() given method descriptor for wrong " +
+          "service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          this.stateChange(controller, (com.klose.MsConnProto.TaskChangeState)request,
+            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.ConfirmMessage>specializeCallback(
+              done));
+          return;
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getRequestPrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getRequestPrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.TaskChangeState.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getResponsePrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getResponsePrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.ConfirmMessage.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public static Stub newStub(
+        com.google.protobuf.RpcChannel channel) {
+      return new Stub(channel);
+    }
+    
+    public static final class Stub extends com.klose.MsConnProto.TaskStateChangeService implements Interface {
+      private Stub(com.google.protobuf.RpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.RpcChannel channel;
+      
+      public com.google.protobuf.RpcChannel getChannel() {
+        return channel;
+      }
+      
+      public  void stateChange(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskChangeState request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.ConfirmMessage.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.klose.MsConnProto.ConfirmMessage.class,
+            com.klose.MsConnProto.ConfirmMessage.getDefaultInstance()));
+      }
+    }
+    
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+    
+    public interface BlockingInterface {
+      public com.klose.MsConnProto.ConfirmMessage stateChange(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskChangeState request)
+          throws com.google.protobuf.ServiceException;
+    }
+    
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.BlockingRpcChannel channel;
+      
+      public com.klose.MsConnProto.ConfirmMessage stateChange(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskChangeState request)
+          throws com.google.protobuf.ServiceException {
+        return (com.klose.MsConnProto.ConfirmMessage) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.ConfirmMessage.getDefaultInstance());
+      }
+      
+    }
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_UrgentRequest_descriptor;
   private static
@@ -6436,6 +7030,11 @@ public final class MsConnProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_InformSlaves_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_TaskChangeState_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_TaskChangeState_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_ConfirmMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -6480,24 +7079,28 @@ public final class MsConnProto {
       "ed_pct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004type\030\007" +
       " \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 \002(\010\"0\n",
       "\014InformSlaves\022\017\n\007ip_port\030\001 \002(\t\022\017\n\007messag" +
-      "e\030\002 \001(\t\"#\n\016ConfirmMessage\022\021\n\tisSuccess\030\001" +
-      " \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";\n\rExec" +
-      "OrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016result_" +
-      "message\030\002 \001(\t2T\n\020MasterUrgentExit\022@\n\nUrg" +
-      "entExit\022\027.com.klose.InformSlaves\032\031.com.k" +
-      "lose.ConfirmMessage2T\n\017SlaveUrgentExit\022A" +
-      "\n\nUrgentExit\022\030.com.klose.UrgentRequest\032\031" +
-      ".com.klose.UrgentResponse2g\n\024RegisterSla" +
-      "veService\022O\n\rSlaveRegister\022\034.com.klose.S",
-      "laveRegisterInfo\032 .com.klose.SlaveRegist" +
-      "erResponse2Q\n\020HeartbeatService\022=\n\016Heartb" +
-      "eatTrans\022\024.com.klose.SlaveInfo\032\025.com.klo" +
-      "se.MasterInfo2[\n\031SlaveOrderExecutorServi" +
-      "ce\022>\n\014ExecuteOrder\022\024.com.klose.ExecOrder" +
-      "\032\030.com.klose.ExecOrderResp2Y\n\023XMLPathTra" +
-      "nsService\022B\n\010xmlTrans\022\033.com.klose.Transf" +
-      "ormXMLPath\032\031.com.klose.ConfirmMessageB\030\n" +
-      "\tcom.kloseB\013MsConnProto"
+      "e\030\002 \001(\t\"B\n\017TaskChangeState\022\016\n\006taskId\030\001 \002" +
+      "(\t\022\r\n\005state\030\002 \002(\t\022\020\n\010usedTime\030\003 \001(\t\"#\n\016C" +
+      "onfirmMessage\022\021\n\tisSuccess\030\001 \002(\010\"\032\n\tExec" +
+      "Order\022\r\n\005order\030\001 \002(\t\";\n\rExecOrderResp\022\022\n" +
+      "\nisExecuted\030\001 \002(\010\022\026\n\016result_message\030\002 \001(" +
+      "\t2T\n\020MasterUrgentExit\022@\n\nUrgentExit\022\027.co" +
+      "m.klose.InformSlaves\032\031.com.klose.Confirm" +
+      "Message2T\n\017SlaveUrgentExit\022A\n\nUrgentExit" +
+      "\022\030.com.klose.UrgentRequest\032\031.com.klose.U",
+      "rgentResponse2g\n\024RegisterSlaveService\022O\n" +
+      "\rSlaveRegister\022\034.com.klose.SlaveRegister" +
+      "Info\032 .com.klose.SlaveRegisterResponse2Q" +
+      "\n\020HeartbeatService\022=\n\016HeartbeatTrans\022\024.c" +
+      "om.klose.SlaveInfo\032\025.com.klose.MasterInf" +
+      "o2[\n\031SlaveOrderExecutorService\022>\n\014Execut" +
+      "eOrder\022\024.com.klose.ExecOrder\032\030.com.klose" +
+      ".ExecOrderResp2Y\n\023XMLPathTransService\022B\n" +
+      "\010xmlTrans\022\033.com.klose.TransformXMLPath\032\031" +
+      ".com.klose.ConfirmMessage2^\n\026TaskStateCh",
+      "angeService\022D\n\013stateChange\022\032.com.klose.T" +
+      "askChangeState\032\031.com.klose.ConfirmMessag" +
+      "eB\030\n\tcom.kloseB\013MsConnProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6592,8 +7195,16 @@ public final class MsConnProto {
               new java.lang.String[] { "IpPort", "Message", },
               com.klose.MsConnProto.InformSlaves.class,
               com.klose.MsConnProto.InformSlaves.Builder.class);
-          internal_static_com_klose_ConfirmMessage_descriptor =
+          internal_static_com_klose_TaskChangeState_descriptor =
             getDescriptor().getMessageTypes().get(8);
+          internal_static_com_klose_TaskChangeState_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_TaskChangeState_descriptor,
+              new java.lang.String[] { "TaskId", "State", "UsedTime", },
+              com.klose.MsConnProto.TaskChangeState.class,
+              com.klose.MsConnProto.TaskChangeState.Builder.class);
+          internal_static_com_klose_ConfirmMessage_descriptor =
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_klose_ConfirmMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ConfirmMessage_descriptor,
@@ -6601,7 +7212,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ConfirmMessage.class,
               com.klose.MsConnProto.ConfirmMessage.Builder.class);
           internal_static_com_klose_ExecOrder_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_com_klose_ExecOrder_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrder_descriptor,
@@ -6609,7 +7220,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ExecOrder.class,
               com.klose.MsConnProto.ExecOrder.Builder.class);
           internal_static_com_klose_ExecOrderResp_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+            getDescriptor().getMessageTypes().get(11);
           internal_static_com_klose_ExecOrderResp_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrderResp_descriptor,
