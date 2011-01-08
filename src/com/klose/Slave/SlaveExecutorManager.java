@@ -32,14 +32,16 @@ public class SlaveExecutorManager extends Thread{
 	public SlaveExecutorManager(SlaveArgsParser confParser, SocketRpcServer slaveServer) {
 		this.confParser = confParser;
 		this.slaveServer = slaveServer;
-		AllocateTaskService allocateService = new TaskAllocateService();
+		System.out.println("sssssssssssssssssssssssssssssssssssssss");
+		TaskAllocateService allocateService = new TaskAllocateService();
+		System.out.println("ddddddddddddddddddddddddddddddddddddddd");
 		this.slaveServer.registerService(allocateService);
 	}
 	public void run() {
 		while(true) {
 			LOG.log(Level.INFO, "SlaveExecutorManager: manage the slave.");
 			try {
-				this.sleep(5000);
+				this.sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -40,6 +40,10 @@ public class SlaveRPCConnPool {
 	public static SocketRpcChannel getSocketRPCChannel(String slaveIpPort) {
 		return slaveChannels.get(slaveIpPort);
 	}
+	public static void removeSlave(String slaveIpPort) {
+		// TODO Auto-generated method stub
+		slaveChannels.remove(slaveIpPort);
+	}
 	
 	
 }

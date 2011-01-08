@@ -9,7 +9,7 @@ import java.lang.*;
 import org.apache.http.*;
 import org.apache.http.protocol.*;
 
-public class HttpServer {
+public class HttpServer extends Thread{
 	private static int port = 8081; //default port value:8081 
 	private ServerSocket server_socket;
 	private static final Logger LOG = Logger.getLogger(HttpServer.class.getName());
@@ -18,9 +18,8 @@ public class HttpServer {
 	}
 	public HttpServer(int port) {
 		this.port = port;
-		start();
 	}
-	private void start() {
+	public void run() {
 		try {
 			server_socket = new ServerSocket(this.port);
 			LOG.log(Level.INFO, "httpServer running on port " + server_socket.getLocalPort());

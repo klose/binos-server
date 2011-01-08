@@ -4561,22 +4561,18 @@ public final class MsConnProto {
     public boolean hasSlaveIpPort() { return hasSlaveIpPort; }
     public java.lang.String getSlaveIpPort() { return slaveIpPort_; }
     
-    // repeated string taskIds = 2;
+    // required string taskIds = 2;
     public static final int TASKIDS_FIELD_NUMBER = 2;
-    private java.util.List<java.lang.String> taskIds_ =
-      java.util.Collections.emptyList();
-    public java.util.List<java.lang.String> getTaskIdsList() {
-      return taskIds_;
-    }
-    public int getTaskIdsCount() { return taskIds_.size(); }
-    public java.lang.String getTaskIds(int index) {
-      return taskIds_.get(index);
-    }
+    private boolean hasTaskIds;
+    private java.lang.String taskIds_ = "";
+    public boolean hasTaskIds() { return hasTaskIds; }
+    public java.lang.String getTaskIds() { return taskIds_; }
     
     private void initFields() {
     }
     public final boolean isInitialized() {
       if (!hasSlaveIpPort) return false;
+      if (!hasTaskIds) return false;
       return true;
     }
     
@@ -4586,8 +4582,8 @@ public final class MsConnProto {
       if (hasSlaveIpPort()) {
         output.writeString(1, getSlaveIpPort());
       }
-      for (java.lang.String element : getTaskIdsList()) {
-        output.writeString(2, element);
+      if (hasTaskIds()) {
+        output.writeString(2, getTaskIds());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4602,14 +4598,9 @@ public final class MsConnProto {
         size += com.google.protobuf.CodedOutputStream
           .computeStringSize(1, getSlaveIpPort());
       }
-      {
-        int dataSize = 0;
-        for (java.lang.String element : getTaskIdsList()) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeStringSizeNoTag(element);
-        }
-        size += dataSize;
-        size += 1 * getTaskIdsList().size();
+      if (hasTaskIds()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(2, getTaskIds());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4753,10 +4744,6 @@ public final class MsConnProto {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
-        if (result.taskIds_ != java.util.Collections.EMPTY_LIST) {
-          result.taskIds_ =
-            java.util.Collections.unmodifiableList(result.taskIds_);
-        }
         com.klose.MsConnProto.AllocateIdentity returnMe = result;
         result = null;
         return returnMe;
@@ -4776,11 +4763,8 @@ public final class MsConnProto {
         if (other.hasSlaveIpPort()) {
           setSlaveIpPort(other.getSlaveIpPort());
         }
-        if (!other.taskIds_.isEmpty()) {
-          if (result.taskIds_.isEmpty()) {
-            result.taskIds_ = new java.util.ArrayList<java.lang.String>();
-          }
-          result.taskIds_.addAll(other.taskIds_);
+        if (other.hasTaskIds()) {
+          setTaskIds(other.getTaskIds());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4812,7 +4796,7 @@ public final class MsConnProto {
               break;
             }
             case 18: {
-              addTaskIds(input.readString());
+              setTaskIds(input.readString());
               break;
             }
           }
@@ -4841,43 +4825,24 @@ public final class MsConnProto {
         return this;
       }
       
-      // repeated string taskIds = 2;
-      public java.util.List<java.lang.String> getTaskIdsList() {
-        return java.util.Collections.unmodifiableList(result.taskIds_);
+      // required string taskIds = 2;
+      public boolean hasTaskIds() {
+        return result.hasTaskIds();
       }
-      public int getTaskIdsCount() {
-        return result.getTaskIdsCount();
+      public java.lang.String getTaskIds() {
+        return result.getTaskIds();
       }
-      public java.lang.String getTaskIds(int index) {
-        return result.getTaskIds(index);
-      }
-      public Builder setTaskIds(int index, java.lang.String value) {
+      public Builder setTaskIds(java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  result.taskIds_.set(index, value);
-        return this;
-      }
-      public Builder addTaskIds(java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  if (result.taskIds_.isEmpty()) {
-          result.taskIds_ = new java.util.ArrayList<java.lang.String>();
-        }
-        result.taskIds_.add(value);
-        return this;
-      }
-      public Builder addAllTaskIds(
-          java.lang.Iterable<? extends java.lang.String> values) {
-        if (result.taskIds_.isEmpty()) {
-          result.taskIds_ = new java.util.ArrayList<java.lang.String>();
-        }
-        super.addAll(values, result.taskIds_);
+  result.hasTaskIds = true;
+        result.taskIds_ = value;
         return this;
       }
       public Builder clearTaskIds() {
-        result.taskIds_ = java.util.Collections.emptyList();
+        result.hasTaskIds = false;
+        result.taskIds_ = getDefaultInstance().getTaskIds();
         return this;
       }
       
@@ -7674,7 +7639,7 @@ public final class MsConnProto {
       "e\030\002 \001(\t\"B\n\017TaskChangeState\022\016\n\006taskId\030\001 \002" +
       "(\t\022\r\n\005state\030\002 \002(\t\022\020\n\010usedTime\030\003 \001(\t\"8\n\020A" +
       "llocateIdentity\022\023\n\013slaveIpPort\030\001 \002(\t\022\017\n\007" +
-      "taskIds\030\002 \003(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
+      "taskIds\030\002 \002(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
       "cess\030\001 \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";" +
       "\n\rExecOrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016r" +
       "esult_message\030\002 \001(\t2T\n\020MasterUrgentExit\022" +

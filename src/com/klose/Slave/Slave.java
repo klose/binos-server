@@ -181,13 +181,11 @@ public class Slave {
 			slaveThreadServer.start();
 			SlaveSendHeartbeatThread sendHeartbeat = new SlaveSendHeartbeatThread(confParser, socketRpcChannel, rpcController);
 			sendHeartbeat.start();
-			HttpServer httpServer = new HttpServer(confParser.getHttpServerPort());
-			//MasterExitService masterExitService = new MasterExitService(confParser, sendHeartbeat);
-			//slaveServer.registerService(masterExitService);
 			SlaveExecutorManager seManager = new SlaveExecutorManager(confParser, slaveServer); 
 			seManager.start();
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
-		
+			HttpServer httpServerThread = new HttpServer(confParser.getHttpServerPort());
+			httpServerThread.start();
 		}
 		else {
 			System.out.println("Slave can't register to Master,\n" +

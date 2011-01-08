@@ -90,7 +90,7 @@ message TaskChangeState {
 }
 message AllocateIdentity {
 	required string slaveIpPort = 1;
-	repeated string taskIds = 2;
+	required string taskIds = 2;
 }
 message ConfirmMessage {
 	required bool isSuccess = 1;

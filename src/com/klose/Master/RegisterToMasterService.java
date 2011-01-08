@@ -109,6 +109,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	public static boolean deleteSlaveEntry(String ip_port) {
 		if(findSlaveEntry(ip_port)) {
 			slaveEntrys.remove(ip_port);
+			SlaveRPCConnPool.removeSlave(ip_port);
 			return true;
 		}
 		return false;

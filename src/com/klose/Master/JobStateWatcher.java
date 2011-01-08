@@ -28,7 +28,7 @@ public class JobStateWatcher extends Thread{
 					JobScheduler.getRunningQueue());
 			this.masterServer.registerService(watcherService);
 			while(true) {
-				LOG.log(Level.INFO, "this is a test.");
+				//LOG.log(Level.INFO, "this is a test.");
 				this.sleep(10000);
 			}
 		} catch (InterruptedException e) {
