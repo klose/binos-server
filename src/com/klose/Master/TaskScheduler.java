@@ -35,15 +35,20 @@ public class TaskScheduler extends Thread{
 //			index++;
 //		}
 	}
-	/*test the RPC connection 
+	/*test the RPC connection */
 	public static void transmitToSlave() {
 		Set<String> slaveIds = RegisterToMasterService.getSlavekeys();
 		Iterator<String> iter = slaveIds.iterator();
 		int index = 0;
 		while(iter.hasNext()) {
-			AllocateIdentity request = AllocateIdentity.newBuilder().setSlaveIpPort(iter.next()).
-				setTaskIds(0, "1-1-" + index).setTaskIds(1, "1-1-" + (index + 1)).build();
-			atService[index].allocateTasks(rpcController[index], request, 
+			String slaveId = iter.next();
+			SocketRpcChannel channel = SlaveRPCConnPool
+			.getSocketRPCChannel(slaveId);
+			SocketRpcController controller = channel.newRpcController();
+			AllocateTaskService atService = AllocateTaskService.newStub(channel);
+			AllocateIdentity request = AllocateIdentity.newBuilder().setSlaveIpPort(slaveId).
+				setTaskIds("1-1-" + index).build();
+			atService.allocateTasks(controller, request, 
 					new RpcCallback<ConfirmMessage>(){
 						@Override
 						public void run(ConfirmMessage message) {
@@ -53,7 +58,7 @@ public class TaskScheduler extends Thread{
 			});
 			index++;
 		}
-	}*/
+	}
 	public static String chooseSlave() {
 //		Set<String> keys = RegisterToMasterService.getSlavekeys();
 //		if(keys.size() > 0) {
@@ -92,7 +97,7 @@ public class TaskScheduler extends Thread{
 			try {
 				if(RegisterToMasterService.getSlavekeys().size() > 0) {
 					LOG.log(Level.INFO, "schedule the task to slave.");
-					transmitToSlave(chooseSlave());
+					transmitToSlave();
 				}
 				this.sleep(3000);
 			} catch (InterruptedException e) {
