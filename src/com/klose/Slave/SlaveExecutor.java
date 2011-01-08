@@ -2,7 +2,6 @@ package com.klose.Slave;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.klose.Master.TaskDescriptor;
 import com.klose.common.RunJar;
 import com.klose.common.TransformerIO.FileUtil;
 import com.klose.common.TransformerIO.FileUtil.FStype;

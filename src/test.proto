@@ -88,6 +88,10 @@ message TaskChangeState {
 	required string state = 2; // this meaning of state value refers to enum com.klose.Master.TaskState.STATES.
 	optional string usedTime = 3;
 }
+message AllocateIdentity {
+	required string slaveIpPort = 1;
+	repeated string taskIds = 2;
+}
 message ConfirmMessage {
 	required bool isSuccess = 1;
 }
@@ -122,4 +126,8 @@ service XMLPathTransService {
 }
 service TaskStateChangeService {
 	rpc stateChange(TaskChangeState) returns (ConfirmMessage);
+}
+// Master sends the tasks allocated by TaskScheduler. 
+service AllocateTaskService {
+	rpc allocateTasks(AllocateIdentity) returns (ConfirmMessage);
 }

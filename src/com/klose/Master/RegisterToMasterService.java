@@ -66,6 +66,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		}
 		else {
 			slaveEntrys.put(request.getIpPort(),entry);
+			SlaveRPCConnPool.addSlave(request.getIpPort());
 			return true;
 		}
 		

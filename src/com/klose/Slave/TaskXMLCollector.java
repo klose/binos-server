@@ -1,4 +1,4 @@
-package com.klose.Master;
+package com.klose.Slave;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -9,7 +9,6 @@ import com.google.protobuf.RpcController;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
-import com.klose.Slave.Slave;
 
 public class TaskXMLCollector extends XMLPathTransService{
 	

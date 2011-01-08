@@ -1,4 +1,4 @@
-package com.klose.Master;
+package com.klose.Slave;
 
 import java.io.IOException;
 import java.util.HashSet;

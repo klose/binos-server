@@ -1,10 +1,11 @@
-package com.klose.Master;
+package com.klose.Slave;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import org.dom4j.Element;
+
 
 public class TaskDescriptor {
 	private HashSet<String> inputPathSet = new HashSet<String>();

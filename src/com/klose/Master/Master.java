@@ -13,6 +13,7 @@ import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.InformSlaves;
 import com.klose.MsConnProto.MasterUrgentExit;
+import com.klose.Slave.TaskXMLCollector;
 
 
 class MasterRpcServerThread extends Thread {
@@ -89,6 +90,8 @@ public class Master{
 		masterServerThread.start();
 		JobStateWatcher watcherThread = new JobStateWatcher(confParser, masterServer);
 		watcherThread.start();
+		TaskScheduler tscheThread = new TaskScheduler();
+		tscheThread.start();
 		Runtime.getRuntime().addShutdownHook(new ShutdownSlaveThread(confParser, masterServer));
 	}
 }

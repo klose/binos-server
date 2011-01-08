@@ -184,6 +184,8 @@ public class Slave {
 			HttpServer httpServer = new HttpServer(confParser.getHttpServerPort());
 			//MasterExitService masterExitService = new MasterExitService(confParser, sendHeartbeat);
 			//slaveServer.registerService(masterExitService);
+			SlaveExecutorManager seManager = new SlaveExecutorManager(confParser, slaveServer); 
+			seManager.start();
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
 		
 		}

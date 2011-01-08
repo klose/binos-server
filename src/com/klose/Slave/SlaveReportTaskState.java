@@ -22,10 +22,9 @@ public class SlaveReportTaskState extends Thread{
 		
 		TaskStateChangeService stateChange = 
 			TaskStateChangeService.newStub(this.channel);
-		TaskChangeState request = TaskChangeState.newBuilder().
-				setState(value)
-		
-
+//		TaskChangeState request = TaskChangeState.newBuilder().
+//				setState(value);
+//		TaskChangeState request = TaskChangeState
 				
 				
 	}
