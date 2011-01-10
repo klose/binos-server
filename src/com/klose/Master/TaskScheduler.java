@@ -1,5 +1,6 @@
 package com.klose.Master;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
@@ -13,6 +14,7 @@ import com.googlecode.protobuf.socketrpc.SocketRpcController;
 import com.klose.MsConnProto.AllocateIdentity;
 import com.klose.MsConnProto.AllocateTaskService;
 import com.klose.MsConnProto.ConfirmMessage;
+import com.klose.MsConnProto.TState;
 
 public class TaskScheduler extends Thread{
 	private static final Logger LOG = Logger.getLogger(TaskScheduler.class.getName());
@@ -36,7 +38,7 @@ public class TaskScheduler extends Thread{
 //		}
 	}
 	/*test the RPC connection */
-	public static void transmitToSlave() {
+	public static void transmitToSlave() throws IOException {
 		Set<String> slaveIds = RegisterToMasterService.getSlavekeys();
 		Iterator<String> iter = slaveIds.iterator();
 		int index = 0;
@@ -49,9 +51,9 @@ public class TaskScheduler extends Thread{
 			AllocateIdentity request = AllocateIdentity.newBuilder().setSlaveIpPort(slaveId).
 				setTaskIds("1-1-" + index).build();
 			atService.allocateTasks(controller, request, 
-					new RpcCallback<ConfirmMessage>(){
+					new RpcCallback<TState>(){
 						@Override
-						public void run(ConfirmMessage message) {
+						public void run(TState message) {
 							// TODO Auto-generated method stub
 							LOG.log(Level.INFO, message.toString());
 						}
@@ -81,14 +83,19 @@ public class TaskScheduler extends Thread{
 					.newStub(channel);
 			AllocateIdentity request = AllocateIdentity.newBuilder()
 					.setSlaveIpPort(slaveIpPort).setTaskIds("1_1_1").build();
-			atService.allocateTasks(controller, request,
-					new RpcCallback<ConfirmMessage>() {
-						@Override
-						public void run(ConfirmMessage message) {
-							// TODO Auto-generated method stub
-							LOG.log(Level.INFO, message.toString());
-						}
-					});
+			try {
+				atService.allocateTasks(controller, request,
+						new RpcCallback<TState>() {
+							@Override
+							public void run(TState message) {
+								// TODO Auto-generated method stub
+								LOG.log(Level.INFO, message.toString());
+							}
+						});
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void run() {
@@ -97,7 +104,12 @@ public class TaskScheduler extends Thread{
 			try {
 				if(RegisterToMasterService.getSlavekeys().size() > 0) {
 					LOG.log(Level.INFO, "schedule the task to slave.");
-					transmitToSlave();
+					try {
+						transmitToSlave();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				this.sleep(3000);
 			} catch (InterruptedException e) {

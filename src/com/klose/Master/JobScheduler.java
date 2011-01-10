@@ -31,7 +31,6 @@ public class JobScheduler {
 		if(!waitingQueue.contains(jobid)) {
 			waitingQueue.add(jobid);
 		}
-		
 	}
 	
 	/**Use FIFO schedule strategy.*/
@@ -102,20 +101,4 @@ public class JobScheduler {
 	public static HashMap<String, JobDescriptor> getRunningQueue() {
 		return runningQueue;
 	}
-	/**
-	 * JobStateWatcher is an inner class responsible for watching the running 
-	 * job's changes, and revising the according jobs' queue.
-	 * The JobStateWatcher watches the current all jobs in running queue, and
-	 * it will open an 
-	 */
-	private class JobStateWatcher extends Thread{
-		JobStateWatcher() {
-			
-		}
-		public void run() {
-			
-		}
-	}
-	
-	
 }

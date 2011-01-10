@@ -8,11 +8,16 @@ import java.util.logging.Logger;
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
-import com.klose.Master.TaskState.STATES;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TaskChangeState;
 import com.klose.MsConnProto.TaskStateChangeService;
-
+import com.klose.common.TaskState;
+import com.klose.common.TaskState.STATES;
+/**
+ * JobStateWatcher is an inner class responsible for watching the running 
+ * job's changes, and revising the according jobs' queue.
+ * The JobStateWatcher watches the current all jobs in running queue.
+ */
 public class JobStateWatcher extends Thread{
 	private MasterArgsParser confParser;
 	private SocketRpcServer masterServer;
@@ -29,14 +34,12 @@ public class JobStateWatcher extends Thread{
 			this.masterServer.registerService(watcherService);
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
-				this.sleep(10000);
+				this.sleep(2000);
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 	/**
 	 *TaskChangeWatcher is responsible for receiving the information of 
@@ -62,7 +65,6 @@ public class JobStateWatcher extends Thread{
 			if (request.getState().equals("FINISHED")) {
 				JobScheduler.addTaskidFinishedList(taskidPos);
 			}
-			
 		}
 		
 	}

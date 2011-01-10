@@ -3,17 +3,25 @@ package com.klose.Slave;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.klose.common.RunJar;
+import com.klose.common.TaskDescriptor;
+import com.klose.common.TaskState;
 import com.klose.common.TransformerIO.FileUtil;
 import com.klose.common.TransformerIO.FileUtil.FStype;
 
-public class SlaveExecutor {
+public class SlaveExecutor extends Thread{
 	private TaskDescriptor taskDes;
+	private volatile TaskState.STATES state = TaskState.STATES.RUNNING;
 	private static final Logger LOG = Logger.getLogger(SlaveExecutor.class.getName());
 	public SlaveExecutor(TaskDescriptor taskDes) {
 		this.taskDes = taskDes;
 	}
-	public void startExecute() throws Throwable {
-		
+	public TaskState.STATES getTaskState() {
+		return state;
+	}
+	public synchronized void setTaskState(TaskState.STATES state) {
+		this.state = state;
+	}
+	public void run()  {
 		String localJarPath = null;
 		FStype type = FileUtil.getFileType(this.taskDes.getJarPath());
 		if( type == FStype.HDFS) {
@@ -35,16 +43,25 @@ public class SlaveExecutor {
 		}
 		else {
 			LOG.log(Level.WARNING, "The jar file---"+ this.taskDes.getJarPath() +" can't been recognized.");
+			this.setTaskState(TaskState.STATES.WARNING);
 		}
 		
 		if( null == localJarPath ){
-				LOG.log(Level.SEVERE, "Cannot get the jar.");
+			LOG.log(Level.SEVERE, "Cannot get the jar.");
+			this.setTaskState(TaskState.STATES.WARNING);	
 		}
 		else {
 			String argsAll = localJarPath + " "+ 
-			taskDes.getInputPaths() + " " +taskDes.getOutputPaths();
+			taskDes.getInputPaths() + " " + taskDes.getOutputPaths();
 			System.out.println("argsAll:" + argsAll);
-			RunJar.run(argsAll.split(" "));
+			try {
+				RunJar.run(argsAll.split(" "));
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				this.setTaskState(TaskState.STATES.ERROR);
+			}
+			this.setTaskState(TaskState.STATES.FINISHED);
 		}
 	}
 	public static void main(String [] args) throws Throwable {
@@ -52,9 +69,9 @@ public class SlaveExecutor {
 		String path2 = "/tmp/task-1_1_1/task-1_1_1.xml";
 		if(FileUtil.checkFileValid(path2)) {
 			TaskDescriptor descriptor = new TaskDescriptor(path2);
-			descriptor.parse();
+			//descriptor.parse();
 			SlaveExecutor se = new SlaveExecutor(descriptor);
-			se.startExecute();
+			se.start();
 		}
 		else {
 			LOG.log(Level.SEVERE, "Can't find the XML path:"+ path2);

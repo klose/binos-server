@@ -92,6 +92,9 @@ message AllocateIdentity {
 	required string slaveIpPort = 1;
 	required string taskIds = 2;
 }
+message TState {
+	required string taskState = 1;
+}
 message ConfirmMessage {
 	required bool isSuccess = 1;
 }
@@ -129,5 +132,5 @@ service TaskStateChangeService {
 }
 // Master sends the tasks allocated by TaskScheduler. 
 service AllocateTaskService {
-	rpc allocateTasks(AllocateIdentity) returns (ConfirmMessage);
+	rpc allocateTasks(AllocateIdentity) returns (TState);
 }

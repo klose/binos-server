@@ -1,4 +1,4 @@
-package com.klose.Slave;
+package com.klose.common;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -13,9 +13,9 @@ public class TaskDescriptor {
 	private String jarPath ;
 	private String taskId;
 	private String xmlPath;
-	public TaskDescriptor(String path)  {
+	public TaskDescriptor(String path) throws IOException  {
 		this.xmlPath = path;
-	
+		parse();
 	}
 	public void parse() throws IOException {
 		TaskXMLParser xmlParser = new TaskXMLParser(this.xmlPath);

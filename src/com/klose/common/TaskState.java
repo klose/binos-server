@@ -1,8 +1,8 @@
-package com.klose.Master;
+package com.klose.common;
 
 public  class TaskState {
 	public static enum STATES {
-		PREPARED , UNPREPARED, SUBMITTED, WAITING, RUNNING, FINISHED };
+		PREPARED , UNPREPARED, SUBMITTED, WAITING, RUNNING, FINISHED, WARNING, ERROR};
 	
 //	public final static int PREPARED = 0;
 //	public final static int UNPREPARED = 1;

@@ -1,11 +1,10 @@
-package com.klose.Slave;
+package com.klose.common;
 
 import java.io.IOException;
 import java.util.HashSet;
 
 import org.dom4j.Element;
 
-import com.klose.common.XMLParser;
 
 public class TaskXMLParser extends XMLParser{
 	private  final String inputpathDes = "InputPath";

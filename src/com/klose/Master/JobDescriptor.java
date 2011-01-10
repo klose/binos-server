@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import org.dom4j.Element;
 
+import com.klose.common.TaskState;
+
 
 
 /**
@@ -132,12 +134,12 @@ public class JobDescriptor {
 			return false;
 		}
 	}
-	
-	public static void main(String [] args) {
-		JobDescriptor des = new JobDescriptor("/tmp/Job.xml");
-		System.out.println(Arrays.toString(des.getPreparedTask()));
-		System.out.println();
-	}
+//  just for test	
+//	public static void main(String [] args) {
+//		JobDescriptor des = new JobDescriptor("/tmp/Job.xml");
+//		System.out.println(Arrays.toString(des.getPreparedTask()));
+//		System.out.println();
+//	}
 }
 class TaskStates {
 	private String taskid;

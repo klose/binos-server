@@ -3,6 +3,8 @@
 
 package com.klose;
 
+import java.io.IOException;
+
 public final class MsConnProto {
   private MsConnProto() {}
   public static void registerAllExtensions(
@@ -4858,6 +4860,294 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.AllocateIdentity)
   }
   
+  public static final class TState extends
+      com.google.protobuf.GeneratedMessage {
+    // Use TState.newBuilder() to construct.
+    private TState() {
+      initFields();
+    }
+    private TState(boolean noInit) {}
+    
+    private static final TState defaultInstance;
+    public static TState getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public TState getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_TState_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_TState_fieldAccessorTable;
+    }
+    
+    // required string taskState = 1;
+    public static final int TASKSTATE_FIELD_NUMBER = 1;
+    private boolean hasTaskState;
+    private java.lang.String taskState_ = "";
+    public boolean hasTaskState() { return hasTaskState; }
+    public java.lang.String getTaskState() { return taskState_; }
+    
+    private void initFields() {
+    }
+    public final boolean isInitialized() {
+      if (!hasTaskState) return false;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasTaskState()) {
+        output.writeString(1, getTaskState());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasTaskState()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(1, getTaskState());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.klose.MsConnProto.TState parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TState parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TState parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TState parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.TState prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.klose.MsConnProto.TState result;
+      
+      // Construct using com.klose.MsConnProto.TState.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.klose.MsConnProto.TState();
+        return builder;
+      }
+      
+      protected com.klose.MsConnProto.TState internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.klose.MsConnProto.TState();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.TState.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.TState getDefaultInstanceForType() {
+        return com.klose.MsConnProto.TState.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.klose.MsConnProto.TState build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.klose.MsConnProto.TState buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.klose.MsConnProto.TState buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        com.klose.MsConnProto.TState returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.TState) {
+          return mergeFrom((com.klose.MsConnProto.TState)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.TState other) {
+        if (other == com.klose.MsConnProto.TState.getDefaultInstance()) return this;
+        if (other.hasTaskState()) {
+          setTaskState(other.getTaskState());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              setTaskState(input.readString());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required string taskState = 1;
+      public boolean hasTaskState() {
+        return result.hasTaskState();
+      }
+      public java.lang.String getTaskState() {
+        return result.getTaskState();
+      }
+      public Builder setTaskState(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasTaskState = true;
+        result.taskState_ = value;
+        return this;
+      }
+      public Builder clearTaskState() {
+        result.hasTaskState = false;
+        result.taskState_ = getDefaultInstance().getTaskState();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.TState)
+    }
+    
+    static {
+      defaultInstance = new TState(true);
+      com.klose.MsConnProto.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.TState)
+  }
+  
   public static final class ConfirmMessage extends
       com.google.protobuf.GeneratedMessage {
     // Use ConfirmMessage.newBuilder() to construct.
@@ -7313,7 +7603,7 @@ public final class MsConnProto {
       public abstract void allocateTasks(
           com.google.protobuf.RpcController controller,
           com.klose.MsConnProto.AllocateIdentity request,
-          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done);
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.TState> done);
       
     }
     
@@ -7324,7 +7614,7 @@ public final class MsConnProto {
         public  void allocateTasks(
             com.google.protobuf.RpcController controller,
             com.klose.MsConnProto.AllocateIdentity request,
-            com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done) {
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.TState> done) {
           impl.allocateTasks(controller, request, done);
         }
         
@@ -7383,7 +7673,7 @@ public final class MsConnProto {
           }
           switch(method.getIndex()) {
             case 0:
-              return com.klose.MsConnProto.ConfirmMessage.getDefaultInstance();
+              return com.klose.MsConnProto.TState.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -7395,7 +7685,7 @@ public final class MsConnProto {
     public abstract void allocateTasks(
         com.google.protobuf.RpcController controller,
         com.klose.MsConnProto.AllocateIdentity request,
-        com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done);
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.TState> done) throws IOException;
     
     public static final
         com.google.protobuf.Descriptors.ServiceDescriptor
@@ -7420,9 +7710,14 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          this.allocateTasks(controller, (com.klose.MsConnProto.AllocateIdentity)request,
-            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.ConfirmMessage>specializeCallback(
-              done));
+          try {
+			this.allocateTasks(controller, (com.klose.MsConnProto.AllocateIdentity)request,
+			    com.google.protobuf.RpcUtil.<com.klose.MsConnProto.TState>specializeCallback(
+			      done));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
           return;
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -7455,7 +7750,7 @@ public final class MsConnProto {
       }
       switch(method.getIndex()) {
         case 0:
-          return com.klose.MsConnProto.ConfirmMessage.getDefaultInstance();
+          return com.klose.MsConnProto.TState.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -7480,16 +7775,16 @@ public final class MsConnProto {
       public  void allocateTasks(
           com.google.protobuf.RpcController controller,
           com.klose.MsConnProto.AllocateIdentity request,
-          com.google.protobuf.RpcCallback<com.klose.MsConnProto.ConfirmMessage> done) {
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.TState> done) {
         channel.callMethod(
           getDescriptor().getMethods().get(0),
           controller,
           request,
-          com.klose.MsConnProto.ConfirmMessage.getDefaultInstance(),
+          com.klose.MsConnProto.TState.getDefaultInstance(),
           com.google.protobuf.RpcUtil.generalizeCallback(
             done,
-            com.klose.MsConnProto.ConfirmMessage.class,
-            com.klose.MsConnProto.ConfirmMessage.getDefaultInstance()));
+            com.klose.MsConnProto.TState.class,
+            com.klose.MsConnProto.TState.getDefaultInstance()));
       }
     }
     
@@ -7499,7 +7794,7 @@ public final class MsConnProto {
     }
     
     public interface BlockingInterface {
-      public com.klose.MsConnProto.ConfirmMessage allocateTasks(
+      public com.klose.MsConnProto.TState allocateTasks(
           com.google.protobuf.RpcController controller,
           com.klose.MsConnProto.AllocateIdentity request)
           throws com.google.protobuf.ServiceException;
@@ -7512,15 +7807,15 @@ public final class MsConnProto {
       
       private final com.google.protobuf.BlockingRpcChannel channel;
       
-      public com.klose.MsConnProto.ConfirmMessage allocateTasks(
+      public com.klose.MsConnProto.TState allocateTasks(
           com.google.protobuf.RpcController controller,
           com.klose.MsConnProto.AllocateIdentity request)
           throws com.google.protobuf.ServiceException {
-        return (com.klose.MsConnProto.ConfirmMessage) channel.callBlockingMethod(
+        return (com.klose.MsConnProto.TState) channel.callBlockingMethod(
           getDescriptor().getMethods().get(0),
           controller,
           request,
-          com.klose.MsConnProto.ConfirmMessage.getDefaultInstance());
+          com.klose.MsConnProto.TState.getDefaultInstance());
       }
       
     }
@@ -7592,6 +7887,11 @@ public final class MsConnProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_AllocateIdentity_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_TState_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_TState_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_ConfirmMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -7639,29 +7939,30 @@ public final class MsConnProto {
       "e\030\002 \001(\t\"B\n\017TaskChangeState\022\016\n\006taskId\030\001 \002" +
       "(\t\022\r\n\005state\030\002 \002(\t\022\020\n\010usedTime\030\003 \001(\t\"8\n\020A" +
       "llocateIdentity\022\023\n\013slaveIpPort\030\001 \002(\t\022\017\n\007" +
-      "taskIds\030\002 \002(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
-      "cess\030\001 \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";" +
-      "\n\rExecOrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016r" +
-      "esult_message\030\002 \001(\t2T\n\020MasterUrgentExit\022" +
-      "@\n\nUrgentExit\022\027.com.klose.InformSlaves\032\031" +
-      ".com.klose.ConfirmMessage2T\n\017SlaveUrgent",
-      "Exit\022A\n\nUrgentExit\022\030.com.klose.UrgentReq" +
-      "uest\032\031.com.klose.UrgentResponse2g\n\024Regis" +
-      "terSlaveService\022O\n\rSlaveRegister\022\034.com.k" +
-      "lose.SlaveRegisterInfo\032 .com.klose.Slave" +
-      "RegisterResponse2Q\n\020HeartbeatService\022=\n\016" +
-      "HeartbeatTrans\022\024.com.klose.SlaveInfo\032\025.c" +
-      "om.klose.MasterInfo2[\n\031SlaveOrderExecuto" +
-      "rService\022>\n\014ExecuteOrder\022\024.com.klose.Exe" +
-      "cOrder\032\030.com.klose.ExecOrderResp2Y\n\023XMLP" +
-      "athTransService\022B\n\010xmlTrans\022\033.com.klose.",
-      "TransformXMLPath\032\031.com.klose.ConfirmMess" +
-      "age2^\n\026TaskStateChangeService\022D\n\013stateCh" +
-      "ange\022\032.com.klose.TaskChangeState\032\031.com.k" +
-      "lose.ConfirmMessage2^\n\023AllocateTaskServi" +
-      "ce\022G\n\rallocateTasks\022\033.com.klose.Allocate" +
-      "Identity\032\031.com.klose.ConfirmMessageB\030\n\tc" +
-      "om.kloseB\013MsConnProto"
+      "taskIds\030\002 \002(\t\"\033\n\006TState\022\021\n\ttaskState\030\001 \002" +
+      "(\t\"#\n\016ConfirmMessage\022\021\n\tisSuccess\030\001 \002(\010\"" +
+      "\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";\n\rExecOrder" +
+      "Resp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016result_messa" +
+      "ge\030\002 \001(\t2T\n\020MasterUrgentExit\022@\n\nUrgentEx" +
+      "it\022\027.com.klose.InformSlaves\032\031.com.klose.",
+      "ConfirmMessage2T\n\017SlaveUrgentExit\022A\n\nUrg" +
+      "entExit\022\030.com.klose.UrgentRequest\032\031.com." +
+      "klose.UrgentResponse2g\n\024RegisterSlaveSer" +
+      "vice\022O\n\rSlaveRegister\022\034.com.klose.SlaveR" +
+      "egisterInfo\032 .com.klose.SlaveRegisterRes" +
+      "ponse2Q\n\020HeartbeatService\022=\n\016HeartbeatTr" +
+      "ans\022\024.com.klose.SlaveInfo\032\025.com.klose.Ma" +
+      "sterInfo2[\n\031SlaveOrderExecutorService\022>\n" +
+      "\014ExecuteOrder\022\024.com.klose.ExecOrder\032\030.co" +
+      "m.klose.ExecOrderResp2Y\n\023XMLPathTransSer",
+      "vice\022B\n\010xmlTrans\022\033.com.klose.TransformXM" +
+      "LPath\032\031.com.klose.ConfirmMessage2^\n\026Task" +
+      "StateChangeService\022D\n\013stateChange\022\032.com." +
+      "klose.TaskChangeState\032\031.com.klose.Confir" +
+      "mMessage2V\n\023AllocateTaskService\022?\n\ralloc" +
+      "ateTasks\022\033.com.klose.AllocateIdentity\032\021." +
+      "com.klose.TStateB\030\n\tcom.kloseB\013MsConnPro" +
+      "to"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7772,8 +8073,16 @@ public final class MsConnProto {
               new java.lang.String[] { "SlaveIpPort", "TaskIds", },
               com.klose.MsConnProto.AllocateIdentity.class,
               com.klose.MsConnProto.AllocateIdentity.Builder.class);
-          internal_static_com_klose_ConfirmMessage_descriptor =
+          internal_static_com_klose_TState_descriptor =
             getDescriptor().getMessageTypes().get(10);
+          internal_static_com_klose_TState_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_TState_descriptor,
+              new java.lang.String[] { "TaskState", },
+              com.klose.MsConnProto.TState.class,
+              com.klose.MsConnProto.TState.Builder.class);
+          internal_static_com_klose_ConfirmMessage_descriptor =
+            getDescriptor().getMessageTypes().get(11);
           internal_static_com_klose_ConfirmMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ConfirmMessage_descriptor,
@@ -7781,7 +8090,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ConfirmMessage.class,
               com.klose.MsConnProto.ConfirmMessage.Builder.class);
           internal_static_com_klose_ExecOrder_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+            getDescriptor().getMessageTypes().get(12);
           internal_static_com_klose_ExecOrder_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrder_descriptor,
@@ -7789,7 +8098,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ExecOrder.class,
               com.klose.MsConnProto.ExecOrder.Builder.class);
           internal_static_com_klose_ExecOrderResp_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_com_klose_ExecOrderResp_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrderResp_descriptor,

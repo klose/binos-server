@@ -2,7 +2,7 @@ package temporary;
 
 import java.io.IOException;
 
-import com.klose.Slave.TaskDescriptor;
+import com.klose.common.TaskDescriptor;
 
 public class TestTaskDescriptor {
 	public static void generateXMLFile() {
