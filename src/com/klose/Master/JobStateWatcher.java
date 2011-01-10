@@ -2,7 +2,6 @@ package com.klose.Master;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.protobuf.RpcCallback;
@@ -28,12 +27,12 @@ public class JobStateWatcher extends Thread{
 	}
 	public void run() {
 		try {
-//			JobScheduler.transWaitingToRunning();
 			TaskChangeWatcher watcherService = new TaskChangeWatcher(JobScheduler.getWatingQueue(), 
 					JobScheduler.getRunningQueue());
 			this.masterServer.registerService(watcherService);
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
+				JobScheduler.transWaitingToRunning();
 				this.sleep(2000);
 			}
 		} catch (InterruptedException e) {
@@ -61,7 +60,7 @@ public class JobStateWatcher extends Thread{
 			// get the position in the JobQueue.
 			String taskidPos = JobScheduler.searchTaskIdInRunningQueue(taskid); 
 			TaskStates state = JobScheduler.getTaskStates(taskidPos);
-			state.setStates(TaskState.STATES.valueOf(request.getState()));
+			state.setStates(TaskState.STATES.valueOf(taskState));
 			if (request.getState().equals("FINISHED")) {
 				JobScheduler.addTaskidFinishedList(taskidPos);
 			}

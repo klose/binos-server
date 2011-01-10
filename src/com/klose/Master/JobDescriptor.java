@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import org.dom4j.Element;
 
@@ -54,8 +55,9 @@ public class JobDescriptor {
 		while(taskIter.hasNext()) {
 			Element taskEle = taskIter.next(); 
 			String taskId = parser.getTaskID(taskEle);
-			int dep = parser.getTaskDep(taskEle);
+			int dep = parser.getTaskDep(taskEle);	
 			tasksView[taskStatesIndex] = new TaskStates(taskId);
+			tasksView[taskStatesIndex].setDependence(dep);
 			jobStatus.put(taskId, taskStatesIndex);
 			if(dep == 0) {
 				tasksView[taskStatesIndex].setStates(TaskState.STATES.PREPARED);
@@ -117,8 +119,29 @@ public class JobDescriptor {
 	
 	/*add the index of task into the finished task list.*/
 	public void addFinishedTaskIndex(int index) {
-		this.finishedTask.add(index);
+		// when a task has completed, it will change the
+		//state of related tasks.[UNPREPARED] -> [PREPARED]
+		if(!this.finishedTask.contains(index)) {
+			// It must ensure that this is the first action of adding finished index.
+			this.finishedTask.add(index);
+			synchronized(tasksView) {
+				for(String relatedTask : tasksView[index].getSuffixTaskIds()) {
+					int dep = tasksView[jobStatus.get(relatedTask)].getDependence();
+					if(dep > 0) {
+						dep --;
+					}
+					else {
+						dep ++;
+					}
+					if(dep == 0) {
+						tasksView[jobStatus.get(relatedTask)].
+							setStates(TaskState.STATES.PREPARED);
+					}
+				}
+			}
+		}
 	}
+	
 	
 	/*return the total number of the task in the job.*/
 	public int getTaskTotal() {
@@ -146,6 +169,7 @@ class TaskStates {
 	private ArrayList <String> prefixTaskIds  = new ArrayList<String>();
 	private ArrayList <String> suffixTaskIds  = new ArrayList<String>();
 	private TaskState.STATES state = TaskState.STATES.UNPREPARED;
+	private int dependence = 0;
 	public TaskStates(String taskId) {
 		taskid = taskId;
 	}
@@ -175,6 +199,14 @@ class TaskStates {
 
 	public ArrayList<String> getSuffixTaskIds() {
 		return suffixTaskIds;
+	}
+	
+	public int getDependence() {
+		return dependence;
+	}
+
+	public void setDependence(int dependence) {
+		this.dependence = dependence;
 	}
 
 	public void setSuffixTaskIds(ArrayList<String> suffixTaskIds) {

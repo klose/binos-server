@@ -55,9 +55,17 @@ public class SlaveExecutorManager extends Thread{
 							continue;
 						}
 						else {
-							state = taskExecutors.get(taskId).getTaskState(); 
-							reportUtil.report(taskId, state.toString());
-							taskStates.put(taskId, state);
+							state = taskExecutors.get(taskId).getTaskState();
+							if(reportUtil.report(taskId, state.toString())){
+								/*at now, once the task has been finished,
+								it will remove all the details of the task.*/
+								if(state.equals(TaskState.STATES.FINISHED)) {
+									removeTask(taskId);
+								}
+								else {
+									taskStates.put(taskId, state);
+								}
+							}
 						}
 					}
 				}
@@ -67,7 +75,18 @@ public class SlaveExecutorManager extends Thread{
 				e.printStackTrace();
 			}
 		}
-	} 
+	}
+	public static void removeTask(String taskId) {
+		synchronized(taskExecQueue) {
+			taskExecQueue.remove(taskId);
+		}
+		synchronized(taskExecutors) {
+			taskExecutors.remove(taskId);
+		}
+		synchronized(taskStates) {
+			taskStates.remove(taskId);
+		}
+	}
 	
 	/**
 	 * TaskAllocateService  is a rpc service's class,

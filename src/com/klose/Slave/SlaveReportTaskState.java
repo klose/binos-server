@@ -14,6 +14,7 @@ public class SlaveReportTaskState {
 	private SlaveArgsParser parser;
 	private SocketRpcChannel channel;
 	private SocketRpcController controller;
+	private volatile static  boolean reportResponse = false;
 	private Logger LOG = Logger.getLogger(SlaveReportTaskState.class.getName());
 	public SlaveReportTaskState(SlaveArgsParser parser) {
 		this.parser = parser;
@@ -21,21 +22,38 @@ public class SlaveReportTaskState {
 				this.parser.getMasterPort());
 		this.controller = this.channel.newRpcController();
 	}
-	public void report(String taskId, String state) {
+	public boolean report(String taskId, String state) {
 		TaskStateChangeService stateChange = 
 			TaskStateChangeService.newStub(this.channel);
 		final TaskChangeState request = TaskChangeState.newBuilder()
 					.setTaskId(taskId).setState(state).build();
 		stateChange.stateChange(controller, 
-				request, new RpcCallback<com.klose.MsConnProto.ConfirmMessage> () {
-					@Override
-					public void run(ConfirmMessage response) {
-						// TODO Auto-generated method stub
-						if(response.getIsSuccess()) 
-							LOG.log(Level.INFO, 
-								"task-"+request.getTaskId() + " STATE CHANGE: "+ request.getState());
-					}
-			
-		});					
+				request, new scRpcCallback(request.getTaskId(), request.getState()));
+		return reportResponse;
+		//				new RpcCallback<com.klose.MsConnProto.ConfirmMessage> () {
+//					@Override
+//					public void run(ConfirmMessage response) {
+//						// TODO Auto-generated method stub
+//						if(response.getIsSuccess()) 
+//							LOG.log(Level.INFO, 
+//								"task-"+request.getTaskId() + " STATE CHANGE: "+ request.getState());
+//					}
+//			
+//		});					
+	}
+	
+	class scRpcCallback implements RpcCallback<com.klose.MsConnProto.ConfirmMessage> {
+		private String taskId;
+		private String state;
+		scRpcCallback(String taskId, String state) {
+			this.taskId = taskId;
+			this.state = state;
+		}
+		public void run(ConfirmMessage response) {
+			reportResponse = response.getIsSuccess();
+			if(reportResponse) 
+				LOG.log(Level.INFO, 
+					"task-"+ this.taskId + " STATE CHANGE: "+ this.state);
+		}
 	}
 }
