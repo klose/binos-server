@@ -2,6 +2,7 @@ package com.klose.Master;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.protobuf.RpcCallback;
@@ -63,6 +64,15 @@ public class JobStateWatcher extends Thread{
 			state.setStates(TaskState.STATES.valueOf(taskState));
 			if (request.getState().equals("FINISHED")) {
 				JobScheduler.addTaskidFinishedList(taskidPos);
+				String [] tmp = taskidPos.split(":");
+				if(tmp.length != 2) {
+					LOG.log(Level.WARNING, taskidPos + " is not correct.");
+				}
+				else {
+					if(runningQueue.get(tmp[0]).isSuccessful()) {
+						runningQueue.remove(tmp[0]);
+					}
+				}
 			}
 		}
 		

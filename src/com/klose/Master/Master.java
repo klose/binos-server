@@ -90,8 +90,7 @@ public class Master{
 		masterServerThread.start();
 		JobStateWatcher watcherThread = new JobStateWatcher(confParser, masterServer);
 		watcherThread.start();
-		TaskScheduler tscheThread = new TaskScheduler();
-		tscheThread.start();
+		
 		Runtime.getRuntime().addShutdownHook(new ShutdownSlaveThread(confParser, masterServer));
 	}
 }

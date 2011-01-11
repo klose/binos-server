@@ -94,11 +94,11 @@ public class JobScheduler {
 		}
 		return runningQueue.get(tmp[0]).getTaskStates(Integer.parseInt(tmp[1]));
 	}
-	public static LinkedList<String> getWatingQueue() {
+	public synchronized static LinkedList<String> getWatingQueue() {
 		return waitingQueue;
 	}
 	
-	public static HashMap<String, JobDescriptor> getRunningQueue() {
+	public synchronized static HashMap<String, JobDescriptor> getRunningQueue() {
 		return runningQueue;
 	}
 }
