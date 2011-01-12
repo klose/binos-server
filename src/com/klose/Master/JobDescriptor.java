@@ -117,6 +117,10 @@ public class JobDescriptor {
 		return this.tasksView[index];
 	}
 	
+	public synchronized void setTaskStates(String taskId, String state) {
+		int index = jobStatus.get(taskId);
+		tasksView[index].setStates(TaskState.STATES.valueOf(state));
+	}
 	/*add the index of task into the finished task list.*/
 	public void addFinishedTaskIndex(int index) {
 		// when a task has completed, it will change the
@@ -124,6 +128,7 @@ public class JobDescriptor {
 		if(!this.finishedTask.contains(index)) {
 			// It must ensure that this is the first action of adding finished index.
 			this.finishedTask.add(index);
+			TaskScheduler.removeTaskIdOnSlave(tasksView[index].getTaskid());
 			synchronized(tasksView) {
 				for(String relatedTask : tasksView[index].getSuffixTaskIds()) {
 					int dep = tasksView[jobStatus.get(relatedTask)].getDependence();

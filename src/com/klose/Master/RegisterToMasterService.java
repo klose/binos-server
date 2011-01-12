@@ -61,12 +61,14 @@ public class RegisterToMasterService extends RegisterSlaveService{
 	 */
 	public static boolean addSlaveEntry(SlaveRegisterInfo request) {
 		SlaveEntry entry = parse(request);
-		if(slaveEntrys.containsKey(request.getIpPort())) {
+		String ipPort = request.getIpPort();
+		if(slaveEntrys.containsKey(ipPort)) {
 			return false;
 		}
 		else {
 			slaveEntrys.put(request.getIpPort(),entry);
-			SlaveRPCConnPool.addSlave(request.getIpPort());
+			SlaveRPCConnPool.addSlave(ipPort);
+			TaskScheduler.registerSlave(ipPort);
 			return true;
 		}
 		
@@ -110,6 +112,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		if(findSlaveEntry(ip_port)) {
 			slaveEntrys.remove(ip_port);
 			SlaveRPCConnPool.removeSlave(ip_port);
+			TaskScheduler.removeSlave(ip_port);
 			return true;
 		}
 		return false;

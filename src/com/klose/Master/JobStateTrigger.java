@@ -33,7 +33,7 @@ public class JobStateTrigger extends Thread{
 					String [] taskPrepared = runningQueue.get(jobId).getPreparedTask();
 					for(String taskId: taskPrepared) {
 						try {
-							TaskScheduler.transmitToSlave(taskId);
+							TaskScheduler.transmitToSlave(taskId);	
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

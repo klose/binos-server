@@ -2,6 +2,7 @@ package com.klose.Master;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
@@ -19,54 +20,101 @@ import com.klose.MsConnProto.TState;
 public class TaskScheduler {
 	private static final Logger LOG = Logger.getLogger(TaskScheduler.class.getName());
 	private static String chooseSlaveMethod = "tasks";//use the chooseSlaveByTasks as a default function 
-	//	private static SocketRpcChannel[] socketRpcChannel;
-//	private static SocketRpcController[] rpcController;
-//	private static AllocateTaskService[]  atService;
 	
-	public TaskScheduler() {
-//		Set<String> slaveIds = RegisterToMasterService.getSlavekeys();
-//		socketRpcChannel  = new SocketRpcChannel[slaveIds.size()];
-//		rpcController = new SocketRpcController[slaveIds.size()];
-//		atService = new AllocateTaskService[slaveIds.size()];
-//		Iterator<String> iter = slaveIds.iterator();
-//		int index = 0;
-//		while(iter.hasNext()) {
-//			String slaveid = iter.next();
-//			String ipPort[] = slaveid.split(":");
-//			socketRpcChannel[index] = new SocketRpcChannel(ipPort[0], Integer.parseInt(ipPort[1]));
-//			rpcController[index] = socketRpcChannel[index].newRpcController();
-//			atService[index] = AllocateTaskService.newStub(socketRpcChannel[index]);
-//			index++;
-//		}
+	/**slaveTaskNum : make a statistics about the the tasks running in slave
+	 * key:value  slaveid : the number of tasks in slave
+	*/
+	private static HashMap<String, Integer> slaveTaskNum = new HashMap<String, Integer>();  
+	
+	/**
+	 * runningTaskSlave: record which machines the running tasks run.
+	 * key:value   taskid:slaveId
+	 */
+	private static HashMap<String, String> runningTaskOnSlave  = new HashMap<String, String> (); 
+	
+	private TaskScheduler() {
+		
 	}
 	
+	public synchronized static void registerSlave(String slaveId) {
+		if(!slaveTaskNum.containsKey(slaveId)) {
+			slaveTaskNum.put(slaveId, 0);
+		}
+	}
+	public synchronized static void addTaskNum(String slaveId) {
+		Integer num = slaveTaskNum.get(slaveId);
+		if(num != null) {
+			num ++;
+		}
+		else {
+			LOG.log(Level.WARNING, "Cannot find " + slaveId);
+		}
+		slaveTaskNum.put(slaveId, num);
+	}
+	public synchronized static void decreaseTaskNum(String slaveId) {
+		Integer num = slaveTaskNum.get(slaveId);
+		if(num != null) {
+			num--;
+		}
+		else {
+			LOG.log(Level.WARNING, "Cannot find " + slaveId);
+		}
+		if(num < 0) {
+			LOG.log(Level.WARNING, slaveId + " occurs a error.");
+			num = 0;
+		}
+		slaveTaskNum.put(slaveId, num);
+	}
+	public synchronized static void removeSlave(String slaveId) {
+		slaveTaskNum.remove(slaveId);
+	}
+	
+	
+	public synchronized static void recordTaskIdSlaveId(String taskId, String slaveId) {
+		runningTaskOnSlave.put(taskId, slaveId);
+	}
+	
+	public synchronized static void removeTaskIdOnSlave(String taskId) {
+		runningTaskOnSlave.remove(taskId);
+		String slaveId = getSlaveId(taskId);
+		if(slaveId != null) {
+			decreaseTaskNum(slaveId);
+		}
+	}
+	
+	public synchronized static String getSlaveId(String taskId) {
+		return runningTaskOnSlave.get(taskId);
+	}
 	/**
 	 * transmit the taskId to appropriate slave.
 	 */
 	public static void transmitToSlave(String taskId) throws IOException {
-		Set<String> slaveIds = RegisterToMasterService.getSlavekeys();
-		Iterator<String> iter = slaveIds.iterator();
-		int index = 0;
-		while(iter.hasNext()) {
-			String slaveId = iter.next();
-			SocketRpcChannel channel = SlaveRPCConnPool
-			.getSocketRPCChannel(slaveId);
-			SocketRpcController controller = channel.newRpcController();
-			AllocateTaskService atService = AllocateTaskService.newStub(channel);
-			AllocateIdentity request = AllocateIdentity.newBuilder().setSlaveIpPort(slaveId).
-				setTaskIds(taskId).build();
-			atService.allocateTasks(controller, request, 
-					new RpcCallback<TState>(){
-						@Override
-						public void run(TState message) {
-							// TODO Auto-generated method stub
-							LOG.log(Level.INFO, message.toString());
-						}
-			});
-			index++;
-		}
+		String slaveId = chooseSlave(taskId);
+		SocketRpcChannel channel = SlaveRPCConnPool
+				.getSocketRPCChannel(slaveId);
+		SocketRpcController controller = channel.newRpcController();
+		AllocateTaskService atService = AllocateTaskService.newStub(channel);
+		AllocateIdentity request = AllocateIdentity.newBuilder()
+				.setSlaveIpPort(slaveId).setTaskIds(taskId).build();
+		atService.allocateTasks(controller, request, new RpcCallback<TState>() {
+			@Override
+			public void run(TState message) {
+				// TODO Auto-generated method stub	
+				LOG.log(Level.INFO, message.toString());
+			}
+		});
+		recordTaskIdSlaveId(taskId, slaveId);
+		addTaskNum(slaveId);
+		reviseTaskState(taskId, "RUNNING");
 	}
 	
+	/**
+	 * When submitting a job 
+	 * @param taskId
+	 */
+	public synchronized static void reviseTaskState(String taskId, String state) {
+		JobScheduler.setTaskStates(taskId, state);
+	}
 	/**
 	 * choose an appropriate slave as to chooseSlaveMethod.
 	 * @param taskId
@@ -139,6 +187,14 @@ public class TaskScheduler {
 	 * @return slave-ip: slave-port 
 	 */
 	private static String chooseSlaveByTasks() {
+		Set<String> slaveIds = RegisterToMasterService.getSlavekeys();
+		Iterator<String> iter = slaveIds.iterator();
+		int index = 0;
+		while(iter.hasNext()) {
+			String slaveId = iter.next();
+			
+			index++;
+		}
 		return null;
 	}
 	
@@ -188,6 +244,7 @@ public class TaskScheduler {
 	private static String chooseSlaveByCPUfactor() {
 		return null;
 	}
+	
 	
 //	public static void transmitToSlave(String slaveIpPort) {
 //		if(slaveIpPort != null) {

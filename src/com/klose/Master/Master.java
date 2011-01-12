@@ -90,7 +90,8 @@ public class Master{
 		masterServerThread.start();
 		JobStateWatcher watcherThread = new JobStateWatcher(confParser, masterServer);
 		watcherThread.start();
-		
+		JobStateTrigger jsTrigger = new JobStateTrigger();
+		jsTrigger.start();
 		Runtime.getRuntime().addShutdownHook(new ShutdownSlaveThread(confParser, masterServer));
 	}
 }

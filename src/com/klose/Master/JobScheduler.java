@@ -86,13 +86,22 @@ public class JobScheduler {
 	 * @param taskidPos: the format  is like "jobid:taskIndex( index in TasksView)"
 	 * @return 
 	 */
-	public static TaskStates getTaskStates(String taskidPos) {
+	public synchronized static TaskStates getTaskStates(String taskidPos) {
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
 			LOG.log(Level.WARNING, taskidPos+ " is not correct.");
 			return null;
 		}
 		return runningQueue.get(tmp[0]).getTaskStates(Integer.parseInt(tmp[1]));
+	}
+	public synchronized static void setTaskStates(String taskId, String state) {
+		String taskidPos = searchTaskIdInRunningQueue(taskId);
+		String [] tmp = taskidPos.split(":");
+		if(tmp.length != 2) {
+			LOG.log(Level.WARNING, taskidPos + " is not correct.");
+			return;
+		}
+		runningQueue.get(tmp[0]).setTaskStates(taskId, state);
 	}
 	public synchronized static LinkedList<String> getWatingQueue() {
 		return waitingQueue;
