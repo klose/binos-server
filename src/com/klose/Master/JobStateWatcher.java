@@ -31,10 +31,11 @@ public class JobStateWatcher extends Thread{
 			TaskChangeWatcher watcherService = new TaskChangeWatcher(JobScheduler.getWatingQueue(), 
 					JobScheduler.getRunningQueue());
 			this.masterServer.registerService(watcherService);
+			LOG.log(Level.INFO, "JobStateWatcher starts running...");
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
 				JobScheduler.transWaitingToRunning();
-				this.sleep(2000);
+				this.sleep(20000);
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

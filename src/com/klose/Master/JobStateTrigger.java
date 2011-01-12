@@ -2,6 +2,8 @@ package com.klose.Master;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * JobStateTrigger is a class used to detect the tasks which is dependent upon 
@@ -12,20 +14,21 @@ import java.util.HashMap;
  *
  */
 public class JobStateTrigger extends Thread{
-	private JobDescriptor jobDes;
-	JobStateTrigger(JobDescriptor jobDes) {
-		this.jobDes = jobDes;
+	private static final Logger LOG = Logger.getLogger(JobStateTrigger.class.getName());
+	JobStateTrigger() {
+	
 	}
-	public void triggerNode(String taskIdPos, String state) {
-		TaskStates tss = JobScheduler.getTaskStates(taskIdPos);
-		if(tss.getState().toString().equals(state)) {
-			if(state.equals("Finished")) {
-				
-			}
-		}
-	}
+//	public void triggerNode(String taskIdPos, String state) {
+//		TaskStates tss = JobScheduler.getTaskStates(taskIdPos);
+//		if(tss.getState().toString().equals(state)) {
+//			if(state.equals("Finished")) {
+//				
+//			}
+//		}
+//	}
 	
 	public void run() {
+		LOG.log(Level.INFO, "JobStateTrigger starts running...");
 		while(true) {
 			HashMap<String, JobDescriptor> runningQueue = JobScheduler.getRunningQueue();
 			synchronized(runningQueue) {

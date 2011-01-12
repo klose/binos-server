@@ -39,6 +39,8 @@ public class JobScheduler {
 			if(waitingQueue.size() > 0) {
 				String jobId = waitingQueue.pop();
 				runningQueue.put(jobId, new JobDescriptor("job-"+jobId));
+				LOG.log(Level.INFO, "Transmit the job-" + jobId + 
+						" from waiting queue to running one.");
 			}
 		}
 	}

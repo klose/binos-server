@@ -32,6 +32,14 @@ public class TaskScheduler {
 	 */
 	private static HashMap<String, String> runningTaskOnSlave  = new HashMap<String, String> (); 
 	
+	/**
+	 * If the number of tasks in one slave does not reach the tasksOnSlaveMin,
+	 * new task can be allocated to the slave.
+	 * If the number of tasks in all slaves  reach the tasksOnSlaveMin, 
+	 * new task will be allocated to the slave with least number of tasks. 
+	 */
+	private static int tasksOnSlaveMin = 3;
+	
 	private TaskScheduler() {
 		
 	}
@@ -186,16 +194,23 @@ public class TaskScheduler {
 	 * A slave with lowest number of tasks will be choosen. 
 	 * @return slave-ip: slave-port 
 	 */
-	private static String chooseSlaveByTasks() {
-		Set<String> slaveIds = RegisterToMasterService.getSlavekeys();
+	private synchronized static String chooseSlaveByTasks() {
+		Set<String> slaveIds = slaveTaskNum.keySet();
+		String minSlaveId = "";
+		int minTasksNum = Integer.MAX_VALUE;
 		Iterator<String> iter = slaveIds.iterator();
-		int index = 0;
 		while(iter.hasNext()) {
 			String slaveId = iter.next();
-			
-			index++;
+			int num = slaveTaskNum.get(slaveId) ;
+			if(num <= tasksOnSlaveMin) {
+				return slaveId;
+			}
+			if(num < minTasksNum) {
+				minSlaveId = slaveId;
+				minTasksNum = num;
+			}
 		}
-		return null;
+		return minSlaveId;
 	}
 	
 	/**

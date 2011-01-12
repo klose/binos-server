@@ -13,7 +13,7 @@ public class TestJobXMLParser {
 	public static void main(String[] args) throws IOException {
 		String content = "" +
 		"<?xml version=\"1.0\" encoding=\"GB2312\" standalone=\"no\"?>\n"
-				+ "<Job>\n" + "<Id>1_1_201101041945</Id>\n"
+				+ "<job>\n" + "<id>1_1_201101041945</id>\n"
 				+ "<total>6</total>\n"
 				+ "<task id=\"1_1_1\" dep=\"0\"/>\n"
 				+ "<task id=\"1_1_2\" dep=\"0\"/>\n"
@@ -24,7 +24,7 @@ public class TestJobXMLParser {
 				+ "   <taskid>1_1_2</taskid>\n" + "   <taskid>1_1_3</taskid>\n"
 				+ "</task>\n" + "<task id=\"1_1_6\" dep=\"2\">\n"
 				+ "<taskid>1_1_4</taskid>\n" + "<taskid>1_1_5</taskid>\n"
-				+ "</task>\n" + "</Job>\n";
+				+ "</task>\n" + "</job>\n";
 		File file = new File("/tmp/job.xml");
 		if (!file.exists()) {
 			file.createNewFile();

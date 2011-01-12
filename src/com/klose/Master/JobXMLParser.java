@@ -12,8 +12,8 @@ import com.klose.common.XMLParser;
  *The format of Job.xml
  *
  <?xml version="1.0" encoding="GB2312" standalone="no"?>
-<Job>
-	<Id>1_1_201101041945</Id>
+<job>
+	<id>1_1_201101041945</id>
 	<total>6</total>
 	<task id="1_1_1" dep="0"/>
 	<task id="1_1_2" dep="0"/>
@@ -30,11 +30,11 @@ import com.klose.common.XMLParser;
 		<taskid>1_1_4</taskid>
 		<taskid>1_1_5</taskid>
 	</task>
-</Job>
+</job>
  *
  */
 public class JobXMLParser extends XMLParser {
-	private final String ID = "Id";
+	private final String ID = "id";
 	private final String Task = "task";
 	private final String TaskAttriId = "id";
 	private final String TaskAttriDep = "dep";

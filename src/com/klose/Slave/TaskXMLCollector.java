@@ -34,6 +34,9 @@ public class TaskXMLCollector extends XMLPathTransService{
 		String filename = tmp[tmp.length -1];
 		LOG.log(Level.INFO, "path: " + path);
 		LOG.log(Level.INFO, "filename: " + filename);
+		if(filename.startsWith("job")) {
+			
+		}
 		if(!filename.substring(0, 4).equals("task")) {
 			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
 		}

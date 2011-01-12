@@ -1,9 +1,14 @@
 package com.klose;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import org.apache.hadoop.conf.Configuration;
 
 import com.google.protobuf.RpcCallback;
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
@@ -49,7 +54,7 @@ public class JLoopClient {
 						+ "    --help                   display this help and exit.\n"
 						+ "    --url=VAL                URL to represent Master URL\n"
 						+ "    --exec=VAL               ORDER which need to run \n"
-						+ "    --xml=VAL                XML specifies the detail of task to be submitted\n");
+						+ "    --xml=VAL                XML specifies the detail of job to be submitted\n");
 		System.exit(1);
 	}
 
@@ -129,7 +134,8 @@ public class JLoopClient {
 				printUsage();
 			}
 		}
-		String newPath = normalizingUniformTaskPath(this.argsMap.get("exec-xml"));
+		String newPath = normalizingUniformJobPath(this.argsMap.get("exec-xml"));
+		
 		if(newPath == null) {
 			System.exit(-1);
 		}
@@ -139,18 +145,73 @@ public class JLoopClient {
 	}
 	
 	/**
-	 * Normalize the path which is not provied by hdfs into file in the hdfs.
+	 * Copy the directory of according tasks from local job path.
+	 * Every directory of task is named as to taskid.
+	 * The catalog of the path is like this:
+	 * ../1_1_201101112010   --- jobId
+	 * ../1_1_201101112010/job-1_1_201101112010.xml  
+	 * ../1_1_201101112010/1_1_1/	---- containing the details of task 1_1_1 
+	 * ../1_1_201101112010/1_1_2/	---- containing the details of task 1_1_2
+	 * ../1_1_201101112010/1_1_3/	---- containing the details of task 1_1_3
+	 * ...........
+	 * The function is used to copy all details except for the job.xml,
+	 * transmitting from local job path to according hdfs path. 
+	 *  @param localJobPath: the path of job
+	 */
+	private static void copyTaskDirPath(String localJobPath, String jobId) {
+		File localJobDir = new File(localJobPath);
+		if(!localJobDir.exists()) {
+			LOG.log(Level.WARNING, localJobPath + " doesn't exist.");
+			return;
+		}
+		else {
+			if(!localJobDir.isDirectory()) {
+				LOG.log(Level.WARNING, localJobPath + " is a directory.");
+				return ;
+			}
+			else {
+				FileFilter filter = new FileFilter(){
+				@Override
+					public boolean accept(File pathname) {
+						// TODO Auto-generated method stub
+						if(pathname.isDirectory() && pathname.exists()) {
+							return true;
+						}
+						return false;
+					}
+					
+				};
+				for(File taskDir : localJobDir.listFiles(filter)) {
+					FilUtil.TransLocalFileToHDFS(taskDir, jobId);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Normalize the path which is not provided by hdfs into file in the hdfs.
 	 *  In the function, there are sometimes operations copying file from one file system to
 	 *  hdfs.
 	 * @param path: It is a absolute path in file system supported.
 	 * @return the normalized hdfs absolute file path
 	 */
-	public static String normalizingUniformTaskPath(String path) {
+	public static String normalizingUniformJobPath(String path) {
 		FStype type = FileUtil.getFileType(path);
 		if(type == FStype.LOCAL) {
 			String[] tmp = path.split("/");
 			String filename = tmp[tmp.length -1];
-			String generatedPath = FileUtil.TransLocalFileToHDFS(path, "task");
+			String[] tmp1 = filename.split("\\.");
+			String jobId = tmp1[0];
+			try {
+				if(!FileUtil.checkDirectoryValid(jobId, FStype.HDFS))
+					FileUtil.mkdirInHDFS(jobId);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				LOG.log(Level.WARNING, "Can't create the directory in HDFS:"+jobId);
+				System.exit(-1);
+			}
+			String generatedPath = FileUtil.TransLocalFileToHDFS(path, jobId);
 			if (generatedPath != null){
 				// hdfs://***.***.***.***:*****/user/***/task is chosen as directory path.
 				return generatedPath;

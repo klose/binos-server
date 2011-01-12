@@ -1,6 +1,7 @@
 package com.klose.common.TransformerIO;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
@@ -67,6 +69,25 @@ public class FileUtil {
 		} 
 	}
 	/**
+	 * check the directory valid
+	 * @param path
+	 * @return
+	 */
+	public static boolean checkDirectoryValid(String path, FStype type) {
+		if(type == FStype.LOCAL) {
+			return ensureLocalDirectory(path);
+		}
+		else if(type == FStype.HDFS) {
+			return ensureHDFSDirectory(path);
+		}
+		else if (type == FStype.UNRECOGNIZED) {
+			return false;
+		}
+		else {
+			return false;
+		}
+	}
+	/**
 	 * Check the file path valid.
 	 * @param path
 	 * @return
@@ -114,6 +135,24 @@ public class FileUtil {
 			return false;
 		}
 	}
+	/**
+	 * Judge whether the path is directory in the hdfs.
+	 * @param path
+	 * @return
+	 */
+	private static boolean ensureHDFSDirectory(String path) {
+		Configuration conf = new Configuration();
+		Path p = new Path(path);
+		try {
+			FileSystem fs = FileSystem.get(conf);
+			return fs.isDirectory(p);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	/*Judge the file with "hdfs://" exists in the hdfs, If the file exists,
 	 * it will return true, else, it will return false. 
 	 **/
@@ -210,6 +249,40 @@ public class FileUtil {
 			return null;
 		}
 	}
+	/**
+	 * copy local directory to HDFS.
+	 */
+	public static void copyLocalDirToHDFS(String localDir, String hdfsDir) {
+		Path dstPath = new Path(hdfsDir);
+		Configuration conf = new Configuration();
+		FileSystem dstFs = FileSystem.get(conf);
+		dstFs.copyFromLocalFile(true,localDir, dstPath);
+	}
+	  /**
+	   * Create the given dir in HDFS
+	   */
+	  public static void mkdirInHDFS(String src) throws IOException {
+	    Path f = new Path(src);
+	    Configuration conf = new Configuration();
+	    FileSystem srcFs = f.getFileSystem(conf);
+	    FileStatus fstatus = null;
+	    try {
+	      fstatus = srcFs.getFileStatus(f);
+	      if (fstatus.isDirectory()) {
+	        throw new IOException("cannot create directory " 
+	            + src + ": File exists");
+	      }
+	      else {
+	        throw new IOException(src + " exists but " +
+	            "is not a directory");
+	      }
+	    } catch(FileNotFoundException e) {
+	        if (!srcFs.mkdirs(f)) {
+	          throw new IOException("failed to create " + src);
+	        }
+	    }
+	  }
+	
 	/**
 	 * Copy the file from hdfs to local file system.
 	 * @param hdfsFile
