@@ -1,4 +1,4 @@
-package com.klose.Slave;
+package com.klose.Master;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -10,9 +10,9 @@ import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
 
-public class TaskXMLCollector extends XMLPathTransService{
+public class JobXMLCollector extends XMLPathTransService{
 	
-	private static final Logger LOG = Logger.getLogger(TaskXMLCollector.class.getName()); 
+	private static final Logger LOG = Logger.getLogger(JobXMLCollector.class.getName()); 
 	/*taskXMLs  --->  <taskid, path>*/
 	private HashMap<String, String> taskXMLs = new HashMap<String, String>();
 	
@@ -30,26 +30,34 @@ public class TaskXMLCollector extends XMLPathTransService{
 		// TODO Auto-generated method stub
 		ConfirmMessage message ;
 		String path = request.getPath();
+		LOG.log(Level.INFO, "path: " + path);
 		String[] tmp = path.split("/");
 		String filename = tmp[tmp.length -1];
-		LOG.log(Level.INFO, "path: " + path);
 		LOG.log(Level.INFO, "filename: " + filename);
-		if(filename.startsWith("job")) {
-			
-		}
-		if(!filename.substring(0, 4).equals("task")) {
+		String jobId = filename.substring(0, filename.lastIndexOf(".xml"));
+		LOG.log(Level.INFO, "jobId:" + jobId);
+		if(!filename.startsWith("job")) {
 			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
-		}
-		else if( !taskXMLs.containsKey((filename.substring(5).split("\\."))[0]) ) {
-			//if the taksXMLs doesn't contain the key, it add the key-value to taskXMLs.
-			String key = (filename.substring(5).split("\\."))[0];
-			taskXMLs.put(key, path);
-			taskStatus.put(key, 1);
-			message = ConfirmMessage.newBuilder().setIsSuccess(true).build();
 		}
 		else {
-			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
+			JobScheduler.submitJob(jobId);
+			message = ConfirmMessage.newBuilder().setIsSuccess(true).build();
 		}
+		
+		
+//		if(!filename.startsWith("job")) {
+//			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
+//		}
+//		else if( !taskXMLs.containsKey((filename.substring(5).split("\\."))[0]) ) {
+//			//if the taksXMLs doesn't contain the key, it add the key-value to taskXMLs.
+//			String key = (filename.substring(5).split("\\."))[0];
+//			taskXMLs.put(key, path);
+//			taskStatus.put(key, 1);
+//			message = ConfirmMessage.newBuilder().setIsSuccess(true).build();
+//		}
+//		else {
+//			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
+//		}
 		done.run(message);
 	}
 	

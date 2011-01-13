@@ -13,7 +13,6 @@ import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.InformSlaves;
 import com.klose.MsConnProto.MasterUrgentExit;
-import com.klose.Slave.TaskXMLCollector;
 
 
 class MasterRpcServerThread extends Thread {
@@ -30,7 +29,7 @@ class MasterRpcServerThread extends Thread {
 		masterServer.registerService(heartbeatService);
 		SlaveExitService slaveExitService = new SlaveExitService();
 		masterServer.registerService(slaveExitService);		
-		TaskXMLCollector collector = new TaskXMLCollector();
+		JobXMLCollector collector = new JobXMLCollector();
 		masterServer.registerService(collector);
 		//this simple order executor is initial version.
 		SimpleOrderExecService soes = new SimpleOrderExecService(); 

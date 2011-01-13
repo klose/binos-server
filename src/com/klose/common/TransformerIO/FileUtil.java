@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.hadoop.conf.Configuration;
@@ -13,7 +12,6 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
-import com.klose.Slave.TaskXMLCollector;
 import com.klose.common.HttpClient;
 
 /**
@@ -37,7 +35,7 @@ public class FileUtil {
 			//local file system
 			return FStype.LOCAL;
 		}
-		else if(path.substring(0, 7).equals(hdfsHeader)) {
+		else if(path.length() >= 7 && path.substring(0, 7).equals(hdfsHeader)) {
 			return FStype.HDFS;
 		}
 		else if(Pattern.matches(remoteHeaderRegex, path)) {
@@ -46,6 +44,20 @@ public class FileUtil {
 		else {
 			return FStype.UNRECOGNIZED;
 		}
+	}
+	
+	public static String getHDFSAbsolutePath(String path) {
+		String result = "";
+		Path p = new Path(path);
+		Configuration conf = new Configuration();
+		try {
+			FileSystem fs = FileSystem.get(conf);
+			result +=  (fs.getWorkingDirectory().toString() + "/" + p.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 	/**
 	 * If dir path exists, it will return true.
@@ -237,6 +249,7 @@ public class FileUtil {
 					}
 				}
 				else {
+					LOG.log(Level.INFO, p.toString() + " doesn't exist.");
 					return null;
 				}
 			}
@@ -252,11 +265,19 @@ public class FileUtil {
 	/**
 	 * copy local directory to HDFS.
 	 */
-	public static void copyLocalDirToHDFS(String localDir, String hdfsDir) {
+	public static void copyLocalDirToHDFS(File localDir, String hdfsDir) {
 		Path dstPath = new Path(hdfsDir);
+		Path srcPath = new Path(localDir.getAbsolutePath());
 		Configuration conf = new Configuration();
-		FileSystem dstFs = FileSystem.get(conf);
-		dstFs.copyFromLocalFile(true,localDir, dstPath);
+		try {
+			FileSystem dstFs = FileSystem.get(conf);
+			dstFs.copyFromLocalFile(srcPath, dstPath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			LOG.log(Level.INFO, dstPath.getName() + " has already get the "+srcPath.getName());
+			e.printStackTrace();
+			
+		}
 	}
 	  /**
 	   * Create the given dir in HDFS
@@ -291,6 +312,7 @@ public class FileUtil {
 	 */
 	public static String TransHDFSToLocalFile(String hdfsFile, String localDir) {
 		if(!ensureHDFSFile(hdfsFile) || !ensureLocalDirectory(localDir) ) {
+			LOG.log(Level.INFO, "hdfsFile: " + hdfsFile + " localDir: " + localDir);
 			return null;
 		}
 		else {

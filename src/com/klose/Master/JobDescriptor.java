@@ -10,6 +10,7 @@ import java.util.Iterator;
 import org.dom4j.Element;
 
 import com.klose.common.TaskState;
+import com.klose.common.TransformerIO.FileUtil;
 
 
 
@@ -34,7 +35,9 @@ public class JobDescriptor {
 	private JobXMLParser parser;
 	
 	public JobDescriptor(String path) {
-		xmlPath = path;
+		String dirName = path.substring(0, path.lastIndexOf("_"));
+		xmlPath = FileUtil.getHDFSAbsolutePath(dirName + "/" + path + ".xml");
+		System.out.println("------------------------------"+ xmlPath);
 		parser = new JobXMLParser(this.xmlPath);
 		tasksView = new TaskStates[parser.getTaskTotal()];
 		loadJobView();
@@ -51,7 +54,7 @@ public class JobDescriptor {
 		it.In the example above,task 1 and 2 will point to task3.  
 		*/
 		String [] tasksDep = new String[tasksView.length];
-		
+		taskStatesIndex = 0;
 		while(taskIter.hasNext()) {
 			Element taskEle = taskIter.next(); 
 			String taskId = parser.getTaskID(taskEle);

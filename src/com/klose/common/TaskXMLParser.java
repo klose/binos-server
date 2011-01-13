@@ -7,13 +7,13 @@ import org.dom4j.Element;
 
 
 public class TaskXMLParser extends XMLParser{
-	private  final String inputpathDes = "InputPath";
-	private  final String outputpathDes = "OutputPath";
+	private  final String inputpathDes = "inputPath";
+	private  final String outputpathDes = "outputPath";
 	private  final String inputpathAttriNum = "num";
 	private  final String outputpathAttriNum = "num";
 	private  final String pathDes = "path";
-	private  final String taskidDes = "TaskId";
-	private  final String jarPathDes = "JarPath";
+	private  final String taskidDes = "taskId";
+	private  final String jarPathDes = "jarPath";
 
 	public TaskXMLParser(String path) throws IOException {
 		super(path);

@@ -22,14 +22,14 @@ public class SlaveReportTaskState {
 				this.parser.getMasterPort());
 		this.controller = this.channel.newRpcController();
 	}
-	public boolean report(String taskId, String state) {
+	public void report(String taskId, String state) {
 		TaskStateChangeService stateChange = 
 			TaskStateChangeService.newStub(this.channel);
 		final TaskChangeState request = TaskChangeState.newBuilder()
 					.setTaskId(taskId).setState(state).build();
 		stateChange.stateChange(controller, 
 				request, new scRpcCallback(request.getTaskId(), request.getState()));
-		return reportResponse;
+
 		//				new RpcCallback<com.klose.MsConnProto.ConfirmMessage> () {
 //					@Override
 //					public void run(ConfirmMessage response) {
@@ -50,8 +50,8 @@ public class SlaveReportTaskState {
 			this.state = state;
 		}
 		public void run(ConfirmMessage response) {
-			reportResponse = response.getIsSuccess();
-			if(reportResponse) 
+			boolean reportResponse1 = response.getIsSuccess();
+			if(reportResponse1) 
 				LOG.log(Level.INFO, 
 					"task-"+ this.taskId + " STATE CHANGE: "+ this.state);
 		}

@@ -14,7 +14,7 @@ public class TaskDescriptor {
 	private String taskId;
 	private String xmlPath;
 	public TaskDescriptor(String path) throws IOException  {
-		this.xmlPath = path;
+		this.xmlPath = path;	
 		parse();
 	}
 	public void parse() throws IOException {

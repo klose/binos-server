@@ -40,7 +40,7 @@ public class JLoopClient {
 	private void printUsage() {
 		System.out
 				.print("Usage: JLoopClient"
-						+ " --url=MASTER_URL --xml=PATH [--exec=ORDER] [...] "
+						+ " --url=MASTER_URL --jobXML=PATH [--exec=ORDER] [...] "
 						+ "\n"
 						+ "MASTER_URL may be one of:"
 						+ "\n"
@@ -54,7 +54,7 @@ public class JLoopClient {
 						+ "    --help                   display this help and exit.\n"
 						+ "    --url=VAL                URL to represent Master URL\n"
 						+ "    --exec=VAL               ORDER which need to run \n"
-						+ "    --xml=VAL                XML specifies the detail of job to be submitted\n");
+						+ "    --jobXML=VAL             jobXML specifies the XML of job to be submitted\n");
 		System.exit(1);
 	}
 
@@ -71,7 +71,7 @@ public class JLoopClient {
 		String urlRegex = "--url\\s*=\\s*JLoop://[0-9]+@"
 				+ "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{4,5}";
 		String execRegex = "--exec=";
-		String xmlRegex = "--xml=";
+		String jobXMLRegex = "--jobXML=";
 		for (int i = 0; i < length; i++) {
 			if (this.args_[i].equals("--help")) {
 				printUsage();
@@ -106,23 +106,23 @@ public class JLoopClient {
 						this.argsMap.put("exec-order", order);
 					}
 				}
-				else if (Pattern.matches(xmlRegex,
-						this.args_[i].trim().substring(0, 6))) {
+				else if (Pattern.matches(jobXMLRegex,
+						this.args_[i].substring(0, jobXMLRegex.length()))) {
 					String path = "";
-					if (this.args_[i].trim().length() > 6) {
-						path = this.args_[i].trim().substring(6).trim();
-						this.argsMap.put("exec-xml", path);
+					if (this.args_[i].trim().length() > jobXMLRegex.length()) {
+						path = this.args_[i].trim().substring(jobXMLRegex.length()).trim();
+						this.argsMap.put("exec-jobXML", path);
 					} else {
 						printUsage();
 					}
 				}
-			} else if (this.args_[i].trim().length() >= 6) {
-				if (Pattern.matches(xmlRegex,
-						this.args_[i].trim().substring(0, 6))) {
+			} else if (this.args_[i].trim().length() >= jobXMLRegex.length()) {
+				if (Pattern.matches(jobXMLRegex,
+						this.args_[i].trim().substring(0, jobXMLRegex.length()))) {
 					String path = "";
-					if (this.args_[i].trim().length() > 6) {
-						path = this.args_[i].trim().substring(6).trim();
-						this.argsMap.put("exec-xml", path);
+					if (this.args_[i].trim().length() > jobXMLRegex.length()) {
+						path = this.args_[i].trim().substring(jobXMLRegex.length()).trim();
+						this.argsMap.put("exec-jobXML", path);
 					} else {
 						printUsage();
 					}
@@ -134,13 +134,12 @@ public class JLoopClient {
 				printUsage();
 			}
 		}
-		String newPath = normalizingUniformJobPath(this.argsMap.get("exec-xml"));
-		
+		String newPath = normalizingUniformJobPath(this.argsMap.get("exec-jobXML"));
 		if(newPath == null) {
 			System.exit(-1);
 		}
 		else {
-			this.argsMap.put("exec-xml", newPath);
+			this.argsMap.put("exec-jobXML", newPath);
 		}
 	}
 	
@@ -159,7 +158,8 @@ public class JLoopClient {
 	 *  @param localJobPath: the path of job
 	 */
 	private static void copyTaskDirPath(String localJobPath, String jobId) {
-		File localJobDir = new File(localJobPath);
+		String jobDirPath = localJobPath.substring(0, localJobPath.lastIndexOf("/"));
+		File localJobDir = new File(jobDirPath);
 		if(!localJobDir.exists()) {
 			LOG.log(Level.WARNING, localJobPath + " doesn't exist.");
 			return;
@@ -182,7 +182,9 @@ public class JLoopClient {
 					
 				};
 				for(File taskDir : localJobDir.listFiles(filter)) {
-					FilUtil.TransLocalFileToHDFS(taskDir, jobId);
+					System.out.println(taskDir.toString() + ":" +taskDir.getAbsolutePath() );
+					FileUtil.copyLocalDirToHDFS(taskDir, jobId);
+					
 				}
 			}
 		}
@@ -199,19 +201,28 @@ public class JLoopClient {
 		FStype type = FileUtil.getFileType(path);
 		if(type == FStype.LOCAL) {
 			String[] tmp = path.split("/");
-			String filename = tmp[tmp.length -1];
-			String[] tmp1 = filename.split("\\.");
-			String jobId = tmp1[0];
+			String jobXMLName = tmp[tmp.length -1];
+			LOG.log(Level.INFO, "xml:"+jobXMLName);
+			String jobId = jobXMLName.substring(0, jobXMLName.lastIndexOf(".xml"));
+			LOG.log(Level.INFO, "id:"+jobId);
+			String jobDirName = jobId.substring(0, jobId.lastIndexOf("_"));
+			LOG.log(Level.INFO, "dirname:"+jobDirName);
 			try {
-				if(!FileUtil.checkDirectoryValid(jobId, FStype.HDFS))
-					FileUtil.mkdirInHDFS(jobId);
+				if(!FileUtil.checkDirectoryValid(jobDirName, FStype.HDFS))
+					FileUtil.mkdirInHDFS(jobDirName);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				LOG.log(Level.WARNING, "Can't create the directory in HDFS:"+jobId);
+				LOG.log(Level.WARNING, "Can't create the directory in HDFS:"+jobDirName);
 				System.exit(-1);
 			}
-			String generatedPath = FileUtil.TransLocalFileToHDFS(path, jobId);
+//			while(true) {
+//				if(FileUtil.checkDirectoryValid(jobDirName, FStype.HDFS)) {
+//					break;
+//				}
+//			}
+			String generatedPath = FileUtil.TransLocalFileToHDFS(path, jobDirName);
+			copyTaskDirPath(path, jobDirName);
 			if (generatedPath != null){
 				// hdfs://***.***.***.***:*****/user/***/task is chosen as directory path.
 				return generatedPath;
@@ -258,7 +269,7 @@ public class JLoopClient {
 		
 		XMLPathTransService transService = XMLPathTransService.newStub(socketRpcChannel);
 		TransformXMLPath transPath = TransformXMLPath.newBuilder()
-							.setPath(client.findKeyInMap("exec-xml")).build();
+							.setPath(client.findKeyInMap("exec-jobXML")).build();
 		transService.xmlTrans(rpcController, transPath, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
 			
 			@Override

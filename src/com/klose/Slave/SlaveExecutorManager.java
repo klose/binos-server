@@ -15,6 +15,7 @@ import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
+import com.klose.common.TransformerIO.FileUtil;
 
 /**
  *When master schedules tasks to slave,
@@ -56,15 +57,23 @@ public class SlaveExecutorManager extends Thread{
 						}
 						else {
 							state = taskExecutors.get(taskId).getTaskState();
-							if(reportUtil.report(taskId, state.toString())){
+						
+							/*if(reportUtil.report(taskId, state.toString())){
 								/*at now, once the task has been finished,
 								it will remove all the details of the task.*/
-								if(state.equals(TaskState.STATES.FINISHED)) {
+								/*if(state.equals(TaskState.STATES.FINISHED)) {
 									removeTask(taskId);
 								}
 								else {
 									taskStates.put(taskId, state);
 								}
+							}*/
+							reportUtil.report(taskId, state.toString());
+							if(state.equals(TaskState.STATES.FINISHED)) {
+								removeTask(taskId);
+							}
+							else {
+								taskStates.put(taskId, state);
 							}
 						}
 					}
@@ -114,7 +123,11 @@ public class SlaveExecutorManager extends Thread{
 				synchronized(taskStates) {
 					taskStates.put(taskId,TaskState.STATES.RUNNING);
 				}
-				TaskDescriptor taskDes = new TaskDescriptor(taskId);
+				LOG.log(Level.INFO, "taskId:" + taskId);
+				String jobId = "job-" + taskId.substring(0, taskId.lastIndexOf("_"));
+				String taskIdXML = jobId + "/" + taskId + "/" + taskId + ".xml";
+				LOG.log(Level.INFO, "taskIdXML:" + FileUtil.getHDFSAbsolutePath(taskIdXML));
+				TaskDescriptor taskDes = new TaskDescriptor(FileUtil.getHDFSAbsolutePath(taskIdXML));
 				taskExecQueue.put(taskId, taskDes);
 				SlaveExecutor executor = new SlaveExecutor(taskDes);
 				executor.start();

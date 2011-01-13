@@ -38,8 +38,8 @@ public class JobScheduler {
 		if(runningQueue.size() < runningQueueMaxNum) {
 			if(waitingQueue.size() > 0) {
 				String jobId = waitingQueue.pop();
-				runningQueue.put(jobId, new JobDescriptor("job-"+jobId));
-				LOG.log(Level.INFO, "Transmit the job-" + jobId + 
+				runningQueue.put(jobId, new JobDescriptor(jobId));
+				LOG.log(Level.INFO, "Transmit the " + jobId + 
 						" from waiting queue to running one.");
 			}
 		}
@@ -55,11 +55,13 @@ public class JobScheduler {
 	public static String searchTaskIdInRunningQueue(String taskId) {
 		
 		int lastpos = taskId.lastIndexOf("_");
-		String prefixTarget = taskId.substring(0, lastpos);
+		String prefixTarget = "job-" + taskId.substring(0, lastpos);
 		Iterator<String> JobIdIter = runningQueue.keySet().iterator();
 		while(JobIdIter.hasNext()) {
 			String jobid = JobIdIter.next();
+			
 			if(jobid.startsWith(prefixTarget)) {
+				System.out.println("wwwwwwwwwwwwwwwwwwwwwww"+jobid+"wwwwwwwwwwwwwwwww");
 				int taskIndexInJob = runningQueue.get(jobid).searchTask(taskId);
 				if(taskIndexInJob != -1) {
 					return jobid + ":" + String.valueOf(taskIndexInJob);

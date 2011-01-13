@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="GB2312" standalone="no"?>
 <Job>
-	<Id>1_1_201101041945</Id>
+	<id>1_1_201101041945</id>
 	<total>6</total>
 	<task id="1_1_1" dep="0"/>
 	<task id="1_1_2" dep="0"/>

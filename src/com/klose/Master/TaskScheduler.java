@@ -107,7 +107,7 @@ public class TaskScheduler {
 		atService.allocateTasks(controller, request, new RpcCallback<TState>() {
 			@Override
 			public void run(TState message) {
-				// TODO Auto-generated method stub	
+				// TODO Auto-generated method stub
 				LOG.log(Level.INFO, message.toString());
 			}
 		});
