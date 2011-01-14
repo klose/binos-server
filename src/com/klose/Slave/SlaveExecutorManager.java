@@ -3,6 +3,7 @@ package com.klose.Slave;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,10 +29,10 @@ public class SlaveExecutorManager extends Thread{
 	/*taskExecQueue the meaning of map is <taskid:the descriptor of task>*/
 	private  static final HashMap<String, TaskDescriptor> taskExecQueue 
 			= new HashMap<String, TaskDescriptor>();
-	private static final HashMap<String, TaskState.STATES> taskStates 
-			= new HashMap<String, TaskState.STATES>();
-	private static final HashMap<String, SlaveExecutor> taskExecutors
-			= new HashMap<String, SlaveExecutor> ();
+	private static final ConcurrentHashMap<String, TaskState.STATES> taskStates 
+			= new ConcurrentHashMap<String, TaskState.STATES>();
+	private static final ConcurrentHashMap<String, SlaveExecutor> taskExecutors
+			= new ConcurrentHashMap<String, SlaveExecutor> ();
 	private static final Logger LOG = Logger.getLogger(SlaveExecutorManager.class.getName());
 	private SocketRpcServer slaveServer;
 	private SlaveArgsParser confParser;

@@ -97,6 +97,7 @@ public class TaskScheduler {
 	 * transmit the taskId to appropriate slave.
 	 */
 	public static void transmitToSlave(String taskId) throws IOException {
+		System.out.println("########################transmitToSlave"+ taskId + "############");
 		String slaveId = chooseSlave(taskId);
 		SocketRpcChannel channel = SlaveRPCConnPool
 				.getSocketRPCChannel(slaveId);
@@ -104,6 +105,7 @@ public class TaskScheduler {
 		AllocateTaskService atService = AllocateTaskService.newStub(channel);
 		AllocateIdentity request = AllocateIdentity.newBuilder()
 				.setSlaveIpPort(slaveId).setTaskIds(taskId).build();
+		LOG.log(Level.INFO, "taskId:" + taskId + " scheduled to  " + "slaveId:" + slaveId);
 		atService.allocateTasks(controller, request, new RpcCallback<TState>() {
 			@Override
 			public void run(TState message) {

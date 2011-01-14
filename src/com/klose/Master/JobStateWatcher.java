@@ -35,7 +35,7 @@ public class JobStateWatcher extends Thread{
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
 				JobScheduler.transWaitingToRunning();
-				this.sleep(20000);
+				this.sleep(5000);
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

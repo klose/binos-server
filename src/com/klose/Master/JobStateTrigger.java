@@ -34,18 +34,22 @@ public class JobStateTrigger extends Thread{
 			synchronized(runningQueue) {
 				for(String jobId :runningQueue.keySet()) {
 					String [] taskPrepared = runningQueue.get(jobId).getPreparedTask();
-					for(String taskId: taskPrepared) {
-						try {
-							TaskScheduler.transmitToSlave(taskId);	
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+					if(taskPrepared.length > 0) {
+						for (String taskId : taskPrepared) {
+							System.out.println("########################"
+									+ taskId + "############");
+							try {
+								TaskScheduler.transmitToSlave(taskId);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					}
 				}
 			}
 			try {
-				this.sleep(3000);
+				this.sleep(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
