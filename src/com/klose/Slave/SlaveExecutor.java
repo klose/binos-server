@@ -62,6 +62,7 @@ public class SlaveExecutor extends Thread{
 				e.printStackTrace();
 				this.setTaskState(TaskState.STATES.ERROR);
 			}
+			System.out.println("Finished");
 			this.setTaskState(TaskState.STATES.FINISHED);
 		}
 	}

@@ -2,6 +2,7 @@ package com.klose.Master;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,8 +49,8 @@ public class JobStateWatcher extends Thread{
 	 */
 	class TaskChangeWatcher extends TaskStateChangeService {
 		private LinkedList<String> waitingQueue;
-		private HashMap<String, JobDescriptor> runningQueue;
-		TaskChangeWatcher(LinkedList<String> listQueue,  HashMap<String, JobDescriptor> map) {
+		private ConcurrentHashMap<String, JobDescriptor> runningQueue;
+		TaskChangeWatcher(LinkedList<String> listQueue,  ConcurrentHashMap<String, JobDescriptor> map) {
 			this.waitingQueue = listQueue;
 			this.runningQueue = map;
 		}
@@ -70,6 +71,7 @@ public class JobStateWatcher extends Thread{
 			confirmMessage = confirmMessage.newBuilder().setIsSuccess(true)
 			.build();
 			if (taskState.equals("FINISHED")) {
+				System.out.println("wwwwwwwwwwwwwwwwwwww" + taskState + "ssssssssssssss");
 				JobScheduler.addTaskidFinishedList(taskidPos);
 				String [] tmp = taskidPos.split(":");
 				if(tmp.length != 2) {
@@ -79,6 +81,7 @@ public class JobStateWatcher extends Thread{
 				}
 				else {
 					if(runningQueue.get(tmp[0]).isSuccessful()) {
+						LOG.log(Level.INFO, taskidPos.split(":")[0] + ": FINISHED.");
 						runningQueue.remove(tmp[0]);
 					}
 				}

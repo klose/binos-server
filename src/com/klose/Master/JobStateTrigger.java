@@ -2,6 +2,7 @@ package com.klose.Master;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,11 +31,15 @@ public class JobStateTrigger extends Thread{
 	public void run() {
 		LOG.log(Level.INFO, "JobStateTrigger starts running...");
 		while(true) {
-			HashMap<String, JobDescriptor> runningQueue = JobScheduler.getRunningQueue();
+			ConcurrentHashMap<String, JobDescriptor> runningQueue = JobScheduler.getRunningQueue();
 			synchronized(runningQueue) {
 				for(String jobId :runningQueue.keySet()) {
 					String [] taskPrepared = runningQueue.get(jobId).getPreparedTask();
-					if(taskPrepared.length > 0) {
+					//System.out.println("########################taskPrepared"
+						//	+ taskPrepared.length + "############");
+					//System.out.println("########################taskPrepared"
+						//	+ taskPrepared[0] + "############");
+					if(taskPrepared != null) {
 						for (String taskId : taskPrepared) {
 							System.out.println("########################"
 									+ taskId + "############");

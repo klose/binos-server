@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312" standalone="no"?>
+<job>
+<id>job-1_1_20110114123558</id>
+<total>4</total>
+<task dep="0" id="1_1_1"/>
+<task dep="0" id="1_1_2"/>
+<task dep="-2" id="1_1_3">
+<taskId>1_1_1</taskId>
+<taskId>1_1_2</taskId>
+</task>
+<task dep="1" id="1_1_4">
+<taskId>1_1_3</taskId>
+</task>
+</job>

@@ -38,7 +38,7 @@ public class JobXMLParser extends XMLParser {
 	private final String Task = "task";
 	private final String TaskAttriId = "id";
 	private final String TaskAttriDep = "dep";
-	private final String TaskID = "taskid";
+	private final String TaskID = "taskId";
 	private final String TaskTotal = "total";
 	
 	public JobXMLParser(String path) {

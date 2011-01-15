@@ -27,8 +27,8 @@ import com.klose.common.TransformerIO.FileUtil;
  */
 public class SlaveExecutorManager extends Thread{
 	/*taskExecQueue the meaning of map is <taskid:the descriptor of task>*/
-	private  static final HashMap<String, TaskDescriptor> taskExecQueue 
-			= new HashMap<String, TaskDescriptor>();
+	private  static final ConcurrentHashMap<String, TaskDescriptor> taskExecQueue 
+			= new ConcurrentHashMap<String, TaskDescriptor>();
 	private static final ConcurrentHashMap<String, TaskState.STATES> taskStates 
 			= new ConcurrentHashMap<String, TaskState.STATES>();
 	private static final ConcurrentHashMap<String, SlaveExecutor> taskExecutors
@@ -69,6 +69,7 @@ public class SlaveExecutorManager extends Thread{
 									taskStates.put(taskId, state);
 								}
 							}*/
+							System.out.println("report task state:"+ taskId + " "+ state.toString());
 							reportUtil.report(taskId, state.toString());
 							if(state.equals(TaskState.STATES.FINISHED)) {
 								removeTask(taskId);

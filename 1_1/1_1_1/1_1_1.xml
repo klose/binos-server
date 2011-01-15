@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GB2312" standalone="no"?>
+<task>
+<taskId>1_1_1</taskId>
+<jarPath>hdfs://10.5.0.55:26666/user/jiangbing/job-1_1/1_1_1/1_1_1.jar</jarPath>
+<inputPath inputPathNum="1">
+<path id="1" valid="true">hdfs://10.5.0.55:26666/user/jiangbing/input1</path>
+</inputPath>
+<outputPath outputPathNum="1">
+<path id="1">hdfs://10.5.0.55:26666/user/jiangbing/lyzoutput1</path>
+</outputPath>
+</task>

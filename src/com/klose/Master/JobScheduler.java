@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 public class JobScheduler {
 	//* waitingQueue is used to store the jobs waiting to be added to running queue.
 	private static LinkedList<String> waitingQueue = new LinkedList<String>();
-	private static HashMap<String, JobDescriptor> runningQueue = new HashMap<String, JobDescriptor>();
+	private static ConcurrentHashMap<String, JobDescriptor> runningQueue = new ConcurrentHashMap<String, JobDescriptor>();
 	private static final Logger LOG = Logger.getLogger(JobScheduler.class.getName()); 
 	/**set maximum jobs in the running queue statically, 
 	on the premise that we can't estimate job's overload and machine ability.*/
@@ -73,6 +74,7 @@ public class JobScheduler {
 	}
 	/*add the finished task index to the JobDescriptor's finishedList*/
 	public static void addTaskidFinishedList(String taskidPos) {
+		System.out.println("11111111111111111111" + taskidPos + "2222222222");
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
 			LOG.log(Level.WARNING, taskidPos+ " is not correct.");
@@ -83,6 +85,7 @@ public class JobScheduler {
 	}
 	/*get the Job in the running queue*/
 	public static JobDescriptor getJobDescriptor(String jobId) {
+		System.out.println("222222222222222" + jobId + "2222222222");
 		return runningQueue.get(jobId);
 	}
 	/**
@@ -111,7 +114,7 @@ public class JobScheduler {
 		return waitingQueue;
 	}
 	
-	public synchronized static HashMap<String, JobDescriptor> getRunningQueue() {
+	public synchronized static ConcurrentHashMap<String, JobDescriptor> getRunningQueue() {
 		return runningQueue;
 	}
 }

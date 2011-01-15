@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.dom4j.Element;
 
 import com.klose.common.TaskState;
@@ -26,7 +29,7 @@ public class JobDescriptor {
 	/*tasksView is constructed by different tasks and their links.*/ 
 	private TaskStates [] tasksView; 
 	private static int taskStatesIndex = 0;// the index of array JobView
-	
+	private static final Logger LOG = Logger.getLogger(JobDescriptor.class.getName());
 	//HashMap<taskid, taskStatesIndex>
 	private HashMap<String, Integer> jobStatus = new HashMap<String ,Integer>();
 	
@@ -69,6 +72,7 @@ public class JobDescriptor {
 				tasksView[taskStatesIndex].setStates(TaskState.STATES.UNPREPARED);
 			}
 			String prefixDep = parser.getDepTaskEle(taskEle); 
+			System.out.println("prefixDepprefixDepprefixDepprefixDepprefixDep:" + prefixDep);
 			if(!prefixDep.equals(""))
 				tasksDep[taskStatesIndex] = new String(prefixDep+":"+taskId);
 			else
@@ -96,9 +100,15 @@ public class JobDescriptor {
 		for(int i = 0; i < length ; i ++) {
 			if(tasksView[i].getState() == TaskState.STATES.PREPARED) {
 				res += (tasksView[i].getTaskid() + " ");
+				System.out.println("getPreparedTask():" +  res);
 			}
 		}
-		return res.trim().split(" ");
+		if(!res.equals("")) {
+			return res.trim().split(" ");
+		}
+		else {
+			return null;
+		}
 	}
 	
 	/**
@@ -128,12 +138,18 @@ public class JobDescriptor {
 	public void addFinishedTaskIndex(int index) {
 		// when a task has completed, it will change the
 		//state of related tasks.[UNPREPARED] -> [PREPARED]
+		System.out.println("333333333333333" + index + "2222222222");
 		if(!this.finishedTask.contains(index)) {
 			// It must ensure that this is the first action of adding finished index.
 			this.finishedTask.add(index);
 			TaskScheduler.removeTaskIdOnSlave(tasksView[index].getTaskid());
+			System.out.println("4444444444444444444" + tasksView[index].getTaskid() + "2222222222");
+			System.out.println("5555555555555555555" + tasksView[index].getSuffixTaskIds().size() + "2222222222");
+			
 			synchronized(tasksView) {
+				
 				for(String relatedTask : tasksView[index].getSuffixTaskIds()) {
+					System.out.println(relatedTask + "222222222222222222");
 					int dep = tasksView[jobStatus.get(relatedTask)].getDependence();
 					if(dep > 0) {
 						dep --;
@@ -141,7 +157,10 @@ public class JobDescriptor {
 					else {
 						dep ++;
 					}
+					tasksView[jobStatus.get(relatedTask)].setDependence(dep);
+					System.out.println("666666666666666666666:" + dep + ":2222222222");
 					if(dep == 0) {
+						LOG.log(Level.INFO, tasksView[index].getTaskid() +" :UNPREPARED -> PREPARED");
 						tasksView[jobStatus.get(relatedTask)].
 							setStates(TaskState.STATES.PREPARED);
 					}
