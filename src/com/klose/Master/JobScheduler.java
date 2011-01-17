@@ -1,6 +1,8 @@
 package com.klose.Master;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -21,6 +23,10 @@ public class JobScheduler {
 	private static LinkedList<String> waitingQueue = new LinkedList<String>();
 	private static ConcurrentHashMap<String, JobDescriptor> runningQueue = new ConcurrentHashMap<String, JobDescriptor>();
 	private static final Logger LOG = Logger.getLogger(JobScheduler.class.getName()); 
+	private static ConcurrentHashMap<String, String> timeStart 
+						= new ConcurrentHashMap<String, String>();
+	private static ConcurrentHashMap<String, String> timeFinish 
+					= new ConcurrentHashMap<String, String>();
 	/**set maximum jobs in the running queue statically, 
 	on the premise that we can't estimate job's overload and machine ability.*/
 	private static final int runningQueueMaxNum = 10;
@@ -31,6 +37,7 @@ public class JobScheduler {
 	public synchronized static void submitJob(String jobid) {
 		if(!waitingQueue.contains(jobid)) {
 			waitingQueue.add(jobid);
+			setStartTime(jobid);
 		}
 	}
 	
@@ -116,5 +123,22 @@ public class JobScheduler {
 	
 	public synchronized static ConcurrentHashMap<String, JobDescriptor> getRunningQueue() {
 		return runningQueue;
+	}
+	public synchronized static void setStartTime(String jobId) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String time =  sdf.format(new Date());
+		LOG.log(Level.INFO, jobId + " start at: " + time);
+		timeStart.put(jobId, time);
+	}
+	public synchronized static void setFinishedTime(String jobId) {
+		if(!timeStart.contains(jobId)) {
+			timeFinish.put(jobId, "statistics is not enough.");
+		}
+		else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String time = sdf.format(new Date());
+			LOG.log(Level.INFO, jobId + " finish at: " + time);
+			timeFinish.put(jobId, time);
+		}
 	}
 }

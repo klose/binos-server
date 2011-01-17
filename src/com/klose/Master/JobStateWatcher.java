@@ -82,6 +82,7 @@ public class JobStateWatcher extends Thread{
 				else {
 					if(runningQueue.get(tmp[0]).isSuccessful()) {
 						LOG.log(Level.INFO, taskidPos.split(":")[0] + ": FINISHED.");
+						JobScheduler.setFinishedTime(tmp[0]);
 						runningQueue.remove(tmp[0]);
 					}
 				}
