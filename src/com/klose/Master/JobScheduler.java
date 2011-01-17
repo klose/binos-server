@@ -1,5 +1,6 @@
 package com.klose.Master;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -127,7 +128,7 @@ public class JobScheduler {
 	public synchronized static void setStartTime(String jobId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String time =  sdf.format(new Date());
-		LOG.log(Level.INFO, jobId + " start at: " + time);
+//		LOG.log(Level.INFO, jobId + " start at: " + time);
 		timeStart.put(jobId, time);
 	}
 	public synchronized static void setFinishedTime(String jobId) {
@@ -137,8 +138,26 @@ public class JobScheduler {
 		else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			String time = sdf.format(new Date());
-			LOG.log(Level.INFO, jobId + " finish at: " + time);
+//			LOG.log(Level.INFO, jobId + " finish at: " + time);
 			timeFinish.put(jobId, time);
 		}
 	}
+	
+	public synchronized static void getUsedTime(String jobId) {
+		if(timeStart.contains(jobId) && timeFinish.contains(jobId)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			
+			try {
+				LOG.log(Level.INFO, jobId + " start at " + 
+						sdf.parse(timeStart.get(jobId)) + "\n"
+						+ "finish at " +  sdf.parse(timeFinish.get(jobId))
+						);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+				LOG.log(Level.WARNING, "Can't record the statistics of ." + jobId);
+			}
+		}
+	}
+	
 }
