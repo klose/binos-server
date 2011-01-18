@@ -128,35 +128,26 @@ public class JobScheduler {
 	public synchronized static void setStartTime(String jobId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String time =  sdf.format(new Date());
-//		LOG.log(Level.INFO, jobId + " start at: " + time);
+		LOG.log(Level.INFO, jobId + " start at: " + time);
 		timeStart.put(jobId, time);
 	}
 	public synchronized static void setFinishedTime(String jobId) {
-		if(!timeStart.contains(jobId)) {
+		if(!timeStart.containsKey(jobId)) {
 			timeFinish.put(jobId, "statistics is not enough.");
 		}
 		else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			String time = sdf.format(new Date());
-//			LOG.log(Level.INFO, jobId + " finish at: " + time);
+			LOG.log(Level.INFO, jobId + " finish at: " + time);
 			timeFinish.put(jobId, time);
 		}
 	}
 	
-	public synchronized static void getUsedTime(String jobId) {
-		if(timeStart.contains(jobId) && timeFinish.contains(jobId)) {
+	public synchronized static void printUsedTime(String jobId) {
+		if(timeStart.containsKey(jobId) && timeFinish.containsKey(jobId)) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			
-			try {
-				LOG.log(Level.INFO, jobId + " start at " + 
-						sdf.parse(timeStart.get(jobId)) + "\n"
-						+ "finish at " +  sdf.parse(timeFinish.get(jobId))
-						);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
-				LOG.log(Level.WARNING, "Can't record the statistics of ." + jobId);
-			}
+			LOG.log(Level.INFO, jobId + " start at " + timeStart.get(jobId)
+					+ "\n" + "finish at " + timeFinish.get(jobId));
 		}
 	}
 	

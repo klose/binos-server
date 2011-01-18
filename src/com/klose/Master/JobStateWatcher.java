@@ -70,6 +70,7 @@ public class JobStateWatcher extends Thread{
 			state.setStates(TaskState.STATES.valueOf(taskState));
 			confirmMessage = confirmMessage.newBuilder().setIsSuccess(true)
 			.build();
+			
 			if (taskState.equals("FINISHED")) {
 				System.out.println("wwwwwwwwwwwwwwwwwwww" + taskState + "ssssssssssssss");
 				JobScheduler.addTaskidFinishedList(taskidPos);
@@ -81,9 +82,9 @@ public class JobStateWatcher extends Thread{
 				}
 				else {
 					if(runningQueue.get(tmp[0]).isSuccessful()) {
-						LOG.log(Level.INFO, taskidPos.split(":")[0] + ": FINISHED.");
+						LOG.log(Level.INFO, tmp[0] + ": FINISHED.");
 						JobScheduler.setFinishedTime(tmp[0]);
-						
+						JobScheduler.printUsedTime(tmp[0]);
 						runningQueue.remove(tmp[0]);
 					}
 				}
