@@ -80,7 +80,7 @@ public class SlaveExecutorManager extends Thread{
 						}
 					}
 				}
-				this.sleep(1000);
+				this.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

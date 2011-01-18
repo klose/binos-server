@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,8 @@ public class JobScheduler {
 						= new ConcurrentHashMap<String, String>();
 	private static ConcurrentHashMap<String, String> timeFinish 
 					= new ConcurrentHashMap<String, String>();
+	private static CopyOnWriteArrayList<String> exceptionQueue = 
+		new CopyOnWriteArrayList<String>();
 	/**set maximum jobs in the running queue statically, 
 	on the premise that we can't estimate job's overload and machine ability.*/
 	private static final int runningQueueMaxNum = 10;
@@ -125,6 +128,19 @@ public class JobScheduler {
 	public synchronized static ConcurrentHashMap<String, JobDescriptor> getRunningQueue() {
 		return runningQueue;
 	}
+	
+	/**
+	 * handle a job with exception.
+	 * when a slave report a task with state "ERROR" && "WARNING", it will
+	 * carry out these operations below.
+	 * @param jobId
+	 */
+	public synchronized static void handleExceptionJob(String jobId) {
+		exceptionQueue.add(jobId);
+		runningQueue.remove(jobId);
+		timeStart.remove(jobId);
+	}
+	
 	public synchronized static void setStartTime(String jobId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String time =  sdf.format(new Date());
@@ -142,6 +158,7 @@ public class JobScheduler {
 			timeFinish.put(jobId, time);
 		}
 	}
+	
 	
 	public synchronized static void printUsedTime(String jobId) {
 		if(timeStart.containsKey(jobId) && timeFinish.containsKey(jobId)) {

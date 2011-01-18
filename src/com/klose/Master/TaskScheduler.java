@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,13 +25,13 @@ public class TaskScheduler {
 	/**slaveTaskNum : make a statistics about the the tasks running in slave
 	 * key:value  slaveid : the number of tasks in slave
 	*/
-	private static HashMap<String, Integer> slaveTaskNum = new HashMap<String, Integer>();  
+	private static ConcurrentHashMap<String, Integer> slaveTaskNum = new ConcurrentHashMap<String, Integer>();  
 	
 	/**
 	 * runningTaskSlave: record which machines the running tasks run.
 	 * key:value   taskid:slaveId
 	 */
-	private static HashMap<String, String> runningTaskOnSlave  = new HashMap<String, String> (); 
+	private static ConcurrentHashMap<String, String> runningTaskOnSlave  = new ConcurrentHashMap<String, String> (); 
 	
 	/**
 	 * If the number of tasks in one slave does not reach the tasksOnSlaveMin,
@@ -38,7 +39,7 @@ public class TaskScheduler {
 	 * If the number of tasks in all slaves  reach the tasksOnSlaveMin, 
 	 * new task will be allocated to the slave with least number of tasks. 
 	 */
-	private static int tasksOnSlaveMin = 3;
+	private static int tasksOnSlaveMin = 1;
 	
 	private TaskScheduler() {
 		

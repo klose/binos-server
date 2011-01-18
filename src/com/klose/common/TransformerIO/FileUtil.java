@@ -275,7 +275,7 @@ public class FileUtil {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			LOG.log(Level.INFO, dstPath.getName() + " has already get the "+srcPath.getName());
-			e.printStackTrace();
+			//e.printStackTrace();
 			
 		}
 	}

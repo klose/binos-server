@@ -45,11 +45,13 @@ public class SlaveExecutor extends Thread{
 		else {
 			LOG.log(Level.WARNING, "The jar file---"+ this.taskDes.getJarPath() +" can't been recognized.");
 			this.setTaskState(TaskState.STATES.WARNING);
+			return;
 		}
 		
 		if( null == localJarPath ){
 			LOG.log(Level.SEVERE, "Cannot get the jar.");
-			this.setTaskState(TaskState.STATES.WARNING);	
+			this.setTaskState(TaskState.STATES.WARNING);
+			return;
 		}
 		else {
 			String argsAll = localJarPath + " "+ 
@@ -61,8 +63,8 @@ public class SlaveExecutor extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				this.setTaskState(TaskState.STATES.ERROR);
+				return;
 			}
-			System.out.println("Finished");
 			this.setTaskState(TaskState.STATES.FINISHED);
 		}
 	}
