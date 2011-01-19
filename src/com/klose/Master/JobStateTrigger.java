@@ -34,27 +34,31 @@ public class JobStateTrigger extends Thread{
 			ConcurrentHashMap<String, JobDescriptor> runningQueue = JobScheduler.getRunningQueue();
 			synchronized(runningQueue) {
 				for(String jobId :runningQueue.keySet()) {
-					String [] taskPrepared = runningQueue.get(jobId).getPreparedTask();
-					//System.out.println("########################taskPrepared"
-						//	+ taskPrepared.length + "############");
-					//System.out.println("########################taskPrepared"
-						//	+ taskPrepared[0] + "############");
-					if(taskPrepared != null) {
-						for (String taskId : taskPrepared) {
-							System.out.println("########################"
-									+ taskId + "############");
-							try {
-								TaskScheduler.transmitToSlave(taskId);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+					JobDescriptor jobDes = runningQueue.get(jobId);
+					if(jobDes != null) {
+						String[] taskPrepared = runningQueue.get(jobId)
+								.getPreparedTask();
+						// System.out.println("########################taskPrepared"
+						// + taskPrepared.length + "############");
+						// System.out.println("########################taskPrepared"
+						// + taskPrepared[0] + "############");
+						if (taskPrepared != null) {
+							for (String taskId : taskPrepared) {
+								System.out.println("########################"
+										+ taskId + "is prepared for scheduling...");
+								try {
+									TaskScheduler.transmitToSlave(taskId);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 						}
 					}
 				}
 			}
 			try {
-				this.sleep(2000);
+				this.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

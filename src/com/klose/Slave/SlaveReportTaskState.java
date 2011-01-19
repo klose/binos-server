@@ -28,18 +28,7 @@ public class SlaveReportTaskState {
 		final TaskChangeState request = TaskChangeState.newBuilder()
 					.setTaskId(taskId).setState(state).build();
 		stateChange.stateChange(controller, 
-				request, new scRpcCallback(request.getTaskId(), request.getState()));
-
-		//				new RpcCallback<com.klose.MsConnProto.ConfirmMessage> () {
-//					@Override
-//					public void run(ConfirmMessage response) {
-//						// TODO Auto-generated method stub
-//						if(response.getIsSuccess()) 
-//							LOG.log(Level.INFO, 
-//								"task-"+request.getTaskId() + " STATE CHANGE: "+ request.getState());
-//					}
-//			
-//		});					
+				request, new scRpcCallback(request.getTaskId(), request.getState()));				
 	}
 	
 	class scRpcCallback implements RpcCallback<com.klose.MsConnProto.ConfirmMessage> {
@@ -51,9 +40,13 @@ public class SlaveReportTaskState {
 		}
 		public void run(ConfirmMessage response) {
 			boolean reportResponse1 = response.getIsSuccess();
-			if(reportResponse1) 
+			if(reportResponse1) { 
 				LOG.log(Level.INFO, 
 					"task-"+ this.taskId + " STATE CHANGE: "+ this.state);
+			}
+			else {
+				
+			}
 		}
 	}
 }

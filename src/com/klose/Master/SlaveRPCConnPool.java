@@ -1,6 +1,6 @@
 package com.klose.Master;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,8 +17,8 @@ import com.googlecode.protobuf.socketrpc.SocketRpcController;
  */
 public class SlaveRPCConnPool {
 	private static final Logger LOG = Logger.getLogger(SlaveRPCConnPool.class.getName());
-	private static final HashMap<String, SocketRpcChannel> slaveChannels = 
-				new HashMap<String, SocketRpcChannel>();
+	private static final ConcurrentHashMap<String, SocketRpcChannel> slaveChannels = 
+				new ConcurrentHashMap<String, SocketRpcChannel>();
 //	private static final HashMap<String, SocketRpcController> slaveControllers =
 //				new HashMap<String, SocketRpcController>();
 	private SlaveRPCConnPool() {

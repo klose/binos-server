@@ -40,6 +40,7 @@ public class TaskScheduler {
 	 * new task will be allocated to the slave with least number of tasks. 
 	 */
 	private static int tasksOnSlaveMin = 1;
+	private static int minTasksNum = Integer.MAX_VALUE;
 	
 	private TaskScheduler() {
 		
@@ -100,8 +101,18 @@ public class TaskScheduler {
 	public static void transmitToSlave(String taskId) throws IOException {
 		System.out.println("########################transmitToSlave"+ taskId + "############");
 		String slaveId = chooseSlave(taskId);
-		SocketRpcChannel channel = SlaveRPCConnPool
-				.getSocketRPCChannel(slaveId);
+		
+		/**
+		 * use another method to get channel to compare the perfermance.
+		 */
+//		SocketRpcChannel channel = SlaveRPCConnPool
+//				.getSocketRPCChannel(slaveId);
+		String slaveIpPort [] = slaveId.split(":");
+		if(slaveIpPort.length != 2) {
+			LOG.log(Level.SEVERE, "ERROR: " + slaveId);
+			return ;
+		}
+		SocketRpcChannel channel = new SocketRpcChannel(slaveIpPort[0], Integer.parseInt(slaveIpPort[1])) ;
 		SocketRpcController controller = channel.newRpcController();
 		AllocateTaskService atService = AllocateTaskService.newStub(channel);
 		AllocateIdentity request = AllocateIdentity.newBuilder()
@@ -199,18 +210,15 @@ public class TaskScheduler {
 	 */
 	private synchronized static String chooseSlaveByTasks() {
 		Set<String> slaveIds = slaveTaskNum.keySet();
-		String minSlaveId = "";
-		int minTasksNum = Integer.MAX_VALUE;
+		
 		Iterator<String> iter = slaveIds.iterator();
+		String minSlaveId = iter.next();
+		int minnum = slaveTaskNum.get(minSlaveId);
 		while(iter.hasNext()) {
 			String slaveId = iter.next();
 			int num = slaveTaskNum.get(slaveId) ;
-			if(num <= tasksOnSlaveMin) {
+			if(num < minnum) {
 				return slaveId;
-			}
-			if(num < minTasksNum) {
-				minSlaveId = slaveId;
-				minTasksNum = num;
 			}
 		}
 		return minSlaveId;

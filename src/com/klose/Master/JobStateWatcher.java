@@ -1,6 +1,5 @@
 package com.klose.Master;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -66,31 +65,38 @@ public class JobStateWatcher extends Thread{
 			System.out.println("-----------------------------"+taskState+"------");
 			String taskidPos = JobScheduler.searchTaskIdInRunningQueue(taskid); 
 			System.out.println("-----------------------------"+taskidPos+"------");
-			TaskStates state = JobScheduler.getTaskStates(taskidPos);
-			state.setStates(TaskState.STATES.valueOf(taskState));
-			confirmMessage = confirmMessage.newBuilder().setIsSuccess(true)
-			.build();
-			String [] tmp = taskidPos.split(":");
-			if(tmp.length != 2) {
-				LOG.log(Level.WARNING, taskidPos + " is not correct.");
-				confirmMessage = confirmMessage.newBuilder().setIsSuccess(false)
-				.build();
+			if(taskidPos != null) {
+				TaskStates state = JobScheduler.getTaskStates(taskidPos);
+				state.setStates(TaskState.STATES.valueOf(taskState));
+				confirmMessage = ConfirmMessage.newBuilder().setIsSuccess(true)
+						.build();
+				String[] tmp = taskidPos.split(":");
+				if (tmp.length != 2) {
+					LOG.log(Level.WARNING, taskidPos + " is not correct.");
+					confirmMessage = ConfirmMessage.newBuilder()
+							.setIsSuccess(false).build();
+				} else {
+					if (taskState.equals("FINISHED")) {
+						JobScheduler.addTaskidFinishedList(taskidPos);
+						if (runningQueue.get(tmp[0]).isSuccessful()) {
+							LOG.log(Level.INFO, tmp[0] + ": FINISHED.");
+							JobScheduler.setFinishedTime(tmp[0]);
+							JobScheduler.printUsedTime(tmp[0]);
+							runningQueue.remove(tmp[0]);
+						}
+					} else if (taskState.equals("WARNING")
+							|| taskState.equals("ERROR")) {
+						System.out.println("wwwwwwwwwwwwwwwwwwww " + tmp[0]
+								+ " " + taskState + "ssssssssssssss");
+						JobScheduler.handleExceptionJob(tmp[0]);
+					}
+					confirmMessage = ConfirmMessage.newBuilder()
+							.setIsSuccess(true).build();
+				}
 			}
 			else {
-				if (taskState.equals("FINISHED")) {
-					JobScheduler.addTaskidFinishedList(taskidPos);
-					if (runningQueue.get(tmp[0]).isSuccessful()) {
-						LOG.log(Level.INFO, tmp[0] + ": FINISHED.");
-						JobScheduler.setFinishedTime(tmp[0]);
-						JobScheduler.printUsedTime(tmp[0]);
-						runningQueue.remove(tmp[0]);
-					}
-				} else if (taskState.equals("WARNING")
-						|| taskState.equals("ERROR")) {
-					System.out.println("wwwwwwwwwwwwwwwwwwww " + tmp[0] + " "
-							+ taskState + "ssssssssssssss");
-					JobScheduler.handleExceptionJob(tmp[0]);
-				}
+				confirmMessage = ConfirmMessage.newBuilder().setIsSuccess(false)
+				.build();
 			}
 			done.run(confirmMessage);
 		}

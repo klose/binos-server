@@ -52,30 +52,6 @@ class ShutdownSlaveThread extends Thread {
 	public void run() {
 		this.server.shutDown();
 	}
-//	public void run() {
-//		this.keySet = RegisterToMasterService.getSlavekeys();
-//		Iterator<String> iter = this.keySet.iterator();
-//		while( iter.hasNext() ) {
-//			slave = iter.next().trim();
-//			String slaveIpPort[] = slave.split(":");
-	
-//			SocketRpcChannel socketRpcChannel = new SocketRpcChannel(slaveIpPort[0], Integer.parseInt(slaveIpPort[1]));
-//			SocketRpcController rpcController = socketRpcChannel.newRpcController();
-//			
-//			MasterUrgentExit masterExit = MasterUrgentExit.newStub(socketRpcChannel);
-//			
-//			InformSlaves inform = InformSlaves.newBuilder().setIpPort(slave).build();
-//			
-//			masterExit.urgentExit(rpcController, inform, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
-//				public void run(ConfirmMessage response) {
-//					System.out.println("Master Shutdown Slave Service--- Slave Exit handle:  "+ slave
-//							+ " close the heartbeat service ---  "
-//							+ response.getIsSuccess()  );
-//					
-//				}
-//			});
-//		}
-//	}		
 }	
 public class Master{
 	public static void main(String [] args) throws UnknownHostException {

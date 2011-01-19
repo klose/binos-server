@@ -64,7 +64,7 @@ public class JobScheduler {
 	 * belongs to, and the index of taskid in the JobDescriptor, which use a colon(:) as separator. 
 	 * If it cannot find the taskid ,it will return null.
 	 * */
-	public static String searchTaskIdInRunningQueue(String taskId) {
+	public synchronized static String searchTaskIdInRunningQueue(String taskId) {
 		
 		int lastpos = taskId.lastIndexOf("_");
 		String prefixTarget = "job-" + taskId.substring(0, lastpos);

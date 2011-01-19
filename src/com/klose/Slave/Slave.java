@@ -75,7 +75,7 @@ class SlaveSendHeartbeatThread extends Thread {
 					public void run(MasterInfo response) {
 						// TODO Auto-generated method stub
 						masterReply = response.getIsSuccess();
-						LOG.info("LOG:heartbeatSuccess = "+masterReply);
+						//LOG.info("LOG:heartbeatSuccess = "+masterReply);
 					}
 					});
 				this.sleep(5000);

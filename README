@@ -10,6 +10,15 @@ There is a conflict between a safe check and a warning, So ignoring prior decisi
 219:          return;
 Just annotate the 217 and 218 comparing to prior version.
 
+*************************Revise****************************
+In order to check the reason why RpcServer stops the server, when the slaveExecutor report an ERROR or WARNING state to Master.Add printing the content of the trace of exception.
+########RpcServer.java##############
+172: } catch (IOException ex) {
+173:    stopServer();
+174:	ex.printStackTrace();
+175:   } finally {
+
+Just add the 174 comparing to prior version.
 
 
 ./transformerxml/ is directory containning a xml priciples about jobs and tasks.
