@@ -290,6 +290,12 @@ public class FileUtil {
 			return null;
 		}
 	}
+	public static void removeLocalFile(String path) {
+		File file  = new File(path);
+		if(file.exists()) {
+			file.delete();
+		}
+	}
 	/**
 	 * copy local directory to HDFS.
 	 */

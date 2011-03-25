@@ -300,7 +300,10 @@ public class JLoopClient {
 			}
 			
 			String jarNewPath = FileUtil.renameLocalFileName(jarPath, workingDirectory +"/" +jarNewName);
-			copyJobJarPath(jarNewPath,"job-"+str);
+			if( null != copyJobJarPath(jarNewPath,"job-"+str)) {
+				FileUtil.removeLocalFile(jarNewPath);
+			}
+			
 		}
 	}
 	/*
