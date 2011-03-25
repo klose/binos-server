@@ -225,6 +225,34 @@ public class FileUtil {
 		
 	}
 	/**
+	 * rename the file specified by originName to the file specified by newName
+	 * @param originPath: the former file path
+	 * @param newPath : the new file path
+	 * @return the new file path
+	 */
+	public static String renameLocalFileName(String originPath, String newPath) {
+		if(ensureLocalFile(originPath)) {
+			if(!ensureLocalFile(newPath)) {
+				File src = new File(originPath);
+				File dest = new File(newPath);
+				if(src.renameTo(dest)) {
+					return newPath;
+				}
+				else {
+					return null;
+				}
+			}
+			else {
+				LOG.log(Level.WARNING, " newPath:"+ newPath + " exists already!");
+				return null;
+			}
+		}
+		else {
+			LOG.log(Level.WARNING, " originPath:"+ originPath + " doesnot exist!");
+			return null;
+		}
+	}
+	/**
 	 * Put the local file into the directory of hdfs. 
 	 * It will return the hdfs file path generated.
 	 * @param localpath: use the absolute path of file

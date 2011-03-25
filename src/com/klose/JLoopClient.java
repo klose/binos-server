@@ -3,6 +3,8 @@ package com.klose;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +21,10 @@ import com.klose.MsConnProto.ExecOrderResp;
 import com.klose.MsConnProto.SlaveOrderExecutorService;
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
+import com.klose.common.RunJar;
 import com.klose.common.TransformerIO.FileUtil;
 import com.klose.common.TransformerIO.FileUtil.FStype;
+import com.transformer.compiler.JobConfiguration;
 
 /**
  * JLoopClient: provide the API for submitting job to Master. JLoopClient is not
@@ -31,8 +35,10 @@ import com.klose.common.TransformerIO.FileUtil.FStype;
  */
 public class JLoopClient {
 	private String[] args_;
-	private HashMap<String, String> argsMap = new HashMap<String, String>();
+	private static HashMap<String, String> argsMap = new HashMap<String, String>();
 	private static final Logger LOG = Logger.getLogger(JLoopClient.class.getName());
+	private static final String workingDirectory = "/tmp/JLoopClient"; 
+	private static final String jarNewName = "job.jar";
 	public JLoopClient(String[] args) {
 		this.args_ = args;
 	}
@@ -40,7 +46,7 @@ public class JLoopClient {
 	private void printUsage() {
 		System.out
 				.print("Usage: JLoopClient"
-						+ " --url=MASTER_URL --jobXML=PATH [--exec=ORDER] [...] "
+						+ " --url=MASTER_URL --jobJAR=PATH [--exec=ORDER] [...] "
 						+ "\n"
 						+ "MASTER_URL may be one of:"
 						+ "\n"
@@ -54,7 +60,7 @@ public class JLoopClient {
 						+ "    --help                   display this help and exit.\n"
 						+ "    --url=VAL                URL to represent Master URL\n"
 						+ "    --exec=VAL               ORDER which need to run \n"
-						+ "    --jobXML=VAL             jobXML specifies the XML of job to be submitted\n");
+						+ "    --jobJAR=VAL             jobJAR specifies the path of executable java jar to be submitted\n");
 		System.exit(1);
 	}
 
@@ -62,7 +68,7 @@ public class JLoopClient {
 	 * parserArgs: parse the args and load information into argsMap(HashMap). if
 	 * args has invalidate value, it will return false.
 	 */
-	private void parseArgs() {
+	private void parseArgs()  {
 		// premise: the master url is like JLoop://id@host:port
 		if (args_.length <= 1) {
 			printUsage();
@@ -71,7 +77,7 @@ public class JLoopClient {
 		String urlRegex = "--url\\s*=\\s*JLoop://[0-9]+@"
 				+ "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{4,5}";
 		String execRegex = "--exec=";
-		String jobXMLRegex = "--jobXML=";
+		String jobJARRegex = "--jobJAR=";
 		for (int i = 0; i < length; i++) {
 			if (this.args_[i].equals("--help")) {
 				printUsage();
@@ -106,23 +112,23 @@ public class JLoopClient {
 						this.argsMap.put("exec-order", order);
 					}
 				}
-				else if (Pattern.matches(jobXMLRegex,
-						this.args_[i].substring(0, jobXMLRegex.length()))) {
+				else if (Pattern.matches(jobJARRegex,
+						this.args_[i].substring(0, jobJARRegex.length()))) {
 					String path = "";
-					if (this.args_[i].trim().length() > jobXMLRegex.length()) {
-						path = this.args_[i].trim().substring(jobXMLRegex.length()).trim();
-						this.argsMap.put("exec-jobXML", path);
+					if (this.args_[i].trim().length() > jobJARRegex.length()) {
+						path = this.args_[i].trim().substring(jobJARRegex.length()).trim();
+						this.argsMap.put("exec-jobJAR", path);
 					} else {
 						printUsage();
 					}
 				}
-			} else if (this.args_[i].trim().length() >= jobXMLRegex.length()) {
-				if (Pattern.matches(jobXMLRegex,
-						this.args_[i].trim().substring(0, jobXMLRegex.length()))) {
+			} else if (this.args_[i].trim().length() >= jobJARRegex.length()) {
+				if (Pattern.matches(jobJARRegex,
+						this.args_[i].trim().substring(0, jobJARRegex.length()))) {
 					String path = "";
-					if (this.args_[i].trim().length() > jobXMLRegex.length()) {
-						path = this.args_[i].trim().substring(jobXMLRegex.length()).trim();
-						this.argsMap.put("exec-jobXML", path);
+					if (this.args_[i].trim().length() > jobJARRegex.length()) {
+						path = this.args_[i].trim().substring(jobJARRegex.length()).trim();
+						this.argsMap.put("exec-jobJAR", path);
 					} else {
 						printUsage();
 					}
@@ -134,13 +140,14 @@ public class JLoopClient {
 				printUsage();
 			}
 		}
-		String newPath = normalizingUniformJobPath(this.argsMap.get("exec-jobXML"));
-		if(newPath == null) {
-			System.exit(-1);
+		try {
+			constructWorkingEnv(this.argsMap.get("exec-jobJAR"));
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			this.argsMap.put("exec-jobXML", newPath);
-		}
+		
+		
 	}
 	
 	/**
@@ -205,7 +212,8 @@ public class JLoopClient {
 			LOG.log(Level.INFO, "xml:"+jobXMLName);
 			String jobId = jobXMLName.substring(0, jobXMLName.lastIndexOf(".xml"));
 			LOG.log(Level.INFO, "id:"+jobId);
-			String jobDirName = jobId.substring(0, jobId.lastIndexOf("_"));
+			//String jobDirName = jobId.substring(jobId.lastIndexOf("_"),);
+			String jobDirName =  jobId;
 			LOG.log(Level.INFO, "dirname:"+jobDirName);
 			try {
 				if(!FileUtil.checkDirectoryValid(jobDirName, FStype.HDFS))
@@ -252,7 +260,49 @@ public class JLoopClient {
 	public String findKeyInMap(String key) {
 		return this.argsMap.get(key);
 	}
-
+	public static String copyJobJarPath(String jarPath, String jobDir) {
+		return FileUtil.TransLocalFileToHDFS(jarPath, jobDir);
+	}
+	
+	/**
+	 * Construct the environment that job relies on.
+	 * Execute the specified jar that generate the working directory.
+	 * @param jarPath: specify the path of jar.
+	 * @throws Throwable 
+	 */
+	private static void constructWorkingEnv(String jarPath) throws Throwable {
+		if(!FileUtil.checkFileValid(jarPath)) {
+			LOG.log(Level.WARNING, "jarPath:"+jarPath + " doesnot exist!");
+			System.exit(-1);
+		}
+		String[] args = new String[1];
+		args[0] = new String(jarPath);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		Date date  = new Date();
+		String str = sdf.format(date);
+		JobConfiguration.setWorkingDirectory(workingDirectory);
+		JobConfiguration.setCreateTime(str);
+		String localTmpJobXMLPath = JobConfiguration.getWorkingDirectory()
+					+ "/" + str + "/job-" + str + ".xml";  
+		RunJar.run(args);
+		if(!com.klose.common.TransformerIO.FileUtil.
+				checkDirectoryValid(workingDirectory+"/"+str, FStype.LOCAL)) {
+			LOG.log(Level.WARNING, "It occurs to an error when generating a job.");
+			System.exit(-1);
+		}
+		else {
+			String  newPath = normalizingUniformJobPath(localTmpJobXMLPath);
+			if(newPath == null) {
+				System.exit(-1);
+			}
+			else {
+				argsMap.put("exec-jobXML", newPath);
+			}
+			
+			String jarNewPath = FileUtil.renameLocalFileName(jarPath, workingDirectory +"/" +jarNewName);
+			copyJobJarPath(jarNewPath,"job-"+str);
+		}
+	}
 	/*
 	 * This main function is used to test.
 	 */
@@ -261,45 +311,29 @@ public class JLoopClient {
 		JLoopClient client = new JLoopClient(args);
 		client.parseArgs();
 		client.printArgMap();
-		SocketRpcChannel socketRpcChannel = new SocketRpcChannel(client.findKeyInMap("master-ip"), 
-				Integer.parseInt(client.findKeyInMap("master-port")) );
-		SocketRpcController rpcController = socketRpcChannel.newRpcController();
 		
-		/*transmit the XML path to Master*/
-		
-		XMLPathTransService transService = XMLPathTransService.newStub(socketRpcChannel);
-		TransformXMLPath transPath = TransformXMLPath.newBuilder()
-							.setPath(client.findKeyInMap("exec-jobXML")).build();
-		transService.xmlTrans(rpcController, transPath, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
-			
-			@Override
-			public void run(ConfirmMessage message) {
-				// TODO Auto-generated method stub
-				if(message.getIsSuccess()) {
-					LOG.log(Level.INFO, "The XML path has been submitted to Master.");
-				}
-				else {
-					LOG.log(Level.INFO, "The XML path submits break down.");
-				}
-			}
-			
-		});
-//		SlaveOrderExecutorService executeService = SlaveOrderExecutorService.newStub(socketRpcChannel);
-//		ExecOrder requestOrder = ExecOrder.newBuilder().setOrder(client.findKeyInMap("exec-order")).build();
-//		executeService.executeOrder(rpcController, requestOrder, new RpcCallback<com.klose.MsConnProto.ExecOrderResp>(){
-//
+//		SocketRpcChannel socketRpcChannel = new SocketRpcChannel(client.findKeyInMap("master-ip"), 
+//				Integer.parseInt(client.findKeyInMap("master-port")) );
+//		SocketRpcController rpcController = socketRpcChannel.newRpcController();
+//		
+//		/*transmit the XML path to Master*/
+//		
+//		XMLPathTransService transService = XMLPathTransService.newStub(socketRpcChannel);
+//		TransformXMLPath transPath = TransformXMLPath.newBuilder()
+//							.setPath(client.findKeyInMap("exec-jobXML")).build();
+//		transService.xmlTrans(rpcController, transPath, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
+//			
 //			@Override
-//			public void run(ExecOrderResp resp) {
+//			public void run(ConfirmMessage message) {
 //				// TODO Auto-generated method stub
-//				if(resp.getIsExecuted()) {
-//					System.out.println("Execute Successfully!");
+//				if(message.getIsSuccess()) {
+//					LOG.log(Level.INFO, "The XML path has been submitted to Master.");
 //				}
 //				else {
-//					System.out.println("Execute failure!");
+//					LOG.log(Level.INFO, "The XML path submits break down.");
 //				}
-//				System.out.println(resp.getResultMessage());
-//				
-//			}	
+//			}
+//			
 //		});
 	}
 }
