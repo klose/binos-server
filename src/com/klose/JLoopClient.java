@@ -26,6 +26,7 @@ import com.klose.common.TransformerIO.FileUtil;
 import com.klose.common.TransformerIO.FileUtil.FStype;
 import com.transformer.compiler.JobConfiguration;
 
+
 /**
  * JLoopClient: provide the API for submitting job to Master. JLoopClient is not
  * necessarily the module of the Slave daemon.
@@ -298,12 +299,12 @@ public class JLoopClient {
 			else {
 				argsMap.put("exec-jobXML", newPath);
 			}
-			
-			String jarNewPath = FileUtil.renameLocalFileName(jarPath, workingDirectory +"/" +jarNewName);
-			if( null != copyJobJarPath(jarNewPath,"job-"+str)) {
-				FileUtil.removeLocalFile(jarNewPath);
+			// rename the jar, put the jar into the corresponding job directory and upload the jar into HDFS.
+			String jarNewPath = FileUtil.renameLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
+			if( null != copyJobJarPath(jarNewPath,"job-" + str) )  {
+				//FileUtil.removeLocalFile(jarNewPath);
+				LOG.log(Level.INFO, jarNewPath + " upload the file into the HDFS" );
 			}
-			
 		}
 	}
 	/*
@@ -315,28 +316,28 @@ public class JLoopClient {
 		client.parseArgs();
 		client.printArgMap();
 		
-//		SocketRpcChannel socketRpcChannel = new SocketRpcChannel(client.findKeyInMap("master-ip"), 
-//				Integer.parseInt(client.findKeyInMap("master-port")) );
-//		SocketRpcController rpcController = socketRpcChannel.newRpcController();
-//		
-//		/*transmit the XML path to Master*/
-//		
-//		XMLPathTransService transService = XMLPathTransService.newStub(socketRpcChannel);
-//		TransformXMLPath transPath = TransformXMLPath.newBuilder()
-//							.setPath(client.findKeyInMap("exec-jobXML")).build();
-//		transService.xmlTrans(rpcController, transPath, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
-//			
-//			@Override
-//			public void run(ConfirmMessage message) {
-//				// TODO Auto-generated method stub
-//				if(message.getIsSuccess()) {
-//					LOG.log(Level.INFO, "The XML path has been submitted to Master.");
-//				}
-//				else {
-//					LOG.log(Level.INFO, "The XML path submits break down.");
-//				}
-//			}
-//			
-//		});
+		SocketRpcChannel socketRpcChannel = new SocketRpcChannel(client.findKeyInMap("master-ip"), 
+				Integer.parseInt(client.findKeyInMap("master-port")) );
+		SocketRpcController rpcController = socketRpcChannel.newRpcController();
+		
+		/*transmit the XML path to Master*/
+		
+		XMLPathTransService transService = XMLPathTransService.newStub(socketRpcChannel);
+		TransformXMLPath transPath = TransformXMLPath.newBuilder()
+							.setPath(client.findKeyInMap("exec-jobXML")).build();
+		transService.xmlTrans(rpcController, transPath, new RpcCallback<com.klose.MsConnProto.ConfirmMessage>(){
+			
+			@Override
+			public void run(ConfirmMessage message) {
+				// TODO Auto-generated method stub
+				if(message.getIsSuccess()) {
+					LOG.log(Level.INFO, "The XML path has been submitted to Master.");
+				}
+				else {
+					LOG.log(Level.INFO, "The XML path submits break down.");
+				}
+			}
+			
+		});
 	}
 }

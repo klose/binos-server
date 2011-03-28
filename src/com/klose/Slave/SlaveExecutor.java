@@ -43,9 +43,17 @@ public class SlaveExecutor extends Thread{
 			localJarPath = this.taskDes.getJarPath();
 		}
 		else {
-			LOG.log(Level.WARNING, "The jar file---"+ this.taskDes.getJarPath() +" can't been recognized.");
-			this.setTaskState(TaskState.STATES.WARNING);
-			return;
+			//default condition : using HDFS to resolve the file
+			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
+			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
+			if(FileUtil.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtil.TransHDFSToLocalFile
+				(this.taskDes.getJarPath(), localDirPath);
+			}
+			
+//			LOG.log(Level.WARNING, "The jar file---"+ this.taskDes.getJarPath() +" can't been recognized.");
+//			this.setTaskState(TaskState.STATES.WARNING);
+//			return;
 		}
 		
 		if( null == localJarPath ){
@@ -59,6 +67,7 @@ public class SlaveExecutor extends Thread{
 			System.out.println("argsAll:" + argsAll);
 			try {
 				RunJar.run(argsAll.split(" "));
+				
 			} catch (Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

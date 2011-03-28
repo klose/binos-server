@@ -118,6 +118,7 @@ public class TaskScheduler {
 		AllocateIdentity request = AllocateIdentity.newBuilder()
 				.setSlaveIpPort(slaveId).setTaskIds(taskId).build();
 		LOG.log(Level.INFO, "taskId:" + taskId + " scheduled to  " + "slaveId:" + slaveId);
+		
 		atService.allocateTasks(controller, request, new RpcCallback<TState>() {
 			@Override
 			public void run(TState message) {

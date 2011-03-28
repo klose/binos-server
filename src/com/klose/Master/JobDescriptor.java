@@ -38,8 +38,8 @@ public class JobDescriptor {
 	private JobXMLParser parser;
 	
 	public JobDescriptor(String path) {
-		String dirName = path.substring(0, path.lastIndexOf("_"));
-		xmlPath = FileUtil.getHDFSAbsolutePath(dirName + "/" + path + ".xml");
+		//String dirName = path.substring(0, path.lastIndexOf("-"));
+		xmlPath = FileUtil.getHDFSAbsolutePath(path + "/" + path + ".xml");
 		System.out.println("------------------------------"+ xmlPath);
 		parser = new JobXMLParser(this.xmlPath);
 		tasksView = new TaskStates[parser.getTaskTotal()];

@@ -126,8 +126,9 @@ public class SlaveExecutorManager extends Thread{
 					taskStates.put(taskId,TaskState.STATES.RUNNING);
 				}
 				LOG.log(Level.INFO, "taskId:" + taskId);
-				String jobId = "job-" + taskId.substring(0, taskId.lastIndexOf("_"));
-				String taskIdXML = jobId + "/" + taskId + "/" + taskId + ".xml";
+				String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
+				String id =  taskId.substring(taskId.lastIndexOf(":") + 1, taskId.length());
+				String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
 				LOG.log(Level.INFO, "taskIdXML:" + FileUtil.getHDFSAbsolutePath(taskIdXML));
 				TaskDescriptor taskDes = new TaskDescriptor(FileUtil.getHDFSAbsolutePath(taskIdXML));
 				taskExecQueue.put(taskId, taskDes);

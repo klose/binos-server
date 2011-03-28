@@ -47,7 +47,7 @@ public class JobStateTrigger extends Thread{
 								System.out.println("########################"
 										+ taskId + "is prepared for scheduling...");
 								try {
-									TaskScheduler.transmitToSlave(taskId);
+									TaskScheduler.transmitToSlave(jobId+":"+taskId);
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
