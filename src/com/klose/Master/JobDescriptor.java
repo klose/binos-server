@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import org.dom4j.Element;
 
 import com.klose.common.TaskState;
-import com.klose.common.TransformerIO.FileUtil;
+import com.klose.common.TransformerIO.FileUtililty;
 
 
 
@@ -39,7 +39,7 @@ public class JobDescriptor {
 	
 	public JobDescriptor(String path) {
 		//String dirName = path.substring(0, path.lastIndexOf("-"));
-		xmlPath = FileUtil.getHDFSAbsolutePath(path + "/" + path + ".xml");
+		xmlPath = FileUtililty.getHDFSAbsolutePath(path + "/" + path + ".xml");
 		System.out.println("------------------------------"+ xmlPath);
 		parser = new JobXMLParser(this.xmlPath);
 		tasksView = new TaskStates[parser.getTaskTotal()];
@@ -126,16 +126,41 @@ public class JobDescriptor {
 			return -1;
 		}		
 	}
-	public synchronized TaskStates getTaskStates(int index) {
+	/**
+	 * return the state of task according to the index.
+	 * @param index : the index of the taskStates
+	 * @return
+	 */
+	public synchronized TaskStates getTaskStatesByIndex(int index) {
 		return this.tasksView[index];
 	}
-	
+	/**
+	 * return the state of task according to the taskid
+	 * @param 
+	 * @return
+	 */
+	public synchronized TaskStates getTaskStatesByTaskid(String taskid) {
+		if(jobStatus.containsKey(taskid)) {
+			return this.tasksView[jobStatus.get(taskid)];
+		}
+		else {
+			LOG.log(Level.WARNING, "taskid:" + taskid + " doesn't exist in the job!");
+			return null;
+		}
+	}
 	public synchronized void setTaskStates(String taskId, String state) {
 		int index = jobStatus.get(taskId);
 		tasksView[index].setStates(TaskState.STATES.valueOf(state));
 	}
+	public void addFinishedTaskId(String taskid) {
+		int index = searchTask(taskid);
+		if(index != -1) 
+			addFinishedTaskIndex(index);
+		else 
+			LOG.log(Level.SEVERE, "There is not " + taskid + " in the job.");
+	}
 	/*add the index of task into the finished task list.*/
-	public void addFinishedTaskIndex(int index) {
+	private void addFinishedTaskIndex(int index) {
 		// when a task has completed, it will change the
 		//state of related tasks.[UNPREPARED] -> [PREPARED]
 		System.out.println("333333333333333" + index + "2222222222");

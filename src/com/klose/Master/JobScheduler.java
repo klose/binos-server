@@ -56,8 +56,18 @@ public class JobScheduler {
 			}
 		}
 	}
+	/**
+	 * return the jobId from taskIdPos
+	 * @param taskIdPos
+	 * @return
+	 */
+	/*public synchronized static String findJobIdInRunningQueue(String taskIdPos) {
+		
+	}*/
 	
-	/* locate the position of the taskid in the running queue.
+	/**
+	 * @deprecated
+	 * locate the position of the taskid in the running queue.
 	 * Because of the relation between jobid and taskid, jobid is like
 	 * jobclient_jobindex_creationtime, and taskid is like jobclient_jobindex_taskindex,
 	 * so they have the same prefix.Based on these features, find the jobid which the taskid
@@ -85,14 +95,15 @@ public class JobScheduler {
 	}
 	/*add the finished task index to the JobDescriptor's finishedList*/
 	public static void addTaskidFinishedList(String taskidPos) {
-		System.out.println("11111111111111111111" + taskidPos + "2222222222");
+		System.out.println("11111111111111111111addTaskidFinishedList" + taskidPos + "2222222222");
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
 			LOG.log(Level.WARNING, taskidPos+ " is not correct.");
 			return ;
 		}
+		System.out.println("11111111111111111111addTaskidFinishedList" + tmp[0] + " " + tmp[1] + "2222222222");
 		getJobDescriptor(tmp[0]).
-			addFinishedTaskIndex(Integer.parseInt(tmp[1]));
+			addFinishedTaskId(tmp[1]);
 	}
 	/*get the Job in the running queue*/
 	public static JobDescriptor getJobDescriptor(String jobId) {
@@ -100,26 +111,32 @@ public class JobScheduler {
 		return runningQueue.get(jobId);
 	}
 	/**
+	 *
 	 * get the TaskStates as to taskidPos. 
 	 * @param taskidPos: the format  is like "jobid:taskIndex( index in TasksView)"
 	 * @return 
 	 */
 	public synchronized static TaskStates getTaskStates(String taskidPos) {
+		System.out.println("getTaskStates::::"+ taskidPos);
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
 			LOG.log(Level.WARNING, taskidPos+ " is not correct.");
 			return null;
 		}
-		return runningQueue.get(tmp[0]).getTaskStates(Integer.parseInt(tmp[1]));
+		return runningQueue.get(tmp[0]).getTaskStatesByTaskid(tmp[1]);
 	}
-	public synchronized static void setTaskStates(String taskId, String state) {
-		String taskidPos = searchTaskIdInRunningQueue(taskId);
-		String [] tmp = taskidPos.split(":");
+	public synchronized static void setTaskStates(String taskIdPos, String state) {
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx" + taskIdPos + " " + state);
+		//String taskidPos = searchTaskIdInRunningQueue(taskId);
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx taskIdPos:" + taskIdPos);
+		String [] tmp = taskIdPos.split(":");
 		if(tmp.length != 2) {
-			LOG.log(Level.WARNING, taskidPos + " is not correct.");
+			LOG.log(Level.WARNING, taskIdPos + " is not correct.");
 			return;
 		}
-		runningQueue.get(tmp[0]).setTaskStates(taskId, state);
+		System.out.println(runningQueue.toString());
+		System.out.println("xxxxxxxxxxxxxxxxxx" + tmp[0] + ": " + tmp[1]);
+		runningQueue.get(tmp[0]).setTaskStates(tmp[1], state);
 	}
 	public synchronized static LinkedList<String> getWatingQueue() {
 		return waitingQueue;

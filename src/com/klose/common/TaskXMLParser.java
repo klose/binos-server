@@ -14,6 +14,7 @@ public class TaskXMLParser extends XMLParser{
 	private  final String pathDes = "path";
 	private  final String taskidDes = "taskId";
 	private  final String jarPathDes = "jarPath";
+	private final String className = "operationClass";
 
 	public TaskXMLParser(String path) throws IOException {
 		super(path);
@@ -37,6 +38,9 @@ public class TaskXMLParser extends XMLParser{
 	public String getOutputPathAttriNum() {
 		return getRootElement().element(this.outputpathDes)
 			.attributeValue(this.outputpathAttriNum);
+	}
+	public String getClassName() {
+		return getRootElement().elementText(this.className);
 	}
 	public String getTaskId() {
 		return getRootElement().elementText(this.taskidDes);

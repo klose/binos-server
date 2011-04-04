@@ -10,6 +10,7 @@ import org.dom4j.Element;
 public class TaskDescriptor {
 	private HashSet<String> inputPathSet = new HashSet<String>();
 	private HashSet<String> outputPathSet = new HashSet<String>();
+	private String className; // specify the class that contains user's operation.
 	private String jarPath ;
 	private String taskId;
 	private String xmlPath;
@@ -23,6 +24,14 @@ public class TaskDescriptor {
 		setJarPath(xmlParser.getJarPath());
 		setInputPaths(xmlParser.getInputPaths());
 		setOutputPaths(xmlParser.getOutputPaths());
+		setClassName(xmlParser.getClassName());
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getClassName() {
+		return this.className;
 	}
 	public String getJarPath() {
 		return jarPath;
@@ -77,5 +86,20 @@ public class TaskDescriptor {
 			res += " ";
 		}
 		return res.trim();
+	}
+	/**
+	 * retrieve the number of the input path
+	 * @return
+	 */
+	public int getInputPathNum() {
+		return  this.inputPathSet.size();
+	}
+	
+	/**
+	 * retrieve the number of the output path
+	 * @return 
+	 */
+	public int getOutputPathNum() {
+		return this.outputPathSet.size();
 	}
 }

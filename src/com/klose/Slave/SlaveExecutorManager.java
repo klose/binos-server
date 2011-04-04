@@ -16,7 +16,7 @@ import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
-import com.klose.common.TransformerIO.FileUtil;
+import com.klose.common.TransformerIO.FileUtililty;
 
 /**
  *When master schedules tasks to slave,
@@ -129,8 +129,8 @@ public class SlaveExecutorManager extends Thread{
 				String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
 				String id =  taskId.substring(taskId.lastIndexOf(":") + 1, taskId.length());
 				String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
-				LOG.log(Level.INFO, "taskIdXML:" + FileUtil.getHDFSAbsolutePath(taskIdXML));
-				TaskDescriptor taskDes = new TaskDescriptor(FileUtil.getHDFSAbsolutePath(taskIdXML));
+				LOG.log(Level.INFO, "taskIdXML:" + FileUtililty.getHDFSAbsolutePath(taskIdXML));
+				TaskDescriptor taskDes = new TaskDescriptor(FileUtililty.getHDFSAbsolutePath(taskIdXML));
 				taskExecQueue.put(taskId, taskDes);
 				SlaveExecutor executor = new SlaveExecutor(taskDes);
 				executor.start();

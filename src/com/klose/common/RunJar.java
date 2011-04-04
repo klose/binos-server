@@ -16,6 +16,8 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.apache.hadoop.conf.Configuration;
@@ -23,6 +25,7 @@ import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.io.IOUtils;
 
 import com.klose.Slave.SlaveArgsParser;
+import com.klose.Slave.SlaveExecutor;
 
 /**
  * The class is learned from Hadoop-0.21.0 (org.apache.hadoop.util.RunJar).
@@ -32,6 +35,7 @@ import com.klose.Slave.SlaveArgsParser;
  */
 public class RunJar {
 	 
+	private static final Logger LOG = Logger.getLogger(RunJar.class.getName());
 	/** Pattern that matches any string */
 	  public static final Pattern MATCH_ANY = Pattern.compile(".*");
 	
@@ -86,12 +90,76 @@ public class RunJar {
 	   *
 	   * @throws IOException if it cannot be created and does not already exist
 	   */
-	  private static void ensureDirectory(File dir) throws IOException {
+	  public static void ensureDirectory(File dir) throws IOException {
 	    if (!dir.mkdirs() && !dir.isDirectory()) {
 	      throw new IOException("Mkdirs failed to create " +
 	                            dir.toString());
 	    }
 	  }
+	  /**
+	   * Execute the Class that implements com.transformer.compiler.Operation
+	   * 
+	   * @param args
+	   * @throws Throwable
+	   */
+	  public static void executeOperationJar(String[] args) throws Throwable {
+		 if(args.length < 4) {
+			 LOG.log(Level.WARNING, "args lack!");
+			 return;
+		 }
+		 int firstArgs = 0;
+		 String jarPath = args[firstArgs++];
+		 File jarFile = new File(jarPath);
+		 String operationClass = args[firstArgs++];
+		 File tmpDir = new File(SlaveArgsParser.getWorkDir());
+		  ensureDirectory(tmpDir);
+		 final File workDir = File.createTempFile("Transformer-unjar", "", tmpDir);
+		if (!workDir.delete()) {
+			System.err.println("Delete failed for " + workDir);
+			System.exit(-1);
+		}
+		ensureDirectory(workDir);
+
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				try {
+					FileUtil.fullyDelete(workDir);
+				} catch (IOException e) {
+				}
+			}
+		});
+
+		unJar(jarFile, workDir);
+
+		ArrayList<URL> classPath = new ArrayList<URL>();
+		classPath.add(new File(workDir + "/").toURI().toURL());
+		classPath.add(jarFile.toURI().toURL());
+		classPath.add(new File(workDir, "classes/").toURI().toURL());
+		File[] libs = new File(workDir, "lib").listFiles();
+		if (libs != null) {
+			for (int i = 0; i < libs.length; i++) {
+				classPath.add(libs[i].toURI().toURL());
+			}
+		}
+		ClassLoader loader = new URLClassLoader(classPath.toArray(new URL[0]));
+		Class cls = loader.loadClass(operationClass);
+		Thread.currentThread().setContextClassLoader(loader);
+		Method m = cls.getMethod("operate", String[].class, String[].class);
+		int inputNum = Integer.parseInt(args[firstArgs++].split(" ")[1]);
+		int outputNum = Integer.parseInt(args[firstArgs++].split(" ")[1]);
+		String [] inputPath = null;
+		String [] outputPath = null;
+		if(inputNum != 0) {
+			inputPath = args[firstArgs++].split(" ");
+		}
+		if(outputNum != 0) {
+			outputPath = args[firstArgs].split(" ");
+		}
+		m.invoke(cls.newInstance(), inputPath, 
+					outputPath);
+		 
+	  }
+	  
 	  
 	  /** Run a task jar.  If the main class is not in the jar's manifest,
 	   * then it must be provided on the command line. */
@@ -173,6 +241,7 @@ public class RunJar {
 	    });
 	    String[] newArgs = Arrays.asList(args)
 	      .subList(firstArg, args.length).toArray(new String[0]);
+	    System.out.println(newArgs.toString());
 	    try {
 	      main.invoke(null, new Object[] { newArgs });
 	    } catch (InvocationTargetException e) {

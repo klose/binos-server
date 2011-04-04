@@ -1,12 +1,14 @@
 package com.klose.Slave;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.klose.common.RunJar;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
-import com.klose.common.TransformerIO.FileUtil;
-import com.klose.common.TransformerIO.FileUtil.FStype;
+import com.klose.common.TransformerIO.FileUtililty;
+import com.klose.common.TransformerIO.FileUtililty.FStype;
 
 public class SlaveExecutor extends Thread{
 	private TaskDescriptor taskDes;
@@ -23,19 +25,19 @@ public class SlaveExecutor extends Thread{
 	}
 	public void run()  {
 		String localJarPath = null;
-		FStype type = FileUtil.getFileType(this.taskDes.getJarPath());
+		FStype type = FileUtililty.getFileType(this.taskDes.getJarPath());
 		if( type == FStype.HDFS) {
 			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
-			if(FileUtil.mkdirLocalDir(localDirPath)) {
-				localJarPath = FileUtil.TransHDFSToLocalFile
+			if(FileUtililty.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtililty.TransHDFSToLocalFile
 				(this.taskDes.getJarPath(), localDirPath);
 			}	
 		}
 		else if( type == FStype.REMOTE ) {
 			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
-			if(FileUtil.mkdirLocalDir(localDirPath)) {
-				localJarPath = FileUtil.TransRemoteFileToLocal
+			if(FileUtililty.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtililty.TransRemoteFileToLocal
 				(this.taskDes.getJarPath(), localDirPath);
 			}	
 		}
@@ -46,8 +48,8 @@ public class SlaveExecutor extends Thread{
 			//default condition : using HDFS to resolve the file
 			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
-			if(FileUtil.mkdirLocalDir(localDirPath)) {
-				localJarPath = FileUtil.TransHDFSToLocalFile
+			if(FileUtililty.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtililty.TransHDFSToLocalFile
 				(this.taskDes.getJarPath(), localDirPath);
 			}
 			
@@ -62,12 +64,27 @@ public class SlaveExecutor extends Thread{
 			return;
 		}
 		else {
-			String argsAll = localJarPath + " "+ 
-			taskDes.getInputPaths() + " " + taskDes.getOutputPaths();
+			LinkedList<String> argsAll  = new LinkedList<String>();
+			argsAll.add(localJarPath);
+			argsAll.add(taskDes.getClassName());
+			int inputNum = taskDes.getInputPathNum();
+			int outputNum = taskDes.getOutputPathNum();
+			argsAll.add("-i " + inputNum);
+			argsAll.add("-o " + outputNum);
+			if(inputNum > 0) {
+				argsAll.add(taskDes.getInputPaths());
+			}
+			if(outputNum > 0) {
+				argsAll.add(taskDes.getOutputPaths());
+			}
+			
+			
+			//String argsAll = localJarPath +   " " +
+//			taskDes.getInputPaths() + " " + taskDes.getOutputPaths();
 			System.out.println("argsAll:" + argsAll);
+		
 			try {
-				RunJar.run(argsAll.split(" "));
-				
+				RunJar.executeOperationJar(argsAll.toArray(new String[0]));
 			} catch (Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

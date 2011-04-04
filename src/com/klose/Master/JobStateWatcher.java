@@ -58,13 +58,14 @@ public class JobStateWatcher extends Thread{
 				TaskChangeState request, RpcCallback<ConfirmMessage> done) {
 			// TODO Auto-generated method stub
 			ConfirmMessage confirmMessage = null;
-			String taskid = request.getTaskId();
+			String taskidPos = request.getTaskId();
 			String taskState = request.getState();
 			// get the position in the JobQueue.
-			System.out.println("-----------------------------"+taskid+"------");
-			System.out.println("-----------------------------"+taskState+"------");
-			String taskidPos = JobScheduler.searchTaskIdInRunningQueue(taskid); 
 			System.out.println("-----------------------------"+taskidPos+"------");
+			System.out.println("-----------------------------"+taskState+"------");
+			//String taskidPos = JobScheduler.searchTaskIdInRunningQueue(taskid); 
+			
+			//System.out.println("-----------------------------"+taskid+"------");
 			if(taskidPos != null) {
 				TaskStates state = JobScheduler.getTaskStates(taskidPos);
 				state.setStates(TaskState.STATES.valueOf(taskState));

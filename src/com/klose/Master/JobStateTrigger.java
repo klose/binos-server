@@ -38,10 +38,6 @@ public class JobStateTrigger extends Thread{
 					if(jobDes != null) {
 						String[] taskPrepared = runningQueue.get(jobId)
 								.getPreparedTask();
-						// System.out.println("########################taskPrepared"
-						// + taskPrepared.length + "############");
-						// System.out.println("########################taskPrepared"
-						// + taskPrepared[0] + "############");
 						if (taskPrepared != null) {
 							for (String taskId : taskPrepared) {
 								System.out.println("########################"

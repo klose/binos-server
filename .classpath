@@ -12,6 +12,6 @@
 	<classpathentry kind="lib" path="/home/jiangbing/JLoop/dom4j-2.0.0-ALPHA-2.jar" sourcepath="/home/jiangbing/JLoop/dom4j-2.0.0-ALPHA-2-sources.jar"/>
 	<classpathentry kind="lib" path="/home/jiangbing/eclipse_java/java_workspace/Master-Slave/src/lib/protobuf_socketrpc-1.3.2_DIY.jar" sourcepath="/home/jiangbing/JLoop/protobuf-socket-rpc-read-only/java"/>
 	<classpathentry kind="lib" path="/home/jiangbing/eclipse_java/java_workspace/Master-Slave/src/lib/httpcore-4.0.1.jar"/>
-	<classpathentry kind="lib" path="/tmp/transCompiler.jar"/>
+	<classpathentry kind="lib" path="/home/jiangbing/transCompiler.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

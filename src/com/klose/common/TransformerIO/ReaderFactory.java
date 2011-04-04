@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-import com.klose.common.TransformerIO.FileUtil.FStype;
+import com.klose.common.TransformerIO.FileUtililty.FStype;
 
 /*
  * produces and stores reader array which indicates different reader functions.  
@@ -14,7 +14,7 @@ public class ReaderFactory {
 	private VertexReader  reader;
 	/*instance the Reader in according to Map map's input path*/
 	public ReaderFactory(String inpath) throws IOException {
-		FStype type = FileUtil.getFileType(inpath);
+		FStype type = FileUtililty.getFileType(inpath);
 		if(FStype.LOCAL == type) {
 			reader = new LocalReader(inpath);
 		}

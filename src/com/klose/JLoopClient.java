@@ -2,7 +2,11 @@ package com.klose;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,6 +15,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileUtil;
 
 import com.google.protobuf.RpcCallback;
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
@@ -22,9 +27,12 @@ import com.klose.MsConnProto.SlaveOrderExecutorService;
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
 import com.klose.common.RunJar;
-import com.klose.common.TransformerIO.FileUtil;
-import com.klose.common.TransformerIO.FileUtil.FStype;
+import com.klose.common.TransformerIO.FileUtililty;
+import com.klose.common.TransformerIO.FileUtililty.FStype;
+import com.transformer.compiler.JarCreator;
+import com.transformer.compiler.JarResolver;
 import com.transformer.compiler.JobConfiguration;
+import com.transformer.compiler.TaskStructClassGene;
 
 
 /**
@@ -191,7 +199,7 @@ public class JLoopClient {
 				};
 				for(File taskDir : localJobDir.listFiles(filter)) {
 					System.out.println(taskDir.toString() + ":" +taskDir.getAbsolutePath() );
-					FileUtil.copyLocalDirToHDFS(taskDir, jobId);
+					FileUtililty.copyLocalDirToHDFS(taskDir, jobId);
 					
 				}
 			}
@@ -206,7 +214,7 @@ public class JLoopClient {
 	 * @return the normalized hdfs absolute file path
 	 */
 	public static String normalizingUniformJobPath(String path) {
-		FStype type = FileUtil.getFileType(path);
+		FStype type = FileUtililty.getFileType(path);
 		if(type == FStype.LOCAL) {
 			String[] tmp = path.split("/");
 			String jobXMLName = tmp[tmp.length -1];
@@ -217,8 +225,8 @@ public class JLoopClient {
 			String jobDirName =  jobId;
 			LOG.log(Level.INFO, "dirname:"+jobDirName);
 			try {
-				if(!FileUtil.checkDirectoryValid(jobDirName, FStype.HDFS))
-					FileUtil.mkdirInHDFS(jobDirName);
+				if(!FileUtililty.checkDirectoryValid(jobDirName, FStype.HDFS))
+					FileUtililty.mkdirInHDFS(jobDirName);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -230,7 +238,7 @@ public class JLoopClient {
 //					break;
 //				}
 //			}
-			String generatedPath = FileUtil.TransLocalFileToHDFS(path, jobDirName);
+			String generatedPath = FileUtililty.TransLocalFileToHDFS(path, jobDirName);
 			copyTaskDirPath(path, jobDirName);
 			if (generatedPath != null){
 				// hdfs://***.***.***.***:*****/user/***/task is chosen as directory path.
@@ -242,7 +250,7 @@ public class JLoopClient {
 			}
 		}
 		else if(type == FStype.HDFS) {
-			if( FileUtil.checkFileValid(path) ) {
+			if( FileUtililty.checkFileValid(path) ) {
 				return path;
 			}
 			else {
@@ -262,7 +270,7 @@ public class JLoopClient {
 		return this.argsMap.get(key);
 	}
 	public static String copyJobJarPath(String jarPath, String jobDir) {
-		return FileUtil.TransLocalFileToHDFS(jarPath, jobDir);
+		return FileUtililty.TransLocalFileToHDFS(jarPath, jobDir);
 	}
 	
 	/**
@@ -272,7 +280,7 @@ public class JLoopClient {
 	 * @throws Throwable 
 	 */
 	private static void constructWorkingEnv(String jarPath) throws Throwable {
-		if(!FileUtil.checkFileValid(jarPath)) {
+		if(!FileUtililty.checkFileValid(jarPath)) {
 			LOG.log(Level.WARNING, "jarPath:"+jarPath + " doesnot exist!");
 			System.exit(-1);
 		}
@@ -286,7 +294,7 @@ public class JLoopClient {
 		String localTmpJobXMLPath = JobConfiguration.getWorkingDirectory()
 					+ "/" + str + "/job-" + str + ".xml";  
 		RunJar.run(args);
-		if(!com.klose.common.TransformerIO.FileUtil.
+		if(!com.klose.common.TransformerIO.FileUtililty.
 				checkDirectoryValid(workingDirectory+"/"+str, FStype.LOCAL)) {
 			LOG.log(Level.WARNING, "It occurs to an error when generating a job.");
 			System.exit(-1);
@@ -299,13 +307,68 @@ public class JLoopClient {
 			else {
 				argsMap.put("exec-jobXML", newPath);
 			}
+//			String jarNewPath = JobConfiguration.getWorkingDirectory()
+//			+ "/" + str + "/job.jar";
+//			constructJobJar(jarPath, jarNewPath);
 			// rename the jar, put the jar into the corresponding job directory and upload the jar into HDFS.
-			String jarNewPath = FileUtil.renameLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
+			
+			String jarNewPath = FileUtililty.renameLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
+			
 			if( null != copyJobJarPath(jarNewPath,"job-" + str) )  {
 				//FileUtil.removeLocalFile(jarNewPath);
 				LOG.log(Level.INFO, jarNewPath + " upload the file into the HDFS" );
 			}
 		}
+	}
+	/**
+	 * @deprecated
+	 * Construct the job.jar.
+	 * @throws IOException 
+	 */
+	private static void constructJobJar(String jarPath, String jobJarPath) throws IOException {
+		String className =  "TaskStructClassGene.class";
+		Class cls = TaskStructClassGene.class;
+		File workingDir  = new File(workingDirectory);
+		RunJar.ensureDirectory(workingDir);
+		File jarFile = new File(jarPath);
+		final File workDir = new File(workingDirectory, "Transformer-unjar");	
+	    RunJar.ensureDirectory(workDir);
+	    JarResolver resolver = new JarResolver(jarPath, workDir.getPath());
+	    resolver.unJar();
+	    System.out.println(workDir.getPath());
+	    Runtime.getRuntime().addShutdownHook(new Thread() {
+	        public void run() {
+	        	try {
+					FileUtil.fullyDelete(workDir);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+	      });
+	    String classNamePath = workDir.getPath() + "/" + cls.getName().replace('.', '/') +".class";
+	    System.out.println(classNamePath);
+	    InputStream in = cls.getResourceAsStream(className);
+	    RunJar.ensureDirectory(new File(classNamePath).getParentFile());
+	    OutputStream out = new FileOutputStream(classNamePath);
+	    PrintStream ps = out instanceof PrintStream ? (PrintStream)out : null;
+	    byte buf[] = new byte[1024];
+	    int bytesRead = in.read(buf);
+	    while (bytesRead >= 0) {
+	      out.write(buf, 0, bytesRead);
+	      if ((ps != null) && ps.checkError()) {
+	        throw new IOException("Unable to write to output stream.");
+	      }
+	      bytesRead = in.read(buf);
+	    }
+	    out.close();
+	    in.close();
+	    File META_INF_tmpDir = new File(workDir.getPath()+"/META-INF/MANIFEST.MF");
+	    if(META_INF_tmpDir.exists()) {
+	    	System.out.println(META_INF_tmpDir.delete());
+	    }	      
+	    JarCreator creator = new JarCreator(workDir.getPath(), cls.getName(), jobJarPath);
+	    creator.createJar();
 	}
 	/*
 	 * This main function is used to test.
