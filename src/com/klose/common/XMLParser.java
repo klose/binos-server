@@ -13,8 +13,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.klose.common.TransformerIO.FileUtililty;
-import com.klose.common.TransformerIO.FileUtililty.FStype;
+import com.klose.common.TransformerIO.FileUtility;
+import com.klose.common.TransformerIO.FileUtility.FStype;
 
 /**
  * Parser the xml.
@@ -32,10 +32,10 @@ public class XMLParser {
 	private static final Logger LOG = Logger.getLogger(XMLParser.class.getName());
 	public XMLParser(String path) {
 		this.path = path;
-		if(!FileUtililty.checkFileValid(path)) {
+		if(!FileUtility.checkFileValid(path)) {
 			LOG.log(Level.SEVERE, "Can't find the XML path:"+path);
 		}
-		this.type = FileUtililty.getFileType(path);
+		this.type = FileUtility.getFileType(path);
 	}
 	
 	/*Use the DOM4j to return the document of XML, no matter where is xml. 

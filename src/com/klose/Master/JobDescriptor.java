@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import org.dom4j.Element;
 
 import com.klose.common.TaskState;
-import com.klose.common.TransformerIO.FileUtililty;
+import com.klose.common.TransformerIO.FileUtility;
 
 
 
@@ -39,7 +39,7 @@ public class JobDescriptor {
 	
 	public JobDescriptor(String path) {
 		//String dirName = path.substring(0, path.lastIndexOf("-"));
-		xmlPath = FileUtililty.getHDFSAbsolutePath(path + "/" + path + ".xml");
+		xmlPath = FileUtility.getHDFSAbsolutePath(path + "/" + path + ".xml");
 		System.out.println("------------------------------"+ xmlPath);
 		parser = new JobXMLParser(this.xmlPath);
 		tasksView = new TaskStates[parser.getTaskTotal()];

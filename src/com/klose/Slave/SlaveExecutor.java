@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import com.klose.common.RunJar;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
-import com.klose.common.TransformerIO.FileUtililty;
-import com.klose.common.TransformerIO.FileUtililty.FStype;
+import com.klose.common.TransformerIO.FileUtility;
+import com.klose.common.TransformerIO.FileUtility.FStype;
 
 public class SlaveExecutor extends Thread{
 	private TaskDescriptor taskDes;
@@ -25,19 +25,19 @@ public class SlaveExecutor extends Thread{
 	}
 	public void run()  {
 		String localJarPath = null;
-		FStype type = FileUtililty.getFileType(this.taskDes.getJarPath());
+		FStype type = FileUtility.getFileType(this.taskDes.getJarPath());
 		if( type == FStype.HDFS) {
 			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
-			if(FileUtililty.mkdirLocalDir(localDirPath)) {
-				localJarPath = FileUtililty.TransHDFSToLocalFile
+			if(FileUtility.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtility.TransHDFSToLocalFile
 				(this.taskDes.getJarPath(), localDirPath);
 			}	
 		}
 		else if( type == FStype.REMOTE ) {
 			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
-			if(FileUtililty.mkdirLocalDir(localDirPath)) {
-				localJarPath = FileUtililty.TransRemoteFileToLocal
+			if(FileUtility.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtility.TransRemoteFileToLocal
 				(this.taskDes.getJarPath(), localDirPath);
 			}	
 		}
@@ -48,8 +48,8 @@ public class SlaveExecutor extends Thread{
 			//default condition : using HDFS to resolve the file
 			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
-			if(FileUtililty.mkdirLocalDir(localDirPath)) {
-				localJarPath = FileUtililty.TransHDFSToLocalFile
+			if(FileUtility.mkdirLocalDir(localDirPath)) {
+				localJarPath = FileUtility.TransHDFSToLocalFile
 				(this.taskDes.getJarPath(), localDirPath);
 			}
 			
@@ -71,13 +71,13 @@ public class SlaveExecutor extends Thread{
 			int outputNum = taskDes.getOutputPathNum();
 			argsAll.add("-i " + inputNum);
 			argsAll.add("-o " + outputNum);
+			
 			if(inputNum > 0) {
 				argsAll.add(taskDes.getInputPaths());
 			}
 			if(outputNum > 0) {
 				argsAll.add(taskDes.getOutputPaths());
 			}
-			
 			
 			//String argsAll = localJarPath +   " " +
 //			taskDes.getInputPaths() + " " + taskDes.getOutputPaths();

@@ -27,8 +27,9 @@ import com.klose.MsConnProto.SlaveOrderExecutorService;
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
 import com.klose.common.RunJar;
-import com.klose.common.TransformerIO.FileUtililty;
-import com.klose.common.TransformerIO.FileUtililty.FStype;
+import com.klose.common.TransformerIO.FileUtility;
+import com.klose.common.TransformerIO.FileUtility;
+import com.klose.common.TransformerIO.FileUtility.FStype;
 import com.transformer.compiler.JarCreator;
 import com.transformer.compiler.JarResolver;
 import com.transformer.compiler.JobConfiguration;
@@ -199,7 +200,7 @@ public class JLoopClient {
 				};
 				for(File taskDir : localJobDir.listFiles(filter)) {
 					System.out.println(taskDir.toString() + ":" +taskDir.getAbsolutePath() );
-					FileUtililty.copyLocalDirToHDFS(taskDir, jobId);
+					FileUtility.copyLocalDirToHDFS(taskDir, jobId);
 					
 				}
 			}
@@ -214,7 +215,7 @@ public class JLoopClient {
 	 * @return the normalized hdfs absolute file path
 	 */
 	public static String normalizingUniformJobPath(String path) {
-		FStype type = FileUtililty.getFileType(path);
+		FStype type = FileUtility.getFileType(path);
 		if(type == FStype.LOCAL) {
 			String[] tmp = path.split("/");
 			String jobXMLName = tmp[tmp.length -1];
@@ -225,8 +226,8 @@ public class JLoopClient {
 			String jobDirName =  jobId;
 			LOG.log(Level.INFO, "dirname:"+jobDirName);
 			try {
-				if(!FileUtililty.checkDirectoryValid(jobDirName, FStype.HDFS))
-					FileUtililty.mkdirInHDFS(jobDirName);
+				if(!FileUtility.checkDirectoryValid(jobDirName, FStype.HDFS))
+					FileUtility.mkdirInHDFS(jobDirName);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -238,7 +239,7 @@ public class JLoopClient {
 //					break;
 //				}
 //			}
-			String generatedPath = FileUtililty.TransLocalFileToHDFS(path, jobDirName);
+			String generatedPath = FileUtility.TransLocalFileToHDFS(path, jobDirName);
 			copyTaskDirPath(path, jobDirName);
 			if (generatedPath != null){
 				// hdfs://***.***.***.***:*****/user/***/task is chosen as directory path.
@@ -250,7 +251,7 @@ public class JLoopClient {
 			}
 		}
 		else if(type == FStype.HDFS) {
-			if( FileUtililty.checkFileValid(path) ) {
+			if( FileUtility.checkFileValid(path) ) {
 				return path;
 			}
 			else {
@@ -270,7 +271,7 @@ public class JLoopClient {
 		return this.argsMap.get(key);
 	}
 	public static String copyJobJarPath(String jarPath, String jobDir) {
-		return FileUtililty.TransLocalFileToHDFS(jarPath, jobDir);
+		return FileUtility.TransLocalFileToHDFS(jarPath, jobDir);
 	}
 	
 	/**
@@ -280,7 +281,7 @@ public class JLoopClient {
 	 * @throws Throwable 
 	 */
 	private static void constructWorkingEnv(String jarPath) throws Throwable {
-		if(!FileUtililty.checkFileValid(jarPath)) {
+		if(!FileUtility.checkFileValid(jarPath)) {
 			LOG.log(Level.WARNING, "jarPath:"+jarPath + " doesnot exist!");
 			System.exit(-1);
 		}
@@ -291,11 +292,11 @@ public class JLoopClient {
 		String str = sdf.format(date);
 		JobConfiguration.setWorkingDirectory(workingDirectory);
 		JobConfiguration.setCreateTime(str);
+		JobConfiguration.setPathHDFSPrefix(FileUtility.getHDFSPrefix());
 		String localTmpJobXMLPath = JobConfiguration.getWorkingDirectory()
 					+ "/" + str + "/job-" + str + ".xml";  
 		RunJar.run(args);
-		if(!com.klose.common.TransformerIO.FileUtililty.
-				checkDirectoryValid(workingDirectory+"/"+str, FStype.LOCAL)) {
+		if(!FileUtility.checkDirectoryValid(workingDirectory+"/"+str, com.klose.common.TransformerIO.FileUtility.FStype.LOCAL)) {
 			LOG.log(Level.WARNING, "It occurs to an error when generating a job.");
 			System.exit(-1);
 		}
@@ -311,9 +312,9 @@ public class JLoopClient {
 //			+ "/" + str + "/job.jar";
 //			constructJobJar(jarPath, jarNewPath);
 			// rename the jar, put the jar into the corresponding job directory and upload the jar into HDFS.
-			
-			String jarNewPath = FileUtililty.renameLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
-			
+			LOG.log(Level.INFO, "rename File Name:" + jarPath + " to " + workingDirectory + "/" + str + "/"+ jarNewName);
+			String jarNewPath = FileUtility.renameLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
+			LOG.log(Level.INFO, "jarNewPath" + jarNewPath);
 			if( null != copyJobJarPath(jarNewPath,"job-" + str) )  {
 				//FileUtil.removeLocalFile(jarNewPath);
 				LOG.log(Level.INFO, jarNewPath + " upload the file into the HDFS" );

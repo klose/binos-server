@@ -9,7 +9,7 @@ import javax.net.ssl.*;
 import org.apache.commons.logging.Log;
 import org.apache.http.protocol.HttpRequestExecutor;
 
-import com.klose.common.TransformerIO.FileUtililty;
+import com.klose.common.TransformerIO.FileUtility;
 
 import java.security.cert.*;
 import java.util.Vector;
@@ -53,7 +53,7 @@ public class HttpClient {
 			if( !path.endsWith("/") ) {
 				path += "/";
 			}
-			if(!FileUtililty.mkdirLocalDir(dirPath)) {
+			if(!FileUtility.mkdirLocalDir(dirPath)) {
 				LOG.log(Level.WARNING, "Can't mkdir "+ dirPath);
 				return null;
 			}
