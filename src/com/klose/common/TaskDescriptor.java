@@ -1,15 +1,22 @@
 package com.klose.common;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map.Entry;
 
 import org.dom4j.Element;
-
-
 public class TaskDescriptor {
-	private HashSet<String> inputPathSet = new HashSet<String>();
-	private HashSet<String> outputPathSet = new HashSet<String>();
+	private LinkedList inputPathSet = new LinkedList();
+	private LinkedList outputPathSet = new LinkedList();
+	
+	private String[] inputPath;
+	private String[] outputPath;
+	private int inputPathNum;
+	
+
+	private int outputPathNum;
 	private String className; // specify the class that contains user's operation.
 	private String jarPath ;
 	private String taskId;
@@ -22,9 +29,12 @@ public class TaskDescriptor {
 		TaskXMLParser xmlParser = new TaskXMLParser(this.xmlPath);
 		setTaskId(xmlParser.getTaskId());
 		setJarPath(xmlParser.getJarPath());
+		setInputPathNum(Integer.parseInt(xmlParser.getInputPathAttriNum()));
+		setOutputPathNum(Integer.parseInt(xmlParser.getOutputPathAttriNum()));
 		setInputPaths(xmlParser.getInputPaths());
 		setOutputPaths(xmlParser.getOutputPaths());
 		setClassName(xmlParser.getClassName());
+		
 	}
 	public void setClassName(String className) {
 		this.className = className;
@@ -50,10 +60,19 @@ public class TaskDescriptor {
 	 * and put the corresponding path into the inputPathSet.
 	 */
 	public void setInputPaths(Element pathEle) {
+//		Element tmp;
+//		for (Iterator i = pathEle.elementIterator("path"); i.hasNext();) {
+//			tmp = (Element) i.next();
+//			this.inputPathSet.add(tmp.getText());
+//		}
+		inputPath = new String[this.inputPathNum];
+		Iterator iter = pathEle.elementIterator("path");
 		Element tmp;
-		for (Iterator i = pathEle.elementIterator("path"); i.hasNext();) {
-			tmp = (Element) i.next();
-			this.inputPathSet.add(tmp.getText());
+		int id;
+		for(int i = 0; i < this.inputPathNum; i++) {
+			tmp = (Element) iter.next();
+			id = Integer.parseInt(tmp.attributeValue("id"));
+			inputPath[id - 1] = new String(tmp.getText());
 		}
 	}
 	/**
@@ -61,18 +80,34 @@ public class TaskDescriptor {
 	 * and put the corresponding path into the outputPathSet.
 	 */
 	public void setOutputPaths(Element pathEle) {
+//		Element tmp;
+//		for (Iterator i = pathEle.elementIterator("path"); i.hasNext();) {
+//			tmp = (Element) i.next();
+//			System.out.println(tmp.getText());
+//			this.outputPathSet.add(tmp.getText());
+//		}	
+		outputPath = new String[this.outputPathNum];
+		Iterator iter = pathEle.elementIterator("path");
 		Element tmp;
-		for (Iterator i = pathEle.elementIterator("path"); i.hasNext();) {
-			tmp = (Element) i.next();
-			this.outputPathSet.add(tmp.getText());
+		int id;
+		for(int i = 0; i < this.outputPathNum; i++) {
+			tmp = (Element) iter.next();
+			id = Integer.parseInt(tmp.attributeValue("id"));
+			outputPath[id - 1] = new String(tmp.getText());
 		}
 	}
 	/**return the inputPaths using blank as separator.
 	 */
 	public String getInputPaths() {
+//		String res = "";
+//		for(Iterator it = this.inputPathSet.iterator(); it.hasNext(); ) {
+//			res += (String)it.next();
+//			res += " ";
+//		}
+//		return res.trim();
 		String res = "";
-		for(Iterator it = this.inputPathSet.iterator(); it.hasNext(); ) {
-			res += (String)it.next();
+		for(String tmp: this.inputPath) {
+			res += tmp;
 			res += " ";
 		}
 		return res.trim();
@@ -80,19 +115,42 @@ public class TaskDescriptor {
 	/**return the outputPaths using blank as separator.
 	 */
 	public String getOutputPaths() {
+//		String res = "";
+//		for(Iterator it = this.outputPathSet.iterator(); it.hasNext(); ) {
+//			System.out.println("outputPathSet:" + res);
+//			res += (String)it.next();
+//			res += " ";
+//		}
+//		return res.trim();
 		String res = "";
-		for(Iterator it = this.outputPathSet.iterator(); it.hasNext(); ) {
-			res += (String)it.next();
+		for(String tmp: this.outputPath) {
+			res += tmp;
 			res += " ";
 		}
 		return res.trim();
 	}
+	
+	/**
+	 * set the number of input path
+	 * @param inputPathNum
+	 */
+	public void setInputPathNum(int inputPathNum) {
+		this.inputPathNum = inputPathNum;
+	}
+	/**
+	 * set the number of output path
+	 * @param outputPathNum
+	 */
+	public void setOutputPathNum(int outputPathNum) {
+		this.outputPathNum = outputPathNum;
+	}
+	
 	/**
 	 * retrieve the number of the input path
 	 * @return
 	 */
 	public int getInputPathNum() {
-		return  this.inputPathSet.size();
+		return  this.inputPathNum;
 	}
 	
 	/**
@@ -100,6 +158,6 @@ public class TaskDescriptor {
 	 * @return 
 	 */
 	public int getOutputPathNum() {
-		return this.outputPathSet.size();
+		return this.outputPathNum;
 	}
 }

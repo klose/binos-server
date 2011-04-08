@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.Path;
 
 import com.klose.common.HttpClient;
@@ -248,7 +249,42 @@ public class FileUtility {
 		
 	}
 	/**
+	 * copy the file to another specified path. It will not delete the source file.
+	 * @param originPath
+	 * @param newPath
+	 * @return
+	 */
+	public static String copyLocalFileName(String originPath, String newPath) {
+		
+		if(ensureLocalFile(originPath)) {
+			if(!ensureLocalFile(newPath)) {
+				Path srcPath = new Path(originPath);
+				Path dstPath = new Path(newPath);
+				Configuration conf = new Configuration();
+				try {
+					FileUtil.copy(FileSystem.getLocal(conf), srcPath, FileSystem.getLocal(conf), dstPath, false, conf);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return null;
+				}
+				return newPath;
+			}
+			else {
+				LOG.log(Level.WARNING, " newPath:"+ newPath + " exists already!");
+				return null;
+			}
+		}
+		else {
+			LOG.log(Level.WARNING, "originPath:" + originPath + "doesn't exist!");
+			return null;
+		}
+	}
+	/**
+	 * @deprecated
 	 * rename the file specified by originName to the file specified by newName
+	 * NOTICE: The function cannot work when the originPath and the newPath is not in
+	 * a single fileSystem.
 	 * @param originPath: the former file path
 	 * @param newPath : the new file path
 	 * @return the new file path
@@ -263,6 +299,7 @@ public class FileUtility {
 					return newPath;
 				}
 				else {
+					LOG.log(Level.WARNING,"rename failure!");
 					return null;
 				}
 			}

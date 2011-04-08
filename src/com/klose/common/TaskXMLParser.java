@@ -9,8 +9,8 @@ import org.dom4j.Element;
 public class TaskXMLParser extends XMLParser{
 	private  final String inputpathDes = "inputPath";
 	private  final String outputpathDes = "outputPath";
-	private  final String inputpathAttriNum = "num";
-	private  final String outputpathAttriNum = "num";
+	private  final String inputpathAttriNum = "inputPathNum";
+	private  final String outputpathAttriNum = "outputPathNum";
 	private  final String pathDes = "path";
 	private  final String taskidDes = "taskId";
 	private  final String jarPathDes = "jarPath";

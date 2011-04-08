@@ -313,7 +313,7 @@ public class JLoopClient {
 //			constructJobJar(jarPath, jarNewPath);
 			// rename the jar, put the jar into the corresponding job directory and upload the jar into HDFS.
 			LOG.log(Level.INFO, "rename File Name:" + jarPath + " to " + workingDirectory + "/" + str + "/"+ jarNewName);
-			String jarNewPath = FileUtility.renameLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
+			String jarNewPath = FileUtility.copyLocalFileName(jarPath, workingDirectory + "/" + str + "/"+ jarNewName);
 			LOG.log(Level.INFO, "jarNewPath" + jarNewPath);
 			if( null != copyJobJarPath(jarNewPath,"job-" + str) )  {
 				//FileUtil.removeLocalFile(jarNewPath);
