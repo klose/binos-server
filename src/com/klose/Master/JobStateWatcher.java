@@ -77,6 +77,17 @@ public class JobStateWatcher extends Thread{
 					confirmMessage = ConfirmMessage.newBuilder()
 							.setIsSuccess(false).build();
 				} else {
+					//check whether the job exists. 
+					//if the job has already removed from running queue, it will jump out of next action about job. 
+					try{
+						runningQueue.get(tmp[0]);  
+					}catch (NullPointerException e) {
+						LOG.log(Level.INFO, tmp[0] + " has already removed from the running queue for Exception." );	
+						confirmMessage = ConfirmMessage.newBuilder().setIsSuccess(false)
+						.build();
+						done.run(confirmMessage);
+						return;
+					}
 					if (taskState.equals("FINISHED")) {
 						JobScheduler.addTaskidFinishedList(taskidPos);
 						if (runningQueue.get(tmp[0]).isSuccessful()) {

@@ -72,7 +72,7 @@ public class JobDescriptor {
 				tasksView[taskStatesIndex].setStates(TaskState.STATES.UNPREPARED);
 			}
 			String prefixDep = parser.getDepTaskEle(taskEle); 
-			System.out.println("prefixDepprefixDepprefixDepprefixDepprefixDep:" + prefixDep);
+			System.out.println("prefixDep:" + prefixDep);
 			if(!prefixDep.equals(""))
 				tasksDep[taskStatesIndex] = new String(prefixDep+":"+taskId);
 			else

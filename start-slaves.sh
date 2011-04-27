@@ -10,10 +10,10 @@ do
 	 echo $eachSlave 
 	 echo $eachPort
 	 if [ -n $eachSlave  ] ; then
-		 if [ ! -n $eachPort ] ; then
-		 	ssh $eachSlave -C "($parent_path/slaves.sh)" 
+		 if [ "l" = "l"$eachPort ] ; then
+		 	ssh $eachSlave -C "($parent_path/slaves.sh $slave\"_6061\")" 
 		else 
-			ssh $eachSlave -C "($parent_path/slaves.sh --port=$eachPort)" 
+			ssh $eachSlave -C "($parent_path/slaves.sh --port=$eachPort $eachSlave"_"$eachPort)" 
 		fi
 	fi
 done

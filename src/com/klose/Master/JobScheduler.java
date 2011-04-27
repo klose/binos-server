@@ -30,7 +30,9 @@ public class JobScheduler {
 	private static ConcurrentHashMap<String, String> timeFinish 
 					= new ConcurrentHashMap<String, String>();
 	private static CopyOnWriteArrayList<String> exceptionQueue = 
-		new CopyOnWriteArrayList<String>();
+		new CopyOnWriteArrayList<String> ();
+
+	
 	/**set maximum jobs in the running queue statically, 
 	on the premise that we can't estimate job's overload and machine ability.*/
 	private static final int runningQueueMaxNum = 10;
@@ -147,9 +149,10 @@ public class JobScheduler {
 	}
 	
 	/**
-	 * handle a job with exception.
-	 * when a slave report a task with state "ERROR" && "WARNING", it will
-	 * carry out these operations below.
+	 * handle a job with STATE ERROR or WARNING.
+	 * when a slave report a task with state "ERROR" or "WARNING" ,
+	 * it will add the job to exceptionQueue, and remove the job from
+	 * running queue. Stop the Job. 
 	 * @param jobId
 	 */
 	public synchronized static void handleExceptionJob(String jobId) {
