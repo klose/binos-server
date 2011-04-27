@@ -384,7 +384,7 @@ public class FileUtility {
 	    FileStatus fstatus = null;
 	    try {
 	      fstatus = srcFs.getFileStatus(f);
-	      if (fstatus.isDirectory()) {
+	      if (fstatus.isDir()) {
 	        throw new IOException("cannot create directory " 
 	            + src + ": File exists");
 	      }

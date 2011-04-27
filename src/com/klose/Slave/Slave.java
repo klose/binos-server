@@ -156,7 +156,6 @@ public class Slave {
 		rpcController = socketRpcChannel.newRpcController();
 			
 			
-			
 			/*register to Master service*/
 			
 			

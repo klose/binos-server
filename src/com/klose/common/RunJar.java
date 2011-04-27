@@ -71,7 +71,7 @@ public class RunJar {
 	            ensureDirectory(file.getParentFile());
 	            OutputStream out = new FileOutputStream(file);
 	            try {
-	              IOUtils.copyBytes(in, out, 8192);
+	              IOUtils.copyBytes(in, out, 8192, false);
 	            } finally {
 	              out.close();
 	            }
