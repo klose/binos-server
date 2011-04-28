@@ -47,7 +47,7 @@ public class SlaveExecutorManager extends Thread{
 		LOG.log(Level.INFO, "SlaveExecutorManager: start managing the tasks of slave.");
 		SlaveReportTaskState reportUtil = new SlaveReportTaskState(confParser); 
 		while(true) {
-			try {
+			//try {
 				synchronized(taskExecutors) {
 					Iterator<String> iter = taskExecutors.keySet().iterator();
 					while(iter.hasNext()) {
@@ -80,11 +80,12 @@ public class SlaveExecutorManager extends Thread{
 						}
 					}
 				}
-				this.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//				this.sleep(500);	
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+				this.yield();
 		}
 	}
 	public static void removeTask(String taskId) {
@@ -133,9 +134,9 @@ public class SlaveExecutorManager extends Thread{
 				taskExecQueue.put(taskId, taskDes);
 				SlaveExecutor executor = new SlaveExecutor(taskDes);
 				executor.start();
-				synchronized(taskExecutors) {
+				//synchronized(taskExecutors) {
 					taskExecutors.put(taskId, executor);
-				}
+				//}
 				state = TState.newBuilder()
 						.setTaskState(TaskState.STATES.RUNNING.toString()).build();
 				LOG.log(Level.INFO, "Slave is running task-"+taskId);

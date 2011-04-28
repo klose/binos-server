@@ -32,6 +32,7 @@ public class JobStateTrigger extends Thread{
 		LOG.log(Level.INFO, "JobStateTrigger starts running...");
 		while(true) {
 			ConcurrentHashMap<String, JobDescriptor> runningQueue = JobScheduler.getRunningQueue();
+//			LOG.log(Level.INFO, "JobStateTrigger: scheduling task.");
 			synchronized(runningQueue) {
 				for(String jobId :runningQueue.keySet()) {
 					JobDescriptor jobDes = runningQueue.get(jobId);
@@ -53,12 +54,13 @@ public class JobStateTrigger extends Thread{
 					}
 				}
 			}
-			try {
-				this.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			this.yield();
+//			try {
+//				this.sleep(100);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		
 	}

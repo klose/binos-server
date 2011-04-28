@@ -100,6 +100,7 @@ public class TaskScheduler {
 	 */
 	public static void transmitToSlave(String taskId) throws IOException {
 		System.out.println("########################transmitToSlave"+ taskId + "############");
+		
 		String slaveId = chooseSlave(taskId);
 		
 		/**

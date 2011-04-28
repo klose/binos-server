@@ -27,7 +27,7 @@ public class JobStateWatcher extends Thread{
 		this.masterServer = masterServer;
 	}
 	public void run() {
-		try {
+		//try {
 			TaskChangeWatcher watcherService = new TaskChangeWatcher(JobScheduler.getWatingQueue(), 
 					JobScheduler.getRunningQueue());
 			this.masterServer.registerService(watcherService);
@@ -35,12 +35,13 @@ public class JobStateWatcher extends Thread{
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
 				JobScheduler.transWaitingToRunning();
-				this.sleep(5000);
+				this.yield();
+//				this.sleep(500);
 			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	/**
 	 *TaskChangeWatcher is responsible for receiving the information of 

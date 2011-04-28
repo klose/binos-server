@@ -58,7 +58,7 @@ public class Master{
 		MasterArgsParser confParser = new MasterArgsParser(args); 
 		confParser.loadValue();
 		SocketRpcServer masterServer = new SocketRpcServer(confParser.getPort(),
-				    Executors.newFixedThreadPool(10));
+				    Executors.newFixedThreadPool(20));
 		System.out.println("Master started at "+ confParser.constructIdentity());
 		MasterRpcServerThread masterServerThread = new MasterRpcServerThread(
 				confParser, masterServer);

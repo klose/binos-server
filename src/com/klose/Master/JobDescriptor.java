@@ -169,6 +169,7 @@ public class JobDescriptor {
 			this.finishedTask.add(index);
 			TaskScheduler.removeTaskIdOnSlave(tasksView[index].getTaskid());
 			System.out.println("4444444444444444444" + tasksView[index].getTaskid() + "2222222222");
+			System.out.println("ssssssssssssssssss " + tasksView[index].getSuffixTaskIds().toString() + "55555555555");
 			System.out.println("5555555555555555555" + tasksView[index].getSuffixTaskIds().size() + "2222222222");
 			
 			synchronized(tasksView) {
@@ -185,7 +186,7 @@ public class JobDescriptor {
 					tasksView[jobStatus.get(relatedTask)].setDependence(dep);
 					System.out.println("666666666666666666666:" + dep + ":2222222222");
 					if(dep == 0) {
-						LOG.log(Level.INFO, tasksView[index].getTaskid() +" :UNPREPARED -> PREPARED");
+						LOG.log(Level.INFO, tasksView[jobStatus.get(relatedTask)].getTaskid() +" :UNPREPARED -> PREPARED");
 						tasksView[jobStatus.get(relatedTask)].
 							setStates(TaskState.STATES.PREPARED);
 					}
@@ -202,6 +203,7 @@ public class JobDescriptor {
 	
 	/*check whether the job has finished successfully*/
 	public boolean isSuccessful() {
+		LOG.log(Level.INFO, "finishedTask:#" + finishedTask.size());
 		if(finishedTask.size() == getTaskTotal()) {
 			return true;
 		}
