@@ -15,6 +15,7 @@ import com.klose.MsConnProto.AllocateIdentity;
 import com.klose.MsConnProto.AllocateTaskService;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
+import com.klose.common.MSConfiguration;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
 import com.klose.common.TransformerIO.FileUtility;
@@ -39,7 +40,7 @@ public class SlaveExecutorManager extends Thread{
 	private static final CopyOnWriteArrayList<String> waitingTaskQueue 
 			= new CopyOnWriteArrayList<String>();
 	//private static int currentTasks = 0;// set number of the tasks
-	private static final int maxTasks = 3; 
+	private static final int maxTasks = MSConfiguration.getMaxTasksOnEachSlave(); 
 	private static final Logger LOG = Logger.getLogger(SlaveExecutorManager.class.getName());
 	private SocketRpcServer slaveServer;
 	private SlaveArgsParser confParser;
