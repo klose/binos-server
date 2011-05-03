@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +34,12 @@ public class SlaveExecutorManager extends Thread{
 			= new ConcurrentHashMap<String, TaskState.STATES>();
 	private static final ConcurrentHashMap<String, SlaveExecutor> taskExecutors
 			= new ConcurrentHashMap<String, SlaveExecutor> ();
+	private static final CopyOnWriteArrayList<String> finishTaskList 
+			= new CopyOnWriteArrayList<String>();
+	private static final CopyOnWriteArrayList<String> waitingTaskQueue 
+			= new CopyOnWriteArrayList<String>();
+	//private static int currentTasks = 0;// set number of the tasks
+	private static final int maxTasks = 3; 
 	private static final Logger LOG = Logger.getLogger(SlaveExecutorManager.class.getName());
 	private SocketRpcServer slaveServer;
 	private SlaveArgsParser confParser;
@@ -48,7 +55,11 @@ public class SlaveExecutorManager extends Thread{
 		SlaveReportTaskState reportUtil = new SlaveReportTaskState(confParser); 
 		while(true) {
 			//try {
-				synchronized(taskExecutors) {
+			if(taskExecQueue.size() < maxTasks && waitingTaskQueue.size() > 0) {
+				String taskIdPos = waitingTaskQueue.remove(0);
+				runTask(taskIdPos);
+			}
+			synchronized(taskExecutors) {
 					Iterator<String> iter = taskExecutors.keySet().iterator();
 					while(iter.hasNext()) {
 						String taskId = iter.next();
@@ -98,6 +109,28 @@ public class SlaveExecutorManager extends Thread{
 		synchronized(taskStates) {
 			taskStates.remove(taskId);
 		}
+		synchronized(finishTaskList) {
+			finishTaskList.add(taskId);
+		}
+	}
+	
+	private static void runTask(String taskIdPos)  {
+		String jobId = taskIdPos.substring(0, taskIdPos.lastIndexOf(":"));
+		String id =  taskIdPos.substring(taskIdPos.lastIndexOf(":") + 1, taskIdPos.length());
+		String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
+		LOG.log(Level.INFO, "taskIdXML:" + FileUtility.getHDFSAbsolutePath(taskIdXML));
+		TaskDescriptor taskDes;
+		try {
+			taskDes = new TaskDescriptor(FileUtility.getHDFSAbsolutePath(taskIdXML));
+			taskExecQueue.put(taskIdPos, taskDes);
+			SlaveExecutor executor = new SlaveExecutor(taskDes);
+			executor.start();
+			taskExecutors.put(taskIdPos, executor);
+			LOG.log(Level.INFO, "Slave is running task-"+taskIdPos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 	/**
@@ -124,22 +157,23 @@ public class SlaveExecutorManager extends Thread{
 			}
 			else {
 				synchronized(taskStates) {
-					taskStates.put(taskId,TaskState.STATES.RUNNING);
-				LOG.log(Level.INFO, "taskId:" + taskId);
-				String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
-				String id =  taskId.substring(taskId.lastIndexOf(":") + 1, taskId.length());
-				String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
-				LOG.log(Level.INFO, "taskIdXML:" + FileUtility.getHDFSAbsolutePath(taskIdXML));
-				TaskDescriptor taskDes = new TaskDescriptor(FileUtility.getHDFSAbsolutePath(taskIdXML));
-				taskExecQueue.put(taskId, taskDes);
-				SlaveExecutor executor = new SlaveExecutor(taskDes);
-				executor.start();
-				//synchronized(taskExecutors) {
-					taskExecutors.put(taskId, executor);
-				//}
+					waitingTaskQueue.add(taskId);
+					taskStates.put(taskId,TaskState.STATES.WAITING);
+				LOG.log(Level.INFO, "taskId:" + taskId + "  is scheduling to SlaveExecutorManager.");
+//				String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
+//				String id =  taskId.substring(taskId.lastIndexOf(":") + 1, taskId.length());
+//				String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
+//				LOG.log(Level.INFO, "taskIdXML:" + FileUtility.getHDFSAbsolutePath(taskIdXML));
+//				TaskDescriptor taskDes = new TaskDescriptor(FileUtility.getHDFSAbsolutePath(taskIdXML));
+//				taskExecQueue.put(taskId, taskDes);
+//				SlaveExecutor executor = new SlaveExecutor(taskDes);
+//				executor.start();
+//				//synchronized(taskExecutors) {
+//				taskExecutors.put(taskId, executor);
+//				//}
 				state = TState.newBuilder()
-						.setTaskState(TaskState.STATES.RUNNING.toString()).build();
-				LOG.log(Level.INFO, "Slave is running task-"+taskId);
+						.setTaskState(TaskState.STATES.PREPARED.toString()).build();
+				LOG.log(Level.INFO, "Slave is scheduling task-"+taskId);
 				}
 			}
 			done.run(state);	
