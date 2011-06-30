@@ -25,10 +25,12 @@ public class SlaveReportTaskState {
 	public void report(String taskId, String state) {
 		TaskStateChangeService stateChange = 
 			TaskStateChangeService.newStub(this.channel);
-		final TaskChangeState request = TaskChangeState.newBuilder()
-					.setTaskId(taskId).setState(state).build();
-		stateChange.stateChange(controller, 
-				request, new scRpcCallback(request.getTaskId(), request.getState()));				
+		if(taskId != null && state != null) {
+			final TaskChangeState request = TaskChangeState.newBuilder()
+			.setTaskId(taskId).setState(state).build();
+			stateChange.stateChange(controller, 
+					request, new scRpcCallback(request.getTaskId(), request.getState()));				
+		}
 	}
 	
 	class scRpcCallback implements RpcCallback<com.klose.MsConnProto.ConfirmMessage> {

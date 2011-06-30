@@ -1,0 +1,39 @@
+<!-- this build.xml is used for constructing  Cactus.-->
+<project name="Master-Slave" default="compile" basedir=".">
+	<description>
+		construct different programming models in Transformer.		
+	</description>
+	<property name="src" location="src"/>
+	<property name="bin" location="bin"/>
+	<property name="dist" location="dist"/>
+	<path id="base.path" path="${classpath}"/>
+	<path id="lib.path.ref">
+		<fileset dir="lib" includes="*.jar"/>
+	</path>
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${bin}"/>
+		<mkdir dir="${dist}"/>
+	</target>
+	
+	<target name="compile" depends="init" 	
+		description="compile the source">
+		<!-- Compile the java code from ${src} into ${bin} -->
+		<javac srcdir="${src}" destdir="${bin}" includeantruntime="on">
+			<!--compilerarg args="-Xbootclasspath/p:${classpath}:${toString:lib.path.ref}"/-->
+			<classpath>
+				<pathelement path="${classpath}"/>
+				<pathelement location="${bin}"/>
+				<fileset dir="lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	<target name="clean"
+        description="clean up" >
+    <!-- Delete the ${bin} and ${dist} directory trees -->
+    <delete dir="${bin}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

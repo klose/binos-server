@@ -40,6 +40,8 @@ public class SlaveExecutorManager extends Thread{
 	private static final CopyOnWriteArrayList<String> waitingTaskQueue 
 			= new CopyOnWriteArrayList<String>();
 	//private static int currentTasks = 0;// set number of the tasks
+	private static final int slaveExecutorManagerThreadWaitTime 
+			= MSConfiguration.getSlaveExecutorManagerThreadWaitTime();
 	private static final int maxTasks = MSConfiguration.getMaxTasksOnEachSlave(); 
 	private static final Logger LOG = Logger.getLogger(SlaveExecutorManager.class.getName());
 	private SocketRpcServer slaveServer;
@@ -92,12 +94,20 @@ public class SlaveExecutorManager extends Thread{
 						}
 					}
 				}
+			try {
+				
+				this.sleep(slaveExecutorManagerThreadWaitTime);
+				this.yield();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //				this.sleep(500);	
 //			} catch (InterruptedException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-				this.yield();
+				
 		}
 	}
 	public static void removeTask(String taskId) {

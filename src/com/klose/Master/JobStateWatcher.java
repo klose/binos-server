@@ -11,6 +11,7 @@ import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TaskChangeState;
 import com.klose.MsConnProto.TaskStateChangeService;
+import com.klose.common.MSConfiguration;
 import com.klose.common.TaskState;
 import com.klose.common.TaskState.STATES;
 /**
@@ -22,6 +23,8 @@ public class JobStateWatcher extends Thread{
 	private MasterArgsParser confParser;
 	private SocketRpcServer masterServer;
 	private Logger LOG = Logger.getLogger(JobStateWatcher.class.getName());
+	private static final int jobStateWatcherThreadWaitTime 
+			= MSConfiguration.getJobStateWatcherThreadWaitTime();
 	public JobStateWatcher(MasterArgsParser confParser, SocketRpcServer masterServer){
 		this.confParser = confParser;
 		this.masterServer = masterServer;
@@ -35,8 +38,19 @@ public class JobStateWatcher extends Thread{
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
 				JobScheduler.transWaitingToRunning();
-				this.yield();
-//				this.sleep(500);
+				try {
+					this.sleep(jobStateWatcherThreadWaitTime);
+					this.yield();
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				try {
+//					this.wait(jobStateWatcherThreadWaitTime);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block

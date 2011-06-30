@@ -6,6 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.klose.common.MSConfiguration;
+
 /**
  * JobStateTrigger is a class used to detect the tasks which is dependent upon 
  * other Running tasks. If the dependent tasks has all finished in a time, it 
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class JobStateTrigger extends Thread{
 	private static final Logger LOG = Logger.getLogger(JobStateTrigger.class.getName());
+	private static final int jobStateTriggerThreadWaitTime = MSConfiguration.getJobStateTriggerThreadWaitTime();
 	JobStateTrigger() {
 	
 	}
@@ -54,7 +57,14 @@ public class JobStateTrigger extends Thread{
 					}
 				}
 			}
-			this.yield();
+			
+			try {
+				this.sleep(jobStateTriggerThreadWaitTime);
+				this.yield();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //			try {
 //				this.sleep(100);
 //			} catch (InterruptedException e) {

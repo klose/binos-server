@@ -11,6 +11,9 @@ public class MSConfiguration {
 	private static HashMap<String, String> configuration 
 		= new HashMap<String, String>();
 	private static int maxTasksOnEachSlave = 3;
+	private static int jobStateTriggerThreadWaitTime = 50;
+	private static int slaveExecutorManagerThreadWaitTime = 10;
+	private static int jobStateWatcherThreadWaitTime = 500;
 	static {
 		File MSproperties = new File("MS.properties");
 		try {
@@ -32,8 +35,37 @@ public class MSConfiguration {
 		}
 	}
 	public static int getMaxTasksOnEachSlave() {
-		return Integer.parseInt(configuration.get("maxTasksOnEachSlave"));
+		if(configuration.get("maxTasksOnEachSlave") == null) {
+			return maxTasksOnEachSlave;
+		}
+		else {
+			return Integer.parseInt(configuration.get("maxTasksOnEachSlave"));
+		}
+		
 	}
+	public static int getJobStateTriggerThreadWaitTime() {
+		if(configuration.get("jobStateTriggerThreadWaitTime") == null) {
+			return jobStateTriggerThreadWaitTime;
+		}
+		return Integer.parseInt(configuration.get("jobStateTriggerThreadWaitTime"));
+	}
+	
+	public static int getSlaveExecutorManagerThreadWaitTime() {
+		
+		if(configuration.get("slaveExecutorManagerThreadWaitTime") == null) {
+			return slaveExecutorManagerThreadWaitTime;
+		}
+		return Integer.parseInt(configuration.get("slaveExecutorManagerThreadWaitTime"));
+	}
+	
+	public static int getJobStateWatcherThreadWaitTime() {
+		if(configuration.get("jobStateWatcherThreadWaitTime") == null) {
+			return jobStateWatcherThreadWaitTime;
+		}
+		return Integer.parseInt(configuration.get("jobStateWatcherThreadWaitTime"));
+	}
+	
+	
 	//just for testing
 	public static void main(String[] args) {
 		System.out.println(MSConfiguration.getMaxTasksOnEachSlave());
