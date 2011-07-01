@@ -4,7 +4,7 @@
 		construct different programming models in Transformer.		
 	</description>
 	<property name="src" location="src"/>
-	<property name="bin" location="bin"/>
+	<property name="classes" location="classes"/>
 	<property name="dist" location="dist"/>
 	<path id="base.path" path="${classpath}"/>
 	<path id="lib.path.ref">
@@ -12,18 +12,18 @@
 	</path>
 	<target name="init">
 		<tstamp/>
-		<mkdir dir="${bin}"/>
+		<mkdir dir="${classes}"/>
 		<mkdir dir="${dist}"/>
 	</target>
 	
 	<target name="compile" depends="init" 	
 		description="compile the source">
-		<!-- Compile the java code from ${src} into ${bin} -->
-		<javac srcdir="${src}" destdir="${bin}" includeantruntime="on">
+		<!-- Compile the java code from ${src} into ${classes} -->
+		<javac srcdir="${src}" destdir="${classes}" includeantruntime="on">
 			<!--compilerarg args="-Xbootclasspath/p:${classpath}:${toString:lib.path.ref}"/-->
 			<classpath>
 				<pathelement path="${classpath}"/>
-				<pathelement location="${bin}"/>
+				<pathelement location="${classes}"/>
 				<fileset dir="lib">
 					<include name="*.jar"/>
 				</fileset>
@@ -32,8 +32,8 @@
 	</target>
 	<target name="clean"
         description="clean up" >
-    <!-- Delete the ${bin} and ${dist} directory trees -->
-    <delete dir="${bin}"/>
+    <!-- Delete the ${classes} and ${dist} directory trees -->
+    <delete dir="${classes}"/>
     <delete dir="${dist}"/>
   </target>
 </project>

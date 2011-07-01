@@ -24,4 +24,16 @@ Just add the 174 comparing to prior version.
 ./transformerxml/ is directory containning a xml priciples about jobs and tasks.
 
 
+######################quick start help ####################
+1) ant 
+compiler the project. This requires jdk1.6 or higher,ant-1.8.0 or higher.
+
+2)configure the location of master and slave.
+using machine IP address to set master
+using machine IP address: port to set slave.
+
+3) bin/start-master.sh;bin/start-slaves.sh;
+
+
+
 If you meet troubles with our project, please email jiangbing@ict.ac.cn 
