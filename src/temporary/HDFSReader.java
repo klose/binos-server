@@ -11,7 +11,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hdfs.server.namenode.FSNamesystem;
+
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.util.LineReader;
 
@@ -21,15 +21,15 @@ import com.klose.Slave.Slave;
 
 public class HDFSReader {
 	private static final Logger LOG = Logger.getLogger(HDFSReader.class.getName());
-	private FSNamesystem fs;
-	public HDFSReader(FSNamesystem fsn) {
-		this.fs = fsn;
-		
-	}
-	
-	public HDFSReader() {
-		
-	}
+//	private FSNamesystem fs;
+//	public HDFSReader(FSNamesystem fsn) {
+//		this.fs = fsn;
+//		
+//	}
+//	
+//	public HDFSReader() {
+//		
+//	}
 	
 	public static void main(String [] args) throws IOException {
 		Configuration conf = new Configuration();
