@@ -91,6 +91,11 @@ message TaskChangeState {
 message AllocateIdentity {
 	required string slaveIpPort = 1;
 	required string taskIds = 2;
+	message JobProperty {
+		required string key = 1;
+		required string value = 2;
+	}
+	repeated JobProperty properties = 3;
 }
 message TState {
 	required string taskState = 1;

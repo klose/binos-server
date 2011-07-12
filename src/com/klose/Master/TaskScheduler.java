@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +15,8 @@ import com.google.protobuf.RpcCallback;
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
 import com.googlecode.protobuf.socketrpc.SocketRpcController;
 import com.klose.MsConnProto.AllocateIdentity;
+import com.klose.MsConnProto.AllocateIdentity.JobProperty;
+import com.klose.MsConnProto.AllocateIdentity.Builder;
 import com.klose.MsConnProto.AllocateTaskService;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
@@ -102,24 +105,36 @@ public class TaskScheduler {
 		System.out.println("########################transmitToSlave"+ taskId + "############");
 		
 		String slaveId = chooseSlave(taskId);
-		
+		String [] id = taskId.split(":");
+		if(id.length != 2) {
+			LOG.log(Level.SEVERE, "ERROR: " + taskId + " should use format jobId:taskId");
+			return ;
+		}
 		/**
 		 * use another method to get channel to compare the perfermance.
 		 */
 //		SocketRpcChannel channel = SlaveRPCConnPool
 //				.getSocketRPCChannel(slaveId);
 		String slaveIpPort [] = slaveId.split(":");
+		
 		if(slaveIpPort.length != 2) {
 			LOG.log(Level.SEVERE, "ERROR: " + slaveId);
 			return ;
 		}
+		/*add the information of scheduling to JobProperties.*/
+		JobScheduler.addProperty(id[0], id[1], slaveId);
 		SocketRpcChannel channel = new SocketRpcChannel(slaveIpPort[0], Integer.parseInt(slaveIpPort[1])) ;
 		SocketRpcController controller = channel.newRpcController();
 		AllocateTaskService atService = AllocateTaskService.newStub(channel);
-		AllocateIdentity request = AllocateIdentity.newBuilder()
-				.setSlaveIpPort(slaveId).setTaskIds(taskId).build();
-		LOG.log(Level.INFO, "taskId:" + taskId + " scheduled to  " + "slaveId:" + slaveId);
-		
+		AllocateIdentity request; 
+		Builder builder = AllocateIdentity.newBuilder().setSlaveIpPort(slaveId).setTaskIds(taskId);
+		Map<String, String> proMap = JobScheduler.getJobProperties(id[0]).getAllProperties();
+		for (String tmp : proMap.keySet()) {
+			JobProperty testPro = JobProperty.newBuilder().setKey(tmp).setValue(proMap.get(tmp)).build();	
+			builder = builder.addProperties(testPro);
+		}
+		request = builder.build();
+		LOG.log(Level.INFO, "taskId:" + taskId + " scheduled to  " + "slaveId:" + slaveId);	
 		atService.allocateTasks(controller, request, new RpcCallback<TState>() {
 			@Override
 			public void run(TState message) {

@@ -1,6 +1,4 @@
 package com.klose.Master;
-
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +12,7 @@ import org.dom4j.Element;
 
 import com.klose.common.TaskState;
 import com.klose.common.TransformerIO.FileUtility;
+import com.transformer.compiler.JobProperties;
 
 
 
@@ -30,6 +29,8 @@ public class JobDescriptor {
 	private TaskStates [] tasksView; 
 	private static int taskStatesIndex = 0;// the index of array JobView
 	private static final Logger LOG = Logger.getLogger(JobDescriptor.class.getName());
+	
+	private final JobProperties jobProperties;
 	//HashMap<taskid, taskStatesIndex>
 	private HashMap<String, Integer> jobStatus = new HashMap<String ,Integer>();
 	
@@ -37,14 +38,16 @@ public class JobDescriptor {
 	
 	private JobXMLParser parser;
 	
-	public JobDescriptor(String path) {
+	public JobDescriptor(String jobId) {
 		//String dirName = path.substring(0, path.lastIndexOf("-"));
-		xmlPath = FileUtility.getHDFSAbsolutePath(path + "/" + path + ".xml");
+		xmlPath = FileUtility.getHDFSAbsolutePath(jobId + "/" + jobId + ".xml");
 		System.out.println("------------------------------"+ xmlPath);
+		jobProperties = new JobProperties(jobId);
 		parser = new JobXMLParser(this.xmlPath);
 		tasksView = new TaskStates[parser.getTaskTotal()];
 		loadJobView();
 	}
+	/** load the content of jobId.xml into tasksView and jobProperties*/
 	private void loadJobView() {
 		Iterator<Element> taskIter = parser.getTasks();
 		
@@ -90,6 +93,14 @@ public class JobDescriptor {
 				}
 			}
 		}
+		
+		/*parser the property tag into Element.*/
+		Iterator<Element> propertiesIter = parser.getProperties();
+		while (propertiesIter.hasNext()) {
+			Element propertyEle = propertiesIter.next();
+			jobProperties.addProperty(propertyEle.attributeValue("key"),
+					propertyEle.attributeValue("value"));
+		}
 	}
 	/**retrieve the tasks whose condition is prepared, 
 	 * and hasn't submitted to TaskScheduler. 
@@ -133,6 +144,13 @@ public class JobDescriptor {
 	 */
 	public synchronized TaskStates getTaskStatesByIndex(int index) {
 		return this.tasksView[index];
+	}
+	
+	public synchronized void addProperty(String key, String value) {
+		jobProperties.addProperty(key, value);
+	}
+	public synchronized JobProperties getJobProperties() {
+		return jobProperties;
 	}
 	/**
 	 * return the state of task according to the taskid

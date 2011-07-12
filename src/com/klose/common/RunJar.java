@@ -26,6 +26,7 @@ import org.apache.hadoop.io.IOUtils;
 
 import com.klose.Slave.SlaveArgsParser;
 import com.klose.Slave.SlaveExecutor;
+import com.transformer.compiler.JobProperties;
 
 /**
  * The class is learned from Hadoop-0.21.0 (org.apache.hadoop.util.RunJar).
@@ -99,10 +100,11 @@ public class RunJar {
 	  /**
 	   * Execute the Class that implements com.transformer.compiler.Operation
 	   * 
+	   * @param JobProperties
 	   * @param args
 	   * @throws Throwable
 	   */
-	  public static void executeOperationJar(String[] args) throws Throwable {
+	  public static void executeOperationJar(JobProperties pros, String[] args) throws Throwable {
 		 if(args.length < 4) {
 			 LOG.log(Level.WARNING, "args lack!");
 			 return;
@@ -144,7 +146,7 @@ public class RunJar {
 		ClassLoader loader = new URLClassLoader(classPath.toArray(new URL[0]));
 		Class cls = loader.loadClass(operationClass);
 		Thread.currentThread().setContextClassLoader(loader);
-		Method m = cls.getMethod("operate", String[].class, String[].class);
+		Method m = cls.getMethod("operate", JobProperties.class, String[].class, String[].class);
 		int inputNum = Integer.parseInt(args[firstArgs++].split(" ")[1]);
 		int outputNum = Integer.parseInt(args[firstArgs++].split(" ")[1]);
 		String [] inputPath = null;
@@ -155,7 +157,7 @@ public class RunJar {
 		if(outputNum != 0) {
 			outputPath = args[firstArgs].split(" ");
 		}
-		m.invoke(cls.newInstance(), inputPath, 
+		m.invoke(cls.newInstance(), pros, inputPath, 
 					outputPath);
 		 
 	  }

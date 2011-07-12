@@ -40,6 +40,7 @@ public class JobXMLParser extends XMLParser {
 	private final String TaskAttriDep = "dep";
 	private final String TaskID = "taskId";
 	private final String TaskTotal = "total";
+	private final String Property = "property";
 	
 	public JobXMLParser(String path) {
 		super(path);
@@ -53,6 +54,9 @@ public class JobXMLParser extends XMLParser {
 	}
 	public Iterator<Element> getTasks() {
 		return getRootElement().elementIterator(Task);
+	}
+	public Iterator<Element> getProperties() {
+		return getRootElement().elementIterator(Property);
 	}
 	public int getTaskDep(Element taskEle) {
 		return Integer.parseInt(taskEle.attributeValue(TaskAttriDep));

@@ -9,13 +9,16 @@ import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
 import com.klose.common.TransformerIO.FileUtility;
 import com.klose.common.TransformerIO.FileUtility.FStype;
+import com.transformer.compiler.JobProperties;
 
 public class SlaveExecutor extends Thread{
-	private TaskDescriptor taskDes;
+	private final TaskDescriptor taskDes;
+	private final JobProperties properties;
 	private volatile TaskState.STATES state = TaskState.STATES.RUNNING;
 	private static final Logger LOG = Logger.getLogger(SlaveExecutor.class.getName());
-	public SlaveExecutor(TaskDescriptor taskDes) {
+	public SlaveExecutor(TaskDescriptor taskDes, JobProperties pros) {
 		this.taskDes = taskDes;
+		this.properties = pros;
 	}
 	public TaskState.STATES getTaskState() {
 		return state;
@@ -84,7 +87,7 @@ public class SlaveExecutor extends Thread{
 			System.out.println("argsAll:" + argsAll);
 		
 			try {
-				RunJar.executeOperationJar(argsAll.toArray(new String[0]));
+				RunJar.executeOperationJar(this.properties,argsAll.toArray(new String[0]));
 			} catch (Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

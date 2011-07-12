@@ -12,6 +12,7 @@ import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.AllocateIdentity;
+import com.klose.MsConnProto.AllocateIdentity.JobProperty;
 import com.klose.MsConnProto.AllocateTaskService;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
@@ -19,6 +20,7 @@ import com.klose.common.MSConfiguration;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
 import com.klose.common.TransformerIO.FileUtility;
+import com.transformer.compiler.JobProperties;
 
 /**
  *When master schedules tasks to slave,
@@ -31,6 +33,8 @@ public class SlaveExecutorManager extends Thread{
 	/*taskExecQueue the meaning of map is <taskid:the descriptor of task>*/
 	private  static final ConcurrentHashMap<String, TaskDescriptor> taskExecQueue 
 			= new ConcurrentHashMap<String, TaskDescriptor>();
+	private static final ConcurrentHashMap<String, JobProperties> taskProperties = 
+		new ConcurrentHashMap<String, JobProperties>();
 	private static final ConcurrentHashMap<String, TaskState.STATES> taskStates 
 			= new ConcurrentHashMap<String, TaskState.STATES>();
 	private static final ConcurrentHashMap<String, SlaveExecutor> taskExecutors
@@ -60,6 +64,7 @@ public class SlaveExecutorManager extends Thread{
 			//try {
 			if(taskExecQueue.size() < maxTasks && waitingTaskQueue.size() > 0) {
 				String taskIdPos = waitingTaskQueue.remove(0);
+				
 				runTask(taskIdPos);
 			}
 			synchronized(taskExecutors) {
@@ -123,6 +128,9 @@ public class SlaveExecutorManager extends Thread{
 		synchronized(finishTaskList) {
 			finishTaskList.add(taskId);
 		}
+		synchronized(taskProperties) {
+			taskProperties.remove(taskId);
+		}
 	}
 	
 	private static void runTask(String taskIdPos)  {
@@ -134,7 +142,7 @@ public class SlaveExecutorManager extends Thread{
 		try {
 			taskDes = new TaskDescriptor(FileUtility.getHDFSAbsolutePath(taskIdXML));
 			taskExecQueue.put(taskIdPos, taskDes);
-			SlaveExecutor executor = new SlaveExecutor(taskDes);
+			SlaveExecutor executor = new SlaveExecutor(taskDes,taskProperties.get(taskIdPos));
 			executor.start();
 			taskExecutors.put(taskIdPos, executor);
 			LOG.log(Level.INFO, "Slave is running task-"+taskIdPos);
@@ -155,7 +163,7 @@ public class SlaveExecutorManager extends Thread{
 	class TaskAllocateService extends AllocateTaskService {
 		@Override
 		public void allocateTasks(RpcController controller,
-				AllocateIdentity request, RpcCallback<TState> done) throws IOException {
+				AllocateIdentity request, RpcCallback<TState> done) {
 			// TODO Auto-generated method stub
 			String taskId = request.getTaskIds();
 			TState state = null;
@@ -171,7 +179,12 @@ public class SlaveExecutorManager extends Thread{
 					waitingTaskQueue.add(taskId);
 					taskStates.put(taskId,TaskState.STATES.WAITING);
 				LOG.log(Level.INFO, "taskId:" + taskId + "  is scheduling to SlaveExecutorManager.");
-//				String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
+				JobProperties properties = new JobProperties(taskId);
+				for (JobProperty tmp:request.getPropertiesList()) {
+					properties.addProperty(tmp.getKey(), tmp.getValue());
+				}
+				taskProperties.put(taskId, properties);
+				//String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
 //				String id =  taskId.substring(taskId.lastIndexOf(":") + 1, taskId.length());
 //				String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
 //				LOG.log(Level.INFO, "taskIdXML:" + FileUtility.getHDFSAbsolutePath(taskIdXML));

@@ -12,6 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.transformer.compiler.JobProperties;
+
 
 
 /**
@@ -111,6 +113,14 @@ public class JobScheduler {
 	public static JobDescriptor getJobDescriptor(String jobId) {
 		System.out.println("222222222222222" + jobId + "2222222222");
 		return runningQueue.get(jobId);
+	}
+	
+	public synchronized static void addProperty(String jobId, String key, String value) {
+		runningQueue.get(jobId).addProperty(key, value);
+	}
+	
+	public synchronized static JobProperties getJobProperties(String jobId) {
+		return runningQueue.get(jobId).getJobProperties();
 	}
 	/**
 	 *
