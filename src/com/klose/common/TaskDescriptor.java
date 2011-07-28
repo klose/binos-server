@@ -72,7 +72,7 @@ public class TaskDescriptor {
 		for(int i = 0; i < this.inputPathNum; i++) {
 			tmp = (Element) iter.next();
 			id = Integer.parseInt(tmp.attributeValue("id"));
-			inputPath[id - 1] = new String(tmp.getText());
+			inputPath[id] = new String(tmp.getText());
 		}
 	}
 	/**
@@ -93,7 +93,7 @@ public class TaskDescriptor {
 		for(int i = 0; i < this.outputPathNum; i++) {
 			tmp = (Element) iter.next();
 			id = Integer.parseInt(tmp.attributeValue("id"));
-			outputPath[id - 1] = new String(tmp.getText());
+			outputPath[id] = new String(tmp.getText());
 		}
 	}
 	/**return the inputPaths using blank as separator.

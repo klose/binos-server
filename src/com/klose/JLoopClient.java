@@ -292,7 +292,7 @@ public class JLoopClient {
 		String str = sdf.format(date);
 		JobConfiguration.setWorkingDirectory(workingDirectory);
 		JobConfiguration.setCreateTime(str);
-		JobConfiguration.setPathHDFSPrefix(FileUtility.getHDFSPrefix());
+		JobConfiguration.setPathHDFSPrefix(FileUtility.getHDFSPrefix() + "/job-" + str);
 		String localTmpJobXMLPath = JobConfiguration.getWorkingDirectory()
 					+ "/" + str + "/job-" + str + ".xml";  
 		RunJar.run(args);
