@@ -10,6 +10,7 @@ import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TaskChangeState;
+import com.klose.MsConnProto.TaskChangeState.outputProperty;
 import com.klose.MsConnProto.TaskStateChangeService;
 import com.klose.common.MSConfiguration;
 import com.klose.common.TaskState;
@@ -95,15 +96,24 @@ public class JobStateWatcher extends Thread{
 					//check whether the job exists. 
 					//if the job has already removed from running queue, it will jump out of next action about job. 
 					try{
-						runningQueue.get(tmp[0]);  
+						if (null == runningQueue.get(tmp[0])) {
+							LOG.log(Level.INFO, tmp[0] + " has already removed from the running queue for Exception." );	
+							confirmMessage = ConfirmMessage.newBuilder().setIsSuccess(false)
+							.build();
+							done.run(confirmMessage);
+							return;  
+						}
 					}catch (NullPointerException e) {
-						LOG.log(Level.INFO, tmp[0] + " has already removed from the running queue for Exception." );	
-						confirmMessage = ConfirmMessage.newBuilder().setIsSuccess(false)
-						.build();
-						done.run(confirmMessage);
+						LOG.log(Level.SEVERE, tmp[0] + " NOT EXISTS!");
 						return;
 					}
 					if (taskState.equals("FINISHED")) {
+						if (request.getOutputCount() > 0) {
+							System.out.println("klose:finish");
+							for (outputProperty property: request.getOutputList()) {
+								JobScheduler.addProperty(tmp[0], property.getKey(), property.getValue());
+							}
+						}
 						JobScheduler.addTaskidFinishedList(taskidPos);
 						if (runningQueue.get(tmp[0]).isSuccessful()) {
 							LOG.log(Level.INFO, tmp[0] + ": FINISHED.");

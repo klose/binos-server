@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="lib/sigar.jar"/>
 	<classpathentry kind="lib" path="lib/hadoop-common-0.21.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Transformer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Binos"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

@@ -4181,6 +4181,337 @@ public final class MsConnProto {
       return com.klose.MsConnProto.internal_static_com_klose_TaskChangeState_fieldAccessorTable;
     }
     
+    public static final class outputProperty extends
+        com.google.protobuf.GeneratedMessage {
+      // Use outputProperty.newBuilder() to construct.
+      private outputProperty() {
+        initFields();
+      }
+      private outputProperty(boolean noInit) {}
+      
+      private static final outputProperty defaultInstance;
+      public static outputProperty getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public outputProperty getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_TaskChangeState_outputProperty_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_TaskChangeState_outputProperty_fieldAccessorTable;
+      }
+      
+      // required string key = 1;
+      public static final int KEY_FIELD_NUMBER = 1;
+      private boolean hasKey;
+      private java.lang.String key_ = "";
+      public boolean hasKey() { return hasKey; }
+      public java.lang.String getKey() { return key_; }
+      
+      // required string value = 2;
+      public static final int VALUE_FIELD_NUMBER = 2;
+      private boolean hasValue;
+      private java.lang.String value_ = "";
+      public boolean hasValue() { return hasValue; }
+      public java.lang.String getValue() { return value_; }
+      
+      private void initFields() {
+      }
+      public final boolean isInitialized() {
+        if (!hasKey) return false;
+        if (!hasValue) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasKey()) {
+          output.writeString(1, getKey());
+        }
+        if (hasValue()) {
+          output.writeString(2, getValue());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasKey()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(1, getKey());
+        }
+        if (hasValue()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getValue());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.klose.MsConnProto.TaskChangeState.outputProperty parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.klose.MsConnProto.TaskChangeState.outputProperty prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.klose.MsConnProto.TaskChangeState.outputProperty result;
+        
+        // Construct using com.klose.MsConnProto.TaskChangeState.outputProperty.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.klose.MsConnProto.TaskChangeState.outputProperty();
+          return builder;
+        }
+        
+        protected com.klose.MsConnProto.TaskChangeState.outputProperty internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.klose.MsConnProto.TaskChangeState.outputProperty();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.klose.MsConnProto.TaskChangeState.outputProperty.getDescriptor();
+        }
+        
+        public com.klose.MsConnProto.TaskChangeState.outputProperty getDefaultInstanceForType() {
+          return com.klose.MsConnProto.TaskChangeState.outputProperty.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.klose.MsConnProto.TaskChangeState.outputProperty build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.klose.MsConnProto.TaskChangeState.outputProperty buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.klose.MsConnProto.TaskChangeState.outputProperty buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.klose.MsConnProto.TaskChangeState.outputProperty returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.klose.MsConnProto.TaskChangeState.outputProperty) {
+            return mergeFrom((com.klose.MsConnProto.TaskChangeState.outputProperty)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.klose.MsConnProto.TaskChangeState.outputProperty other) {
+          if (other == com.klose.MsConnProto.TaskChangeState.outputProperty.getDefaultInstance()) return this;
+          if (other.hasKey()) {
+            setKey(other.getKey());
+          }
+          if (other.hasValue()) {
+            setValue(other.getValue());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                setKey(input.readString());
+                break;
+              }
+              case 18: {
+                setValue(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required string key = 1;
+        public boolean hasKey() {
+          return result.hasKey();
+        }
+        public java.lang.String getKey() {
+          return result.getKey();
+        }
+        public Builder setKey(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasKey = true;
+          result.key_ = value;
+          return this;
+        }
+        public Builder clearKey() {
+          result.hasKey = false;
+          result.key_ = getDefaultInstance().getKey();
+          return this;
+        }
+        
+        // required string value = 2;
+        public boolean hasValue() {
+          return result.hasValue();
+        }
+        public java.lang.String getValue() {
+          return result.getValue();
+        }
+        public Builder setValue(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasValue = true;
+          result.value_ = value;
+          return this;
+        }
+        public Builder clearValue() {
+          result.hasValue = false;
+          result.value_ = getDefaultInstance().getValue();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:com.klose.TaskChangeState.outputProperty)
+      }
+      
+      static {
+        defaultInstance = new outputProperty(true);
+        com.klose.MsConnProto.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:com.klose.TaskChangeState.outputProperty)
+    }
+    
     // required string taskId = 1;
     public static final int TASKID_FIELD_NUMBER = 1;
     private boolean hasTaskId;
@@ -4195,12 +4526,17 @@ public final class MsConnProto {
     public boolean hasState() { return hasState; }
     public java.lang.String getState() { return state_; }
     
-    // optional string output = 3;
+    // repeated .com.klose.TaskChangeState.outputProperty output = 3;
     public static final int OUTPUT_FIELD_NUMBER = 3;
-    private boolean hasOutput;
-    private java.lang.String output_ = "";
-    public boolean hasOutput() { return hasOutput; }
-    public java.lang.String getOutput() { return output_; }
+    private java.util.List<com.klose.MsConnProto.TaskChangeState.outputProperty> output_ =
+      java.util.Collections.emptyList();
+    public java.util.List<com.klose.MsConnProto.TaskChangeState.outputProperty> getOutputList() {
+      return output_;
+    }
+    public int getOutputCount() { return output_.size(); }
+    public com.klose.MsConnProto.TaskChangeState.outputProperty getOutput(int index) {
+      return output_.get(index);
+    }
     
     // optional string usedTime = 4;
     public static final int USEDTIME_FIELD_NUMBER = 4;
@@ -4214,6 +4550,9 @@ public final class MsConnProto {
     public final boolean isInitialized() {
       if (!hasTaskId) return false;
       if (!hasState) return false;
+      for (com.klose.MsConnProto.TaskChangeState.outputProperty element : getOutputList()) {
+        if (!element.isInitialized()) return false;
+      }
       return true;
     }
     
@@ -4226,8 +4565,8 @@ public final class MsConnProto {
       if (hasState()) {
         output.writeString(2, getState());
       }
-      if (hasOutput()) {
-        output.writeString(3, getOutput());
+      for (com.klose.MsConnProto.TaskChangeState.outputProperty element : getOutputList()) {
+        output.writeMessage(3, element);
       }
       if (hasUsedTime()) {
         output.writeString(4, getUsedTime());
@@ -4249,9 +4588,9 @@ public final class MsConnProto {
         size += com.google.protobuf.CodedOutputStream
           .computeStringSize(2, getState());
       }
-      if (hasOutput()) {
+      for (com.klose.MsConnProto.TaskChangeState.outputProperty element : getOutputList()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(3, getOutput());
+          .computeMessageSize(3, element);
       }
       if (hasUsedTime()) {
         size += com.google.protobuf.CodedOutputStream
@@ -4399,6 +4738,10 @@ public final class MsConnProto {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
+        if (result.output_ != java.util.Collections.EMPTY_LIST) {
+          result.output_ =
+            java.util.Collections.unmodifiableList(result.output_);
+        }
         com.klose.MsConnProto.TaskChangeState returnMe = result;
         result = null;
         return returnMe;
@@ -4421,8 +4764,11 @@ public final class MsConnProto {
         if (other.hasState()) {
           setState(other.getState());
         }
-        if (other.hasOutput()) {
-          setOutput(other.getOutput());
+        if (!other.output_.isEmpty()) {
+          if (result.output_.isEmpty()) {
+            result.output_ = new java.util.ArrayList<com.klose.MsConnProto.TaskChangeState.outputProperty>();
+          }
+          result.output_.addAll(other.output_);
         }
         if (other.hasUsedTime()) {
           setUsedTime(other.getUsedTime());
@@ -4461,7 +4807,9 @@ public final class MsConnProto {
               break;
             }
             case 26: {
-              setOutput(input.readString());
+              com.klose.MsConnProto.TaskChangeState.outputProperty.Builder subBuilder = com.klose.MsConnProto.TaskChangeState.outputProperty.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addOutput(subBuilder.buildPartial());
               break;
             }
             case 34: {
@@ -4515,24 +4863,54 @@ public final class MsConnProto {
         return this;
       }
       
-      // optional string output = 3;
-      public boolean hasOutput() {
-        return result.hasOutput();
+      // repeated .com.klose.TaskChangeState.outputProperty output = 3;
+      public java.util.List<com.klose.MsConnProto.TaskChangeState.outputProperty> getOutputList() {
+        return java.util.Collections.unmodifiableList(result.output_);
       }
-      public java.lang.String getOutput() {
-        return result.getOutput();
+      public int getOutputCount() {
+        return result.getOutputCount();
       }
-      public Builder setOutput(java.lang.String value) {
+      public com.klose.MsConnProto.TaskChangeState.outputProperty getOutput(int index) {
+        return result.getOutput(index);
+      }
+      public Builder setOutput(int index, com.klose.MsConnProto.TaskChangeState.outputProperty value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  result.hasOutput = true;
-        result.output_ = value;
+          throw new NullPointerException();
+        }
+        result.output_.set(index, value);
+        return this;
+      }
+      public Builder setOutput(int index, com.klose.MsConnProto.TaskChangeState.outputProperty.Builder builderForValue) {
+        result.output_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addOutput(com.klose.MsConnProto.TaskChangeState.outputProperty value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.output_.isEmpty()) {
+          result.output_ = new java.util.ArrayList<com.klose.MsConnProto.TaskChangeState.outputProperty>();
+        }
+        result.output_.add(value);
+        return this;
+      }
+      public Builder addOutput(com.klose.MsConnProto.TaskChangeState.outputProperty.Builder builderForValue) {
+        if (result.output_.isEmpty()) {
+          result.output_ = new java.util.ArrayList<com.klose.MsConnProto.TaskChangeState.outputProperty>();
+        }
+        result.output_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllOutput(
+          java.lang.Iterable<? extends com.klose.MsConnProto.TaskChangeState.outputProperty> values) {
+        if (result.output_.isEmpty()) {
+          result.output_ = new java.util.ArrayList<com.klose.MsConnProto.TaskChangeState.outputProperty>();
+        }
+        super.addAll(values, result.output_);
         return this;
       }
       public Builder clearOutput() {
-        result.hasOutput = false;
-        result.output_ = getDefaultInstance().getOutput();
+        result.output_ = java.util.Collections.emptyList();
         return this;
       }
       
@@ -8337,6 +8715,11 @@ public final class MsConnProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_TaskChangeState_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_TaskChangeState_outputProperty_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_TaskChangeState_outputProperty_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_AllocateIdentity_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -8396,36 +8779,38 @@ public final class MsConnProto {
       "ed_pct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004type\030\007" +
       " \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 \002(\010\"0\n",
       "\014InformSlaves\022\017\n\007ip_port\030\001 \002(\t\022\017\n\007messag" +
-      "e\030\002 \001(\t\"R\n\017TaskChangeState\022\016\n\006taskId\030\001 \002" +
-      "(\t\022\r\n\005state\030\002 \002(\t\022\016\n\006output\030\003 \001(\t\022\020\n\010use" +
-      "dTime\030\004 \001(\t\"\240\001\n\020AllocateIdentity\022\023\n\013slav" +
-      "eIpPort\030\001 \002(\t\022\017\n\007taskIds\030\002 \002(\t\022;\n\nproper" +
-      "ties\030\003 \003(\0132\'.com.klose.AllocateIdentity." +
-      "JobProperty\032)\n\013JobProperty\022\013\n\003key\030\001 \002(\t\022" +
-      "\r\n\005value\030\002 \002(\t\"\033\n\006TState\022\021\n\ttaskState\030\001 " +
-      "\002(\t\"#\n\016ConfirmMessage\022\021\n\tisSuccess\030\001 \002(\010" +
-      "\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";\n\rExecOrde",
-      "rResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016result_mess" +
-      "age\030\002 \001(\t2T\n\020MasterUrgentExit\022@\n\nUrgentE" +
-      "xit\022\027.com.klose.InformSlaves\032\031.com.klose" +
-      ".ConfirmMessage2T\n\017SlaveUrgentExit\022A\n\nUr" +
-      "gentExit\022\030.com.klose.UrgentRequest\032\031.com" +
-      ".klose.UrgentResponse2g\n\024RegisterSlaveSe" +
-      "rvice\022O\n\rSlaveRegister\022\034.com.klose.Slave" +
-      "RegisterInfo\032 .com.klose.SlaveRegisterRe" +
-      "sponse2Q\n\020HeartbeatService\022=\n\016HeartbeatT" +
-      "rans\022\024.com.klose.SlaveInfo\032\025.com.klose.M",
-      "asterInfo2[\n\031SlaveOrderExecutorService\022>" +
-      "\n\014ExecuteOrder\022\024.com.klose.ExecOrder\032\030.c" +
-      "om.klose.ExecOrderResp2Y\n\023XMLPathTransSe" +
-      "rvice\022B\n\010xmlTrans\022\033.com.klose.TransformX" +
-      "MLPath\032\031.com.klose.ConfirmMessage2^\n\026Tas" +
-      "kStateChangeService\022D\n\013stateChange\022\032.com" +
-      ".klose.TaskChangeState\032\031.com.klose.Confi" +
-      "rmMessage2V\n\023AllocateTaskService\022?\n\rallo" +
-      "cateTasks\022\033.com.klose.AllocateIdentity\032\021" +
-      ".com.klose.TStateB\030\n\tcom.kloseB\013MsConnPr",
-      "oto"
+      "e\030\002 \001(\t\"\253\001\n\017TaskChangeState\022\016\n\006taskId\030\001 " +
+      "\002(\t\022\r\n\005state\030\002 \002(\t\0229\n\006output\030\003 \003(\0132).com" +
+      ".klose.TaskChangeState.outputProperty\022\020\n" +
+      "\010usedTime\030\004 \001(\t\032,\n\016outputProperty\022\013\n\003key" +
+      "\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\240\001\n\020AllocateIdenti" +
+      "ty\022\023\n\013slaveIpPort\030\001 \002(\t\022\017\n\007taskIds\030\002 \002(\t" +
+      "\022;\n\nproperties\030\003 \003(\0132\'.com.klose.Allocat" +
+      "eIdentity.JobProperty\032)\n\013JobProperty\022\013\n\003" +
+      "key\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\033\n\006TState\022\021\n\tta",
+      "skState\030\001 \002(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
+      "cess\030\001 \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";" +
+      "\n\rExecOrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016r" +
+      "esult_message\030\002 \001(\t2T\n\020MasterUrgentExit\022" +
+      "@\n\nUrgentExit\022\027.com.klose.InformSlaves\032\031" +
+      ".com.klose.ConfirmMessage2T\n\017SlaveUrgent" +
+      "Exit\022A\n\nUrgentExit\022\030.com.klose.UrgentReq" +
+      "uest\032\031.com.klose.UrgentResponse2g\n\024Regis" +
+      "terSlaveService\022O\n\rSlaveRegister\022\034.com.k" +
+      "lose.SlaveRegisterInfo\032 .com.klose.Slave",
+      "RegisterResponse2Q\n\020HeartbeatService\022=\n\016" +
+      "HeartbeatTrans\022\024.com.klose.SlaveInfo\032\025.c" +
+      "om.klose.MasterInfo2[\n\031SlaveOrderExecuto" +
+      "rService\022>\n\014ExecuteOrder\022\024.com.klose.Exe" +
+      "cOrder\032\030.com.klose.ExecOrderResp2Y\n\023XMLP" +
+      "athTransService\022B\n\010xmlTrans\022\033.com.klose." +
+      "TransformXMLPath\032\031.com.klose.ConfirmMess" +
+      "age2^\n\026TaskStateChangeService\022D\n\013stateCh" +
+      "ange\022\032.com.klose.TaskChangeState\032\031.com.k" +
+      "lose.ConfirmMessage2V\n\023AllocateTaskServi",
+      "ce\022?\n\rallocateTasks\022\033.com.klose.Allocate" +
+      "Identity\032\021.com.klose.TStateB\030\n\tcom.klose" +
+      "B\013MsConnProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -8528,6 +8913,14 @@ public final class MsConnProto {
               new java.lang.String[] { "TaskId", "State", "Output", "UsedTime", },
               com.klose.MsConnProto.TaskChangeState.class,
               com.klose.MsConnProto.TaskChangeState.Builder.class);
+          internal_static_com_klose_TaskChangeState_outputProperty_descriptor =
+            internal_static_com_klose_TaskChangeState_descriptor.getNestedTypes().get(0);
+          internal_static_com_klose_TaskChangeState_outputProperty_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_TaskChangeState_outputProperty_descriptor,
+              new java.lang.String[] { "Key", "Value", },
+              com.klose.MsConnProto.TaskChangeState.outputProperty.class,
+              com.klose.MsConnProto.TaskChangeState.outputProperty.Builder.class);
           internal_static_com_klose_AllocateIdentity_descriptor =
             getDescriptor().getMessageTypes().get(9);
           internal_static_com_klose_AllocateIdentity_fieldAccessorTable = new

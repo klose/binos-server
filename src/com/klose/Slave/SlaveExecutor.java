@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import cn.ict.binos.transmit.BinosURL;
+import cn.ict.binos.transmit.ServiceType;
+
 import com.klose.common.RunJar;
 import com.klose.common.TaskDescriptor;
 import com.klose.common.TaskState;
@@ -26,11 +30,12 @@ public class SlaveExecutor extends Thread{
 	public synchronized void setTaskState(TaskState.STATES state) {
 		this.state = state;
 	}
-	public void run()  {
+	public void run() {
 		String localJarPath = null;
 		FStype type = FileUtility.getFileType(this.taskDes.getJarPath());
+		String taskId = taskDes.getTaskId();
 		if( type == FStype.HDFS) {
-			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
+			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskId;
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
 			if(FileUtility.mkdirLocalDir(localDirPath)) {
 				localJarPath = FileUtility.TransHDFSToLocalFile
@@ -38,7 +43,7 @@ public class SlaveExecutor extends Thread{
 			}	
 		}
 		else if( type == FStype.REMOTE ) {
-			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
+			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskId;
 			if(FileUtility.mkdirLocalDir(localDirPath)) {
 				localJarPath = FileUtility.TransRemoteFileToLocal
 				(this.taskDes.getJarPath(), localDirPath);
@@ -49,7 +54,7 @@ public class SlaveExecutor extends Thread{
 		}
 		else {
 			//default condition : using HDFS to resolve the file
-			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskDes.getTaskId();
+			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskId;
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
 			if(FileUtility.mkdirLocalDir(localDirPath)) {
 				localJarPath = FileUtility.TransHDFSToLocalFile
@@ -72,14 +77,50 @@ public class SlaveExecutor extends Thread{
 			argsAll.add(taskDes.getClassName());
 			int inputNum = taskDes.getInputPathNum();
 			int outputNum = taskDes.getOutputPathNum();
+			for(String tmp:this.properties.getAllProperties().keySet()) {
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ tmp+ "~" + this.properties.getProperty(tmp));
+			}
+			String inputPaths = "";
+			for (int i = 0 ; i < inputNum; i++) {
+				if (!taskDes.getInputValid(i)) {
+					inputPaths += BinosURL.transformBinosURL(this.properties.getProperty(taskDes.getInputPath(i)),
+							ServiceType.transmitTypeToServiceType(taskDes.getInputType(i), true).toString(),  "read") + " ";
+				}
+				else {
+					if (!taskDes.getInputType(i).equals("CONFIG")) { 
+						
+						inputPaths += BinosURL.transformBinosURL(taskDes.getInputPath(i),
+								ServiceType.transmitTypeToServiceType(taskDes.getInputType(i), true).toString(), "read") + " ";
+					}
+					else {
+						inputPaths += taskDes.getInputPath(i)+ " ";
+					}
+				}
+			}
+			String outputPaths = "";
+			for (int i = 0 ; i < outputNum; i++) {
+				if (!taskDes.getOutputValid(i)) {
+					outputPaths += BinosURL.transformBinosURL(this.properties.getProperty(taskDes.getOutputPath(i)),
+							ServiceType.transmitTypeToServiceType(taskDes.getOutputType(i),false).toString(), "write") + " ";
+				}
+				else {
+					if (!taskDes.getOutputType(i).equals("CONFIG")) {
+						outputPaths += BinosURL.transformBinosURL(taskDes.getOutputPath(i),
+								ServiceType.transmitTypeToServiceType(taskDes.getOutputType(i),false).toString(), "write") + " ";
+					}
+					else {
+						outputPaths += taskDes.getOutputPath(i) + " ";
+					}
+				}
+			}
 			argsAll.add("-i " + inputNum);
 			argsAll.add("-o " + outputNum);
 			
 			if(inputNum > 0) {
-				argsAll.add(taskDes.getInputPaths());
+				argsAll.add(inputPaths.trim());
 			}
 			if(outputNum > 0) {
-				argsAll.add(taskDes.getOutputPaths());
+				argsAll.add(outputPaths.trim());
 			}
 			
 			//String argsAll = localJarPath +   " " +

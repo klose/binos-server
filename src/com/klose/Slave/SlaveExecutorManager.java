@@ -77,17 +77,6 @@ public class SlaveExecutorManager extends Thread{
 						}
 						else {
 							state = taskExecutors.get(taskId).getTaskState();
-						
-							/*if(reportUtil.report(taskId, state.toString())){
-								/*at now, once the task has been finished,
-								it will remove all the details of the task.*/
-								/*if(state.equals(TaskState.STATES.FINISHED)) {
-									removeTask(taskId);
-								}
-								else {
-									taskStates.put(taskId, state);
-								}
-							}*/
 							System.out.println("report task state:"+ taskId + " "+ state.toString());
 							reportUtil.report(taskId, state.toString());
 							if(state.equals(TaskState.STATES.FINISHED)) {
@@ -151,7 +140,14 @@ public class SlaveExecutorManager extends Thread{
 			e.printStackTrace();
 		}	
 	}
-	
+	/**
+	 * return the TaskDescriptor.
+	 * @param taskIdPos : the format is  "jobId:taskId"
+	 * @return
+	 */
+	public static TaskDescriptor getTaskDescriptor(String taskIdPos) {
+		return taskExecQueue.get(taskIdPos);
+	}
 	/**
 	 * TaskAllocateService  is a rpc service's class,
 	 * and it will extends the AllocateTaskService, which is defined
@@ -178,7 +174,7 @@ public class SlaveExecutorManager extends Thread{
 				synchronized(taskStates) {
 					waitingTaskQueue.add(taskId);
 					taskStates.put(taskId,TaskState.STATES.WAITING);
-				LOG.log(Level.INFO, "taskId:" + taskId + "  is scheduling to SlaveExecutorManager.");
+				LOG.log(Level.INFO, "taskId:" + taskId + "  is submitting into SlaveExecutorManager.");
 				JobProperties properties = new JobProperties(taskId);
 				for (JobProperty tmp:request.getPropertiesList()) {
 					properties.addProperty(tmp.getKey(), tmp.getValue());

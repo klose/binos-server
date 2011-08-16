@@ -86,7 +86,11 @@ message InformSlaves {
 message TaskChangeState {
 	required string taskId = 1;
 	required string state = 2; // this meaning of state value refers to enum com.klose.Master.TaskState.STATES.
-	optional string output = 3;
+	message outputProperty {
+		required string key = 1;
+		required string value = 2;
+	}
+	repeated outputProperty output = 3;
 	optional string usedTime = 4;
 }
 message AllocateIdentity {

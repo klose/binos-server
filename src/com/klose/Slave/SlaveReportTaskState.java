@@ -8,7 +8,11 @@ import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
 import com.googlecode.protobuf.socketrpc.SocketRpcController;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TaskChangeState;
+import com.klose.MsConnProto.TaskChangeState.Builder;
+import com.klose.MsConnProto.TaskChangeState.outputProperty;
 import com.klose.MsConnProto.TaskStateChangeService;
+import com.klose.common.TaskDescriptor;
+import com.klose.common.TaskState;
 
 public class SlaveReportTaskState {
 	private SlaveArgsParser parser;
@@ -26,8 +30,21 @@ public class SlaveReportTaskState {
 		TaskStateChangeService stateChange = 
 			TaskStateChangeService.newStub(this.channel);
 		if(taskId != null && state != null) {
-			final TaskChangeState request = TaskChangeState.newBuilder()
-			.setTaskId(taskId).setState(state).build();
+			final TaskChangeState request;
+			Builder builder = TaskChangeState.newBuilder().setTaskId(taskId).setState(state);
+			if (state.equals(TaskState.STATES.FINISHED.toString())) {
+				TaskDescriptor taskDes = SlaveExecutorManager.getTaskDescriptor(taskId);
+				String[] outputPath = taskDes.getOutputPaths().trim().split(" ");
+				String taskIdOutput = taskId.split(":")[1] + "::outputPath::";
+				for (int i = 0; i < outputPath.length; i++) {
+					outputProperty property = outputProperty.newBuilder()
+						.setKey(taskIdOutput+i).setValue(outputPath[i]).build();
+					builder = builder.addOutput(property);
+					System.out.println("kloseklose:::"+ taskIdOutput + i + outputPath[i]);
+				}
+				
+			}
+			request = builder.build();
 			stateChange.stateChange(controller, 
 					request, new scRpcCallback(request.getTaskId(), request.getState()));				
 		}
