@@ -9,8 +9,8 @@ for slave in `cat  $parent_conf/slaves`;
 do 
 	 eachSlave=`echo $slave | awk -F ":" '{print $1}'`
 	 eachPort=`echo $slave | awk -F ":" '{print $2}'`
-	 #echo $eachSlave 
-	 #echo $eachPort
+	# echo $eachSlave 
+	# echo $eachPort
 	 if [ -n $eachSlave  ] ; then
 		 if [ "l" = "l"$eachPort ] ; then
 		 	ssh $eachSlave -C "($parent_bin/slaves.sh $slave\"_6061\")" 

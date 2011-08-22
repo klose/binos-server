@@ -27,9 +27,9 @@ fi
 #echo $MasterURL
 if [ $# = 2 ]; then 
 	time=$2"_"$time
-	$parent_bin/$execute_file $SlaveClass --url=$MasterURL $1 >$LOG_DIR/slave_$time.log 2>&1 
+	$parent_bin/$execute_file $SlaveClass --url=$MasterURL $1 >$LOG_DIR/slave_$time.log 2>&1 & 
 fi 
 if [ $# = 1 ]; then
 	time=$1"_"$time
-	$parent_bin/$execute_file $SlaveClass --url=$MasterURL  >$LOG_DIR/slave_$time.log 2>&1  
+	$parent_bin/$execute_file $SlaveClass --url=$MasterURL  >$LOG_DIR/slave_$time.log 2>&1 &
 fi
