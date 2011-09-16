@@ -1,8 +1,11 @@
 package com.klose.Slave;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
@@ -43,6 +46,8 @@ public class SlaveExecutorManager extends Thread{
 			= new CopyOnWriteArrayList<String>();
 	private static final CopyOnWriteArrayList<String> waitingTaskQueue 
 			= new CopyOnWriteArrayList<String>();
+	private static final Map<String, String> jobTmpDirs = new ConcurrentHashMap<String, String>();
+	
 	//private static int currentTasks = 0;// set number of the tasks
 	private static final int slaveExecutorManagerThreadWaitTime 
 			= MSConfiguration.getSlaveExecutorManagerThreadWaitTime();
@@ -121,12 +126,33 @@ public class SlaveExecutorManager extends Thread{
 			taskProperties.remove(taskId);
 		}
 	}
-	
+	/**
+	 * create the directory used for storing the data.
+	 */
+	private static void createJobTmpDir(String jobId) {
+		if (!jobTmpDirs.containsKey(jobId)) {
+			String dirPath = SlaveArgsParser.getWorkDir()+ "/" + jobId;
+			File dir = new File(dirPath);
+			dir.mkdirs();
+			jobTmpDirs.put(jobId, dirPath);
+		}
+	}
+	private static void deleteJobTmpDir(String jobId) {
+		if (jobTmpDirs.containsKey(jobId)) {
+			File file = new File(jobTmpDirs.get(jobId));
+			if (file.isDirectory()) {
+				file.delete();
+			}
+		}
+	}
 	private static void runTask(String taskIdPos)  {
 		String jobId = taskIdPos.substring(0, taskIdPos.lastIndexOf(":"));
 		String id =  taskIdPos.substring(taskIdPos.lastIndexOf(":") + 1, taskIdPos.length());
 		String taskIdXML = jobId + "/" + id + "/" + id + ".xml";
 		LOG.log(Level.INFO, "taskIdXML:" + FileUtility.getHDFSAbsolutePath(taskIdXML));
+		//create the tmp directory for the every jobId, and put the location to Properties.
+		createJobTmpDir(jobId);
+		taskProperties.get(taskIdPos).addProperty("tmpDir", jobTmpDirs.get(jobId));
 		TaskDescriptor taskDes;
 		try {
 			taskDes = new TaskDescriptor(FileUtility.getHDFSAbsolutePath(taskIdXML));
@@ -179,7 +205,10 @@ public class SlaveExecutorManager extends Thread{
 				for (JobProperty tmp:request.getPropertiesList()) {
 					properties.addProperty(tmp.getKey(), tmp.getValue());
 				}
+				properties.addProperty("self-loc", SlaveArgsParser.getIp_port());
+				
 				taskProperties.put(taskId, properties);
+				
 				//String jobId = taskId.substring(0, taskId.lastIndexOf(":"));
 //				String id =  taskId.substring(taskId.lastIndexOf(":") + 1, taskId.length());
 //				String taskIdXML = jobId + "/" + id + "/" + id + ".xml";

@@ -14,8 +14,8 @@ public class SlaveArgsParser {
 	private String masterIp = ""; 
 	private int masterPort ; 
 	private static int port = 6061;
-	private static int httpServerPort = 8081;
-	private String ip_port = ""; //the ip of slave node
+	private static int httpServerPort = 36661;
+	private static String ip_port = ""; //the ip of slave node
 	private static String workDir = "/tmp"; 
 	private int state = 0; // 
 	private boolean necessaryArgsExist = false; //identify whether all the arguments exist.
@@ -44,7 +44,7 @@ public class SlaveArgsParser {
 		);
 		System.exit(1);
 	}
-	public String getIp_port() {
+	public static String getIp_port() {
 		return ip_port;
 	}
 

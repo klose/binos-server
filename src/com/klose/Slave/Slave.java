@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 
 import org.hyperic.sigar.SigarException;
 
+import cn.ict.binos.transmit.BinosHttpServer;
+
 import com.google.protobuf.RpcCallback;
 import com.googlecode.protobuf.socketrpc.RpcServer;
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
@@ -183,11 +185,19 @@ public class Slave {
 			SlaveExecutorManager seManager = new SlaveExecutorManager(confParser, slaveServer); 
 			seManager.start();
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
-			HttpServer httpServerThread = new HttpServer(confParser.getHttpServerPort());
-			httpServerThread.start();
+			BinosHttpServer httpServer;
+			try {
+				httpServer = new BinosHttpServer("0.0.0.0:"+confParser.getHttpServerPort(), -1);
+				httpServer.start();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+	//			e.printStackTrace();
+				LOG.info("java.net.BindException: Address already in use, The port " 
+						+ confParser.getHttpServerPort() + " has already open the service.");
+			} 
 		}
 		else {
-			System.out.println("Slave can't register to Master,\n" +
+			LOG.info("Slave can't register to Master,\n" +
 					"please check the state of Master alive and the port of Slave available.");
 			System.exit(1);
 		}		

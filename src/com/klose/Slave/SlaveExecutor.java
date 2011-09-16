@@ -80,36 +80,61 @@ public class SlaveExecutor extends Thread{
 			for(String tmp:this.properties.getAllProperties().keySet()) {
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ tmp+ "~" + this.properties.getProperty(tmp));
 			}
-			String inputPaths = "";
+			StringBuilder inputPaths = new StringBuilder();
 			for (int i = 0 ; i < inputNum; i++) {
+				ServiceType.defaultType inputType = ServiceType.transmitTypeToServiceType(taskDes.getInputType(i), true);
 				if (!taskDes.getInputValid(i)) {
-					inputPaths += BinosURL.transformBinosURL(this.properties.getProperty(taskDes.getInputPath(i)),
-							ServiceType.transmitTypeToServiceType(taskDes.getInputType(i), true).toString(),  "read") + " ";
+					/*convert the path to proper servlet path*/
+					String depTaskId = taskDes.getInputPath(i).split("::")[0];
+					String depTaskHost = this.properties.getProperty(depTaskId).split(":")[0];
+					LOG.info("depTaskHost:" + depTaskHost);
+					StringBuilder path = new StringBuilder();
+					if ( !depTaskHost.equals(this.properties.getProperty("self-loc").split(":")[0]) ) {
+						path.append("http://");
+						path.append(depTaskHost);
+						path.append(":");
+						path.append(SlaveArgsParser.getHttpServerPort());
+						path.append("/output?file=");
+						path.append(this.properties.getProperty(taskDes.getInputPath(i))); 
+					} else {
+						//if the dependent task locates in the same machine, please use the local path.
+						if (inputType == ServiceType.defaultType.REMOTE) {
+							inputType = ServiceType.defaultType.LOCAL;
+						}
+						path.append(this.properties.getProperty(taskDes.getInputPath(i)));
+					}
+					inputPaths.append(BinosURL.transformBinosURL(path.toString(), inputType.toString(), "read"));
+					inputPaths.append(" ");
 				}
 				else {
 					if (!taskDes.getInputType(i).equals("CONFIG")) { 
-						
-						inputPaths += BinosURL.transformBinosURL(taskDes.getInputPath(i),
-								ServiceType.transmitTypeToServiceType(taskDes.getInputType(i), true).toString(), "read") + " ";
+						inputPaths.append(BinosURL.transformBinosURL(taskDes.getInputPath(i),
+								inputType.toString(), "read") );
+						inputPaths.append(" ");
 					}
 					else {
-						inputPaths += taskDes.getInputPath(i)+ " ";
+						inputPaths.append(taskDes.getInputPath(i));
+						inputPaths.append(" ");
 					}
 				}
 			}
-			String outputPaths = "";
+			StringBuilder outputPaths = new StringBuilder();
 			for (int i = 0 ; i < outputNum; i++) {
+				ServiceType.defaultType outputType = ServiceType.transmitTypeToServiceType(taskDes.getOutputType(i),false);
 				if (!taskDes.getOutputValid(i)) {
-					outputPaths += BinosURL.transformBinosURL(this.properties.getProperty(taskDes.getOutputPath(i)),
-							ServiceType.transmitTypeToServiceType(taskDes.getOutputType(i),false).toString(), "write") + " ";
+					outputPaths.append(BinosURL.transformBinosURL(this.properties.getProperty(taskDes.getOutputPath(i)),
+							outputType.toString(), "write"));
+					outputPaths.append(" ");
 				}
 				else {
 					if (!taskDes.getOutputType(i).equals("CONFIG")) {
-						outputPaths += BinosURL.transformBinosURL(taskDes.getOutputPath(i),
-								ServiceType.transmitTypeToServiceType(taskDes.getOutputType(i),false).toString(), "write") + " ";
+						outputPaths.append(BinosURL.transformBinosURL(taskDes.getOutputPath(i),
+								outputType.toString(), "write"));
+						outputPaths.append(" ");
 					}
 					else {
-						outputPaths += taskDes.getOutputPath(i) + " ";
+						outputPaths.append(taskDes.getOutputPath(i));
+						outputPaths.append(" ");
 					}
 				}
 			}
@@ -117,10 +142,10 @@ public class SlaveExecutor extends Thread{
 			argsAll.add("-o " + outputNum);
 			
 			if(inputNum > 0) {
-				argsAll.add(inputPaths.trim());
+				argsAll.add(inputPaths.toString().trim());
 			}
 			if(outputNum > 0) {
-				argsAll.add(outputPaths.trim());
+				argsAll.add(outputPaths.toString().trim());
 			}
 			
 			//String argsAll = localJarPath +   " " +
