@@ -34,6 +34,9 @@ using machine IP address: port to set slave.
 
 3) bin/start-master.sh;bin/start-slaves.sh;
 
+#######################combined with yarn ###################################
 
 
-If you meet troubles with our project, please email jiangbing@ict.ac.cn 
+
+
+If you meet troubles with our project, please email jiangbinglover@gmail.com 
