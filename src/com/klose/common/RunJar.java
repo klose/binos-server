@@ -124,10 +124,9 @@ public class RunJar {
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
-				try {
+
 					FileUtil.fullyDelete(workDir);
-				} catch (IOException e) {
-				}
+				
 			}
 		});
 
@@ -213,10 +212,9 @@ public class RunJar {
 
 	    Runtime.getRuntime().addShutdownHook(new Thread() {
 	        public void run() {
-	          try {
+	         
 	            FileUtil.fullyDelete(workDir);
-	          } catch (IOException e) {
-	          }
+	         
 	        }
 	      });
 

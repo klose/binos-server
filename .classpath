@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="lib/protobuf_socketrpc-1.3.2_DIY.jar"/>
 	<classpathentry kind="lib" path="lib/protobuf-java-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/sigar.jar"/>
-	<classpathentry kind="lib" path="lib/hadoop-common-0.21.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-common-0.23.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Transformer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Binos"/>
 	<classpathentry kind="output" path="classes"/>
