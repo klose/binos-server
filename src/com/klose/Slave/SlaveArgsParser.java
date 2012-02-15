@@ -107,14 +107,24 @@ public class SlaveArgsParser {
 		else {
 			String portRegex = "--port\\s*=\\s*[0-9]{4,5}";
 			String httpPortRegex = "--httpport\\s*=\\s*[0-9]{4,5}";
+			
+			//urlRegex matches host name and ip address simultaneously
 			String urlRegex = "--url\\s*=\\s*JLoop://[0-9]+@" +
-					"[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{4,5}";
+					"([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|[a-zA-Z0-9]*):[0-9]{4,5}";
 			String workDirRegex = "--workdir\\s*=\\s*/[a-zA-Z0-9/ ]*";
 			for(String tmp:args_) {
 				//need jdk 1.5 or higher
 				if(Pattern.matches(urlRegex, tmp.trim())) {
 						String url = (tmp.trim().split("="))[1].trim();
 						String url_1 = url.trim().split("@")[1];
+						String host = (url_1.split(":"))[0].trim();
+						if (host.matches("[a-zA-Z0-9]*")) {
+							//match the host name.
+							this.setMasterIp(InetAddress.getByName(host).getHostAddress());
+						}
+						else {
+							this.setMasterIp(host);
+						}
 						this.setMasterIp( (url_1.split(":"))[0].trim());
 						this.setMasterPort(Integer.parseInt((url_1.split(":"))[1].trim()));
 						this.necessaryArgsExist = true;
