@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import com.klose.Master.RegisterToMasterService;
+import com.klose.common.MSConfiguration;
 
 public class SlaveArgsParser {
 	private String masterIp = ""; 
@@ -16,7 +17,7 @@ public class SlaveArgsParser {
 	private static int port = 6061;
 	private static int httpServerPort = 36661;
 	private static String ip_port = ""; //the ip of slave node
-	private static String workDir = "/tmp"; 
+	private static String workDir =  MSConfiguration.getBinosTmpDir(); 
 	private int state = 0; // 
 	private boolean necessaryArgsExist = false; //identify whether all the arguments exist.
 	private static final Logger LOG = Logger.getLogger(SlaveArgsParser.class.getName());

@@ -152,7 +152,7 @@ public class SlaveExecutorManager extends Thread{
 		LOG.log(Level.INFO, "taskIdXML:" + FileUtility.getHDFSAbsolutePath(taskIdXML));
 		//create the tmp directory for the every jobId, and put the location to Properties.
 		createJobTmpDir(jobId);
-		taskProperties.get(taskIdPos).addProperty("tmpDir", jobTmpDirs.get(jobId));
+		taskProperties.get(taskIdPos).addProperty("tmpDir", jobTmpDirs.get(jobId) + "/" + id);
 		TaskDescriptor taskDes;
 		try {
 			taskDes = new TaskDescriptor(FileUtility.getHDFSAbsolutePath(taskIdXML));

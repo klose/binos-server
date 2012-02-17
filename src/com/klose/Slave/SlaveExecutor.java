@@ -35,7 +35,7 @@ public class SlaveExecutor extends Thread{
 		FStype type = FileUtility.getFileType(this.taskDes.getJarPath());
 		String taskId = taskDes.getTaskId();
 		if( type == FStype.HDFS) {
-			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskId;
+			String localDirPath = this.properties.getProperty("tmpDir");
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
 			if(FileUtility.mkdirLocalDir(localDirPath)) {
 				localJarPath = FileUtility.TransHDFSToLocalFile
@@ -43,7 +43,7 @@ public class SlaveExecutor extends Thread{
 			}	
 		}
 		else if( type == FStype.REMOTE ) {
-			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskId;
+			String localDirPath = this.properties.getProperty("tmpDir");
 			if(FileUtility.mkdirLocalDir(localDirPath)) {
 				localJarPath = FileUtility.TransRemoteFileToLocal
 				(this.taskDes.getJarPath(), localDirPath);
@@ -54,7 +54,7 @@ public class SlaveExecutor extends Thread{
 		}
 		else {
 			//default condition : using HDFS to resolve the file
-			String localDirPath = SlaveArgsParser.getWorkDir()+"/"+taskId;
+			String localDirPath = this.properties.getProperty("tmpDir");
 			LOG.log(Level.INFO, "localDirPath:" + localDirPath);
 			if(FileUtility.mkdirLocalDir(localDirPath)) {
 				localJarPath = FileUtility.TransHDFSToLocalFile
@@ -89,17 +89,21 @@ public class SlaveExecutor extends Thread{
 					String depTaskHost = this.properties.getProperty(depTaskId).split(":")[0];
 					LOG.info("depTaskHost:" + depTaskHost);
 					StringBuilder path = new StringBuilder();
-					if ( !depTaskHost.equals(this.properties.getProperty("self-loc").split(":")[0]) ) {
-						path.append("http://");
-						path.append(depTaskHost);
-						path.append(":");
-						path.append(SlaveArgsParser.getHttpServerPort());
-						path.append("/output?file=");
+					if ( inputType == ServiceType.defaultType.HDFS ) {
 						path.append(this.properties.getProperty(taskDes.getInputPath(i))); 
-					} else {
-						//if the dependent task locates in the same machine, please use the local path.
-						if (inputType == ServiceType.defaultType.REMOTE) {
-							inputType = ServiceType.defaultType.LOCAL;
+					}
+					else if ( inputType == ServiceType.defaultType.REMOTE ) {
+						if (!depTaskHost.equals(this.properties.getProperty("self-loc").split(":")[0]) ) {
+							path.append("http://");
+							path.append(depTaskHost);
+							path.append(":");
+							path.append(SlaveArgsParser.getHttpServerPort());
+							path.append("/output?file=");
+						} else {
+							//if the dependent task locates in the same machine, please use the local path.
+							if (inputType == ServiceType.defaultType.REMOTE) {
+								inputType = ServiceType.defaultType.LOCAL;
+							}
 						}
 						path.append(this.properties.getProperty(taskDes.getInputPath(i)));
 					}

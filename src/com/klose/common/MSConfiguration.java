@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.klose.common.TransformerIO.FileUtility;
+
 public class MSConfiguration {
 	private static HashMap<String, String> configuration 
 		= new HashMap<String, String>();
@@ -14,6 +16,7 @@ public class MSConfiguration {
 	private static int jobStateTriggerThreadWaitTime = 50;
 	private static int slaveExecutorManagerThreadWaitTime = 10;
 	private static int jobStateWatcherThreadWaitTime = 500;
+	private static String BinosTmpDir = "/tmp/binos-tmp";
 	static {
 		File MSproperties = new File("MS.properties");
 		try {
@@ -63,6 +66,14 @@ public class MSConfiguration {
 			return jobStateWatcherThreadWaitTime;
 		}
 		return Integer.parseInt(configuration.get("jobStateWatcherThreadWaitTime"));
+	}
+	public static String getBinosTmpDir() {
+		if (configuration.get("BinosTmpDir") == null) {
+			FileUtility.mkdirLocalDir(BinosTmpDir);
+			return BinosTmpDir;
+		}
+		FileUtility.mkdirLocalDir(BinosTmpDir);
+		return configuration.get("BinosTmpDir");
 	}
 	
 	

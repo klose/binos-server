@@ -4,7 +4,7 @@ cd $dir
 export MasterSlaveHome=`cd ..; pwd .`
 echo ${MasterSlaveHome}
 # The Hadoop distribution to use. Required.
-export HADOOP_HOME=/home/jiangbing/hadoop-0.21.0
+export HADOOP_CONF_DIR="${HADOOP_CONF_DIR:-$HADOOP_HOME/conf}"
 
 #export MasterSlaveHome=/home/jiangbing/eclipse_java/java_workspace/Master-Slave
 

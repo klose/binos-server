@@ -125,7 +125,12 @@ public class RunJar {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 
-					FileUtil.fullyDelete(workDir);
+					try {
+						FileUtil.fullyDelete(workDir);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
 			}
 		});
@@ -158,7 +163,12 @@ public class RunJar {
 		}
 		m.invoke(cls.newInstance(), pros, inputPath, 
 					outputPath);
-		 
+		try {
+			FileUtil.fullyDelete(workDir);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	  }
 	  
 	  
@@ -213,7 +223,12 @@ public class RunJar {
 	    Runtime.getRuntime().addShutdownHook(new Thread() {
 	        public void run() {
 	         
-	            FileUtil.fullyDelete(workDir);
+	            try {
+					FileUtil.fullyDelete(workDir);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	         
 	        }
 	      });

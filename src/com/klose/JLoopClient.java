@@ -13,21 +13,17 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileUtil;
-
 import com.google.protobuf.RpcCallback;
+
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
 import com.googlecode.protobuf.socketrpc.SocketRpcController;
 import com.klose.MsConnProto.ConfirmMessage;
-import com.klose.MsConnProto.ExecOrder;
-import com.klose.MsConnProto.ExecOrderResp;
-import com.klose.MsConnProto.SlaveOrderExecutorService;
+
 import com.klose.MsConnProto.TransformXMLPath;
 import com.klose.MsConnProto.XMLPathTransService;
+import com.klose.common.MSConfiguration;
 import com.klose.common.RunJar;
-import com.klose.common.TransformerIO.FileUtility;
 import com.klose.common.TransformerIO.FileUtility;
 import com.klose.common.TransformerIO.FileUtility.FStype;
 import com.transformer.compiler.JarCreator;
@@ -47,7 +43,7 @@ public class JLoopClient {
 	private String[] args_;
 	private static HashMap<String, String> argsMap = new HashMap<String, String>();
 	private static final Logger LOG = Logger.getLogger(JLoopClient.class.getName());
-	private static final String workingDirectory = "/tmp/JLoopClient"; 
+	private static final String workingDirectory = MSConfiguration.getBinosTmpDir(); 
 	private static final String jarNewName = "job.jar";
 	public JLoopClient(String[] args) {
 		this.args_ = args;
@@ -339,7 +335,12 @@ public class JLoopClient {
 	    System.out.println(workDir.getPath());
 	    Runtime.getRuntime().addShutdownHook(new Thread() {
 	        public void run() {
-	        	FileUtil.fullyDelete(workDir);
+	        	try {
+					FileUtil.fullyDelete(workDir);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	        }
 	      });
 	    String classNamePath = workDir.getPath() + "/" + cls.getName().replace('.', '/') +".class";
