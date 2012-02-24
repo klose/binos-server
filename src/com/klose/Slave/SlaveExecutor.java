@@ -87,48 +87,55 @@ public class SlaveExecutor extends Thread{
 								true);
 				if (!taskDes.getInputValid(i)) {
 
-					if (inputType == ServiceType.defaultType.MESSAGE) {
-						/*
-						 * Message Pool support fetching data dynamically. So it
-						 * does not need parse the location of its dependent
-						 * task.
-						 */
-						inputPaths.append(this.properties.getProperty(taskDes
-								.getInputPath(i)));
-						inputPaths.append(" ");
-					} else {
-						/* convert the path to proper servlet path */
-						String depTaskId = taskDes.getInputPath(i).split("::")[0];
-						String depTaskHost = this.properties.getProperty(
-								depTaskId).split(":")[0];
-						StringBuilder path = new StringBuilder();
-						LOG.info("depTaskHost:" + depTaskHost);
+					// if (inputType == ServiceType.defaultType.MESSAGE) {
+					// /*
+					// * Message Pool support fetching data transparently. So it
+					// * does not need parse the location of its dependent
+					// * task.
+					// */
+					// inputPaths.append(this.properties.getProperty(taskDes
+					// .getInputPath(i)));
+					// inputPaths.append(" ");
+					// } else {
+					/* convert the path to proper servlet path */
+					String depTaskId = taskDes.getInputPath(i).split("::")[0];
+					String depTaskHost = this.properties.getProperty(depTaskId)
+							.split(":")[0];
+					StringBuilder path = new StringBuilder();
+					LOG.info("depTaskHost:" + depTaskHost);
 
-						if (inputType == ServiceType.defaultType.HDFS) {
-							path.append(this.properties.getProperty(taskDes
-									.getInputPath(i)));
-						} else if (inputType == ServiceType.defaultType.REMOTE) {
-							if (!depTaskHost.equals(this.properties
-									.getProperty("self-loc").split(":")[0])) {
-								path.append("http://");
-								path.append(depTaskHost);
-								path.append(":");
-								path.append(SlaveArgsParser.getHttpServerPort());
-								path.append("/output?file=");
-							} else {
-								// if the dependent task locates in the same
-								// machine, please use the local path.
-								if (inputType == ServiceType.defaultType.REMOTE) {
-									inputType = ServiceType.defaultType.LOCAL;
-								}
+					if (inputType == ServiceType.defaultType.HDFS) {
+						path.append(this.properties.getProperty(taskDes
+								.getInputPath(i)));
+					} 
+					else if (inputType == ServiceType.defaultType.REMOTE) {
+						// handle the REMOTE path
+						if (!depTaskHost.equals(this.properties.getProperty(
+								"self-loc").split(":")[0])) {
+							path.append("http://");
+							path.append(depTaskHost);
+							path.append(":");
+							path.append(SlaveArgsParser.getHttpServerPort());
+							path.append("/output?file=");
+						} else {
+							// if the dependent task locates in the same
+							// machine, please use the local path.
+							if (inputType == ServiceType.defaultType.REMOTE) {
+								inputType = ServiceType.defaultType.LOCAL;
 							}
-							path.append(this.properties.getProperty(taskDes
-									.getInputPath(i)));
 						}
-						inputPaths.append(BinosURL.transformBinosURL(
-								path.toString(), inputType.toString(), "read"));
-						inputPaths.append(" ");
+						path.append(this.properties.getProperty(taskDes
+								.getInputPath(i)));
+					} 
+					else if (inputType == ServiceType.defaultType.MESSAGE) {
+						// handle the MESSAGE path
+						path.append(this.properties.getProperty(taskDes
+								.getInputPath(i)));
 					}
+					inputPaths.append(BinosURL.transformBinosURL(
+							path.toString(), inputType.toString(), "read"));
+					inputPaths.append(" ");
+
 				} else {
 					if (!taskDes.getInputType(i).equals("CONFIG")) {
 						inputPaths.append(BinosURL.transformBinosURL(
