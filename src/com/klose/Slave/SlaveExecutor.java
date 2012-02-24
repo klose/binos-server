@@ -81,42 +81,61 @@ public class SlaveExecutor extends Thread{
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ tmp+ "~" + this.properties.getProperty(tmp));
 			}
 			StringBuilder inputPaths = new StringBuilder();
-			for (int i = 0 ; i < inputNum; i++) {
-				ServiceType.defaultType inputType = ServiceType.transmitTypeToServiceType(taskDes.getInputType(i), true);
+			for (int i = 0; i < inputNum; i++) {
+				ServiceType.defaultType inputType = ServiceType
+						.transmitTypeToServiceType(taskDes.getInputType(i),
+								true);
 				if (!taskDes.getInputValid(i)) {
-					/*convert the path to proper servlet path*/
-					String depTaskId = taskDes.getInputPath(i).split("::")[0];
-					String depTaskHost = this.properties.getProperty(depTaskId).split(":")[0];
-					LOG.info("depTaskHost:" + depTaskHost);
-					StringBuilder path = new StringBuilder();
-					if ( inputType == ServiceType.defaultType.HDFS ) {
-						path.append(this.properties.getProperty(taskDes.getInputPath(i))); 
-					}
-					else if ( inputType == ServiceType.defaultType.REMOTE ) {
-						if (!depTaskHost.equals(this.properties.getProperty("self-loc").split(":")[0]) ) {
-							path.append("http://");
-							path.append(depTaskHost);
-							path.append(":");
-							path.append(SlaveArgsParser.getHttpServerPort());
-							path.append("/output?file=");
-						} else {
-							//if the dependent task locates in the same machine, please use the local path.
-							if (inputType == ServiceType.defaultType.REMOTE) {
-								inputType = ServiceType.defaultType.LOCAL;
+
+					if (inputType == ServiceType.defaultType.MESSAGE) {
+						/*
+						 * Message Pool support fetching data dynamically. So it
+						 * does not need parse the location of its dependent
+						 * task.
+						 */
+						inputPaths.append(this.properties.getProperty(taskDes
+								.getInputPath(i)));
+						inputPaths.append(" ");
+					} else {
+						/* convert the path to proper servlet path */
+						String depTaskId = taskDes.getInputPath(i).split("::")[0];
+						String depTaskHost = this.properties.getProperty(
+								depTaskId).split(":")[0];
+						StringBuilder path = new StringBuilder();
+						LOG.info("depTaskHost:" + depTaskHost);
+
+						if (inputType == ServiceType.defaultType.HDFS) {
+							path.append(this.properties.getProperty(taskDes
+									.getInputPath(i)));
+						} else if (inputType == ServiceType.defaultType.REMOTE) {
+							if (!depTaskHost.equals(this.properties
+									.getProperty("self-loc").split(":")[0])) {
+								path.append("http://");
+								path.append(depTaskHost);
+								path.append(":");
+								path.append(SlaveArgsParser.getHttpServerPort());
+								path.append("/output?file=");
+							} else {
+								// if the dependent task locates in the same
+								// machine, please use the local path.
+								if (inputType == ServiceType.defaultType.REMOTE) {
+									inputType = ServiceType.defaultType.LOCAL;
+								}
 							}
+							path.append(this.properties.getProperty(taskDes
+									.getInputPath(i)));
 						}
-						path.append(this.properties.getProperty(taskDes.getInputPath(i)));
-					}
-					inputPaths.append(BinosURL.transformBinosURL(path.toString(), inputType.toString(), "read"));
-					inputPaths.append(" ");
-				}
-				else {
-					if (!taskDes.getInputType(i).equals("CONFIG")) { 
-						inputPaths.append(BinosURL.transformBinosURL(taskDes.getInputPath(i),
-								inputType.toString(), "read") );
+						inputPaths.append(BinosURL.transformBinosURL(
+								path.toString(), inputType.toString(), "read"));
 						inputPaths.append(" ");
 					}
-					else {
+				} else {
+					if (!taskDes.getInputType(i).equals("CONFIG")) {
+						inputPaths.append(BinosURL.transformBinosURL(
+								taskDes.getInputPath(i), inputType.toString(),
+								"read"));
+						inputPaths.append(" ");
+					} else {
 						inputPaths.append(taskDes.getInputPath(i));
 						inputPaths.append(" ");
 					}
@@ -152,8 +171,6 @@ public class SlaveExecutor extends Thread{
 				argsAll.add(outputPaths.toString().trim());
 			}
 			
-			//String argsAll = localJarPath +   " " +
-//			taskDes.getInputPaths() + " " + taskDes.getOutputPaths();
 			System.out.println("argsAll:" + argsAll);
 		
 			try {
