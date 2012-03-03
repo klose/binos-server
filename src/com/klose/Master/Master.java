@@ -13,6 +13,7 @@ import com.googlecode.protobuf.socketrpc.SocketRpcServer;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.InformSlaves;
 import com.klose.MsConnProto.MasterUrgentExit;
+import com.longyi.databus.keyserver.KeyServerMain;
 
 
 class MasterRpcServerThread extends Thread {
@@ -31,6 +32,11 @@ class MasterRpcServerThread extends Thread {
 		masterServer.registerService(slaveExitService);		
 		JobXMLCollector collector = new JobXMLCollector();
 		masterServer.registerService(collector);
+		
+		/*Databus service is key service.*/
+		KeyServerMain databusService = new KeyServerMain();
+		databusService.start();
+		
 		//this simple order executor is initial version.
 		SimpleOrderExecService soes = new SimpleOrderExecService(); 
 		masterServer.registerService(soes);

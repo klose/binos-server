@@ -27,6 +27,7 @@ import com.klose.MsConnProto.SlaveUrgentExit;
 import com.klose.MsConnProto.UrgentRequest;
 import com.klose.MsConnProto.UrgentResponse;
 import com.klose.common.HttpServer;
+import com.longyi.databus.daemon.DaemonMain;
 class SlaveRPCServerThread extends Thread {
 	private SlaveArgsParser parser;
 	private SocketRpcServer rpcServer;
@@ -184,6 +185,11 @@ public class Slave {
 			sendHeartbeat.start();
 			SlaveExecutorManager seManager = new SlaveExecutorManager(confParser, slaveServer); 
 			seManager.start();
+			
+			//start databus Daemon
+			DaemonMain databusDaemon = new DaemonMain(confParser.getMasterIp());
+			databusDaemon.start();
+			
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
 			BinosHttpServer httpServer;
 			try {

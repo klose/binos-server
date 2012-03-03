@@ -13,5 +13,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Transformer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Binos"/>
 	<classpathentry kind="lib" path="/home/jiangbing/hadoop-0.21.0/hadoop-common-0.21.0.jar" sourcepath="/home/jiangbing/hadoop-0.21.0/common/src/java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DataBus"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
