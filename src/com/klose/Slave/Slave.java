@@ -200,7 +200,8 @@ public class Slave {
 	//			e.printStackTrace();
 				LOG.info("java.net.BindException: Address already in use, The port " 
 						+ confParser.getHttpServerPort() + " has already open the service.");
-			} 
+			}
+			LOG.info("All services in Slave have been started.");
 		}
 		else {
 			LOG.info("Slave can't register to Master,\n" +
