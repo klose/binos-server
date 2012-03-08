@@ -42,6 +42,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 			boolean oper_tmp = addSlaveEntry(request);
 			response = SlaveRegisterResponse.newBuilder()
 			.setIsSuccess(oper_tmp).build();
+			
 			if(oper_tmp) {
 				LOG.log(Level.INFO, ipPort+" registers with the master.");
 			}

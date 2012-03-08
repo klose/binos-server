@@ -77,9 +77,9 @@ public class SlaveExecutor extends Thread{
 			argsAll.add(taskDes.getClassName());
 			int inputNum = taskDes.getInputPathNum();
 			int outputNum = taskDes.getOutputPathNum();
-			for(String tmp:this.properties.getAllProperties().keySet()) {
-				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ tmp+ "~" + this.properties.getProperty(tmp));
-			}
+//			for(String tmp:this.properties.getAllProperties().keySet()) {
+//				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+ tmp+ "~" + this.properties.getProperty(tmp));
+//			}
 			StringBuilder inputPaths = new StringBuilder();
 			for (int i = 0; i < inputNum; i++) {
 				ServiceType.defaultType inputType = ServiceType
