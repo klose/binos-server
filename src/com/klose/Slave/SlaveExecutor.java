@@ -87,17 +87,6 @@ public class SlaveExecutor extends Thread{
 								true);
 				if (!taskDes.getInputValid(i)) {
 
-					// if (inputType == ServiceType.defaultType.MESSAGE) {
-					// /*
-					// * Message Pool support fetching data transparently. So it
-					// * does not need parse the location of its dependent
-					// * task.
-					// */
-					// inputPaths.append(this.properties.getProperty(taskDes
-					// .getInputPath(i)));
-					// inputPaths.append(" ");
-					// } else {
-					/* convert the path to proper servlet path */
 					String depTaskId = taskDes.getInputPath(i).split("::")[0];
 					String depTaskHost = this.properties.getProperty(depTaskId)
 							.split(":")[0];
@@ -142,7 +131,6 @@ public class SlaveExecutor extends Thread{
 								taskDes.getInputPath(i), inputType.toString(),
 								"read"));
 						inputPaths.append(" ");
-					} else {
 						inputPaths.append(taskDes.getInputPath(i));
 						inputPaths.append(" ");
 					}
