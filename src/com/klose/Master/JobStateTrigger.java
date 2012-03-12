@@ -6,6 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.klose.common.MSConfiguration;
 
 /**
@@ -17,7 +20,7 @@ import com.klose.common.MSConfiguration;
  *
  */
 public class JobStateTrigger extends Thread{
-	private static final Logger LOG = Logger.getLogger(JobStateTrigger.class.getName());
+	private static final Log LOG = LogFactory.getLog(JobStateTrigger.class);
 	private static final int jobStateTriggerThreadWaitTime = MSConfiguration.getJobStateTriggerThreadWaitTime();
 	JobStateTrigger() {
 	
@@ -32,7 +35,7 @@ public class JobStateTrigger extends Thread{
 //	}
 	
 	public void run() {
-		LOG.log(Level.INFO, "JobStateTrigger starts running...");
+		LOG.info("JobStateTrigger starts running...");
 		while(true) {
 			ConcurrentHashMap<String, JobDescriptor> runningQueue = JobScheduler.getRunningQueue();
 //			LOG.log(Level.INFO, "JobStateTrigger: scheduling task.");
@@ -44,8 +47,9 @@ public class JobStateTrigger extends Thread{
 								.getPreparedTask();
 						if (taskPrepared != null) {
 							for (String taskId : taskPrepared) {
-								System.out.println("########################"
-										+ taskId + "is prepared for scheduling...");
+//								System.out.println("########################"
+//										+ taskId + "is prepared for scheduling...");
+								LOG.debug(taskId + " has been put to scheduling queue.");
 								try {
 									TaskScheduler.transmitToSlave(jobId+":"+taskId);
 								} catch (IOException e) {

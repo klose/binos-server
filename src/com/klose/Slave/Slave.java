@@ -97,7 +97,6 @@ class SlaveSendHeartbeatThread extends Thread {
 		}
 	}
 }
-
 class ShutdownThread extends Thread {
 	private SlaveArgsParser parser;
 	private SocketRpcChannel channel;

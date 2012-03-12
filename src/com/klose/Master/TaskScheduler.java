@@ -11,6 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.google.protobuf.RpcCallback;
 import com.googlecode.protobuf.socketrpc.SocketRpcChannel;
 import com.googlecode.protobuf.socketrpc.SocketRpcController;
@@ -22,7 +25,7 @@ import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
 
 public class TaskScheduler {
-	private static final Logger LOG = Logger.getLogger(TaskScheduler.class.getName());
+	private static final Log LOG = LogFactory.getLog(TaskScheduler.class);
 	private static String chooseSlaveMethod = "tasks";//use the chooseSlaveByTasks as a default function 
 	
 	/**slaveTaskNum : make a statistics about the the tasks running in slave
@@ -60,7 +63,7 @@ public class TaskScheduler {
 			num ++;
 		}
 		else {
-			LOG.log(Level.WARNING, "Cannot find " + slaveId);
+			LOG.warn("Cannot find " + slaveId);
 		}
 		slaveTaskNum.put(slaveId, num);
 	}
@@ -70,10 +73,10 @@ public class TaskScheduler {
 			num--;
 		}
 		else {
-			LOG.log(Level.WARNING, "Cannot find " + slaveId);
+			LOG.warn("Cannot find " + slaveId);
 		}
 		if(num < 0) {
-			LOG.log(Level.WARNING, slaveId + " occurs a error.");
+			LOG.warn(slaveId + " occurs a error.");
 			num = 0;
 		}
 		slaveTaskNum.put(slaveId, num);
@@ -102,12 +105,11 @@ public class TaskScheduler {
 	 * transmit the taskId to appropriate slave.
 	 */
 	public static void transmitToSlave(String taskId) throws IOException {
-		System.out.println("########################transmitToSlave"+ taskId + "############");
-		
+		LOG.debug("transmitToSlave"+ taskId);
 		String slaveId = chooseSlave(taskId);
 		String [] id = taskId.split(":");
 		if(id.length != 2) {
-			LOG.log(Level.SEVERE, "ERROR: " + taskId + " should use format jobId:taskId");
+			LOG.error("ERROR: " + taskId + " should use format jobId:taskId");
 			return ;
 		}
 		/**
@@ -118,7 +120,7 @@ public class TaskScheduler {
 		String slaveIpPort [] = slaveId.split(":");
 		
 		if(slaveIpPort.length != 2) {
-			LOG.log(Level.SEVERE, "ERROR: " + slaveId);
+			LOG.error("ERROR: " + slaveId);
 			return ;
 		}
 		/*add the information of scheduling to JobProperties.*/
@@ -134,12 +136,12 @@ public class TaskScheduler {
 			builder = builder.addProperties(testPro);
 		}
 		request = builder.build();
-		LOG.log(Level.INFO, "taskId:" + taskId + " scheduled to  " + "slaveId:" + slaveId);	
+		LOG.info("taskId:" + taskId + " scheduled to  " + "slaveId:" + slaveId);	
 		atService.allocateTasks(controller, request, new RpcCallback<TState>() {
 			@Override
 			public void run(TState message) {
 				// TODO Auto-generated method stub
-				LOG.log(Level.INFO, message.toString());
+				LOG.info(message.toString());
 			}
 		});
 		recordTaskIdSlaveId(taskId, slaveId);

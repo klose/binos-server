@@ -5,6 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.googlecode.protobuf.socketrpc.SocketRpcServer;
@@ -23,7 +26,7 @@ import com.klose.common.TaskState.STATES;
 public class JobStateWatcher extends Thread{
 	private MasterArgsParser confParser;
 	private SocketRpcServer masterServer;
-	private Logger LOG = Logger.getLogger(JobStateWatcher.class.getName());
+	private Log LOG = LogFactory.getLog(JobStateWatcher.class);
 	private static final int jobStateWatcherThreadWaitTime 
 			= MSConfiguration.getJobStateWatcherThreadWaitTime();
 	public JobStateWatcher(MasterArgsParser confParser, SocketRpcServer masterServer){
@@ -35,7 +38,7 @@ public class JobStateWatcher extends Thread{
 			TaskChangeWatcher watcherService = new TaskChangeWatcher(JobScheduler.getWatingQueue(), 
 					JobScheduler.getRunningQueue());
 			this.masterServer.registerService(watcherService);
-			LOG.log(Level.INFO, "JobStateWatcher starts running...");
+			LOG.info("JobStateWatcher starts running...");
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
 				JobScheduler.transWaitingToRunning();
@@ -46,17 +49,7 @@ public class JobStateWatcher extends Thread{
 				// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				try {
-//					this.wait(jobStateWatcherThreadWaitTime);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 			}
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	/**
 	 *TaskChangeWatcher is responsible for receiving the information of 
@@ -77,11 +70,8 @@ public class JobStateWatcher extends Thread{
 			String taskidPos = request.getTaskId();
 			String taskState = request.getState();
 			// get the position in the JobQueue.
-			System.out.println("-----------------------------"+taskidPos+"------");
-			System.out.println("-----------------------------"+taskState+"------");
-			//String taskidPos = JobScheduler.searchTaskIdInRunningQueue(taskid); 
 			
-			//System.out.println("-----------------------------"+taskid+"------");
+			LOG.debug(taskidPos + " state:" + taskState);
 			if(taskidPos != null) {
 				TaskStates state = JobScheduler.getTaskStates(taskidPos);
 				state.setStates(TaskState.STATES.valueOf(taskState));
@@ -89,7 +79,7 @@ public class JobStateWatcher extends Thread{
 						.build();
 				String[] tmp = taskidPos.split(":");
 				if (tmp.length != 2) {
-					LOG.log(Level.WARNING, taskidPos + " is not correct.");
+					LOG.warn(taskidPos + " is not correct.");
 					confirmMessage = ConfirmMessage.newBuilder()
 							.setIsSuccess(false).build();
 				} else {
@@ -97,14 +87,14 @@ public class JobStateWatcher extends Thread{
 					//if the job has already removed from running queue, it will jump out of next action about job. 
 					try{
 						if (null == runningQueue.get(tmp[0])) {
-							LOG.log(Level.INFO, tmp[0] + " has already removed from the running queue for Exception." );	
+							LOG.info(tmp[0] + " has already removed from the running queue for Exception." );	
 							confirmMessage = ConfirmMessage.newBuilder().setIsSuccess(false)
 							.build();
 							done.run(confirmMessage);
 							return;  
 						}
 					}catch (NullPointerException e) {
-						LOG.log(Level.SEVERE, tmp[0] + " NOT EXISTS!");
+						LOG.error(tmp[0] + " NOT EXISTS!");
 						return;
 					}
 					if (taskState.equals("FINISHED")) {
@@ -116,15 +106,14 @@ public class JobStateWatcher extends Thread{
 						}
 						JobScheduler.addTaskidFinishedList(taskidPos);
 						if (runningQueue.get(tmp[0]).isSuccessful()) {
-							LOG.log(Level.INFO, tmp[0] + ": FINISHED.");
+							LOG.info(tmp[0] + ": FINISHED.");
 							JobScheduler.setFinishedTime(tmp[0]);
 							JobScheduler.printUsedTime(tmp[0]);
 							runningQueue.remove(tmp[0]);
 						}
 					} else if (taskState.equals("WARNING")
 							|| taskState.equals("ERROR")) {
-						System.out.println("wwwwwwwwwwwwwwwwwwww " + tmp[0]
-								+ " " + taskState + "ssssssssssssss");
+						LOG.error(tmp[0] + "  state:" + taskState);
 						JobScheduler.handleExceptionJob(tmp[0]);
 					}
 					confirmMessage = ConfirmMessage.newBuilder()
