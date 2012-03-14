@@ -99,7 +99,6 @@ public class JobStateWatcher extends Thread{
 					}
 					if (taskState.equals("FINISHED")) {
 						if (request.getOutputCount() > 0) {
-							System.out.println("klose:finish");
 							for (outputProperty property: request.getOutputList()) {
 								JobScheduler.addProperty(tmp[0], property.getKey(), property.getValue());
 							}

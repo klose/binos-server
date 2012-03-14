@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.Element;
 
 import com.klose.common.TaskState;
@@ -28,7 +30,7 @@ public class JobDescriptor {
 	/*tasksView is constructed by different tasks and their links.*/ 
 	private TaskStates [] tasksView; 
 	private static int taskStatesIndex = 0;// the index of array JobView
-	private static final Logger LOG = Logger.getLogger(JobDescriptor.class.getName());
+	private static final Log LOG = LogFactory.getLog(JobDescriptor.class);
 	
 	private final JobProperties jobProperties;
 	//HashMap<taskid, taskStatesIndex>
@@ -41,7 +43,7 @@ public class JobDescriptor {
 	public JobDescriptor(String jobId) {
 		//String dirName = path.substring(0, path.lastIndexOf("-"));
 		xmlPath = FileUtility.getHDFSAbsolutePath(jobId + "/" + jobId + ".xml");
-		System.out.println("------------------------------"+ xmlPath);
+		LOG.debug("------------------------------"+ xmlPath);
 		jobProperties = new JobProperties(jobId);
 		parser = new JobXMLParser(this.xmlPath);
 		tasksView = new TaskStates[parser.getTaskTotal()];
@@ -75,7 +77,7 @@ public class JobDescriptor {
 				tasksView[taskStatesIndex].setStates(TaskState.STATES.UNPREPARED);
 			}
 			String prefixDep = parser.getDepTaskEle(taskEle); 
-			System.out.println("prefixDep:" + prefixDep);
+			LOG.debug("prefixDep:" + prefixDep);
 			if(!prefixDep.equals(""))
 				tasksDep[taskStatesIndex] = new String(prefixDep+":"+taskId);
 			else
@@ -111,7 +113,7 @@ public class JobDescriptor {
 		for(int i = 0; i < length ; i ++) {
 			if(tasksView[i].getState() == TaskState.STATES.PREPARED) {
 				res += (tasksView[i].getTaskid() + " ");
-				System.out.println("getPreparedTask():" +  res);
+				LOG.debug("getPreparedTask():" +  res);
 			}
 		}
 		if(!res.equals("")) {
@@ -162,7 +164,7 @@ public class JobDescriptor {
 			return this.tasksView[jobStatus.get(taskid)];
 		}
 		else {
-			LOG.log(Level.WARNING, "taskid:" + taskid + " doesn't exist in the job!");
+			LOG.warn("taskid:" + taskid + " doesn't exist in the job!");
 			return null;
 		}
 	}
@@ -175,25 +177,25 @@ public class JobDescriptor {
 		if(index != -1) 
 			addFinishedTaskIndex(index);
 		else 
-			LOG.log(Level.SEVERE, "There is not " + taskid + " in the job.");
+			LOG.error("There is not " + taskid + " in the job.");
 	}
 	/*add the index of task into the finished task list.*/
 	private void addFinishedTaskIndex(int index) {
 		// when a task has completed, it will change the
 		//state of related tasks.[UNPREPARED] -> [PREPARED]
-		System.out.println("333333333333333" + index + "2222222222");
+		//System.out.println("333333333333333" + index + "2222222222");
 		if(!this.finishedTask.contains(index)) {
 			// It must ensure that this is the first action of adding finished index.
 			this.finishedTask.add(index);
 			TaskScheduler.removeTaskIdOnSlave(tasksView[index].getTaskid());
-			System.out.println("4444444444444444444" + tasksView[index].getTaskid() + "2222222222");
-			System.out.println("ssssssssssssssssss " + tasksView[index].getSuffixTaskIds().toString() + "55555555555");
-			System.out.println("5555555555555555555" + tasksView[index].getSuffixTaskIds().size() + "2222222222");
+			//System.out.println("4444444444444444444" + tasksView[index].getTaskid() + "2222222222");
+			//System.out.println("ssssssssssssssssss " + tasksView[index].getSuffixTaskIds().toString() + "55555555555");
+			//System.out.println("5555555555555555555" + tasksView[index].getSuffixTaskIds().size() + "2222222222");
 			
 			synchronized(tasksView) {
 				
 				for(String relatedTask : tasksView[index].getSuffixTaskIds()) {
-					System.out.println(relatedTask + "222222222222222222");
+					//System.out.println(relatedTask + "222222222222222222");
 					int dep = tasksView[jobStatus.get(relatedTask)].getDependence();
 					if(dep > 0) {
 						dep --;
@@ -202,9 +204,9 @@ public class JobDescriptor {
 						dep ++;
 					}
 					tasksView[jobStatus.get(relatedTask)].setDependence(dep);
-					System.out.println("666666666666666666666:" + dep + ":2222222222");
+					//System.out.println("666666666666666666666:" + dep + ":2222222222");
 					if(dep == 0) {
-						LOG.log(Level.INFO, tasksView[jobStatus.get(relatedTask)].getTaskid() +" :UNPREPARED -> PREPARED");
+						LOG.debug(tasksView[jobStatus.get(relatedTask)].getTaskid() +" :UNPREPARED -> PREPARED");
 						tasksView[jobStatus.get(relatedTask)].
 							setStates(TaskState.STATES.PREPARED);
 					}
@@ -221,7 +223,7 @@ public class JobDescriptor {
 	
 	/*check whether the job has finished successfully*/
 	public boolean isSuccessful() {
-		LOG.log(Level.INFO, "finishedTask:#" + finishedTask.size());
+		LOG.info("finishedTask:#" + finishedTask.size() + "/" + getTaskTotal());
 		if(finishedTask.size() == getTaskTotal()) {
 			return true;
 		}

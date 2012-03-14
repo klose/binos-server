@@ -36,6 +36,12 @@ class MasterRpcServerThread extends Thread {
 		/*Databus service is key service.*/
 		KeyServerMain databusService = new KeyServerMain();
 		databusService.start();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//this simple order executor is initial version.
 		SimpleOrderExecService soes = new SimpleOrderExecService(); 

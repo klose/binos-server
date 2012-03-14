@@ -34,8 +34,7 @@ public class SimpleOrderExecService extends SlaveOrderExecutorService{
 	public void executeOrder(RpcController controller, ExecOrder request,
 			RpcCallback<ExecOrderResp> done) {
 		// TODO Auto-generated method stub
-		order = request.getOrder();
-		System.out.println("=====================" + order + "==============");		
+		order = request.getOrder();	
 		if(order.equals("")) {
 			ExecOrderResp error = ExecOrderResp.newBuilder().setIsExecuted(false)
 							.setResultMessage("Error: the order that needs to be executed " +

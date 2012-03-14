@@ -131,6 +131,7 @@ public class SlaveExecutor extends Thread{
 								taskDes.getInputPath(i), inputType.toString(),
 								"read"));
 						inputPaths.append(" ");
+					}else {
 						inputPaths.append(taskDes.getInputPath(i));
 						inputPaths.append(" ");
 					}

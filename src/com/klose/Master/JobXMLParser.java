@@ -49,7 +49,7 @@ public class JobXMLParser extends XMLParser {
 		return getRootElement().element(ID).getText();
 	}
 	public int getTaskTotal() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+getRootElement().elementText(TaskTotal)+"bbbbbbbbbbbb");
+		//System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+getRootElement().elementText(TaskTotal)+"bbbbbbbbbbbb");
 		return Integer.parseInt(getRootElement().elementText(TaskTotal));
 	}
 	public Iterator<Element> getTasks() {

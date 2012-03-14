@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.klose.MsConnProto.RegisterSlaveService;
@@ -18,7 +21,7 @@ import com.klose.Slave.Slave;
 
 public class RegisterToMasterService extends RegisterSlaveService{
 
-	private static final Logger LOG = Logger.getLogger(RegisterToMasterService.class.getName()); 
+	private static final Log LOG = LogFactory.getLog(RegisterToMasterService.class); 
 	private static HashMap<String,SlaveEntry> slaveEntrys = new HashMap<String,SlaveEntry> ();
 	private static SlaveRegisterResponse response ;
 	@Override
@@ -34,7 +37,7 @@ public class RegisterToMasterService extends RegisterSlaveService{
 		if(slaveEntrys.containsKey(ipPort)) {
 			response = SlaveRegisterResponse.newBuilder()
 			.setIsSuccess(false).build();
-			LOG.log(Level.INFO, ipPort+" has already registered with the master.");
+			LOG.warn(ipPort+" has already registered with the master.");
 		}
 		else {
 		/*fault tolerance is undone, please check whehter "ip:port" is validate.*/
@@ -44,10 +47,10 @@ public class RegisterToMasterService extends RegisterSlaveService{
 			.setIsSuccess(oper_tmp).build();
 			
 			if(oper_tmp) {
-				LOG.log(Level.INFO, ipPort+" registers with the master.");
+				LOG.info(ipPort+" registers with the master.");
 			}
 			else {
-				LOG.log(Level.INFO, ipPort+ " cannot registers with the master.");
+				LOG.info(ipPort+ " cannot registers with the master.");
 			}
 		}
 		done.run(response);

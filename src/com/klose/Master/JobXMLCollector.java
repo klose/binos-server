@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
 import com.klose.MsConnProto.ConfirmMessage;
@@ -12,7 +15,7 @@ import com.klose.MsConnProto.XMLPathTransService;
 
 public class JobXMLCollector extends XMLPathTransService{
 	
-	private static final Logger LOG = Logger.getLogger(JobXMLCollector.class.getName()); 
+	private static final Log LOG = LogFactory.getLog(JobXMLCollector.class); 
 	/*taskXMLs  --->  <taskid, path>*/
 	private HashMap<String, String> taskXMLs = new HashMap<String, String>();
 	
@@ -30,12 +33,12 @@ public class JobXMLCollector extends XMLPathTransService{
 		// TODO Auto-generated method stub
 		ConfirmMessage message ;
 		String path = request.getPath();
-		LOG.log(Level.INFO, "path: " + path);
+		LOG.debug("path: " + path);
 		String[] tmp = path.split("/");
 		String filename = tmp[tmp.length -1];
-		LOG.log(Level.INFO, "filename: " + filename);
+		LOG.debug("filename: " + filename);
 		String jobId = filename.substring(0, filename.lastIndexOf(".xml"));
-		LOG.log(Level.INFO, "jobId:" + jobId);
+		LOG.debug("jobId:" + jobId);
 		if(!filename.startsWith("job")) {
 			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
 		}
@@ -43,21 +46,6 @@ public class JobXMLCollector extends XMLPathTransService{
 			JobScheduler.submitJob(jobId);
 			message = ConfirmMessage.newBuilder().setIsSuccess(true).build();
 		}
-		
-		
-//		if(!filename.startsWith("job")) {
-//			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
-//		}
-//		else if( !taskXMLs.containsKey((filename.substring(5).split("\\."))[0]) ) {
-//			//if the taksXMLs doesn't contain the key, it add the key-value to taskXMLs.
-//			String key = (filename.substring(5).split("\\."))[0];
-//			taskXMLs.put(key, path);
-//			taskStatus.put(key, 1);
-//			message = ConfirmMessage.newBuilder().setIsSuccess(true).build();
-//		}
-//		else {
-//			message = ConfirmMessage.newBuilder().setIsSuccess(false).build();
-//		}
 		done.run(message);
 	}
 	

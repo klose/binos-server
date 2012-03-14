@@ -12,6 +12,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.transformer.compiler.JobProperties;
 
 
@@ -26,11 +29,23 @@ public class JobScheduler {
 	//* waitingQueue is used to store the jobs waiting to be added to running queue.
 	private static LinkedList<String> waitingQueue = new LinkedList<String>();
 	private static ConcurrentHashMap<String, JobDescriptor> runningQueue = new ConcurrentHashMap<String, JobDescriptor>();
-	private static final Logger LOG = Logger.getLogger(JobScheduler.class.getName()); 
-	private static ConcurrentHashMap<String, String> timeStart 
+	private static final Log LOG = LogFactory.getLog(JobScheduler.class); 
+	/**
+	 * jobRecordStartTime: Job start time format is yyyyMMddHHmmss
+	 * jobRecordFinishTime: Job finish time format is yyyyMMddHHmmss
+	 * 
+	 * jobStartTime: record System.currentMillis()
+	 * jobUsedTime: record System.currentMillos() - jobStartTime
+	 * 
+	 */
+	private static ConcurrentHashMap<String, String> jobRecordStartTime 
 						= new ConcurrentHashMap<String, String>();
-	private static ConcurrentHashMap<String, String> timeFinish 
+	private static ConcurrentHashMap<String, String> jobRecordFinishDate 
 					= new ConcurrentHashMap<String, String>();
+	private static ConcurrentHashMap<String, Long> jobStartTime 
+						= new ConcurrentHashMap<String, Long>();
+	private static ConcurrentHashMap<String, Long> jobUsedTime 
+	= new ConcurrentHashMap<String, Long>();
 	private static CopyOnWriteArrayList<String> exceptionQueue = 
 		new CopyOnWriteArrayList<String> ();
 
@@ -55,7 +70,7 @@ public class JobScheduler {
 			if(waitingQueue.size() > 0) {
 				String jobId = waitingQueue.pop();
 				runningQueue.put(jobId, new JobDescriptor(jobId));
-				LOG.log(Level.INFO, "Transmit the " + jobId + 
+				LOG.info("Transmit the " + jobId + 
 						" from waiting queue to running one.");
 			}
 		}
@@ -87,7 +102,6 @@ public class JobScheduler {
 			String jobid = JobIdIter.next();
 			
 			if(jobid.startsWith(prefixTarget)) {
-				System.out.println("wwwwwwwwwwwwwwwwwwwwwww"+jobid+"wwwwwwwwwwwwwwwww");
 				int taskIndexInJob = runningQueue.get(jobid).searchTask(taskId);
 				if(taskIndexInJob != -1) {
 					return jobid + ":" + String.valueOf(taskIndexInJob);
@@ -99,19 +113,18 @@ public class JobScheduler {
 	}
 	/*add the finished task index to the JobDescriptor's finishedList*/
 	public static void addTaskidFinishedList(String taskidPos) {
-		System.out.println("11111111111111111111addTaskidFinishedList" + taskidPos + "2222222222");
+		LOG.debug("11111111111111111111addTaskidFinishedList" + taskidPos + "2222222222");
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
-			LOG.log(Level.WARNING, taskidPos+ " is not correct.");
+			LOG.warn(taskidPos+ " is not correct.");
 			return ;
 		}
-		System.out.println("11111111111111111111addTaskidFinishedList" + tmp[0] + " " + tmp[1] + "2222222222");
 		getJobDescriptor(tmp[0]).
 			addFinishedTaskId(tmp[1]);
 	}
 	/*get the Job in the running queue*/
 	public static JobDescriptor getJobDescriptor(String jobId) {
-		System.out.println("222222222222222" + jobId + "2222222222");
+		LOG.debug("222222222222222" + jobId + "2222222222");
 		return runningQueue.get(jobId);
 	}
 	
@@ -129,25 +142,22 @@ public class JobScheduler {
 	 * @return 
 	 */
 	public synchronized static TaskStates getTaskStates(String taskidPos) {
-		System.out.println("getTaskStates::::"+ taskidPos);
+		LOG.debug("getTaskStates::::"+ taskidPos);
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
-			LOG.log(Level.WARNING, taskidPos+ " is not correct.");
+			LOG.warn(taskidPos+ " is not correct.");
 			return null;
 		}
 		return runningQueue.get(tmp[0]).getTaskStatesByTaskid(tmp[1]);
 	}
 	public synchronized static void setTaskStates(String taskIdPos, String state) {
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx" + taskIdPos + " " + state);
-		//String taskidPos = searchTaskIdInRunningQueue(taskId);
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxxx taskIdPos:" + taskIdPos);
+		LOG.info(taskIdPos + " " + state);
 		String [] tmp = taskIdPos.split(":");
 		if(tmp.length != 2) {
-			LOG.log(Level.WARNING, taskIdPos + " is not correct.");
+			LOG.warn(taskIdPos + " is not correct.");
 			return;
 		}
-		System.out.println(runningQueue.toString());
-		System.out.println("xxxxxxxxxxxxxxxxxx" + tmp[0] + ": " + tmp[1]);
+		//LOG.debug(runningQueue.toString());
 		runningQueue.get(tmp[0]).setTaskStates(tmp[1], state);
 	}
 	public synchronized static LinkedList<String> getWatingQueue() {
@@ -168,33 +178,35 @@ public class JobScheduler {
 	public synchronized static void handleExceptionJob(String jobId) {
 		exceptionQueue.add(jobId);
 		runningQueue.remove(jobId);
-		timeStart.remove(jobId);
+		jobRecordStartTime.remove(jobId);
+		jobStartTime.remove(jobId);
 	}
 	
 	public synchronized static void setStartTime(String jobId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String time =  sdf.format(new Date());
-		LOG.log(Level.INFO, jobId + " start at: " + time);
-		timeStart.put(jobId, time);
+		LOG.debug(jobId + " start at: " + time);
+		jobRecordStartTime.put(jobId, time);
+		jobStartTime.put(jobId, System.currentTimeMillis());
 	}
 	public synchronized static void setFinishedTime(String jobId) {
-		if(!timeStart.containsKey(jobId)) {
-			timeFinish.put(jobId, "statistics is not enough.");
+		if(!jobRecordStartTime.containsKey(jobId)) {
+			jobRecordStartTime.put(jobId, null);
 		}
 		else {
+			jobUsedTime.put(jobId, System.currentTimeMillis() - jobStartTime.get(jobId));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			String time = sdf.format(new Date());
-			LOG.log(Level.INFO, jobId + " finish at: " + time);
-			timeFinish.put(jobId, time);
+			LOG.debug(jobId + " finish at: " + time);
+			jobRecordFinishDate.put(jobId, time);
 		}
 	}
 	
 	
 	public synchronized static void printUsedTime(String jobId) {
-		if(timeStart.containsKey(jobId) && timeFinish.containsKey(jobId)) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			LOG.log(Level.INFO, jobId + " start at " + timeStart.get(jobId)
-					+ "\n" + "finish at " + timeFinish.get(jobId));
+		if(jobRecordStartTime.containsKey(jobId) && jobRecordFinishDate.containsKey(jobId)) {
+			LOG.info(jobId + " start at " + jobRecordStartTime.get(jobId)
+					 + "finish at " + jobRecordFinishDate.get(jobId) + " Time used(ms):" + jobUsedTime.get(jobId));
 		}
 	}
 	
