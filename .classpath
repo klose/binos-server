@@ -12,9 +12,9 @@
 	<classpathentry kind="lib" path="lib/protobuf-java-2.3.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Transformer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Binos"/>
-	<classpathentry kind="lib" path="/home/jiangbing/hadoop-0.21.0/hadoop-common-0.21.0.jar" sourcepath="/home/jiangbing/hadoop-0.21.0/common/src/java"/>
 	<classpathentry kind="lib" path="/home/jiangbing/JLoop/protobuf-2.4.1/java/target/protobuf-java-2.4.1.jar"/>
 	<classpathentry kind="lib" path="/home/jiangbing/JLoop/protobuf-socket-rpc-read-only-2.0/java/target/protobuf_socketrpc-2.0.0-DIY.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/DataBusF"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DataBus"/>
+	<classpathentry kind="lib" path="/home/jiangbing/Downloads/hadoop-0.23.0/share/hadoop/common/hadoop-common-0.23.0.jar" sourcepath="/home/jiangbing/Downloads/hadoop-0.23.0/share/hadoop/common/hadoop-common-0.23.0-sources.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
