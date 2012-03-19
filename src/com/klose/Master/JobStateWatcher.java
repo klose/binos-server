@@ -71,7 +71,7 @@ public class JobStateWatcher extends Thread{
 			String taskState = request.getState();
 			// get the position in the JobQueue.
 			
-			LOG.debug(taskidPos + " state:" + taskState);
+			LOG.info(taskidPos + " state:" + taskState);
 			if(taskidPos != null) {
 				TaskStates state = JobScheduler.getTaskStates(taskidPos);
 				state.setStates(TaskState.STATES.valueOf(taskState));

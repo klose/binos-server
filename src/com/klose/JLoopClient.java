@@ -333,12 +333,7 @@ public class JLoopClient {
 	    System.out.println(workDir.getPath());
 	    Runtime.getRuntime().addShutdownHook(new Thread() {
 	        public void run() {
-	        	try {
-					FileUtil.fullyDelete(workDir);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				FileUtil.fullyDelete(workDir);
 	        }
 	      });
 	    String classNamePath = workDir.getPath() + "/" + cls.getName().replace('.', '/') +".class";

@@ -142,7 +142,7 @@ public class JobScheduler {
 	 * @return 
 	 */
 	public synchronized static TaskStates getTaskStates(String taskidPos) {
-		LOG.debug("getTaskStates::::"+ taskidPos);
+		LOG.info("getTaskStates::::"+ taskidPos);
 		String [] tmp = taskidPos.split(":");
 		if(tmp.length != 2) {
 			LOG.warn(taskidPos+ " is not correct.");
