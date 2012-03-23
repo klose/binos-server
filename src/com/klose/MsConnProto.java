@@ -8,6 +8,822 @@ public final class MsConnProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  public interface NullRequestOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional string req = 1;
+    boolean hasReq();
+    String getReq();
+  }
+  public static final class NullRequest extends
+      com.google.protobuf.GeneratedMessage
+      implements NullRequestOrBuilder {
+    // Use NullRequest.newBuilder() to construct.
+    private NullRequest(Builder builder) {
+      super(builder);
+    }
+    private NullRequest(boolean noInit) {}
+    
+    private static final NullRequest defaultInstance;
+    public static NullRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public NullRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_NullRequest_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_NullRequest_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional string req = 1;
+    public static final int REQ_FIELD_NUMBER = 1;
+    private java.lang.Object req_;
+    public boolean hasReq() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public String getReq() {
+      java.lang.Object ref = req_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          req_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getReqBytes() {
+      java.lang.Object ref = req_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        req_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      req_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getReqBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getReqBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.klose.MsConnProto.NullRequest)) {
+        return super.equals(obj);
+      }
+      com.klose.MsConnProto.NullRequest other = (com.klose.MsConnProto.NullRequest) obj;
+      
+      boolean result = true;
+      result = result && (hasReq() == other.hasReq());
+      if (hasReq()) {
+        result = result && getReq()
+            .equals(other.getReq());
+      }
+      result = result &&
+          getUnknownFields().equals(other.getUnknownFields());
+      return result;
+    }
+    
+    @java.lang.Override
+    public int hashCode() {
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasReq()) {
+        hash = (37 * hash) + REQ_FIELD_NUMBER;
+        hash = (53 * hash) + getReq().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      return hash;
+    }
+    
+    public static com.klose.MsConnProto.NullRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.NullRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.NullRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.klose.MsConnProto.NullRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_NullRequest_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_NullRequest_fieldAccessorTable;
+      }
+      
+      // Construct using com.klose.MsConnProto.NullRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        req_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.NullRequest.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.NullRequest getDefaultInstanceForType() {
+        return com.klose.MsConnProto.NullRequest.getDefaultInstance();
+      }
+      
+      public com.klose.MsConnProto.NullRequest build() {
+        com.klose.MsConnProto.NullRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.klose.MsConnProto.NullRequest buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.klose.MsConnProto.NullRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.klose.MsConnProto.NullRequest buildPartial() {
+        com.klose.MsConnProto.NullRequest result = new com.klose.MsConnProto.NullRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.req_ = req_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.NullRequest) {
+          return mergeFrom((com.klose.MsConnProto.NullRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.NullRequest other) {
+        if (other == com.klose.MsConnProto.NullRequest.getDefaultInstance()) return this;
+        if (other.hasReq()) {
+          setReq(other.getReq());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              req_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional string req = 1;
+      private java.lang.Object req_ = "";
+      public boolean hasReq() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public String getReq() {
+        java.lang.Object ref = req_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          req_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setReq(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        req_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearReq() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        req_ = getDefaultInstance().getReq();
+        onChanged();
+        return this;
+      }
+      void setReq(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
+        req_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.NullRequest)
+    }
+    
+    static {
+      defaultInstance = new NullRequest(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.NullRequest)
+  }
+  
+  public interface NullResponseOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional string resp = 1;
+    boolean hasResp();
+    String getResp();
+  }
+  public static final class NullResponse extends
+      com.google.protobuf.GeneratedMessage
+      implements NullResponseOrBuilder {
+    // Use NullResponse.newBuilder() to construct.
+    private NullResponse(Builder builder) {
+      super(builder);
+    }
+    private NullResponse(boolean noInit) {}
+    
+    private static final NullResponse defaultInstance;
+    public static NullResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public NullResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_NullResponse_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_NullResponse_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional string resp = 1;
+    public static final int RESP_FIELD_NUMBER = 1;
+    private java.lang.Object resp_;
+    public boolean hasResp() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public String getResp() {
+      java.lang.Object ref = resp_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          resp_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getRespBytes() {
+      java.lang.Object ref = resp_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        resp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      resp_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getRespBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getRespBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.klose.MsConnProto.NullResponse)) {
+        return super.equals(obj);
+      }
+      com.klose.MsConnProto.NullResponse other = (com.klose.MsConnProto.NullResponse) obj;
+      
+      boolean result = true;
+      result = result && (hasResp() == other.hasResp());
+      if (hasResp()) {
+        result = result && getResp()
+            .equals(other.getResp());
+      }
+      result = result &&
+          getUnknownFields().equals(other.getUnknownFields());
+      return result;
+    }
+    
+    @java.lang.Override
+    public int hashCode() {
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasResp()) {
+        hash = (37 * hash) + RESP_FIELD_NUMBER;
+        hash = (53 * hash) + getResp().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      return hash;
+    }
+    
+    public static com.klose.MsConnProto.NullResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.NullResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.NullResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.NullResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.klose.MsConnProto.NullResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_NullResponse_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_NullResponse_fieldAccessorTable;
+      }
+      
+      // Construct using com.klose.MsConnProto.NullResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        resp_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.NullResponse.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.NullResponse getDefaultInstanceForType() {
+        return com.klose.MsConnProto.NullResponse.getDefaultInstance();
+      }
+      
+      public com.klose.MsConnProto.NullResponse build() {
+        com.klose.MsConnProto.NullResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.klose.MsConnProto.NullResponse buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.klose.MsConnProto.NullResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.klose.MsConnProto.NullResponse buildPartial() {
+        com.klose.MsConnProto.NullResponse result = new com.klose.MsConnProto.NullResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.resp_ = resp_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.NullResponse) {
+          return mergeFrom((com.klose.MsConnProto.NullResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.NullResponse other) {
+        if (other == com.klose.MsConnProto.NullResponse.getDefaultInstance()) return this;
+        if (other.hasResp()) {
+          setResp(other.getResp());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              resp_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional string resp = 1;
+      private java.lang.Object resp_ = "";
+      public boolean hasResp() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public String getResp() {
+        java.lang.Object ref = resp_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          resp_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setResp(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        resp_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearResp() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        resp_ = getDefaultInstance().getResp();
+        onChanged();
+        return this;
+      }
+      void setResp(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
+        resp_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.NullResponse)
+    }
+    
+    static {
+      defaultInstance = new NullResponse(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.NullResponse)
+  }
+  
   public interface UrgentRequestOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -10609,6 +11425,533 @@ public final class MsConnProto {
     // @@protoc_insertion_point(class_scope:com.klose.ConfirmMessage)
   }
   
+  public interface TaskAmountInfoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 waitingJobNum = 1;
+    boolean hasWaitingJobNum();
+    int getWaitingJobNum();
+    
+    // required int32 waitingTaskNum = 2;
+    boolean hasWaitingTaskNum();
+    int getWaitingTaskNum();
+    
+    // required int32 averageTasksNumOneJob = 3;
+    boolean hasAverageTasksNumOneJob();
+    int getAverageTasksNumOneJob();
+  }
+  public static final class TaskAmountInfo extends
+      com.google.protobuf.GeneratedMessage
+      implements TaskAmountInfoOrBuilder {
+    // Use TaskAmountInfo.newBuilder() to construct.
+    private TaskAmountInfo(Builder builder) {
+      super(builder);
+    }
+    private TaskAmountInfo(boolean noInit) {}
+    
+    private static final TaskAmountInfo defaultInstance;
+    public static TaskAmountInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public TaskAmountInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.internal_static_com_klose_TaskAmountInfo_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.klose.MsConnProto.internal_static_com_klose_TaskAmountInfo_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 waitingJobNum = 1;
+    public static final int WAITINGJOBNUM_FIELD_NUMBER = 1;
+    private int waitingJobNum_;
+    public boolean hasWaitingJobNum() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getWaitingJobNum() {
+      return waitingJobNum_;
+    }
+    
+    // required int32 waitingTaskNum = 2;
+    public static final int WAITINGTASKNUM_FIELD_NUMBER = 2;
+    private int waitingTaskNum_;
+    public boolean hasWaitingTaskNum() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getWaitingTaskNum() {
+      return waitingTaskNum_;
+    }
+    
+    // required int32 averageTasksNumOneJob = 3;
+    public static final int AVERAGETASKSNUMONEJOB_FIELD_NUMBER = 3;
+    private int averageTasksNumOneJob_;
+    public boolean hasAverageTasksNumOneJob() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getAverageTasksNumOneJob() {
+      return averageTasksNumOneJob_;
+    }
+    
+    private void initFields() {
+      waitingJobNum_ = 0;
+      waitingTaskNum_ = 0;
+      averageTasksNumOneJob_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasWaitingJobNum()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasWaitingTaskNum()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasAverageTasksNumOneJob()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, waitingJobNum_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, waitingTaskNum_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, averageTasksNumOneJob_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, waitingJobNum_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, waitingTaskNum_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, averageTasksNumOneJob_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.klose.MsConnProto.TaskAmountInfo)) {
+        return super.equals(obj);
+      }
+      com.klose.MsConnProto.TaskAmountInfo other = (com.klose.MsConnProto.TaskAmountInfo) obj;
+      
+      boolean result = true;
+      result = result && (hasWaitingJobNum() == other.hasWaitingJobNum());
+      if (hasWaitingJobNum()) {
+        result = result && (getWaitingJobNum()
+            == other.getWaitingJobNum());
+      }
+      result = result && (hasWaitingTaskNum() == other.hasWaitingTaskNum());
+      if (hasWaitingTaskNum()) {
+        result = result && (getWaitingTaskNum()
+            == other.getWaitingTaskNum());
+      }
+      result = result && (hasAverageTasksNumOneJob() == other.hasAverageTasksNumOneJob());
+      if (hasAverageTasksNumOneJob()) {
+        result = result && (getAverageTasksNumOneJob()
+            == other.getAverageTasksNumOneJob());
+      }
+      result = result &&
+          getUnknownFields().equals(other.getUnknownFields());
+      return result;
+    }
+    
+    @java.lang.Override
+    public int hashCode() {
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasWaitingJobNum()) {
+        hash = (37 * hash) + WAITINGJOBNUM_FIELD_NUMBER;
+        hash = (53 * hash) + getWaitingJobNum();
+      }
+      if (hasWaitingTaskNum()) {
+        hash = (37 * hash) + WAITINGTASKNUM_FIELD_NUMBER;
+        hash = (53 * hash) + getWaitingTaskNum();
+      }
+      if (hasAverageTasksNumOneJob()) {
+        hash = (37 * hash) + AVERAGETASKSNUMONEJOB_FIELD_NUMBER;
+        hash = (53 * hash) + getAverageTasksNumOneJob();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      return hash;
+    }
+    
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.klose.MsConnProto.TaskAmountInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.klose.MsConnProto.TaskAmountInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.klose.MsConnProto.TaskAmountInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.klose.MsConnProto.internal_static_com_klose_TaskAmountInfo_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.klose.MsConnProto.internal_static_com_klose_TaskAmountInfo_fieldAccessorTable;
+      }
+      
+      // Construct using com.klose.MsConnProto.TaskAmountInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        waitingJobNum_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        waitingTaskNum_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        averageTasksNumOneJob_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.klose.MsConnProto.TaskAmountInfo.getDescriptor();
+      }
+      
+      public com.klose.MsConnProto.TaskAmountInfo getDefaultInstanceForType() {
+        return com.klose.MsConnProto.TaskAmountInfo.getDefaultInstance();
+      }
+      
+      public com.klose.MsConnProto.TaskAmountInfo build() {
+        com.klose.MsConnProto.TaskAmountInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.klose.MsConnProto.TaskAmountInfo buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.klose.MsConnProto.TaskAmountInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.klose.MsConnProto.TaskAmountInfo buildPartial() {
+        com.klose.MsConnProto.TaskAmountInfo result = new com.klose.MsConnProto.TaskAmountInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.waitingJobNum_ = waitingJobNum_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.waitingTaskNum_ = waitingTaskNum_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.averageTasksNumOneJob_ = averageTasksNumOneJob_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.klose.MsConnProto.TaskAmountInfo) {
+          return mergeFrom((com.klose.MsConnProto.TaskAmountInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.klose.MsConnProto.TaskAmountInfo other) {
+        if (other == com.klose.MsConnProto.TaskAmountInfo.getDefaultInstance()) return this;
+        if (other.hasWaitingJobNum()) {
+          setWaitingJobNum(other.getWaitingJobNum());
+        }
+        if (other.hasWaitingTaskNum()) {
+          setWaitingTaskNum(other.getWaitingTaskNum());
+        }
+        if (other.hasAverageTasksNumOneJob()) {
+          setAverageTasksNumOneJob(other.getAverageTasksNumOneJob());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasWaitingJobNum()) {
+          
+          return false;
+        }
+        if (!hasWaitingTaskNum()) {
+          
+          return false;
+        }
+        if (!hasAverageTasksNumOneJob()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              waitingJobNum_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              waitingTaskNum_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              averageTasksNumOneJob_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 waitingJobNum = 1;
+      private int waitingJobNum_ ;
+      public boolean hasWaitingJobNum() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getWaitingJobNum() {
+        return waitingJobNum_;
+      }
+      public Builder setWaitingJobNum(int value) {
+        bitField0_ |= 0x00000001;
+        waitingJobNum_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWaitingJobNum() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        waitingJobNum_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 waitingTaskNum = 2;
+      private int waitingTaskNum_ ;
+      public boolean hasWaitingTaskNum() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getWaitingTaskNum() {
+        return waitingTaskNum_;
+      }
+      public Builder setWaitingTaskNum(int value) {
+        bitField0_ |= 0x00000002;
+        waitingTaskNum_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWaitingTaskNum() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        waitingTaskNum_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 averageTasksNumOneJob = 3;
+      private int averageTasksNumOneJob_ ;
+      public boolean hasAverageTasksNumOneJob() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getAverageTasksNumOneJob() {
+        return averageTasksNumOneJob_;
+      }
+      public Builder setAverageTasksNumOneJob(int value) {
+        bitField0_ |= 0x00000004;
+        averageTasksNumOneJob_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAverageTasksNumOneJob() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        averageTasksNumOneJob_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.klose.TaskAmountInfo)
+    }
+    
+    static {
+      defaultInstance = new TaskAmountInfo(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.klose.TaskAmountInfo)
+  }
+  
   public interface ExecOrderOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -13275,6 +14618,237 @@ public final class MsConnProto {
     }
   }
   
+  public static abstract class TaskAmountUpdateService
+      implements com.google.protobuf.Service {
+    protected TaskAmountUpdateService() {}
+    
+    public interface Interface {
+      public abstract void updateTaskAmount(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskAmountInfo request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.NullResponse> done);
+      
+    }
+    
+    public static com.google.protobuf.Service newReflectiveService(
+        final Interface impl) {
+      return new TaskAmountUpdateService() {
+        @java.lang.Override
+        public  void updateTaskAmount(
+            com.google.protobuf.RpcController controller,
+            com.klose.MsConnProto.TaskAmountInfo request,
+            com.google.protobuf.RpcCallback<com.klose.MsConnProto.NullResponse> done) {
+          impl.updateTaskAmount(controller, request, done);
+        }
+        
+      };
+    }
+    
+    public static com.google.protobuf.BlockingService
+        newReflectiveBlockingService(final BlockingInterface impl) {
+      return new com.google.protobuf.BlockingService() {
+        public final com.google.protobuf.Descriptors.ServiceDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        
+        public final com.google.protobuf.Message callBlockingMethod(
+            com.google.protobuf.Descriptors.MethodDescriptor method,
+            com.google.protobuf.RpcController controller,
+            com.google.protobuf.Message request)
+            throws com.google.protobuf.ServiceException {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.callBlockingMethod() given method descriptor for " +
+              "wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return impl.updateTaskAmount(controller, (com.klose.MsConnProto.TaskAmountInfo)request);
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getRequestPrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getRequestPrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.TaskAmountInfo.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+        public final com.google.protobuf.Message
+            getResponsePrototype(
+            com.google.protobuf.Descriptors.MethodDescriptor method) {
+          if (method.getService() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "Service.getResponsePrototype() given method " +
+              "descriptor for wrong service type.");
+          }
+          switch(method.getIndex()) {
+            case 0:
+              return com.klose.MsConnProto.NullResponse.getDefaultInstance();
+            default:
+              throw new java.lang.AssertionError("Can't get here.");
+          }
+        }
+        
+      };
+    }
+    
+    public abstract void updateTaskAmount(
+        com.google.protobuf.RpcController controller,
+        com.klose.MsConnProto.TaskAmountInfo request,
+        com.google.protobuf.RpcCallback<com.klose.MsConnProto.NullResponse> done);
+    
+    public static final
+        com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptor() {
+      return com.klose.MsConnProto.getDescriptor().getServices().get(8);
+    }
+    public final com.google.protobuf.Descriptors.ServiceDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    
+    public final void callMethod(
+        com.google.protobuf.Descriptors.MethodDescriptor method,
+        com.google.protobuf.RpcController controller,
+        com.google.protobuf.Message request,
+        com.google.protobuf.RpcCallback<
+          com.google.protobuf.Message> done) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.callMethod() given method descriptor for wrong " +
+          "service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          this.updateTaskAmount(controller, (com.klose.MsConnProto.TaskAmountInfo)request,
+            com.google.protobuf.RpcUtil.<com.klose.MsConnProto.NullResponse>specializeCallback(
+              done));
+          return;
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getRequestPrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getRequestPrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.TaskAmountInfo.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public final com.google.protobuf.Message
+        getResponsePrototype(
+        com.google.protobuf.Descriptors.MethodDescriptor method) {
+      if (method.getService() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "Service.getResponsePrototype() given method " +
+          "descriptor for wrong service type.");
+      }
+      switch(method.getIndex()) {
+        case 0:
+          return com.klose.MsConnProto.NullResponse.getDefaultInstance();
+        default:
+          throw new java.lang.AssertionError("Can't get here.");
+      }
+    }
+    
+    public static Stub newStub(
+        com.google.protobuf.RpcChannel channel) {
+      return new Stub(channel);
+    }
+    
+    public static final class Stub extends com.klose.MsConnProto.TaskAmountUpdateService implements Interface {
+      private Stub(com.google.protobuf.RpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.RpcChannel channel;
+      
+      public com.google.protobuf.RpcChannel getChannel() {
+        return channel;
+      }
+      
+      public  void updateTaskAmount(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskAmountInfo request,
+          com.google.protobuf.RpcCallback<com.klose.MsConnProto.NullResponse> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.NullResponse.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.klose.MsConnProto.NullResponse.class,
+            com.klose.MsConnProto.NullResponse.getDefaultInstance()));
+      }
+    }
+    
+    public static BlockingInterface newBlockingStub(
+        com.google.protobuf.BlockingRpcChannel channel) {
+      return new BlockingStub(channel);
+    }
+    
+    public interface BlockingInterface {
+      public com.klose.MsConnProto.NullResponse updateTaskAmount(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskAmountInfo request)
+          throws com.google.protobuf.ServiceException;
+    }
+    
+    private static final class BlockingStub implements BlockingInterface {
+      private BlockingStub(com.google.protobuf.BlockingRpcChannel channel) {
+        this.channel = channel;
+      }
+      
+      private final com.google.protobuf.BlockingRpcChannel channel;
+      
+      public com.klose.MsConnProto.NullResponse updateTaskAmount(
+          com.google.protobuf.RpcController controller,
+          com.klose.MsConnProto.TaskAmountInfo request)
+          throws com.google.protobuf.ServiceException {
+        return (com.klose.MsConnProto.NullResponse) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(0),
+          controller,
+          request,
+          com.klose.MsConnProto.NullResponse.getDefaultInstance());
+      }
+      
+    }
+  }
+  
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_NullRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_NullRequest_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_NullResponse_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_NullResponse_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_UrgentRequest_descriptor;
   private static
@@ -13361,6 +14935,11 @@ public final class MsConnProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_klose_ConfirmMessage_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_klose_TaskAmountInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_klose_TaskAmountInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_klose_ExecOrder_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -13379,67 +14958,89 @@ public final class MsConnProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\ntest.proto\022\tcom.klose\"!\n\rUrgentRequest" +
-      "\022\020\n\010str_data\030\001 \002(\t\"6\n\016UrgentResponse\022\022\n\n" +
-      "is_success\030\001 \002(\010\022\020\n\010str_data\030\002 \001(\t\" \n\020Tr" +
-      "ansformXMLPath\022\014\n\004path\030\001 \002(\t\"Z\n\021SlaveReg" +
-      "isterInfo\022\017\n\007ip_port\030\001 \002(\t\022\r\n\005state\030\002 \001(" +
-      "\005\022\022\n\nlogin_time\030\003 \001(\t\022\021\n\texit_time\030\004 \001(\t" +
-      "\"*\n\025SlaveRegisterResponse\022\021\n\tisSuccess\030\001" +
-      " \002(\010\"\335\003\n\tSlaveInfo\022\017\n\007ip_port\030\001 \002(\t\022\020\n\010w" +
-      "ork_dir\030\002 \002(\t\022.\n\010cpu_info\030\003 \002(\0132\034.com.kl" +
-      "ose.SlaveInfo.cpuInfo\022.\n\010mem_info\030\004 \002(\0132",
-      "\034.com.klose.SlaveInfo.memInfo\0220\n\tdisk_in" +
-      "fo\030\005 \003(\0132\035.com.klose.SlaveInfo.diskInfo\032" +
-      "b\n\007cpuInfo\022\016\n\006vendor\030\001 \002(\t\022\r\n\005model\030\002 \002(" +
-      "\t\022\013\n\003mhz\030\004 \002(\t\022\022\n\ntotal_cpus\030\005 \002(\t\022\027\n\017to" +
-      "tal_idle_time\030\006 \002(\t\032<\n\007memInfo\022\024\n\014total_" +
-      "memory\030\001 \002(\t\022\014\n\004used\030\002 \002(\t\022\r\n\005avail\030\004 \002(" +
-      "\t\032y\n\010diskInfo\022\020\n\010dev_name\030\001 \002(\t\022\014\n\004size\030" +
-      "\002 \002(\t\022\014\n\004used\030\003 \002(\t\022\r\n\005avail\030\004 \002(\t\022\020\n\010us" +
-      "ed_pct\030\005 \002(\t\022\020\n\010dir_name\030\006 \002(\t\022\014\n\004type\030\007" +
-      " \002(\t\"\037\n\nMasterInfo\022\021\n\tisSuccess\030\001 \002(\010\"0\n",
-      "\014InformSlaves\022\017\n\007ip_port\030\001 \002(\t\022\017\n\007messag" +
-      "e\030\002 \001(\t\"\253\001\n\017TaskChangeState\022\016\n\006taskId\030\001 " +
-      "\002(\t\022\r\n\005state\030\002 \002(\t\0229\n\006output\030\003 \003(\0132).com" +
-      ".klose.TaskChangeState.outputProperty\022\020\n" +
-      "\010usedTime\030\004 \001(\t\032,\n\016outputProperty\022\013\n\003key" +
-      "\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\240\001\n\020AllocateIdenti" +
-      "ty\022\023\n\013slaveIpPort\030\001 \002(\t\022\017\n\007taskIds\030\002 \002(\t" +
-      "\022;\n\nproperties\030\003 \003(\0132\'.com.klose.Allocat" +
-      "eIdentity.JobProperty\032)\n\013JobProperty\022\013\n\003" +
-      "key\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\033\n\006TState\022\021\n\tta",
-      "skState\030\001 \002(\t\"#\n\016ConfirmMessage\022\021\n\tisSuc" +
-      "cess\030\001 \002(\010\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";" +
-      "\n\rExecOrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016r" +
-      "esult_message\030\002 \001(\t2T\n\020MasterUrgentExit\022" +
-      "@\n\nUrgentExit\022\027.com.klose.InformSlaves\032\031" +
-      ".com.klose.ConfirmMessage2T\n\017SlaveUrgent" +
-      "Exit\022A\n\nUrgentExit\022\030.com.klose.UrgentReq" +
-      "uest\032\031.com.klose.UrgentResponse2g\n\024Regis" +
-      "terSlaveService\022O\n\rSlaveRegister\022\034.com.k" +
-      "lose.SlaveRegisterInfo\032 .com.klose.Slave",
-      "RegisterResponse2Q\n\020HeartbeatService\022=\n\016" +
-      "HeartbeatTrans\022\024.com.klose.SlaveInfo\032\025.c" +
-      "om.klose.MasterInfo2[\n\031SlaveOrderExecuto" +
-      "rService\022>\n\014ExecuteOrder\022\024.com.klose.Exe" +
-      "cOrder\032\030.com.klose.ExecOrderResp2Y\n\023XMLP" +
-      "athTransService\022B\n\010xmlTrans\022\033.com.klose." +
-      "TransformXMLPath\032\031.com.klose.ConfirmMess" +
-      "age2^\n\026TaskStateChangeService\022D\n\013stateCh" +
-      "ange\022\032.com.klose.TaskChangeState\032\031.com.k" +
-      "lose.ConfirmMessage2V\n\023AllocateTaskServi",
-      "ce\022?\n\rallocateTasks\022\033.com.klose.Allocate" +
-      "Identity\032\021.com.klose.TStateB\036\n\tcom.klose" +
-      "B\013MsConnProto\210\001\001\240\001\001"
+      "\n\ntest.proto\022\tcom.klose\"\032\n\013NullRequest\022\013" +
+      "\n\003req\030\001 \001(\t\"\034\n\014NullResponse\022\014\n\004resp\030\001 \001(" +
+      "\t\"!\n\rUrgentRequest\022\020\n\010str_data\030\001 \002(\t\"6\n\016" +
+      "UrgentResponse\022\022\n\nis_success\030\001 \002(\010\022\020\n\010st" +
+      "r_data\030\002 \001(\t\" \n\020TransformXMLPath\022\014\n\004path" +
+      "\030\001 \002(\t\"Z\n\021SlaveRegisterInfo\022\017\n\007ip_port\030\001" +
+      " \002(\t\022\r\n\005state\030\002 \001(\005\022\022\n\nlogin_time\030\003 \001(\t\022" +
+      "\021\n\texit_time\030\004 \001(\t\"*\n\025SlaveRegisterRespo" +
+      "nse\022\021\n\tisSuccess\030\001 \002(\010\"\335\003\n\tSlaveInfo\022\017\n\007" +
+      "ip_port\030\001 \002(\t\022\020\n\010work_dir\030\002 \002(\t\022.\n\010cpu_i",
+      "nfo\030\003 \002(\0132\034.com.klose.SlaveInfo.cpuInfo\022" +
+      ".\n\010mem_info\030\004 \002(\0132\034.com.klose.SlaveInfo." +
+      "memInfo\0220\n\tdisk_info\030\005 \003(\0132\035.com.klose.S" +
+      "laveInfo.diskInfo\032b\n\007cpuInfo\022\016\n\006vendor\030\001" +
+      " \002(\t\022\r\n\005model\030\002 \002(\t\022\013\n\003mhz\030\004 \002(\t\022\022\n\ntota" +
+      "l_cpus\030\005 \002(\t\022\027\n\017total_idle_time\030\006 \002(\t\032<\n" +
+      "\007memInfo\022\024\n\014total_memory\030\001 \002(\t\022\014\n\004used\030\002" +
+      " \002(\t\022\r\n\005avail\030\004 \002(\t\032y\n\010diskInfo\022\020\n\010dev_n" +
+      "ame\030\001 \002(\t\022\014\n\004size\030\002 \002(\t\022\014\n\004used\030\003 \002(\t\022\r\n" +
+      "\005avail\030\004 \002(\t\022\020\n\010used_pct\030\005 \002(\t\022\020\n\010dir_na",
+      "me\030\006 \002(\t\022\014\n\004type\030\007 \002(\t\"\037\n\nMasterInfo\022\021\n\t" +
+      "isSuccess\030\001 \002(\010\"0\n\014InformSlaves\022\017\n\007ip_po" +
+      "rt\030\001 \002(\t\022\017\n\007message\030\002 \001(\t\"\253\001\n\017TaskChange" +
+      "State\022\016\n\006taskId\030\001 \002(\t\022\r\n\005state\030\002 \002(\t\0229\n\006" +
+      "output\030\003 \003(\0132).com.klose.TaskChangeState" +
+      ".outputProperty\022\020\n\010usedTime\030\004 \001(\t\032,\n\016out" +
+      "putProperty\022\013\n\003key\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"" +
+      "\240\001\n\020AllocateIdentity\022\023\n\013slaveIpPort\030\001 \002(" +
+      "\t\022\017\n\007taskIds\030\002 \002(\t\022;\n\nproperties\030\003 \003(\0132\'" +
+      ".com.klose.AllocateIdentity.JobProperty\032",
+      ")\n\013JobProperty\022\013\n\003key\030\001 \002(\t\022\r\n\005value\030\002 \002" +
+      "(\t\"\033\n\006TState\022\021\n\ttaskState\030\001 \002(\t\"#\n\016Confi" +
+      "rmMessage\022\021\n\tisSuccess\030\001 \002(\010\"^\n\016TaskAmou" +
+      "ntInfo\022\025\n\rwaitingJobNum\030\001 \002(\005\022\026\n\016waiting" +
+      "TaskNum\030\002 \002(\005\022\035\n\025averageTasksNumOneJob\030\003" +
+      " \002(\005\"\032\n\tExecOrder\022\r\n\005order\030\001 \002(\t\";\n\rExec" +
+      "OrderResp\022\022\n\nisExecuted\030\001 \002(\010\022\026\n\016result_" +
+      "message\030\002 \001(\t2T\n\020MasterUrgentExit\022@\n\nUrg" +
+      "entExit\022\027.com.klose.InformSlaves\032\031.com.k" +
+      "lose.ConfirmMessage2T\n\017SlaveUrgentExit\022A",
+      "\n\nUrgentExit\022\030.com.klose.UrgentRequest\032\031" +
+      ".com.klose.UrgentResponse2g\n\024RegisterSla" +
+      "veService\022O\n\rSlaveRegister\022\034.com.klose.S" +
+      "laveRegisterInfo\032 .com.klose.SlaveRegist" +
+      "erResponse2Q\n\020HeartbeatService\022=\n\016Heartb" +
+      "eatTrans\022\024.com.klose.SlaveInfo\032\025.com.klo" +
+      "se.MasterInfo2[\n\031SlaveOrderExecutorServi" +
+      "ce\022>\n\014ExecuteOrder\022\024.com.klose.ExecOrder" +
+      "\032\030.com.klose.ExecOrderResp2Y\n\023XMLPathTra" +
+      "nsService\022B\n\010xmlTrans\022\033.com.klose.Transf",
+      "ormXMLPath\032\031.com.klose.ConfirmMessage2^\n" +
+      "\026TaskStateChangeService\022D\n\013stateChange\022\032" +
+      ".com.klose.TaskChangeState\032\031.com.klose.C" +
+      "onfirmMessage2V\n\023AllocateTaskService\022?\n\r" +
+      "allocateTasks\022\033.com.klose.AllocateIdenti" +
+      "ty\032\021.com.klose.TState2a\n\027TaskAmountUpdat" +
+      "eService\022F\n\020updateTaskAmount\022\031.com.klose" +
+      ".TaskAmountInfo\032\027.com.klose.NullResponse" +
+      "B\036\n\tcom.kloseB\013MsConnProto\210\001\001\240\001\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_klose_UrgentRequest_descriptor =
+          internal_static_com_klose_NullRequest_descriptor =
             getDescriptor().getMessageTypes().get(0);
+          internal_static_com_klose_NullRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_NullRequest_descriptor,
+              new java.lang.String[] { "Req", },
+              com.klose.MsConnProto.NullRequest.class,
+              com.klose.MsConnProto.NullRequest.Builder.class);
+          internal_static_com_klose_NullResponse_descriptor =
+            getDescriptor().getMessageTypes().get(1);
+          internal_static_com_klose_NullResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_NullResponse_descriptor,
+              new java.lang.String[] { "Resp", },
+              com.klose.MsConnProto.NullResponse.class,
+              com.klose.MsConnProto.NullResponse.Builder.class);
+          internal_static_com_klose_UrgentRequest_descriptor =
+            getDescriptor().getMessageTypes().get(2);
           internal_static_com_klose_UrgentRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_UrgentRequest_descriptor,
@@ -13447,7 +15048,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.UrgentRequest.class,
               com.klose.MsConnProto.UrgentRequest.Builder.class);
           internal_static_com_klose_UrgentResponse_descriptor =
-            getDescriptor().getMessageTypes().get(1);
+            getDescriptor().getMessageTypes().get(3);
           internal_static_com_klose_UrgentResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_UrgentResponse_descriptor,
@@ -13455,7 +15056,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.UrgentResponse.class,
               com.klose.MsConnProto.UrgentResponse.Builder.class);
           internal_static_com_klose_TransformXMLPath_descriptor =
-            getDescriptor().getMessageTypes().get(2);
+            getDescriptor().getMessageTypes().get(4);
           internal_static_com_klose_TransformXMLPath_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_TransformXMLPath_descriptor,
@@ -13463,7 +15064,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.TransformXMLPath.class,
               com.klose.MsConnProto.TransformXMLPath.Builder.class);
           internal_static_com_klose_SlaveRegisterInfo_descriptor =
-            getDescriptor().getMessageTypes().get(3);
+            getDescriptor().getMessageTypes().get(5);
           internal_static_com_klose_SlaveRegisterInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_SlaveRegisterInfo_descriptor,
@@ -13471,7 +15072,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.SlaveRegisterInfo.class,
               com.klose.MsConnProto.SlaveRegisterInfo.Builder.class);
           internal_static_com_klose_SlaveRegisterResponse_descriptor =
-            getDescriptor().getMessageTypes().get(4);
+            getDescriptor().getMessageTypes().get(6);
           internal_static_com_klose_SlaveRegisterResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_SlaveRegisterResponse_descriptor,
@@ -13479,7 +15080,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.SlaveRegisterResponse.class,
               com.klose.MsConnProto.SlaveRegisterResponse.Builder.class);
           internal_static_com_klose_SlaveInfo_descriptor =
-            getDescriptor().getMessageTypes().get(5);
+            getDescriptor().getMessageTypes().get(7);
           internal_static_com_klose_SlaveInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_SlaveInfo_descriptor,
@@ -13511,7 +15112,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.SlaveInfo.diskInfo.class,
               com.klose.MsConnProto.SlaveInfo.diskInfo.Builder.class);
           internal_static_com_klose_MasterInfo_descriptor =
-            getDescriptor().getMessageTypes().get(6);
+            getDescriptor().getMessageTypes().get(8);
           internal_static_com_klose_MasterInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_MasterInfo_descriptor,
@@ -13519,7 +15120,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.MasterInfo.class,
               com.klose.MsConnProto.MasterInfo.Builder.class);
           internal_static_com_klose_InformSlaves_descriptor =
-            getDescriptor().getMessageTypes().get(7);
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_klose_InformSlaves_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_InformSlaves_descriptor,
@@ -13527,7 +15128,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.InformSlaves.class,
               com.klose.MsConnProto.InformSlaves.Builder.class);
           internal_static_com_klose_TaskChangeState_descriptor =
-            getDescriptor().getMessageTypes().get(8);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_com_klose_TaskChangeState_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_TaskChangeState_descriptor,
@@ -13543,7 +15144,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.TaskChangeState.outputProperty.class,
               com.klose.MsConnProto.TaskChangeState.outputProperty.Builder.class);
           internal_static_com_klose_AllocateIdentity_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(11);
           internal_static_com_klose_AllocateIdentity_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_AllocateIdentity_descriptor,
@@ -13559,7 +15160,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.AllocateIdentity.JobProperty.class,
               com.klose.MsConnProto.AllocateIdentity.JobProperty.Builder.class);
           internal_static_com_klose_TState_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+            getDescriptor().getMessageTypes().get(12);
           internal_static_com_klose_TState_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_TState_descriptor,
@@ -13567,15 +15168,23 @@ public final class MsConnProto {
               com.klose.MsConnProto.TState.class,
               com.klose.MsConnProto.TState.Builder.class);
           internal_static_com_klose_ConfirmMessage_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_com_klose_ConfirmMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ConfirmMessage_descriptor,
               new java.lang.String[] { "IsSuccess", },
               com.klose.MsConnProto.ConfirmMessage.class,
               com.klose.MsConnProto.ConfirmMessage.Builder.class);
+          internal_static_com_klose_TaskAmountInfo_descriptor =
+            getDescriptor().getMessageTypes().get(14);
+          internal_static_com_klose_TaskAmountInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_klose_TaskAmountInfo_descriptor,
+              new java.lang.String[] { "WaitingJobNum", "WaitingTaskNum", "AverageTasksNumOneJob", },
+              com.klose.MsConnProto.TaskAmountInfo.class,
+              com.klose.MsConnProto.TaskAmountInfo.Builder.class);
           internal_static_com_klose_ExecOrder_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(15);
           internal_static_com_klose_ExecOrder_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrder_descriptor,
@@ -13583,7 +15192,7 @@ public final class MsConnProto {
               com.klose.MsConnProto.ExecOrder.class,
               com.klose.MsConnProto.ExecOrder.Builder.class);
           internal_static_com_klose_ExecOrderResp_descriptor =
-            getDescriptor().getMessageTypes().get(13);
+            getDescriptor().getMessageTypes().get(16);
           internal_static_com_klose_ExecOrderResp_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_klose_ExecOrderResp_descriptor,

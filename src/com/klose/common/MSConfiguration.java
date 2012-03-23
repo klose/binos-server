@@ -16,6 +16,7 @@ public class MSConfiguration {
 	private static int jobStateTriggerThreadWaitTime = 50;
 	private static int slaveExecutorManagerThreadWaitTime = 10;
 	private static int jobStateWatcherThreadWaitTime = 500;
+	private static int slaveGcIntervalTime = 10000;
 	private static String BinosTmpDir = "/tmp/binos-tmp";
 	static {
 		File MSproperties = new File("MS.properties");
@@ -43,6 +44,15 @@ public class MSConfiguration {
 		}
 		else {
 			return Integer.parseInt(configuration.get("maxTasksOnEachSlave"));
+		}
+		
+	}
+	public static int getSlaveGcIntervalTime() {
+		if (configuration.get("slaveGcIntervalTime") == null) {
+			return slaveGcIntervalTime;
+		}
+		else {
+			return Integer.parseInt(configuration.get("slaveGcIntervalTime"));
 		}
 		
 	}

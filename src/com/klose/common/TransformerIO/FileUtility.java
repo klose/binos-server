@@ -47,17 +47,12 @@ public class FileUtility {
 	}
 	
 	public static String getHDFSAbsolutePath(String path) {
-		String result = "";
-		Path p = new Path(path);
-		Configuration conf = new Configuration();
-		try {
-			FileSystem fs = FileSystem.get(conf);
-			result +=  (fs.getWorkingDirectory().toString() + "/" + p.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
+//		String result = "";
+//		
+//		
+//		result +=  (fs.getHomeDirectory().toString() + "/" + p.toString());
+		
+		return getHDFSPrefix() + "/" + path;
 	}
 	/**
 	 * If dir path exists, it will return true.

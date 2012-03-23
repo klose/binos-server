@@ -27,6 +27,7 @@ import com.klose.MsConnProto.SlaveUrgentExit;
 import com.klose.MsConnProto.UrgentRequest;
 import com.klose.MsConnProto.UrgentResponse;
 import com.klose.common.HttpServer;
+import com.klose.common.MSConfiguration;
 import com.longyi.databus.daemon.DaemonMain;
 class SlaveRPCServerThread extends Thread {
 	private SlaveArgsParser parser;
@@ -94,6 +95,23 @@ class SlaveSendHeartbeatThread extends Thread {
 				e.printStackTrace();
 			}
 			
+		}
+	}
+}
+class SlaveGcThread extends Thread {
+	private int gcInterval;
+	SlaveGcThread(int interval) {
+		this.gcInterval = interval;
+	}
+	public void run() {
+		while (true) {
+			System.gc();
+			try {
+				this.sleep(this.gcInterval);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
@@ -188,7 +206,8 @@ public class Slave {
 			//start databus Daemon
 			DaemonMain databusDaemon = new DaemonMain(confParser.getMasterIp());
 			databusDaemon.start();
-			
+			SlaveGcThread gcThread = new SlaveGcThread(MSConfiguration.getSlaveGcIntervalTime());
+			gcThread.start();
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(confParser, socketRpcChannel, rpcController));
 			BinosHttpServer httpServer;
 			try {

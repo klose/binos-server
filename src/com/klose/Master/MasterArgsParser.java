@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 public class MasterArgsParser {
 	private static int port = 6060; //default value is set by 6060.
+	private static int yarnPort = 50001; //default port for connecting to Binos-Yarn
+	private static boolean enableBinosYarn = false;
 	private static String URL= ""; // support zookeeper
 	private String [] args_;
 	
@@ -26,10 +28,28 @@ public class MasterArgsParser {
 			       + "    --help                   display this help and exit.\n" 
 			       + "    --port=VAL               port to listen on (default: 6060)\n"
 			       + "    --url=VAL                URL used for leader election\n"
+			       + "    --yarn-port=VAL          port to connect to Binos-Yarn (default: 50001)\n"
+			       + "    --enable-yarn            enable binos-yarn"
 		);
 		System.exit(1);
 	}
 	
+	public static int getYarnPort() {
+		return yarnPort;
+	}
+
+	private static void setYarnPort(int yarnPort) {
+		MasterArgsParser.yarnPort = yarnPort;
+	}
+	
+	public static boolean isEnableBinosYarn() {
+		return enableBinosYarn;
+	}
+
+	private static void setEnableBinosYarn(boolean enableBinosYarn) {
+		MasterArgsParser.enableBinosYarn = enableBinosYarn;
+	}
+
 	public void setPort(int port) {
 		this.port =  port;
 	}
@@ -62,6 +82,7 @@ public class MasterArgsParser {
 		}
 		else {
 			String portRegex= "--port\\s*=\\s*[0-9]{4,5}";
+			String yarnPortRegex =  "--yarn-port\\s*=\\s*[0-9]{4,5}";
 			String urlRegex = "--url\\s*=\\s*[a-zA-Z0-9/:,]*";
 			for(String tmp:args_) {
 				//need jdk 1.5 or higher
@@ -71,6 +92,13 @@ public class MasterArgsParser {
 				}
 				else if(Pattern.matches(urlRegex, tmp.trim())) {
 						this.setURL( (tmp.split("="))[1].trim() );
+				} 
+				else if(Pattern.matches(yarnPortRegex, tmp.trim())) {
+					this.setYarnPort(Integer.parseInt(
+							(tmp.split("="))[1].trim()) );
+				}
+				else if ("--enable-yarn".equals(tmp)) {
+					this.setEnableBinosYarn(true);
 				}
 				else if (tmp.trim().equals("--help")) {
 					printUsage();

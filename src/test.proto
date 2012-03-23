@@ -28,7 +28,13 @@ option java_package = "com.klose";
 option java_outer_classname = "MsConnProto";
 option java_generic_services = true;
 option java_generate_equals_and_hash = true;
- 
+
+message NullRequest {
+	optional string req = 1;
+}
+message NullResponse {
+	optional string resp = 1;
+} 
 message UrgentRequest {
   required string str_data = 1;
 }
@@ -76,7 +82,7 @@ message SlaveInfo {
     };
 	required cpuInfo cpu_info = 3;
 	required memInfo mem_info = 4;
-	repeated diskInfo disk_info = 5;	
+	repeated diskInfo disk_info = 5;
 }
 message MasterInfo {
 	//used for returning slave lists
@@ -111,7 +117,12 @@ message TState {
 message ConfirmMessage {
 	required bool isSuccess = 1;
 }
-
+//task amount information provided for binos-yarn app-master
+message TaskAmountInfo {
+	required int32 waitingJobNum = 1;
+	required int32 waitingTaskNum = 2;
+	required int32 averageTasksNumOneJob = 3;
+}
 //ExecOrder is not used temporarily.
 message ExecOrder {
 	required string order = 1;
@@ -147,4 +158,8 @@ service TaskStateChangeService {
 // Master sends the tasks allocated by TaskScheduler. 
 service AllocateTaskService {
 	rpc allocateTasks(AllocateIdentity) returns (TState);
+}
+//heartbeat with binos app master 
+service TaskAmountUpdateService {
+	rpc  updateTaskAmount(TaskAmountInfo) returns (NullResponse);
 }

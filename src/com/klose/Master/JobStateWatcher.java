@@ -42,6 +42,7 @@ public class JobStateWatcher extends Thread{
 			while(true) {
 				//LOG.log(Level.INFO, "this is a test.");
 				JobScheduler.transWaitingToRunning();
+				
 				try {
 					this.sleep(jobStateWatcherThreadWaitTime);
 					this.yield();

@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +30,8 @@ public class JobScheduler {
 	//* waitingQueue is used to store the jobs waiting to be added to running queue.
 	private static LinkedList<String> waitingQueue = new LinkedList<String>();
 	private static ConcurrentHashMap<String, JobDescriptor> runningQueue = new ConcurrentHashMap<String, JobDescriptor>();
+	private static AtomicLong finishedJobNum = new AtomicLong(0);
+	private static AtomicLong finishedTaskNum = new AtomicLong(0);
 	private static final Log LOG = LogFactory.getLog(JobScheduler.class); 
 	/**
 	 * jobRecordStartTime: Job start time format is yyyyMMddHHmmss
@@ -52,7 +55,7 @@ public class JobScheduler {
 	
 	/**set maximum jobs in the running queue statically, 
 	on the premise that we can't estimate job's overload and machine ability.*/
-	private static final int runningQueueMaxNum = 10;
+	private static final int runningQueueMaxNum = 10;//TODO add this variable to MSConfiguration
 	
 	/**
 	 *JobClient submits the job to JobScheduler by submitJob() 
@@ -121,6 +124,7 @@ public class JobScheduler {
 		}
 		getJobDescriptor(tmp[0]).
 			addFinishedTaskId(tmp[1]);
+		finishedTaskNum.incrementAndGet();
 	}
 	/*get the Job in the running queue*/
 	public static JobDescriptor getJobDescriptor(String jobId) {
@@ -167,7 +171,9 @@ public class JobScheduler {
 	public synchronized static ConcurrentHashMap<String, JobDescriptor> getRunningQueue() {
 		return runningQueue;
 	}
-	
+	public static int getAverageTaskOneJob() {
+		 return (int) (finishedTaskNum.get() / finishedJobNum.get());
+	}
 	/**
 	 * handle a job with STATE ERROR or WARNING.
 	 * when a slave report a task with state "ERROR" or "WARNING" ,
@@ -200,9 +206,22 @@ public class JobScheduler {
 			LOG.debug(jobId + " finish at: " + time);
 			jobRecordFinishDate.put(jobId, time);
 		}
+		finishedJobNum.incrementAndGet();
 	}
-	
-	
+	/**
+	 * calculate 
+	 * @return
+	 */
+	public synchronized static int getWaitingTaskNum() {
+		int total = 0;
+		for (JobDescriptor tmp: runningQueue.values()) {
+			total += tmp.unFinishedTaskNum();
+		}
+		return total;
+	}
+	public synchronized static int getWaitingJobNum() {
+		return waitingQueue.size();
+	}
 	public synchronized static void printUsedTime(String jobId) {
 		if(jobRecordStartTime.containsKey(jobId) && jobRecordFinishDate.containsKey(jobId)) {
 			LOG.info(jobId + " start at " + jobRecordStartTime.get(jobId)

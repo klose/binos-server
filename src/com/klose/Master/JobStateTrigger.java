@@ -22,8 +22,9 @@ import com.klose.common.MSConfiguration;
 public class JobStateTrigger extends Thread{
 	private static final Log LOG = LogFactory.getLog(JobStateTrigger.class);
 	private static final int jobStateTriggerThreadWaitTime = MSConfiguration.getJobStateTriggerThreadWaitTime();
+	private BinosYarnResourceReq resourceReqService;
 	JobStateTrigger() {
-	
+		resourceReqService = new BinosYarnResourceReq();
 	}
 //	public void triggerNode(String taskIdPos, String state) {
 //		TaskStates tss = JobScheduler.getTaskStates(taskIdPos);
@@ -41,11 +42,27 @@ public class JobStateTrigger extends Thread{
 //			LOG.log(Level.INFO, "JobStateTrigger: scheduling task.");
 			synchronized(runningQueue) {
 				for(String jobId :runningQueue.keySet()) {
+					if (MasterArgsParser.isEnableBinosYarn() && TaskScheduler.isTaskOverload()) {
+						// can't
+						resourceReqService.sendRequest();
+						try {
+							this.sleep(10);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						break;
+					}
 					JobDescriptor jobDes = runningQueue.get(jobId);
+					
 					if(jobDes != null) {
 						String[] taskPrepared = runningQueue.get(jobId)
 								.getPreparedTask();
-						if (taskPrepared != null) {
+						/**
+						 * when task scheduler has too many tasks on it, it will reject to task scheduling.
+						 * && !TaskScheduler.getOverloadTag()
+						 */
+						if (taskPrepared != null ) {
 							for (String taskId : taskPrepared) {
 //								System.out.println("########################"
 //										+ taskId + "is prepared for scheduling...");

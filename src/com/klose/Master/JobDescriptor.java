@@ -123,7 +123,9 @@ public class JobDescriptor {
 			return null;
 		}
 	}
-	
+	public int unFinishedTaskNum() {
+		return getTaskTotal() - finishedTask.size();
+	}
 	/**
 	 * find the task in the job.
 	 * @param taskId

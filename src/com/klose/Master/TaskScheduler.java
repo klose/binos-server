@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ import com.klose.MsConnProto.AllocateIdentity.Builder;
 import com.klose.MsConnProto.AllocateTaskService;
 import com.klose.MsConnProto.ConfirmMessage;
 import com.klose.MsConnProto.TState;
+import com.klose.common.MSConfiguration;
 
 public class TaskScheduler {
 	private static final Log LOG = LogFactory.getLog(TaskScheduler.class);
@@ -47,6 +49,13 @@ public class TaskScheduler {
 	 */
 	private static int tasksOnSlaveMin = 1;
 	private static int minTasksNum = Integer.MAX_VALUE;
+	private static int tasksOnSlaveMax = MSConfiguration.getMaxTasksOnEachSlave();
+	
+	//when then number of tasks on all slave catches tasksOnSlaveMax*overloadRation, 
+	//it will reject accepting tasks.
+	private static float overloadRation = 1.2f;//TODO add this variable to MSConfiguration
+	
+	//private static AtomicBoolean overloadTag = new AtomicBoolean(false);
 	
 	private TaskScheduler() {
 		
@@ -70,7 +79,9 @@ public class TaskScheduler {
 	public synchronized static void decreaseTaskNum(String slaveId) {
 		Integer num = slaveTaskNum.get(slaveId);
 		if(num != null) {
-			num--;
+			num --;
+//			if (--num < tasksOnSlaveMax*overloadRation) 
+//					overloadTag.set(false);
 		}
 		else {
 			LOG.warn("Cannot find " + slaveId);
@@ -79,6 +90,7 @@ public class TaskScheduler {
 			LOG.warn(slaveId + " occurs a error.");
 			num = 0;
 		}
+		
 		slaveTaskNum.put(slaveId, num);
 	}
 	public synchronized static void removeSlave(String slaveId) {
@@ -97,7 +109,9 @@ public class TaskScheduler {
 			decreaseTaskNum(slaveId);
 		}
 	}
-	
+//	public synchronized static boolean getOverloadTag() {
+//		return overloadTag.get();
+//	}
 	public synchronized static String getSlaveId(String taskId) {
 		return runningTaskOnSlave.get(taskId);
 	}
@@ -229,19 +243,55 @@ public class TaskScheduler {
 	 */
 	private synchronized static String chooseSlaveByTasks() {
 		Set<String> slaveIds = slaveTaskNum.keySet();
-		
+
 		Iterator<String> iter = slaveIds.iterator();
 		String minSlaveId = iter.next();
 		int minnum = slaveTaskNum.get(minSlaveId);
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			String slaveId = iter.next();
-			int num = slaveTaskNum.get(slaveId) ;
-			if(num < minnum) {
+			int num = slaveTaskNum.get(slaveId);
+			if (num < minnum) {
 				return slaveId;
 			}
 		}
 		return minSlaveId;
 	}
+	/**
+	 * if the amount of running task suppresses slave_num * max_slot_num * over_ratio, 
+	 * it will reject scheduling tasks. @return true 
+	 * When number of tasks decreases,or another new slave to be scheduler node, 
+	 * it will @return false.   
+	 */
+	public synchronized static boolean isTaskOverload() {
+		int slave_num = slaveTaskNum.size();
+		int running_task_num = runningTaskOnSlave.size();
+		if (slave_num * tasksOnSlaveMax * overloadRation >= running_task_num) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+//	private synchronized static String chooseSlaveByTasks() {
+//		Set<String> slaveIds = slaveTaskNum.keySet();
+//		
+//		Iterator<String> iter = slaveIds.iterator();
+//		String minSlaveId = iter.next();
+//		int minnum = slaveTaskNum.get(minSlaveId);
+//		while(iter.hasNext()) {
+//			String slaveId = iter.next();
+//			int num = slaveTaskNum.get(slaveId) ;
+//			if (num < minnum) {
+//				minnum = num;
+//				if (minnum < tasksOnSlaveMax * overloadRation)
+//					return slaveId;
+//			}
+//		}
+//		if (minnum >= tasksOnSlaveMax * overloadRation) {
+//			overloadTag.set(true);
+//		}
+//		return minSlaveId;
+//	}
 	
 	/**
 	 * It will choose a slave using a random algorithm.
